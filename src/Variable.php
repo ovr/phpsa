@@ -33,6 +33,11 @@ class Variable
     protected $referenced = false;
 
     /**
+     * @var Variable|null
+     */
+    protected $referencedTo;
+
+    /**
      * @var int
      */
     protected $type;
@@ -174,5 +179,21 @@ class Variable
     public function isUnused()
     {
         return $this->getGets() == 0 && $this->incSets();
+    }
+
+    /**
+     * @return null|Variable
+     */
+    public function getReferencedTo()
+    {
+        return $this->referencedTo;
+    }
+
+    /**
+     * @param null|Variable $referencedTo
+     */
+    public function setReferencedTo(Variable $referencedTo = null)
+    {
+        $this->referencedTo = $referencedTo;
     }
 }
