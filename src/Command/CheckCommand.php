@@ -79,7 +79,7 @@ class CheckCommand extends Command
 
                                 $classDefintion->addMethod($method);
                             } elseif ($st instanceof \PhpParser\Node\Stmt\Property) {
-
+                                $classDefintion->addProperty($st);
                             } else {
 //                                var_dump($st);
                             }

@@ -27,6 +27,13 @@ class ClassDefinition
     protected $methods = [];
 
     /**
+     * Class properties
+     *
+     * @var \PhpParser\Node\Stmt\Property[]
+     */
+    protected $properties = [];
+
+    /**
      * @todo Use Finder
      *
      * @var string
@@ -41,6 +48,11 @@ class ClassDefinition
     public function addMethod(ClassMethod $methodDefintion)
     {
         $this->methods[$methodDefintion->getName()] = $methodDefintion;
+    }
+
+    public function addProperty(\PhpParser\Node\Stmt\Property $property)
+    {
+        $this->methods[$property->props[0]->name] = $property;
     }
 
     /**
