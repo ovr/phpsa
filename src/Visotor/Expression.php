@@ -41,6 +41,21 @@ class Expression
         }
     }
 
+    protected function passStaticFunctionCall(Node\Expr\StaticCall $expr)
+    {
+        if ($expr->var instanceof Node\Expr\Variable) {
+            if ($expr->var->name == 'self') {
+                if (!$this->context->scope->hasMethod($expr->name)) {
+                    $this->context->notice(
+                        'undefined-scall',
+                        sprintf('Method %s() is not exists on %s scope', $expr->name, $expr->var->name),
+                        $expr
+                    );
+                }
+            }
+        }
+    }
+
     protected function passPropertyFetch(Node\Expr\PropertyFetch $expr)
     {
         if ($expr->var->name == 'this') {
@@ -67,6 +82,9 @@ class Expression
                 break;
             case 'PhpParser\Node\Expr\FuncCall';
                 $this->passFunctionCall($expr);
+                break;
+            case 'PhpParser\Node\Expr\StaticCall';
+                $this->passStaticFunctionCall($expr);
                 break;
             default:
                 var_dump(get_class($expr));
