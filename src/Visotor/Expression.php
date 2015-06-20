@@ -47,14 +47,25 @@ class Expression
             $scope = $expr->class->parts[0];
             $name = $expr->name;
 
+            $error = false;
+
             if ($scope == 'self') {
                 if (!$this->context->scope->hasMethod($name)) {
-                    $this->context->notice(
-                        'undefined-scall',
-                        sprintf('Static method %s() is not exists on %s scope', $name, $scope),
-                        $expr
-                    );
+                    $error = true;
+                } else {
+                    $method = $this->context->scope->getMethod($name);
+                    if (!$method->isStatic()) {
+                        $error = true;
+                    }
                 }
+            }
+
+            if ($error) {
+                $this->context->notice(
+                    'undefined-scall',
+                    sprintf('Static method %s() is not exists on %s scope', $name, $scope),
+                    $expr
+                );
             }
         }
     }

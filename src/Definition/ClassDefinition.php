@@ -67,9 +67,22 @@ class ClassDefinition
         }
     }
 
+    /**
+     * @param $name
+     * @return bool
+     */
     public function hasMethod($name)
     {
         return isset($this->methods[$name]);
+    }
+
+    /**
+     * @param $name
+     * @return ClassMethod
+     */
+    public function getMethod($name)
+    {
+        return $this->methods[$name];
     }
 
     public function hasProperty($name)

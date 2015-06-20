@@ -44,4 +44,9 @@ class ClassMethod
             }
         }
     }
+
+    public function isStatic()
+    {
+        return true;
+    }
 }
