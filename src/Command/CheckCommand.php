@@ -57,7 +57,7 @@ class CheckCommand extends Command
         $parser = new \PhpParser\Parser(new \PhpParser\Lexer\Emulative);
 
         try {
-            $code = file_get_contents(__DIR__ . '/../../tests/simple/test-1/1.php');
+            $code = file_get_contents(__DIR__ . '/../../tests/simple/undefined-property/1.php');
             $stmts = $parser->parse($code);
 
 
