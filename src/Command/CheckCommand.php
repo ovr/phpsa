@@ -5,19 +5,24 @@
 
 namespace PHPSA\Command;
 
+use PHPSA\Definition\ClassDefinition;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class MyNodeVisitor extends \PhpParser\NodeVisitorAbstract {
+class MyNodeVisitor extends \PhpParser\NodeVisitorAbstract
+{
     private $tokens;
-    public function setTokens(array $tokens) {
+
+    public function setTokens(array $tokens)
+    {
         $this->tokens = $tokens;
     }
 
-    public function leaveNode(\PhpParser\Node $node) {
+    public function leaveNode(\PhpParser\Node $node)
+    {
         if ($node instanceof PhpParser\Node\Stmt\Property) {
             var_dump(isDeclaredUsingVar($this->tokens, $node));
         }
@@ -33,57 +38,63 @@ class CheckCommand extends Command
             ->setDescription('SPA')
             ->setDefinition(array(
                 new InputArgument('path', InputArgument::REQUIRED),
-            ))
-        ;
+            ));
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-      $lexer = new \PhpParser\Lexer(array(
-        'usedAttributes' => array(
-          'comments', 'startLine', 'endLine', 'startTokenPos', 'endTokenPos'
-        )
-      ));
+        $lexer = new \PhpParser\Lexer(array(
+            'usedAttributes' => array(
+                'comments',
+                'startLine',
+                'endLine',
+                'startTokenPos',
+                'endTokenPos'
+            )
+        ));
 
 
-      $parser = new \PhpParser\Parser(new \PhpParser\Lexer\Emulative);
-      // $parser = new \PhpParser\Parser(new \PhpParser\Lexer);
-      // $parser = new \PhpParser\Parser($lexer);
+        $parser = new \PhpParser\Parser(new \PhpParser\Lexer\Emulative);
 
-      // $visitor = new MyNodeVisitor();
-      // $traverser = new \PhpParser\NodeTraverser();
-      // $traverser->addVisitor($visitor);
+        try {
+            $code = file_get_contents(__DIR__ . '/../../tests/simple/test-1/1.php');
+            $stmts = $parser->parse($code);
 
-      try {
-        $code = file_get_contents(__DIR__ . '/../../tests/simple/test-1/1.php');
 
-        $stmts = $parser->parse($code);
-        // $visitor->setTokens($lexer->getTokens());
-        // $stmts = $traverser->traverse($stmts);
+            /**
+             * Step 1 Precompile
+             */
 
-        // var_dump($stmts);
+            /**
+             * @var ClassDefinition[]
+             */
+            $classes = [];
 
-        $classes = [];
+            foreach ($stmts as $st) {
+                if ($st instanceof \PhpParser\Node\Stmt\Class_) {
+                    $classDefintion = new \PHPSA\Definition\ClassDefinition($st->name);
 
-        foreach ($stmts as $st) {
-            if ($st instanceof \PhpParser\Node\Stmt\Class_) {
-                $classDefintion = new \PHPSA\Definition\ClassDefinition($st->name);
+                    /** @var \PhpParser\Node\Stmt\ClassMethod $method */
+                    foreach ($st->stmts as $method) {
+                        $method = new \PHPSA\Definition\ClassMethod($method->name, $method->stmts);
 
-                /** @var \PhpParser\Node\Stmt\ClassMethod $method */
-                foreach ($st->stmts as $method) {
-                    var_dump($method);
-                    $method = new \PHPSA\Definition\ClassMethod($method->name);
+                        $classDefintion->addMethod($method);
+                    }
 
-                    $classDefintion->addMethod($method);
+                    $classes[] = $classDefintion;
                 }
-
-                $classes[] = $classDefintion;
             }
+            
+            /**
+             * Step 2 Recursive check ...
+             */
+
+            foreach ($classes as $class) {
+                $class->compile();
+            }
+
+        } catch (\PhpParser\Error $e) {
+            echo 'Parse Error: ', $e->getMessage();
         }
-
-
-      } catch (\PhpParser\Error $e) {
-        echo 'Parse Error: ', $e->getMessage();
-      }
     }
 }

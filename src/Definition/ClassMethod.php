@@ -9,9 +9,12 @@ class ClassMethod
      */
     protected $name;
 
-    public function __construct($name)
-    {
+    protected $ast;
 
+    public function __construct($name, $ast)
+    {
+        $this->name = $name;
+        $this->ast = $ast;
     }
 
     /**

@@ -23,11 +23,24 @@ class ClassDefinition
 
     public function __construct($name)
     {
-
+        $this->name = $name;
     }
 
     public function addMethod(ClassMethod $methodDefintion)
     {
         $this->methods[$methodDefintion->getName()] = $methodDefintion;
+    }
+
+    /**
+     * Mean check file....,
+     *
+     * Compile methods to check it
+     */
+    public function compile()
+    {
+        foreach ($this->methods as $method) {
+            var_dump($method);
+            die();
+        }
     }
 }
