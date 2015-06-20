@@ -24,7 +24,11 @@ class Expression
         if ($expr->var instanceof Node\Expr\Variable) {
             if ($expr->var->name == 'this') {
                 if (!$this->context->scope->hasMethod($expr->name)) {
-                    
+                    $this->context->notice(
+                        'undefined-mcall',
+                        sprintf('Method %s() is not exists on %s scope.', $expr->name, $expr->var->name),
+                        $expr
+                    );
                 }
             }
         }

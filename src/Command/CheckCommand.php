@@ -87,6 +87,7 @@ class CheckCommand extends Command
 
             $context = new \PHPSA\Context();
             $context->application = $this->getApplication();
+            $context->output = $output;
 
             /**
              * Step 2 Recursive check ...

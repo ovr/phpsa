@@ -9,6 +9,7 @@
 namespace PHPSA;
 
 use PHPSA\Definition\ClassDefinition;
+use Symfony\Component\Console\Output\OutputInterface;
 
 class Context
 {
@@ -21,4 +22,14 @@ class Context
      * @var Application
      */
     public $application;
+
+    /**
+     * @var OutputInterface
+     */
+    public $output;
+
+    public function notice($type, $message, $expr)
+    {
+        $this->output->writeln('Notice:  ' . $message . " [{$type}]");
+    }
 }

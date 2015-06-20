@@ -7,5 +7,5 @@ namespace PHPSA;
 
 class Application extends \Symfony\Component\Console\Application
 {
-
+    protected $finder;
 }
