@@ -34,6 +34,13 @@ class ClassDefinition
     protected $properties = [];
 
     /**
+     * Class constants
+     *
+     * @var \PhpParser\Node\Stmt\Const_[]
+     */
+    protected $constants = [];
+
+    /**
      * @todo Use Finder
      *
      * @var string
@@ -55,6 +62,11 @@ class ClassDefinition
         $this->properties[$property->props[0]->name] = $property;
     }
 
+    public function addConst(\PhpParser\Node\Stmt\ClassConst $const)
+    {
+        $this->properties[$const->consts[0]->name] = $const;
+    }
+
     /**
      * Mean check file....,
      *
@@ -74,6 +86,15 @@ class ClassDefinition
     public function hasMethod($name)
     {
         return isset($this->methods[$name]);
+    }
+
+    /**
+     * @param $name
+     * @return bool
+     */
+    public function hasConst($name)
+    {
+        return isset($this->constants[$name]);
     }
 
     /**
