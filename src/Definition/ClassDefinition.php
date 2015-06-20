@@ -41,8 +41,12 @@ class ClassDefinition
     public function compile(Context $context)
     {
         foreach ($this->methods as $method) {
-            var_dump($method);
-            die();
+            var_dump($method->compile($context));
         }
+    }
+
+    public function hasMethod($name)
+    {
+        return isset($this->methods[$name]);
     }
 }

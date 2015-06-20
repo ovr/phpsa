@@ -8,8 +8,13 @@
 
 namespace PHPSA;
 
+use PHPSA\Definition\ClassDefinition;
+
 class Context
 {
+    /**
+     * @var ClassDefinition
+     */
     public $scope;
 
     public $application;

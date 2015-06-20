@@ -2,6 +2,8 @@
 
 namespace PHPSA\Definition;
 
+use PHPSA\Context;
+
 class ClassMethod
 {
     /**
@@ -23,5 +25,12 @@ class ClassMethod
     public function getName()
     {
         return $this->name;
+    }
+
+    public function compile(Context $context)
+    {
+        foreach ($this->ast as $st) {
+            $expr = new \PHPSA\Visotor\Statement($st, $context);
+        }
     }
 }
