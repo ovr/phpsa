@@ -5,6 +5,7 @@
 
 namespace PHPSA\Definition;
 
+use PhpParser\Node\Stmt\Class_;
 use PHPSA\Context;
 
 class ClassMethod
@@ -15,6 +16,8 @@ class ClassMethod
     protected $name;
 
     protected $ast;
+
+    protected $type;
 
     public function __construct($name, $ast)
     {
@@ -45,8 +48,35 @@ class ClassMethod
         }
     }
 
+    /**
+     * @return bool
+     */
     public function isStatic()
     {
-        return true;
+        return (bool) ($this->type & Class_::MODIFIER_STATIC);
+    }
+
+    /**
+     * @return bool
+     */
+    public function isPublic()
+    {
+        return ($this->type & Class_::MODIFIER_PUBLIC) !== 0 || $this->type === 0;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isProtected()
+    {
+        return (bool) ($this->type & Class_::MODIFIER_PROTECTED);
+    }
+
+    /**
+     * @return bool
+     */
+    public function isPrivate()
+    {
+        return (bool) ($this->type & Class_::MODIFIER_PRIVATE);
     }
 }

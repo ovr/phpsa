@@ -75,7 +75,7 @@ class CheckCommand extends Command
 
                         foreach ($st->stmts as $st) {
                             if ($st instanceof \PhpParser\Node\Stmt\ClassMethod) {
-                                $method = new \PHPSA\Definition\ClassMethod($st->name, $st->stmts);
+                                $method = new \PHPSA\Definition\ClassMethod($st->name, $st->stmts, $st->type);
 
                                 $classDefintion->addMethod($method);
                             } elseif ($st instanceof \PhpParser\Node\Stmt\Property) {
