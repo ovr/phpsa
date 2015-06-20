@@ -25,6 +25,13 @@ class Context
      */
     public $output;
 
+    protected $symbols = [];
+
+    public function addSymbol($name)
+    {
+        $this->symbols[$name] = true;
+    }
+
     public function notice($type, $message, \PhpParser\NodeAbstract $expr)
     {
         $code = file($this->scope->getFilepath());

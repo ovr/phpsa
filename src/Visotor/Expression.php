@@ -99,6 +99,11 @@ class Expression
         }
     }
 
+    public function passSymbol(Node\Expr\Assign $expr)
+    {
+        $this->context->addSymbol($expr->var->name);
+    }
+
     public function __construct($expr, $context)
     {
         $this->context = $context;
@@ -118,6 +123,9 @@ class Expression
                 break;
             case 'PhpParser\Node\Expr\ClassConstFetch';
                 $this->passConstFetch($expr);
+                break;
+            case 'PhpParser\Node\Expr\Assign';
+                $this->passSymbol($expr);
                 break;
             default:
                 var_dump(get_class($expr));
