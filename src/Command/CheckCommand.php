@@ -9,25 +9,7 @@ use PHPSA\Definition\ClassDefinition;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
-
-class MyNodeVisitor extends \PhpParser\NodeVisitorAbstract
-{
-    private $tokens;
-
-    public function setTokens(array $tokens)
-    {
-        $this->tokens = $tokens;
-    }
-
-    public function leaveNode(\PhpParser\Node $node)
-    {
-        if ($node instanceof PhpParser\Node\Stmt\Property) {
-            var_dump(isDeclaredUsingVar($this->tokens, $node));
-        }
-    }
-}
 
 class CheckCommand extends Command
 {

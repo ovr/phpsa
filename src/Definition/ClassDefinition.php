@@ -51,7 +51,7 @@ class ClassDefinition
     public function compile(Context $context)
     {
         foreach ($this->methods as $method) {
-            var_dump($method->compile($context));
+            $method->compile($context);
         }
     }
 
