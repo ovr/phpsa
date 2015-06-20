@@ -2,6 +2,8 @@
 
 namespace PHPSA\Definition;
 
+use PHPSA\Context;
+
 class ClassDefinition
 {
     /**
@@ -36,7 +38,7 @@ class ClassDefinition
      *
      * Compile methods to check it
      */
-    public function compile()
+    public function compile(Context $context)
     {
         foreach ($this->methods as $method) {
             var_dump($method);

@@ -84,13 +84,21 @@ class CheckCommand extends Command
                     $classes[] = $classDefintion;
                 }
             }
-            
+
+            $context = new \PHPSA\Context();
+            $context->application = $this->getApplication();
+
             /**
              * Step 2 Recursive check ...
              */
 
+            /**
+             * @var $class ClassDefinition
+             */
             foreach ($classes as $class) {
-                $class->compile();
+                $context->scope = $class;
+
+                $class->compile($context);
             }
 
         } catch (\PhpParser\Error $e) {
