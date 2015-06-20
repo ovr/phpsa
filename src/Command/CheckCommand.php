@@ -73,11 +73,16 @@ class CheckCommand extends Command
                         $classDefintion = new \PHPSA\Definition\ClassDefinition($st->name);
                         $classDefintion->setFilepath($filepath);
 
-                        /** @var \PhpParser\Node\Stmt\ClassMethod $method */
-                        foreach ($st->stmts as $method) {
-                            $method = new \PHPSA\Definition\ClassMethod($method->name, $method->stmts);
+                        foreach ($st->stmts as $st) {
+                            if ($st instanceof \PhpParser\Node\Stmt\ClassMethod) {
+                                $method = new \PHPSA\Definition\ClassMethod($st->name, $st->stmts);
 
-                            $classDefintion->addMethod($method);
+                                $classDefintion->addMethod($method);
+                            } elseif ($st instanceof \PhpParser\Node\Stmt\Property) {
+                                
+                            } else {
+//                                var_dump($st);
+                            }
                         }
 
                         $classes[] = $classDefintion;

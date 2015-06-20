@@ -32,6 +32,11 @@ class Expression
 
     protected function passPropertyFetch(Node\Expr\PropertyFetch $expr)
     {
+        if (!isset($expr->var)) {
+            var_dump($expr);
+            die();
+        }
+
         if ($expr->var->name == 'this') {
             $this->context->notice(
                 'undefined-property',
