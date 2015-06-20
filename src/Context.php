@@ -28,8 +28,14 @@ class Context
      */
     public $output;
 
-    public function notice($type, $message, $expr)
+    public function notice($type, $message, \PhpParser\NodeAbstract $expr)
     {
-        $this->output->writeln('Notice:  ' . $message . " [{$type}]");
+        $code = file(__DIR__ . '/../tests/simple/test-1/1.php');
+
+        $this->output->writeln('<comment>Notice:  ' . $message . "  in  tests/simple/test-1/1.php on {$expr->getLine()} [{$type}]</comment>");
+        $this->output->writeln('');
+
+        $code = trim($code[$expr->getLine()-1]);
+        $this->output->writeln("<comment>\t {$code} </comment>");
     }
 }
