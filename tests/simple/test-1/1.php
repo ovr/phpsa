@@ -4,6 +4,6 @@ class Test
 {
   public function a()
   {
-    return $this->b();
+    return $this->a;
   }
 }

@@ -1,6 +1,6 @@
 <?php
 /**
- * @author Patsura Dmitry http://github.com/ovr <talk@dmtry.me>
+ * @author Patsura Dmitry https://github.com/ovr <talk@dmtry.me>
  */
 
 namespace PHPSA\Command;

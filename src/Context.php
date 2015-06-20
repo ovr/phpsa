@@ -1,9 +1,6 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: ovr
- * Date: 20.06.15
- * Time: 16:28
+ * @author Patsura Dmitry https://github.com/ovr <talk@dmtry.me>
  */
 
 namespace PHPSA;

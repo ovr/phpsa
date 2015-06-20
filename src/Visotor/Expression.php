@@ -1,10 +1,6 @@
 <?php
-
 /**
- * Created by PhpStorm.
- * User: ovr
- * Date: 20.06.15
- * Time: 16:39
+ * @author Patsura Dmitry https://github.com/ovr <talk@dmtry.me>
  */
 
 namespace PHPSA\Visotor;
@@ -41,6 +37,9 @@ class Expression
         switch (get_class($expr)) {
             case 'PhpParser\Node\Expr\MethodCall';
                 $this->passMethodCall($expr);
+                break;
+            default:
+                var_dump($expr);
                 break;
         }
     }
