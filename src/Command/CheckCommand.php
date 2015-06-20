@@ -61,9 +61,28 @@ class CheckCommand extends Command
         // $visitor->setTokens($lexer->getTokens());
         // $stmts = $traverser->traverse($stmts);
 
-        var_dump($stmts);
+        // var_dump($stmts);
 
-      } catch (PhpParser\Error $e) {
+        $classes = [];
+
+        foreach ($stmts as $st) {
+            if ($st instanceof \PhpParser\Node\Stmt\Class_) {
+                $classDefintion = new \PHPSA\Definition\ClassDefinition($st->name);
+
+                /** @var \PhpParser\Node\Stmt\ClassMethod $method */
+                foreach ($st->stmts as $method) {
+                    var_dump($method);
+                    $method = new \PHPSA\Definition\ClassMethod($method->name);
+
+                    $classDefintion->addMethod($method);
+                }
+
+                $classes[] = $classDefintion;
+            }
+        }
+
+
+      } catch (\PhpParser\Error $e) {
         echo 'Parse Error: ', $e->getMessage();
       }
     }

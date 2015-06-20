@@ -1,8 +1,9 @@
 <?php
 
-class Test {
+class Test
+{
   public function a()
   {
-    return $this->a;
+    return $this->b();
   }
 }

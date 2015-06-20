@@ -1,0 +1,60 @@
+object(PhpParser\Node\Stmt\ClassMethod)#57 (7) {
+  ["type"]=>
+  int(1)
+  ["byRef"]=>
+  bool(false)
+  ["name"]=>
+  string(1) "a"
+  ["params"]=>
+  array(0) {
+  }
+  ["returnType"]=>
+  NULL
+  ["stmts"]=>
+  array(1) {
+    [0]=>
+    object(PhpParser\Node\Stmt\Return_)#56 (2) {
+      ["expr"]=>
+      object(PhpParser\Node\Expr\MethodCall)#55 (4) {
+        ["var"]=>
+        object(PhpParser\Node\Expr\Variable)#54 (2) {
+          ["name"]=>
+          string(4) "this"
+          ["attributes":protected]=>
+          array(2) {
+            ["startLine"]=>
+            int(7)
+            ["endLine"]=>
+            int(7)
+          }
+        }
+        ["name"]=>
+        string(1) "b"
+        ["args"]=>
+        array(0) {
+        }
+        ["attributes":protected]=>
+        array(2) {
+          ["startLine"]=>
+          int(7)
+          ["endLine"]=>
+          int(7)
+        }
+      }
+      ["attributes":protected]=>
+      array(2) {
+        ["startLine"]=>
+        int(7)
+        ["endLine"]=>
+        int(7)
+      }
+    }
+  }
+  ["attributes":protected]=>
+  array(2) {
+    ["startLine"]=>
+    int(5)
+    ["endLine"]=>
+    int(8)
+  }
+}
