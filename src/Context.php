@@ -29,12 +29,14 @@ class Context
     {
         $code = file($this->scope->getFilepath());
 
-        $this->output->writeln('<comment>Notice:  ' . $message . "  in  tests/simple/undefined-property/1.php on {$expr->getLine()} [{$type}]</comment>");
+        $this->output->writeln('<comment>Notice:  ' . $message . "  in  {$this->scope->getFilepath()} on {$expr->getLine()} [{$type}]</comment>");
         $this->output->writeln('');
 
         $code = trim($code[$expr->getLine()-1]);
         $this->output->writeln("<comment>\t {$code} </comment>");
         $this->output->writeln('');
+
+        unset($code);
     }
 
     public function sytaxError(\PhpParser\Error $e, $filepath)
