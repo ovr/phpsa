@@ -43,12 +43,15 @@ class Expression
 
     protected function passStaticFunctionCall(Node\Expr\StaticCall $expr)
     {
-        if ($expr->var instanceof Node\Expr\Variable) {
-            if ($expr->var->name == 'self') {
-                if (!$this->context->scope->hasMethod($expr->name)) {
+        if ($expr->class instanceof Node\Name) {
+            $scope = $expr->class->parts[0];
+            $name = $expr->name;
+
+            if ($scope == 'self') {
+                if (!$this->context->scope->hasMethod($name)) {
                     $this->context->notice(
                         'undefined-scall',
-                        sprintf('Method %s() is not exists on %s scope', $expr->name, $expr->var->name),
+                        sprintf('Static method %s() is not exists on %s scope', $name, $scope),
                         $expr
                     );
                 }
