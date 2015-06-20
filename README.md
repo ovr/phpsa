@@ -29,18 +29,33 @@ Available commands:
 Example output:
 
 ```sh
-$ ./bin/phpsa check ./tests
+$ ./bin/phpsa check ./tests/
 
-Notice:  Method b() is not exists on this scope.  in  ./tests/simple/undefined-mcall/1.php on 7 [undefined-mcall]
+Notice:  Static method b() is not exists on self scope in ./tests/simple/undefined-scall/1.php on 7 [undefined-scall]
+
+	 return self::b(); 
+
+Notice:  Static method a() is not exists on self scope in ./tests/simple/undefined-scall/1.php on 12 [undefined-scall]
+
+	 return self::a(); 
+
+Notice:  Method b() is not exists on this scope in ./tests/simple/undefined-mcall/1.php on 7 [undefined-mcall]
 
 	 return $this->b(); 
 
-Notice:  Property a is not exists on this scope.  in  ./tests/simple/undefined-property/1.php on 7 [undefined-property]
+Notice:  Property a is not exists on this scope in ./tests/simple/undefined-property/1.php on 9 [undefined-property]
 
 	 return $this->a; 
 
-Syntax error:  Syntax error, unexpected '}' on line 8 in ./tests/simple/syntax-error/1.php 
+Notice:  Function undefinedFunction() is not exists in ./tests/simple/undefined-fcall/1.php on 7 [undefined-fcall]
 
+	 undefinedFunction(); 
+
+Notice:  Constant BBBB is not exists on self scope in ./tests/simple/undefined-const/1.php on 14 [undefined-const]
+
+	 return self::BBBB; 
+
+Syntax error:  Syntax error, unexpected '}' on line 8 in ./tests/simple/syntax-error/1.php 
 
 ```
 
