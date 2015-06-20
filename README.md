@@ -32,6 +32,12 @@ What is needed or planned as future.
 
 - [ ] Missing @return
 
+## Installation
+
+@todo
+
+## How to use
+
 ```sh
 $ ./bin/phpsa
 PHP Static Analyzer version 0.0.1-dev #489272e
