@@ -45,16 +45,16 @@ class CheckCommand extends Command
         $context = new \PHPSA\Context();
         $context->output = $output;
 
-        try {
-            $it = new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($inputDir, \FilesystemIterator::SKIP_DOTS));
-            $it = new \CallbackFilterIterator($it, function (\SplFileInfo $file) {
-                return $file->getExtension() == 'php';
-            });
+        $it = new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($inputDir, \FilesystemIterator::SKIP_DOTS));
+        $it = new \CallbackFilterIterator($it, function (\SplFileInfo $file) {
+            return $file->getExtension() == 'php';
+        });
 
-            /** @var \SplFileInfo $file */
-            foreach ($it as $file) {
-                $filepath = $file->getPathname();
+        /** @var \SplFileInfo $file */
+        foreach ($it as $file) {
+            $filepath = $file->getPathname();
 
+            try {
                 $code = file_get_contents($filepath);
                 $stmts = $parser->parse($code);
 
@@ -98,9 +98,9 @@ class CheckCommand extends Command
 
                     $class->compile($context);
                 }
+            } catch (\PhpParser\Error $e) {
+                $context->sytaxError($e, $filepath);
             }
-        } catch (\PhpParser\Error $e) {
-            $context->sytaxError($e, $filepath);
         }
 
         $output->writeln('');
