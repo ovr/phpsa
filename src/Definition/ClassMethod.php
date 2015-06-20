@@ -32,6 +32,10 @@ class ClassMethod
 
     public function compile(Context $context)
     {
+        if (count($this->ast) == 0) {
+            return true;
+        }
+
         foreach ($this->ast as $st) {
             if ($st instanceof \PhpParser\Node\Stmt) {
                 $expr = new \PHPSA\Visotor\Statement($st, $context);
