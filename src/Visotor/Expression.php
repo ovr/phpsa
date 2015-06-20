@@ -30,6 +30,17 @@ class Expression
         }
     }
 
+    protected function passPropertyFetch(Node\Expr\PropertyFetch $expr)
+    {
+        if ($expr->var->name == 'this') {
+            $this->context->notice(
+                'undefined-property',
+                sprintf('Property %s is not exists on %s scope.', $expr->name, $expr->var->name),
+                $expr
+            );
+        }
+    }
+
     public function __construct($expr, $context)
     {
         $this->context = $context;
@@ -37,6 +48,9 @@ class Expression
         switch (get_class($expr)) {
             case 'PhpParser\Node\Expr\MethodCall';
                 $this->passMethodCall($expr);
+                break;
+            case 'PhpParser\Node\Expr\PropertyFetch';
+                $this->passPropertyFetch($expr);
                 break;
             default:
                 var_dump($expr);
