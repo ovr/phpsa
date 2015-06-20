@@ -22,7 +22,7 @@ class Expression
                 if (!$this->context->scope->hasMethod($expr->name)) {
                     $this->context->notice(
                         'undefined-mcall',
-                        sprintf('Method %s() is not exists on %s scope.', $expr->name, $expr->var->name),
+                        sprintf('Method %s() is not exists on %s scope', $expr->name, $expr->var->name),
                         $expr
                     );
                 }
@@ -35,7 +35,7 @@ class Expression
         if (!function_exists($expr->name->parts[0])) {
             $this->context->notice(
                 'undefined-fcall',
-                sprintf('Function %s() is not exists.', $expr->name->parts[0]),
+                sprintf('Function %s() is not exists', $expr->name->parts[0]),
                 $expr
             );
         }
@@ -47,7 +47,7 @@ class Expression
             if (!$this->context->scope->hasProperty($expr->name)) {
                 $this->context->notice(
                     'undefined-property',
-                    sprintf('Property %s is not exists on %s scope.', $expr->name, $expr->var->name),
+                    sprintf('Property %s is not exists on %s scope', $expr->name, $expr->var->name),
                     $expr
                 );
             }

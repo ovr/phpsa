@@ -29,7 +29,7 @@ class Context
     {
         $code = file($this->scope->getFilepath());
 
-        $this->output->writeln('<comment>Notice:  ' . $message . "  in  {$this->scope->getFilepath()} on {$expr->getLine()} [{$type}]</comment>");
+        $this->output->writeln('<comment>Notice:  ' . $message . " in {$this->scope->getFilepath()} on {$expr->getLine()} [{$type}]</comment>");
         $this->output->writeln('');
 
         $code = trim($code[$expr->getLine()-1]);
