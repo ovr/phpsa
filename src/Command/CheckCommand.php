@@ -37,7 +37,7 @@ class CheckCommand extends Command
             ->setName('check')
             ->setDescription('SPA')
             ->setDefinition(array(
-                new InputArgument('path', InputArgument::REQUIRED),
+                new InputArgument('path', InputArgument::OPTIONAL, 'Path to check files', '.'),
             ));
     }
 
