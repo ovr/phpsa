@@ -1,5 +1,5 @@
-PHP Static Analysis for PHP
-===========================
+PHPSA - Static Analysis for PHP
+===============================
 
 > Awesome tool for awesome PHP developers
 
