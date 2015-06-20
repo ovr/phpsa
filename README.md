@@ -35,22 +35,22 @@ What is needed or planned as future.
 
 #### Control flow
 
-- [] Loop which does not loop
-- [] Ternary operator simplification
-- [] Elvis operator can be used
-- [] Not optimal if conditions
-- [] Infinity loop
-- [] Unreachable statement
+- [ ] Loop which does not loop
+- [ ] Ternary operator simplification
+- [ ] Elvis operator can be used
+- [ ] Not optimal if conditions
+- [ ] Infinity loop
+- [ ] Unreachable statement
 
 #### Probable bugs
 
-- [] Division by zero
-- [] Missing 'break' statement
-- [] Void function result used
+- [ ] Division by zero
+- [ ] Missing 'break' statement
+- [ ] Void function result used
 
 #### General
 
-- [] Language level
+- [ ] Language level
 
 ## Installation
 
