@@ -1,0 +1,14 @@
+{
+    "name": "ovr/phpsa",
+    "description": "Static Analysis for PHP",
+    "type": "util",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Dmitry Patsura",
+            "email": "talk@dmtry.me"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {}
+}
