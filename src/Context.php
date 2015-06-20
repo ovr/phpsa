@@ -17,5 +17,8 @@ class Context
      */
     public $scope;
 
+    /**
+     * @var Application
+     */
     public $application;
 }

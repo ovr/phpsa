@@ -10,6 +10,7 @@
 namespace PHPSA\Visotor;
 
 use PHPSA\Context;
+use PhpParser\Node;
 
 class Expression
 {
@@ -18,12 +19,12 @@ class Expression
      */
     protected $context;
 
-    protected function passMethodCall(\PhpParser\Node\Expr\MethodCall $expr)
+    protected function passMethodCall(Node\Expr\MethodCall $expr)
     {
-        if ($expr->var instanceof \PhpParser\Node\Expr\Variable) {
+        if ($expr->var instanceof Node\Expr\Variable) {
             if ($expr->var->name == 'this') {
                 if (!$this->context->scope->hasMethod($expr->name)) {
-                    var_dump('fuck');
+                    
                 }
             }
         }
