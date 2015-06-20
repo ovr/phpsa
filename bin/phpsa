@@ -15,6 +15,4 @@ foreach (array(__DIR__ . '/../../autoload.php', __DIR__ . '/../vendor/autoload.p
 }
 
 $console = new \PHPSA\Application();
-$console->add(new \PHPSA\Command\CheckCommand());
-$console->setDefaultCommand('check');
 $console->run();
