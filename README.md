@@ -9,11 +9,11 @@ What is needed or planned as future.
 
 #### Unused
 
-- [ ] import
-- [ ] local variable
-- [ ] parameter
-- [ ] private field
-- [ ] private method
+- [ ] Import
+- [ ] Local variable
+- [ ] Parameter
+- [ ] Private field
+- [ ] Private method
 
 #### Undefined checks
 
@@ -31,6 +31,26 @@ What is needed or planned as future.
 #### PHPDockblock
 
 - [ ] Missing @return
+- [ ] Missing doc block
+
+#### Control flow
+
+- [] Loop which does not loop
+- [] Ternary operator simplification
+- [] Elvis operator can be used
+- [] Not optimal if conditions
+- [] Infinity loop
+- [] Unreachable statement
+
+#### Probable bugs
+
+- [] Division by zero
+- [] Missing 'break' statement
+- [] Void function result used
+
+#### General
+
+- [] Language level
 
 ## Installation
 
