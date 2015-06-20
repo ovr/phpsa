@@ -30,6 +30,17 @@ class Expression
         }
     }
 
+    protected function passFunctionCall(Node\Expr\FuncCall $expr)
+    {
+        if (!function_exists($expr->name->parts[0])) {
+            $this->context->notice(
+                'undefined-fcall',
+                sprintf('Function %s() is not exists.', $expr->name->parts[0]),
+                $expr
+            );
+        }
+    }
+
     protected function passPropertyFetch(Node\Expr\PropertyFetch $expr)
     {
         if ($expr->var->name == 'this') {
@@ -53,6 +64,9 @@ class Expression
                 break;
             case 'PhpParser\Node\Expr\PropertyFetch';
                 $this->passPropertyFetch($expr);
+                break;
+            case 'PhpParser\Node\Expr\FuncCall';
+                $this->passFunctionCall($expr);
                 break;
             default:
                 var_dump(get_class($expr));
