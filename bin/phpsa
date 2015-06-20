@@ -1,0 +1,20 @@
+#!/usr/bin/env php
+<?php
+if (!ini_get('date.timezone')) {
+     ini_set('date.timezone', 'UTC');
+}
+/**
+ * @author Patsura Dmitry http://github.com/ovr <talk@dmtry.me>
+ */
+foreach (array(__DIR__ . '/../../autoload.php', __DIR__ . '/../vendor/autoload.php', __DIR__ . '/vendor/autoload.php') as $file) {
+    if (file_exists($file)) {
+        include_once $file;
+        define('COMPOSER_INSTALL', $file);
+        break;
+    }
+}
+
+$console = new \PHPSA\Application();
+$console->add(new \PHPSA\Command\CheckCommand());
+$console->setDefaultCommand('check');
+$console->run();

@@ -11,7 +11,8 @@
     ],
     "minimum-stability": "dev",
     "require": {
-
+      "php": "~5.4",
+      "symfony/console": "~2.5"
     },
     "autoload": {
       "psr-4": {
