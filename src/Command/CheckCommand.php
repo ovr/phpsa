@@ -7,6 +7,8 @@ namespace PHPSA\Command;
 
 use PHPSA\Definition\ClassDefinition;
 use PHPSA\Definition\ClassMethod;
+use PhpParser\Node;
+
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -70,18 +72,18 @@ class CheckCommand extends Command
                 $classes = [];
 
                 foreach ($stmts as $st) {
-                    if ($st instanceof \PhpParser\Node\Stmt\Class_) {
+                    if ($st instanceof Node\Stmt\Class_) {
                         $classDefintion = new ClassDefinition($st->name);
                         $classDefintion->setFilepath($filepath);
 
                         foreach ($st->stmts as $st) {
-                            if ($st instanceof \PhpParser\Node\Stmt\ClassMethod) {
+                            if ($st instanceof Node\Stmt\ClassMethod) {
                                 $method = new ClassMethod($st->name, $st->stmts, $st->type);
 
                                 $classDefintion->addMethod($method);
-                            } elseif ($st instanceof \PhpParser\Node\Stmt\Property) {
+                            } elseif ($st instanceof Node\Stmt\Property) {
                                 $classDefintion->addProperty($st);
-                            } elseif ($st instanceof \PhpParser\Node\Stmt\ClassConst) {
+                            } elseif ($st instanceof Node\Stmt\ClassConst) {
                                 $classDefintion->addConst($st);
                             }
                         }
