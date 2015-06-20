@@ -3,6 +3,35 @@ PHP Static Analysis for PHP
 
 > Awesome tool for awesome PHP developers
 
+## Goals
+
+What is needed or planned as future.
+
+#### Unused
+
+- [ ] import
+- [ ] local variable
+- [ ] parameter
+- [ ] private field
+- [ ] private method
+
+#### Undefined checks
+
+- [ ] Undefined class
+- [ ] Undefined class constant
+- [ ] Undefined class property
+- [ ] Undefined class method
+- [ ] Undefined callback
+- [ ] Undefined constant
+- [ ] Undefined function
+- [ ] Undefined namespace
+- [ ] Undefined variable
+- [ ] Undefined callback
+
+#### PHPDockblock
+
+- [ ] Missing @return
+
 ```sh
 $ ./bin/phpsa
 PHP Static Analyzer version 0.0.1-dev #489272e
