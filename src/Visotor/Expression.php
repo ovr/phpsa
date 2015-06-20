@@ -32,17 +32,14 @@ class Expression
 
     protected function passPropertyFetch(Node\Expr\PropertyFetch $expr)
     {
-        if (!isset($expr->var)) {
-            var_dump($expr);
-            die();
-        }
-
         if ($expr->var->name == 'this') {
-            $this->context->notice(
-                'undefined-property',
-                sprintf('Property %s is not exists on %s scope.', $expr->name, $expr->var->name),
-                $expr
-            );
+            if (!$this->context->scope->hasProperty($expr->name)) {
+                $this->context->notice(
+                    'undefined-property',
+                    sprintf('Property %s is not exists on %s scope.', $expr->name, $expr->var->name),
+                    $expr
+                );
+            }
         }
     }
 

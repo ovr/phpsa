@@ -52,7 +52,7 @@ class ClassDefinition
 
     public function addProperty(\PhpParser\Node\Stmt\Property $property)
     {
-        $this->methods[$property->props[0]->name] = $property;
+        $this->properties[$property->props[0]->name] = $property;
     }
 
     /**
@@ -70,6 +70,11 @@ class ClassDefinition
     public function hasMethod($name)
     {
         return isset($this->methods[$name]);
+    }
+
+    public function hasProperty($name)
+    {
+        return isset($this->properties[$name]);
     }
 
     /**
