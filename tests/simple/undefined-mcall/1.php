@@ -6,4 +6,9 @@ class Test
   {
     return $this->b();
   }
+
+  public function c()
+  {
+    return $this->a();
+  }
 }
