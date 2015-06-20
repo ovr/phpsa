@@ -83,6 +83,22 @@ class Expression
         }
     }
 
+    protected function passConstFetch(Node\Expr\ClassConstFetch $expr)
+    {
+        if ($expr->class instanceof Node\Name) {
+            $scope = $expr->class->parts[0];
+            if ($scope == 'self') {
+                if (!$this->context->scope->hasConst($expr->name)) {
+                    $this->context->notice(
+                        'undefined-const',
+                        sprintf('Constant %s is not exists on %s scope', $expr->name, $scope),
+                        $expr
+                    );
+                }
+            }
+        }
+    }
+
     public function __construct($expr, $context)
     {
         $this->context = $context;
@@ -99,6 +115,9 @@ class Expression
                 break;
             case 'PhpParser\Node\Expr\StaticCall';
                 $this->passStaticFunctionCall($expr);
+                break;
+            case 'PhpParser\Node\Expr\ClassConstFetch';
+                $this->passConstFetch($expr);
                 break;
             default:
                 var_dump(get_class($expr));

@@ -64,7 +64,7 @@ class ClassDefinition
 
     public function addConst(\PhpParser\Node\Stmt\ClassConst $const)
     {
-        $this->properties[$const->consts[0]->name] = $const;
+        $this->constants[$const->consts[0]->name] = $const;
     }
 
     /**

@@ -8,4 +8,9 @@ class UndefinedConst
   {
     return self::A;
   }
+
+  public function testUndefinedConst()
+  {
+    return self::BBBB;
+  }
 }
