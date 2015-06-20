@@ -19,6 +19,10 @@ class Statement
             case 'PhpParser\Node\Stmt\Return_':
                 $this->passReturn($st, $context);
                 break;
+            default:
+                var_dump(get_class($st));
+//                var_dump($st);
+                break;
         }
     }
 }

@@ -53,7 +53,8 @@ class Expression
                 $this->passPropertyFetch($expr);
                 break;
             default:
-                var_dump($expr);
+                var_dump(get_class($expr));
+//                var_dump($expr);
                 break;
         }
     }
