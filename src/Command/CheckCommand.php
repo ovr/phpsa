@@ -42,6 +42,9 @@ class CheckCommand extends Command
 
         $inputDir = $input->getArgument('path');
 
+        $context = new \PHPSA\Context();
+        $context->output = $output;
+
         try {
             $it = new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($inputDir, \FilesystemIterator::SKIP_DOTS));
             $it = new \CallbackFilterIterator($it, function (\SplFileInfo $file) {
@@ -81,9 +84,7 @@ class CheckCommand extends Command
                     }
                 }
 
-                $context = new \PHPSA\Context();
                 $context->application = $this->getApplication();
-                $context->output = $output;
 
                 /**
                  * Step 2 Recursive check ...
@@ -99,7 +100,7 @@ class CheckCommand extends Command
                 }
             }
         } catch (\PhpParser\Error $e) {
-            echo 'Parse Error: ', $e->getMessage();
+            $context->sytaxError($e, $filepath);
         }
 
         $output->writeln('');

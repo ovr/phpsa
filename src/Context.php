@@ -36,4 +36,12 @@ class Context
         $this->output->writeln("<comment>\t {$code} </comment>");
         $this->output->writeln('');
     }
+
+    public function sytaxError(\PhpParser\Error $e, $filepath)
+    {
+        $code = file($e->getFile());
+
+        $this->output->writeln('<error>Syntax error:  ' . $e->getMessage() . " in {$filepath} </error>");
+        $this->output->writeln('');
+    }
 }
