@@ -33,7 +33,11 @@ class ClassMethod
     public function compile(Context $context)
     {
         foreach ($this->ast as $st) {
-            $expr = new \PHPSA\Visotor\Statement($st, $context);
+            if ($st instanceof \PhpParser\Node\Stmt) {
+                $expr = new \PHPSA\Visotor\Statement($st, $context);
+            } else {
+                $expr = new \PHPSA\Visotor\Expression($st, $context);
+            }
         }
     }
 }
