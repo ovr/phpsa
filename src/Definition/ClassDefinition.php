@@ -26,6 +26,13 @@ class ClassDefinition
      */
     protected $methods = [];
 
+    /**
+     * @todo Use Finder
+     *
+     * @var string
+     */
+    protected $filepath;
+
     public function __construct($name)
     {
         $this->name = $name;
@@ -51,5 +58,21 @@ class ClassDefinition
     public function hasMethod($name)
     {
         return isset($this->methods[$name]);
+    }
+
+    /**
+     * @return string
+     */
+    public function getFilepath()
+    {
+        return $this->filepath;
+    }
+
+    /**
+     * @param string $filepath
+     */
+    public function setFilepath($filepath)
+    {
+        $this->filepath = $filepath;
     }
 }

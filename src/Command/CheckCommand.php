@@ -57,7 +57,8 @@ class CheckCommand extends Command
         $parser = new \PhpParser\Parser(new \PhpParser\Lexer\Emulative);
 
         try {
-            $code = file_get_contents(__DIR__ . '/../../tests/simple/undefined-property/1.php');
+            $filepath = __DIR__ . '/../../tests/simple/undefined-property/1.php';
+            $code = file_get_contents($filepath);
             $stmts = $parser->parse($code);
 
 
@@ -73,6 +74,7 @@ class CheckCommand extends Command
             foreach ($stmts as $st) {
                 if ($st instanceof \PhpParser\Node\Stmt\Class_) {
                     $classDefintion = new \PHPSA\Definition\ClassDefinition($st->name);
+                    $classDefintion->setFilepath($filepath);
 
                     /** @var \PhpParser\Node\Stmt\ClassMethod $method */
                     foreach ($st->stmts as $method) {
