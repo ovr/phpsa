@@ -56,54 +56,64 @@ class CheckCommand extends Command
 
         $parser = new \PhpParser\Parser(new \PhpParser\Lexer\Emulative);
 
+        $inputDir = $input->getArgument('path');
+
         try {
-            $filepath = __DIR__ . '/../../tests/simple/undefined-property/1.php';
-            $code = file_get_contents($filepath);
-            $stmts = $parser->parse($code);
+            $it = new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($inputDir, \FilesystemIterator::SKIP_DOTS));
+            $it = new \CallbackFilterIterator($it, function (\SplFileInfo $file) {
+                return $file->getExtension() == 'php';
+            });
+
+            /** @var \SplFileInfo $file */
+            foreach ($it as $file) {
+                $filepath = $file->getPathname();
+
+                $code = file_get_contents($filepath);
+                $stmts = $parser->parse($code);
 
 
-            /**
-             * Step 1 Precompile
-             */
+                /**
+                 * Step 1 Precompile
+                 */
 
-            /**
-             * @var ClassDefinition[]
-             */
-            $classes = [];
+                /**
+                 * @var ClassDefinition[]
+                 */
+                $classes = [];
 
-            foreach ($stmts as $st) {
-                if ($st instanceof \PhpParser\Node\Stmt\Class_) {
-                    $classDefintion = new \PHPSA\Definition\ClassDefinition($st->name);
-                    $classDefintion->setFilepath($filepath);
+                foreach ($stmts as $st) {
+                    if ($st instanceof \PhpParser\Node\Stmt\Class_) {
+                        $classDefintion = new \PHPSA\Definition\ClassDefinition($st->name);
+                        $classDefintion->setFilepath($filepath);
 
-                    /** @var \PhpParser\Node\Stmt\ClassMethod $method */
-                    foreach ($st->stmts as $method) {
-                        $method = new \PHPSA\Definition\ClassMethod($method->name, $method->stmts);
+                        /** @var \PhpParser\Node\Stmt\ClassMethod $method */
+                        foreach ($st->stmts as $method) {
+                            $method = new \PHPSA\Definition\ClassMethod($method->name, $method->stmts);
 
-                        $classDefintion->addMethod($method);
+                            $classDefintion->addMethod($method);
+                        }
+
+                        $classes[] = $classDefintion;
                     }
+                }
 
-                    $classes[] = $classDefintion;
+                $context = new \PHPSA\Context();
+                $context->application = $this->getApplication();
+                $context->output = $output;
+
+                /**
+                 * Step 2 Recursive check ...
+                 */
+
+                /**
+                 * @var $class ClassDefinition
+                 */
+                foreach ($classes as $class) {
+                    $context->scope = $class;
+
+                    $class->compile($context);
                 }
             }
-
-            $context = new \PHPSA\Context();
-            $context->application = $this->getApplication();
-            $context->output = $output;
-
-            /**
-             * Step 2 Recursive check ...
-             */
-
-            /**
-             * @var $class ClassDefinition
-             */
-            foreach ($classes as $class) {
-                $context->scope = $class;
-
-                $class->compile($context);
-            }
-
         } catch (\PhpParser\Error $e) {
             echo 'Parse Error: ', $e->getMessage();
         }
