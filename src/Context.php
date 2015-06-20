@@ -34,5 +34,6 @@ class Context
 
         $code = trim($code[$expr->getLine()-1]);
         $this->output->writeln("<comment>\t {$code} </comment>");
+        $this->output->writeln('');
     }
 }

@@ -25,6 +25,8 @@ class CheckCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
+        $output->writeln('');
+
         $lexer = new \PhpParser\Lexer(array(
             'usedAttributes' => array(
                 'comments',
@@ -99,5 +101,7 @@ class CheckCommand extends Command
         } catch (\PhpParser\Error $e) {
             echo 'Parse Error: ', $e->getMessage();
         }
+
+        $output->writeln('');
     }
 }
