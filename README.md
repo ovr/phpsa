@@ -51,6 +51,7 @@ What is needed or planned as future.
 #### General
 
 - [ ] Language level
+- [X] Syntax error
 
 ## Installation
 
