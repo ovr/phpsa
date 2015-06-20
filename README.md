@@ -4,8 +4,8 @@ PHP Static Analysis for PHP
 > Awesome tool for awesome PHP developers
 
 ```sh
-ovr@ovr-desktop:~/projects/ovr/phpsa$ ./bin/phpsa
-PHP Static Analyzer version 0.0.1-dev #1c583e3
+$ ./bin/phpsa
+PHP Static Analyzer version 0.0.1-dev #489272e
 
 Usage:
   command [options] [arguments]
@@ -23,15 +23,25 @@ Available commands:
   check  SPA
   help   Displays help for a command
   list   Lists commands
+
 ```
 
 Example output:
 
 ```sh
-./bin/phpsa check .
-Notice:  Method b() is not exists on this scope.  in  tests/simple/test-1/1.php on 7 [undefined-mcall]
+$ ./bin/phpsa check ./tests
+
+Notice:  Method b() is not exists on this scope.  in  ./tests/simple/undefined-mcall/1.php on 7 [undefined-mcall]
 
 	 return $this->b(); 
+
+Notice:  Property a is not exists on this scope.  in  ./tests/simple/undefined-property/1.php on 7 [undefined-property]
+
+	 return $this->a; 
+
+Syntax error:  Syntax error, unexpected '}' on line 8 in ./tests/simple/syntax-error/1.php 
+
+
 ```
 
 
