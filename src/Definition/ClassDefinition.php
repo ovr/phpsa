@@ -82,10 +82,9 @@ class ClassDefinition
             if (count($symbols) > 0) {
                 foreach ($symbols as $name => $variable) {
                     if ($variable->getGets() == 0 && $variable->incSets()) {
-                        $context->notice(
+                        $context->warning(
                             'unused-variable',
-                            sprintf('Unused variable %s in method %s()', $variable->getName(), $method->getName()),
-                            null
+                            sprintf('Unused variable $%s in method %s()', $variable->getName(), $method->getName())
                         );
                     }
                 }

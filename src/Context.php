@@ -82,6 +82,12 @@ class Context
         return isset($this->symbols[$name]) ? $this->symbols[$name] : null;
     }
 
+    public function warning($type, $message)
+    {
+        $this->output->writeln('<comment>Notice:  ' . $message . " in {$this->scope->getFilepath()}  [{$type}]</comment>");
+        $this->output->writeln('');
+    }
+
     public function notice($type, $message, \PhpParser\NodeAbstract $expr)
     {
         $code = file($this->scope->getFilepath());
