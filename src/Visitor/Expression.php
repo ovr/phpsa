@@ -268,8 +268,8 @@ class Expression
                 return new CompiledExpression(CompiledExpression::UNKNOWN);
             }
         }
-
-        var_dump('Unknown const fetch');
+        
+        $this->context->debug('Unknown const fetch');
         return new CompiledExpression(CompiledExpression::UNKNOWN);
     }
 
