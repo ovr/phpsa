@@ -9,7 +9,8 @@ class Statement
 {
     protected function passReturn(\PhpParser\Node\Stmt\Return_ $st, $context)
     {
-        $expr = (new Expression($st->expr, $context))->compile($st->expr);
+        $expression = new Expression($st->expr, $context);
+        $compiledExpression = $expression->compile($st->expr);
     }
 
     public function __construct(\PhpParser\Node\Stmt $st, $context)
