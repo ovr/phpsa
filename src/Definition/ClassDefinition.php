@@ -68,8 +68,6 @@ class ClassDefinition
     }
 
     /**
-     * Mean check file....,
-     *
      * Compile methods to check it
      */
     public function compile(Context $context)
