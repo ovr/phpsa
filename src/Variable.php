@@ -20,7 +20,7 @@ class Variable
      */
     protected $type;
 
-    public function __construct($name, $defaultValue = null)
+    public function __construct($name, $defaultValue = null, $type = 0)
     {
         $this->name = $name;
 
@@ -28,6 +28,8 @@ class Variable
             $this->sets++;
             $this->value = $defaultValue;
         }
+
+        $this->type = $type;
     }
 
     /**

@@ -8,6 +8,7 @@ namespace PHPSA\Visitor;
 use PHPSA\CompiledExpression;
 use PHPSA\Context;
 use PhpParser\Node;
+use PHPSA\Variable;
 
 class Expression
 {
@@ -138,7 +139,7 @@ class Expression
         $compiledExpression = new Expression($expr->expr, $this->context);
         $result = $compiledExpression->compile($expr->expr);
         if (is_object($result) && $result instanceof CompiledExpression) {
-            $this->context->addVariable($result->toVariable());
+            $this->context->addVariable(new Variable($name, $result->getValue(), $result->getType()));
         }
 
         return $this->context->addSymbol($name);

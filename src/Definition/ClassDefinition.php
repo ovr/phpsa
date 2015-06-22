@@ -75,7 +75,7 @@ class ClassDefinition
         foreach ($this->methods as $method) {
             $context->clearSymbols();
             $method->compile($context);
-
+            
             $symbols = $context->getSymbols();
             if (count($symbols) > 0) {
                 foreach ($symbols as $name => $variable) {
