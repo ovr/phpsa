@@ -59,18 +59,24 @@ class Expression
                 return $this->passBinaryOpMinus($expr);
             case 'PhpParser\Node\Expr\UnaryMinus';
                 return $this->passUnaryMinus($expr);
-            case 'PhpParser\Node\Scalar\LNumber';
-                return $this->getLNumber($expr);
-            case 'PhpParser\Node\Scalar\DNumber';
-                return $this->getDNumber($expr);
-            case 'PhpParser\Node\Scalar\String_';
-                return $this->getString($expr);
+            /**
+             * Cast operators
+             */
             case 'PhpParser\Node\Expr\Cast\Bool_';
                 return $this->passCastBoolean($expr);
             case 'PhpParser\Node\Expr\Cast\Int_';
                 return $this->passCastInt($expr);
             case 'PhpParser\Node\Expr\Cast\Double';
                 return $this->passCastFloat($expr);
+            /**
+             * Scalars
+             */
+            case 'PhpParser\Node\Scalar\LNumber';
+                return $this->getLNumber($expr);
+            case 'PhpParser\Node\Scalar\DNumber';
+                return $this->getDNumber($expr);
+            case 'PhpParser\Node\Scalar\String_';
+                return $this->getString($expr);
             case 'PhpParser\Node\Expr\ConstFetch';
                 return $this->constFetch($expr);
             default:
