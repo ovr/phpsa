@@ -82,6 +82,7 @@ class CheckCommand extends Command
                     continue;
                 }
 
+                var_dump($file->getPathname());
                 $count++;
             }
 
@@ -136,6 +137,9 @@ class CheckCommand extends Command
             /**
              * Step 1 Precompile
              */
+            if ($stmts[0] instanceof Node\Stmt\Namespace_) {
+                $stmts = $stmts[0]->stmts;
+            }
 
             foreach ($stmts as $st) {
                 if ($st instanceof Node\Stmt\Class_) {
@@ -144,7 +148,7 @@ class CheckCommand extends Command
 
                     foreach ($st->stmts as $st) {
                         if ($st instanceof Node\Stmt\ClassMethod) {
-                            $method = new ClassMethod($st->name, $st->stmts, $st->type);
+                            $method = new ClassMethod($st->name, $st->stmts, $st->type, $st);
 
                             $classDefintion->addMethod($method);
                         } elseif ($st instanceof Node\Stmt\Property) {

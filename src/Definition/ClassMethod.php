@@ -20,10 +20,13 @@ class ClassMethod
 
     protected $type;
 
-    public function __construct($name, $ast)
+    protected $st;
+
+    public function __construct($name, $ast, $type, $st)
     {
         $this->name = $name;
         $this->ast = $ast;
+        $this->st = $st;
     }
 
     /**
@@ -37,7 +40,11 @@ class ClassMethod
     public function compile(Context $context)
     {
         if (count($this->ast) == 0) {
-            return true;
+            return $context->notice(
+                'not-implemented-method',
+                sprintf('Method %s() is not implemented', $this->name),
+                $this->st
+            );
         }
 
         foreach ($this->ast as $st) {

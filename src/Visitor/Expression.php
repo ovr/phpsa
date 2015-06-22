@@ -8,7 +8,6 @@ namespace PHPSA\Visitor;
 use PHPSA\CompiledExpression;
 use PHPSA\Context;
 use PhpParser\Node;
-use PHPSA\Variable;
 
 class Expression
 {
