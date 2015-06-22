@@ -6,6 +6,8 @@
 namespace PHPSA\Command;
 
 use FilesystemIterator;
+use PhpParser\Parser;
+use PHPSA\Context;
 use PHPSA\Definition\ClassDefinition;
 use PHPSA\Definition\ClassMethod;
 use PhpParser\Node;
@@ -49,11 +51,11 @@ class CheckCommand extends Command
         ));
 
 
-        $parser = new \PhpParser\Parser(new \PhpParser\Lexer\Emulative);
+        $parser = new Parser(new \PhpParser\Lexer\Emulative);
 
         $path = $input->getArgument('path');
 
-        $context = new \PHPSA\Context();
+        $context = new Context();
         $context->output = $output;
 
         if (is_dir($path)) {
@@ -87,7 +89,12 @@ class CheckCommand extends Command
         $output->writeln('');
     }
 
-    protected function parserFile($filepath, $parser, $context)
+    /**
+     * @param string $filepath
+     * @param Parser $parser
+     * @param Context $context
+     */
+    protected function parserFile($filepath, Parser $parser, Context $context)
     {
         try {
             $code = file_get_contents($filepath);
