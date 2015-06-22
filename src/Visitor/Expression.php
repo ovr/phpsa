@@ -202,21 +202,45 @@ class Expression
         return true;
     }
 
+    /**
+     * Convert lnumber scalar expr to CompiledExpression
+     *
+     * @param Node\Scalar\LNumber $scalar
+     * @return CompiledExpression
+     */
     public function getLNumber(Node\Scalar\LNumber $scalar)
     {
         return new CompiledExpression(CompiledExpression::LNUMBER, $scalar->value);
     }
 
+    /**
+     * Convert dnumber expr to CompiledExpression
+     *
+     * @param Node\Scalar\DNumber $scalar
+     * @return CompiledExpression
+     */
     public function getDNumber(Node\Scalar\DNumber $scalar)
     {
         return new CompiledExpression(CompiledExpression::DNUMBER, $scalar->value);
     }
 
+    /**
+     * Convert string scala expr to CompiledExpression
+     *
+     * @param Node\Scalar\String_ $scalar
+     * @return CompiledExpression
+     */
     public function getString(Node\Scalar\String_ $scalar)
     {
         return new CompiledExpression(CompiledExpression::STRING, $scalar->value);
     }
 
+    /**
+     * Convert const fetch expr to CompiledExpression
+     *
+     * @param Node\Expr\ConstFetch $expr
+     * @return bool|CompiledExpression
+     */
     public function constFetch(Node\Expr\ConstFetch $expr)
     {
         if ($expr->name instanceof Node\Name) {
