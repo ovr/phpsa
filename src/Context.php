@@ -43,6 +43,17 @@ class Context
     }
 
     /**
+     * @param Variable $variable
+     * @return bool
+     */
+    public function addVariable(Variable $variable)
+    {
+        $this->symbols[$variable->getName()] = $variable;
+
+        return true;
+    }
+
+    /**
      * Clear prevent context
      */
     public function clear()

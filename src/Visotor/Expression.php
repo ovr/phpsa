@@ -7,6 +7,7 @@ namespace PHPSA\Visotor;
 
 use PHPSA\Context;
 use PhpParser\Node;
+use PHPSA\Variable;
 
 class Expression
 {
@@ -108,9 +109,8 @@ class Expression
             return $symbol->incSets();
         }
 
-
         if ($expr->expr instanceof Node\Scalar\LNumber) {
-            return $this->context->addSymbol($name, $expr->expr->value);
+            return $this->context->addVariable(new Variable($name, $expr->expr->value));
         }
 
         $this->context->addSymbol($name);
