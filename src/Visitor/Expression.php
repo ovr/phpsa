@@ -5,6 +5,7 @@
 
 namespace PHPSA\Visitor;
 
+use PHPSA\CompiledExpression;
 use PHPSA\Context;
 use PhpParser\Node;
 use PHPSA\Variable;
@@ -193,31 +194,32 @@ class Expression
 
     public function getLNumber(Node\Scalar\LNumber $scalar)
     {
-        return $scalar->value;
+        return new CompiledExpression(CompiledExpression::LNUMBER, $scalar->value);
     }
 
     public function getDNumber(Node\Scalar\DNumber $scalar)
     {
-        return $scalar->value;
+        return new CompiledExpression(CompiledExpression::DNUMBER, $scalar->value);
     }
 
     public function getString(Node\Scalar\String_ $scalar)
     {
-        return $scalar->value;
+        return new CompiledExpression(CompiledExpression::STRING, $scalar->value);
     }
 
     public function constFetch(Node\Expr\ConstFetch $expr)
     {
         if ($expr->name instanceof Node\Name) {
             if ($expr->name->parts[0] === "true") {
-                return true;
+                return new CompiledExpression(CompiledExpression::BOOLEAN, true);
             }
 
             if ($expr->name->parts[0] === "false") {
-                return false;
+                return new CompiledExpression(CompiledExpression::LNUMBER, false);
             }
         }
 
+        return false;
         var_dump('Unknown const fetch');
     }
 
