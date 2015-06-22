@@ -4,17 +4,17 @@ namespace Simple\CodeSmell;
 
 class Cast
 {
-    public function testCostBooleanTrue()
+    public function testCastBooleanTrue()
     {
         return (bool) true;
     }
 
-    public function testCostBooleanFalse()
+    public function testCastBooleanFalse()
     {
         return (bool) false;
     }
 
-    public function testAssignBooleanFalse()
+    public function testAssignCastBooleanFalse()
     {
         $a = 123456789;
         $a = (bool) false;
