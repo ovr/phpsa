@@ -342,14 +342,16 @@ class Expression
                         return new CompiledExpression(CompiledExpression::DNUMBER, $left->getValue() * $right->getValue());
                         break;
                     default:
-                        //
+                        //@todo implement it
                         break;
                 }
                 break;
             default:
-                //
+                //@todo implement it
                 break;
         }
+
+        return new CompiledExpression(CompiledExpression::UNKNOWN);
     }
 
     protected function passBinaryOpPlus(Node\Expr\BinaryOp\Plus $expr)
