@@ -52,7 +52,7 @@ class CheckCommand extends Command
             )
         ));
 
-        
+
         if (extension_loaded('xdebug')) {
             $output->writeln('<error>It is highly recommended to disable the XDebug extension before invoking this command.</error>');
         }
@@ -65,9 +65,13 @@ class CheckCommand extends Command
 
         if (is_dir($path)) {
             $it = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($path, FilesystemIterator::SKIP_DOTS));
-            $it = new CallbackFilterIterator($it, function (SplFileInfo $file) {
-                return $file->getExtension() == 'php';
-            });
+
+            /**
+             * @todo Uncomment after PHP >=5.4
+             */
+//            $it = new CallbackFilterIterator($it, function (SplFileInfo $file) {
+//                return $file->getExtension() == 'php';
+//            });
 
             $output->writeln('Scanning directory <info>' . $path . '</info>');
 
@@ -75,6 +79,10 @@ class CheckCommand extends Command
 
             /** @var SplFileInfo $file */
             foreach ($it as $file) {
+                if ($file->getExtension() != 'php') {
+                    continue;
+                }
+
                 $count++;
             }
 
@@ -88,6 +96,10 @@ class CheckCommand extends Command
 
             /** @var SplFileInfo $file */
             foreach ($it as $file) {
+                if ($file->getExtension() != 'php') {
+                    continue;
+                }
+                
                 $this->parserFile($file->getPathname(), $parser, $context);
             }
         } elseif (is_file($path)) {
