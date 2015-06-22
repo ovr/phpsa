@@ -121,6 +121,18 @@ class CheckCommand extends Command
         }
 
         $output->writeln('');
+
+
+        $output->writeln('Memory usage: ' . $this->getMemoryUsage(false) . ' (peak: ' . $this->getMemoryUsage(true) . ') MB');
+    }
+
+    /**
+     * @param $type
+     * @return float
+     */
+    protected function getMemoryUsage($type)
+    {
+        return round(memory_get_usage($type) / 1024 / 1024, 2);
     }
 
     /**
