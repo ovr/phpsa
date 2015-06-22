@@ -84,7 +84,7 @@ $ curl -sS https://getcomposer.org/installer | php
 
 ```sh
 $ ./bin/phpsa
-PHP Static Analyzer version 0.0.1-dev #489272e
+PHP Static Analyzer version 0.1-dev #fbdf4d4
 
 Usage:
   command [options] [arguments]
@@ -102,7 +102,6 @@ Available commands:
   check  SPA
   help   Displays help for a command
   list   Lists commands
-
 ```
 
 Example output:
@@ -110,32 +109,71 @@ Example output:
 ```sh
 $ ./bin/phpsa check ./tests/
 
-Notice:  Static method b() is not exists on self scope in ./tests/simple/undefined-scall/1.php on 7 [undefined-scall]
-
-	 return self::b(); 
-
-Notice:  Static method a() is not exists on self scope in ./tests/simple/undefined-scall/1.php on 12 [undefined-scall]
-
-	 return self::a(); 
-
-Notice:  Method b() is not exists on this scope in ./tests/simple/undefined-mcall/1.php on 7 [undefined-mcall]
-
-	 return $this->b(); 
-
-Notice:  Property a is not exists on this scope in ./tests/simple/undefined-property/1.php on 9 [undefined-property]
-
-	 return $this->a; 
-
-Notice:  Function undefinedFunction() is not exists in ./tests/simple/undefined-fcall/1.php on 7 [undefined-fcall]
-
-	 undefinedFunction(); 
-
-Notice:  Constant BBBB is not exists on self scope in ./tests/simple/undefined-const/1.php on 14 [undefined-const]
-
-	 return self::BBBB; 
+It is highly recommended to disable the XDebug extension before invoking this command.
+Scanning directory ./tests/simple
+found 10 files
 
 Syntax error:  Syntax error, unexpected '}' on line 8 in ./tests/simple/syntax-error/1.php 
 
+Notice:  Unused variable $a in method test() in ./tests/simple/unused-variable/1.php  [unused-variable]
+
+Notice:  Property a is not exists on this scope in ./tests/simple/undefined/Property.php on 9 [undefined-property]
+
+	 return $this->a; 
+
+Notice:  Constant BBBB is not exists on self scope in ./tests/simple/undefined/Const.php on 14 [undefined-const]
+
+	 return self::BBBB; 
+
+Notice:  Method b() is not exists on this scope in ./tests/simple/undefined/MCall.php on 7 [undefined-mcall]
+
+	 return $this->b(); 
+
+Notice:  You trying to use undefined variable $unusedVariable in ./tests/simple/undefined/MCall.php on 23 [undefined-variable]
+
+	 return $unusedVariable->b(); 
+
+Notice:  Function undefinedFunction() is not exists in ./tests/simple/undefined/FCall.php on 7 [undefined-fcall]
+
+	 undefinedFunction(); 
+
+Notice:  You trying to use undefined variable $b in ./tests/simple/undefined/LocalVariable.php on 8 [undefined-variable]
+
+	 return $a + $b; 
+
+Notice:  Static method b() is not exists on self scope in ./tests/simple/undefined/SCall.php on 7 [undefined-scall]
+
+	 return self::b(); 
+
+Notice:  You trying to use division on {expr}/0 in ./tests/simple/devision-by-zero/1.php on 7 [division-zero]
+
+	 return 1000 / 0; 
+
+Notice:  You trying to use division on {expr}/0 in ./tests/simple/devision-by-zero/1.php on 12 [division-zero]
+
+	 return 1000 / (100-100); 
+
+Notice:  You trying to use division on {expr}/0 in ./tests/simple/devision-by-zero/1.php on 17 [division-zero]
+
+	 return 1000 / ((50+50)-100); 
+
+Notice:  You trying to use division on {expr}/0 in ./tests/simple/devision-by-zero/1.php on 22 [division-zero]
+
+	 return 1000 / ((5*5)-25); 
+
+Notice:  You trying to use division on {expr}/0 in ./tests/simple/devision-by-zero/1.php on 27 [division-zero]
+
+	 return 1000 / ((-25) + (5*5)); 
+
+Notice:  You trying to use division on {expr}/0 in ./tests/simple/devision-by-zero/1.php on 32 [division-zero]
+
+	 return 1000 / ((-4) + (5^1)); 
+
+Notice:  You trying to use division from 0/{expr} in ./tests/simple/devision-by-zero/1.php on 37 [division-zero]
+
+	 return 0 / 1000; 
+
+Memory usage: 4.97 (peak: 5.25) MB
 ```
 
 
