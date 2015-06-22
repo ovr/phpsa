@@ -67,7 +67,7 @@ class Expression
                 return $this->constFetch($expr);
             default:
                 var_dump('Unknown expression: ' . get_class($expr));
-                return -1;
+                return new CompiledExpression(-1);
                 break;
         }
     }
