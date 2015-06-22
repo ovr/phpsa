@@ -66,6 +66,23 @@ class CheckCommand extends Command
                 return $file->getExtension() == 'php';
             });
 
+            $output->writeln('Scanning directory <info>' . $path . '</info>');
+
+            $count = 0;
+
+            /** @var SplFileInfo $file */
+            foreach ($it as $file) {
+                $count++;
+            }
+
+            $output->writeln(sprintf('found <info>%d files</info>', $count));
+
+            if ($count > 100) {
+                $output->writeln('<comment>Caution: You are trying to scan a lot of files; this might be slow. For bigger libraries, consider setting up a dedicated platform or using owl-ci.dmtry.me.</comment>');
+            }
+
+            $output->writeln('');
+
             /** @var SplFileInfo $file */
             foreach ($it as $file) {
                 $this->parserFile($file->getPathname(), $parser, $context);
