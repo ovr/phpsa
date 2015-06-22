@@ -275,21 +275,30 @@ class Expression
 
     protected function passSymbol(Node\Expr\Assign $expr)
     {
-        $name = $expr->var->name;
-
-        $compiledExpression = new Expression($expr->expr, $this->context);
-        $result = $compiledExpression->compile($expr->expr);
-
-
-        $symbol = $this->context->getSymbol($name);
-        if ($symbol) {
-            $symbol->incSets();
-            $symbol->modify($result->getType(), $result->getValue());
-        } else {
-            $this->context->addVariable(new Variable($name, $result->getValue(), $result->getType()));
+        if ($expr->var instanceof \PhpParser\Node\Expr\List_) {
+            return new CompiledExpression(CompiledExpression::UNKNOWN);
         }
 
-        return $compiledExpression;
+        if ($expr->var instanceof Node\Name) {
+            $name = $expr->var->name;
+
+            $compiledExpression = new Expression($expr->expr, $this->context);
+            $result = $compiledExpression->compile($expr->expr);
+
+
+            $symbol = $this->context->getSymbol($name);
+            if ($symbol) {
+                $symbol->incSets();
+                $symbol->modify($result->getType(), $result->getValue());
+            } else {
+                $this->context->addVariable(new Variable($name, $result->getValue(), $result->getType()));
+            }
+
+            return $compiledExpression;
+        }
+
+        $this->context->debug('Unknown how to pass symbol');
+        return new CompiledExpression(CompiledExpression::UNKNOWN);
     }
 
     protected function passExprVariable(Node\Expr\Variable $expr)
