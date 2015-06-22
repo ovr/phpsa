@@ -313,7 +313,23 @@ class Expression
         $expression = new Expression($expr->right, $this->context);
         $right = $expression->compile($expr->right);
 
-        return new CompiledExpression(CompiledExpression::UNKNOWN);
+        switch ($left->getType()) {
+            case CompiledExpression::LNUMBER:
+            case CompiledExpression::DNUMBER:
+                switch ($right->getType()) {
+                    case CompiledExpression::LNUMBER:
+                    case CompiledExpression::DNUMBER:
+                        return new CompiledExpression(CompiledExpression::DNUMBER, $left->getValue() * $right->getValue());
+                        break;
+                    default:
+                        //
+                        break;
+                }
+                break;
+            default:
+                //
+                break;
+        }
     }
 
     protected function passBinaryOpPlus(Node\Expr\BinaryOp\Plus $expr)
