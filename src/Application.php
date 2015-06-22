@@ -11,7 +11,7 @@ class Application extends \Symfony\Component\Console\Application
 {
     protected $finder;
 
-    const VERSION = '0.0.1-dev';
+    const VERSION = '0.1-dev';
 
     public function __construct()
     {
