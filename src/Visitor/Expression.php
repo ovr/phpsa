@@ -98,7 +98,7 @@ class Expression
                     );
                 }
 
-                return true;
+                return new CompiledExpression(CompiledExpression::UNKNOWN);
             }
         }
 
@@ -106,7 +106,7 @@ class Expression
         $compiledExpression = $expression->compile($expr->var);
 
         var_dump('Unknown method call');
-        return false;
+        return new CompiledExpression(CompiledExpression::UNKNOWN);
     }
 
     /**
@@ -193,10 +193,10 @@ class Expression
                 $expr
             );
 
-            return false;
+            return new CompiledExpression(CompiledExpression::UNKNOWN);
         }
 
-        return true;
+        return new CompiledExpression(CompiledExpression::UNKNOWN);
     }
 
     protected function passStaticFunctionCall(Node\Expr\StaticCall $expr)
@@ -225,32 +225,31 @@ class Expression
                     $expr
                 );
 
-                return false;
+                return new CompiledExpression(CompiledExpression::UNKNOWN);
             }
 
-            return true;
+            return new CompiledExpression(CompiledExpression::UNKNOWN);
         }
 
         var_dump('Unknown static function call');
-        return false;
+        return new CompiledExpression(CompiledExpression::UNKNOWN);
     }
 
     protected function passPropertyFetch(Node\Expr\PropertyFetch $expr)
     {
         if ($expr->var->name == 'this') {
             if (!$this->context->scope->hasProperty($expr->name)) {
-                return $this->context->notice(
+                $this->context->notice(
                     'undefined-property',
                     sprintf('Property %s is not exists on %s scope', $expr->name, $expr->var->name),
                     $expr
                 );
             }
-
-            return true;
+            
         }
 
         var_dump('Unknown property fetch');
-        return false;
+        return new CompiledExpression(CompiledExpression::UNKNOWN);
     }
 
     protected function passConstFetch(Node\Expr\ClassConstFetch $expr)
@@ -266,12 +265,12 @@ class Expression
                     );
                 }
 
-                return true;
+                return new CompiledExpression(CompiledExpression::UNKNOWN);
             }
         }
 
         var_dump('Unknown const fetch');
-        return false;
+        return new CompiledExpression(CompiledExpression::UNKNOWN);
     }
 
     protected function passSymbol(Node\Expr\Assign $expr)
@@ -280,6 +279,7 @@ class Expression
 
         $compiledExpression = new Expression($expr->expr, $this->context);
         $result = $compiledExpression->compile($expr->expr);
+
 
         $symbol = $this->context->getSymbol($name);
         if ($symbol) {
