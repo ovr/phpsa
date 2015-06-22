@@ -166,4 +166,11 @@ class Context
     {
         $this->scope = $scope;
     }
+
+    public function debug($message)
+    {
+        if ($this->output->isDebug()) {
+            $this->output->writeln($message);
+        }
+    }
 }

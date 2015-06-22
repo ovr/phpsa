@@ -30,7 +30,7 @@ class Statement
                 $this->passReturn($stmt);
                 break;
             default:
-                var_dump('Unknown statement: ' . get_class($stmt));
+                $this->context->debug('Unknown statement: ' . get_class($stmt));
                 break;
         }
     }

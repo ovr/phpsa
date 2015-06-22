@@ -9,6 +9,7 @@ use PHPSA\CompiledExpression;
 use PHPSA\Context;
 use PhpParser\Node;
 use PHPSA\Variable;
+use Symfony\Component\Console\Output\OutputInterface;
 
 class Expression
 {
@@ -80,7 +81,7 @@ class Expression
             case 'PhpParser\Node\Expr\ConstFetch';
                 return $this->constFetch($expr);
             default:
-                var_dump('Unknown expression: ' . get_class($expr));
+                $this->context->debug('Unknown expression: ' . get_class($expr));
                 return new CompiledExpression(-1);
                 break;
         }
@@ -105,7 +106,7 @@ class Expression
         $expression = new Expression($expr->var, $this->context);
         $compiledExpression = $expression->compile($expr->var);
 
-        var_dump('Unknown method call');
+        $this->context->debug('Unknown method call');
         return new CompiledExpression(CompiledExpression::UNKNOWN);
     }
 
@@ -231,7 +232,7 @@ class Expression
             return new CompiledExpression(CompiledExpression::UNKNOWN);
         }
 
-        var_dump('Unknown static function call');
+        $this->context->debug('Unknown static function call');
         return new CompiledExpression(CompiledExpression::UNKNOWN);
     }
 
@@ -247,7 +248,7 @@ class Expression
             }
         }
 
-        var_dump('Unknown property fetch');
+        $this->context->debug('Unknown property fetch');
         return new CompiledExpression(CompiledExpression::UNKNOWN);
     }
 

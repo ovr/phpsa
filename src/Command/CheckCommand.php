@@ -94,7 +94,7 @@ class CheckCommand extends Command
                     continue;
                 }
 
-                var_dump($file->getPathname());
+                $context->debug($file->getPathname());
                 $count++;
             }
 
