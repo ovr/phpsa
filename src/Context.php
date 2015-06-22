@@ -25,11 +25,30 @@ class Context
      */
     public $output;
 
+    /**
+     * @var Variable[]
+     */
     protected $symbols = [];
 
+    /**
+     * @param $name
+     * @return Variable
+     */
     public function addSymbol($name)
     {
-        $this->symbols[$name] = true;
+        $variable = new Variable($name);
+        $this->symbols[$name] = $variable;
+
+        return $variable;
+    }
+
+    /**
+     * @param $name
+     * @return Variable|null
+     */
+    public function getSymbol($name)
+    {
+        return isset($this->symbols[$name]) ? $this->symbols[$name] : null;
     }
 
     public function notice($type, $message, \PhpParser\NodeAbstract $expr)

@@ -101,7 +101,19 @@ class Expression
 
     public function passSymbol(Node\Expr\Assign $expr)
     {
-        $this->context->addSymbol($expr->var->name);
+        $name = $expr->var->name;
+
+        $symbol = $this->context->getSymbol($name);
+        if ($symbol) {
+            $symbol->incSets();
+        } else {
+            if ($expr->expr instanceof Node\Scalar\LNumber) {
+                return $this->context->addSymbol($name, $expr->expr->value);
+            }
+
+            $this->context->addSymbol($name);
+        }
+
     }
 
     public function passBinaryOpDiv(Node\Expr\BinaryOp\Div $expr)
