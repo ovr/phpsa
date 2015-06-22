@@ -279,21 +279,21 @@ class Expression
             return new CompiledExpression(CompiledExpression::UNKNOWN);
         }
 
-        if ($expr->var instanceof Node\Name) {
+        if ($expr->var instanceof Node\Expr\Variable) {
             $name = $expr->var->name;
 
             $compiledExpression = new Expression($expr->expr, $this->context);
             $result = $compiledExpression->compile($expr->expr);
 
-
             $symbol = $this->context->getSymbol($name);
             if ($symbol) {
-                $symbol->incSets();
                 $symbol->modify($result->getType(), $result->getValue());
             } else {
-                $this->context->addVariable(new Variable($name, $result->getValue(), $result->getType()));
+                $symbol = new Variable($name, $result->getValue(), $result->getType());
+                $this->context->addVariable($symbol);
             }
 
+            $symbol->incSets();
             return $compiledExpression;
         }
 
@@ -306,7 +306,6 @@ class Expression
         $variable = $this->context->getSymbol($expr->name);
         if ($variable) {
             $variable->incGets();
-
             return new CompiledExpression($variable->getType(), $variable->getName());
         }
 

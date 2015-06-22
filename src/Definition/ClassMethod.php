@@ -60,9 +60,9 @@ class ClassMethod
 
         foreach ($this->ast as $st) {
             if ($st instanceof \PhpParser\Node\Stmt) {
-                $expr = new Visitor\Statement($st, clone $context);
+                $expr = new Visitor\Statement($st, $context);
             } else {
-                $expr = new Visitor\Expression($st, clone $context);
+                $expr = new Visitor\Expression($st, $context);
                 $expr->compile($st);
             }
         }
