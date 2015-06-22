@@ -112,7 +112,7 @@ class Expression
 
         switch ($compiledExpression->getType()) {
             case CompiledExpression::BOOLEAN:
-                //@todo CodeSmell
+                $this->context->notice('stupid-cast', "You are trying to cast 'boolean' to 'boolean'", $expr);
                 return $compiledExpression;
                 break;
             case CompiledExpression::DNUMBER:
