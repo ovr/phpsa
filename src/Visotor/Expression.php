@@ -167,6 +167,21 @@ class Expression
         return $scalar->value;
     }
 
+    public function constFetch(Node\Expr\ConstFetch $expr)
+    {
+        if ($expr->name instanceof Node\Name) {
+            if ($expr->name->parts[0] === "true") {
+                return true;
+            }
+
+            if ($expr->name->parts[0] === "false") {
+                return false;
+            }
+        }
+
+        var_dump('Unknown const fetch');
+    }
+
     public function __construct($expr, $context)
     {
         $this->context = $context;
@@ -207,6 +222,9 @@ class Expression
                 break;
             case 'PhpParser\Node\Scalar\String_';
                 $this->getString($expr);
+                break;
+            case 'PhpParser\Node\Expr\ConstFetch';
+                $this->constFetch($expr);
                 break;
             default:
                 var_dump(get_class($expr));
