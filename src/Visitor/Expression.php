@@ -239,7 +239,7 @@ class Expression
                 if ($left->isEquals(0)) {
                     $this->context->notice(
                         'division-zero',
-                        sprintf('You trying to use division from %s', $left->getValue()),
+                        sprintf('You trying to use division from %s/{expr}', $left->getValue()),
                         $expr
                     );
 
@@ -263,7 +263,7 @@ class Expression
                 if ($right->isEquals(0)) {
                     $this->context->notice(
                         'division-zero',
-                        sprintf('You trying to use division on %s', $right->getValue()),
+                        sprintf('You trying to use division on {expr}/%s', $right->getValue()),
                         $expr
                     );
 
