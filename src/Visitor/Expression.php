@@ -81,6 +81,8 @@ class Expression
                     $expr
                 );
             }
+
+            return true;
         }
 
         var_dump('Unknown property fetch');
