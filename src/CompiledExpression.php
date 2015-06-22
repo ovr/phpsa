@@ -19,6 +19,10 @@ class CompiledExpression
 
     const ARR = 5;
 
+    const OBJECT = 6;
+
+    const RESOURCE = 7;
+
     protected $type = self::UNKNOWN;
 
     protected $value;

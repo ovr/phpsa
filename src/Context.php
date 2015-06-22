@@ -92,7 +92,7 @@ class Context
     public function getSymbol($name)
     {
         if ($name == 'this') {
-            return new Variable($name, null, CompiledExpression::UNKNOWN);
+            return new Variable($name, null, CompiledExpression::OBJECT);
         }
 
         return isset($this->symbols[$name]) ? $this->symbols[$name] : null;
