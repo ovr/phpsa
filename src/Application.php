@@ -5,6 +5,8 @@
 
 namespace PHPSA;
 
+use PHPSA\Command\CheckCommand;
+
 class Application extends \Symfony\Component\Console\Application
 {
     protected $finder;
@@ -15,7 +17,7 @@ class Application extends \Symfony\Component\Console\Application
     {
         parent::__construct('PHP Static Analyzer', self::VERSION . ' #' . $this->getCVVersion());
 
-        $this->add(new \PHPSA\Command\CheckCommand());
+        $this->add(new CheckCommand());
     }
 
     protected function getCVVersion()
