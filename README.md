@@ -1,5 +1,8 @@
 PHPSA - Static Analysis for PHP
 ===============================
+[![Latest Stable Version](https://poser.pugx.org/ovr/phpsa/v/stable.svg)](https://packagist.org/packages/ovr/phpsa)
+[![Build Status](https://travis-ci.org/ovr/phpsa.svg?branch=master)](https://travis-ci.org/ovr/phpsa)
+[![License](https://poser.pugx.org/ovr/phpsa/license.svg)](https://packagist.org/packages/ovr/phpsa)
 
 > Awesome tool for awesome PHP developers
 
