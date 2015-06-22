@@ -157,6 +157,11 @@ class Expression
         return $number->value;
     }
 
+    public function getDNumber(Node\Scalar\DNumber $number)
+    {
+        return $number->value;
+    }
+
     public function __construct($expr, $context)
     {
         $this->context = $context;
@@ -191,6 +196,9 @@ class Expression
                 break;
             case 'PhpParser\Node\Scalar\LNumber';
                 $this->getLNumber($expr);
+                break;
+            case 'PhpParser\Node\Scalar\DNumber';
+                $this->getDNumber($expr);
                 break;
             default:
                 var_dump(get_class($expr));
