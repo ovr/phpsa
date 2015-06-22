@@ -31,4 +31,14 @@ class Cast
     {
         return (int) 123456789.5;
     }
+
+    public function testCastFloatFromInt()
+    {
+        return (float) 123456789;
+    }
+
+    public function testCastFloatFromFloat()
+    {
+        return (float) 123456789.5;
+    }
 }

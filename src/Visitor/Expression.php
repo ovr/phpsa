@@ -69,6 +69,8 @@ class Expression
                 return $this->passCastBoolean($expr);
             case 'PhpParser\Node\Expr\Cast\Int_';
                 return $this->passCastInt($expr);
+            case 'PhpParser\Node\Expr\Cast\Double';
+                return $this->passCastFloat($expr);
             case 'PhpParser\Node\Expr\ConstFetch';
                 return $this->constFetch($expr);
             default:
@@ -145,6 +147,31 @@ class Expression
             case CompiledExpression::BOOLEAN:
             case CompiledExpression::DNUMBER:
                 return new CompiledExpression(CompiledExpression::LNUMBER, (int) $compiledExpression->getValue());
+                break;
+        }
+
+        return new CompiledExpression(CompiledExpression::UNKNOWN);
+    }
+
+    /**
+     * (float) {$expr}
+     *
+     * @param Node\Expr\Cast\Double $expr
+     * @return CompiledExpression
+     */
+    protected function passCastFloat(Node\Expr\Cast\Double $expr)
+    {
+        $expression = new Expression($expr->expr, $this->context);
+        $compiledExpression = $expression->compile($expr->expr);
+
+        switch ($compiledExpression->getType()) {
+            case CompiledExpression::DNUMBER:
+                $this->context->notice('stupid-cast', "You are trying to cast 'float' to 'float'", $expr);
+                return $compiledExpression;
+                break;
+            case CompiledExpression::BOOLEAN:
+            case CompiledExpression::LNUMBER:
+                return new CompiledExpression(CompiledExpression::DNUMBER, (float) $compiledExpression->getValue());
                 break;
         }
 
