@@ -61,11 +61,9 @@ class CheckCommand extends Command
         }
 
         $parser = new Parser(new \PhpParser\Lexer\Emulative);
+        $context = new Context($output, $this->getApplication());
+
         $path = $input->getArgument('path');
-
-        $context = new Context();
-        $context->output = $output;
-
         if (is_dir($path)) {
             $it = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($path, FilesystemIterator::SKIP_DOTS));
 
@@ -119,8 +117,6 @@ class CheckCommand extends Command
          * @var $class ClassDefinition
          */
         foreach ($this->classes as $class) {
-            $context->scope = $class;
-
             $class->compile($context);
         }
 
@@ -170,7 +166,6 @@ class CheckCommand extends Command
                 }
             }
 
-            $context->application = $this->getApplication();
             $context->clear();
         } catch (\PhpParser\Error $e) {
             $context->sytaxError($e, $filepath);

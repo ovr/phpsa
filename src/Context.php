@@ -31,6 +31,18 @@ class Context
     protected $symbols = array();
 
     /**
+     * Construct our Context with all needed information
+     *
+     * @param OutputInterface $output
+     * @param Application $application
+     */
+    public function __construct(OutputInterface $output, Application $application)
+    {
+        $this->output = $output;
+        $this->application = $application;
+    }
+
+    /**
      * @param $name
      * @return Variable
      */
@@ -135,5 +147,13 @@ class Context
     public function getSymbols()
     {
         return $this->symbols;
+    }
+
+    /**
+     * @param ClassDefinition $scope
+     */
+    public function setScope(ClassDefinition $scope)
+    {
+        $this->scope = $scope;
     }
 }

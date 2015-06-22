@@ -72,6 +72,8 @@ class ClassDefinition
      */
     public function compile(Context $context)
     {
+        $context->setScope($this);
+
         foreach ($this->methods as $method) {
             $context->clearSymbols();
             $method->compile($context);
