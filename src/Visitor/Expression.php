@@ -191,23 +191,29 @@ class Expression
 
         $symbol = $this->context->getSymbol($name);
         if ($symbol) {
-            return $symbol->incSets();
+            $symbol->incSets();
+
+            return new CompiledExpression($symbol->getType(), $symbol->getValue());
         }
 
         $compiledExpression = new Expression($expr->expr, $this->context);
         $result = $compiledExpression->compile($expr->expr);
         if (is_object($result) && $result instanceof CompiledExpression) {
             $this->context->addVariable(new Variable($name, $result->getValue(), $result->getType()));
+            return new CompiledExpression($result->getType(), $result->getValue());
         }
 
-        return $this->context->addSymbol($name);
+        $this->context->addSymbol($name);
+        return new CompiledExpression(CompiledExpression::UNKNOWN);
     }
 
     protected function passExprVariable(Node\Expr\Variable $expr)
     {
         $variable = $this->context->getSymbol($expr->name);
         if ($variable) {
-            return $variable->incGets();
+            $variable->incGets();
+
+            return new CompiledExpression($variable->getType(), $variable->getName());
         }
 
         $this->context->notice(
@@ -215,6 +221,8 @@ class Expression
             sprintf('You trying to use undefined variable $%s', $expr->name),
             $expr
         );
+
+        return new CompiledExpression(CompiledExpression::UNKNOWN);
     }
 
     protected function passBinaryOpDiv(Node\Expr\BinaryOp\Div $expr)
