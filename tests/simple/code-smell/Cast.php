@@ -13,4 +13,12 @@ class Cast
     {
         return (bool) false;
     }
+
+    public function testAssignBooleanFalse()
+    {
+        $a = 123456789;
+        $a = (bool) false;
+
+        return $a;
+    }
 }

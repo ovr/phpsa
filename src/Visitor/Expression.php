@@ -212,22 +212,18 @@ class Expression
     {
         $name = $expr->var->name;
 
+        $compiledExpression = new Expression($expr->expr, $this->context);
+        $result = $compiledExpression->compile($expr->expr);
+
         $symbol = $this->context->getSymbol($name);
         if ($symbol) {
             $symbol->incSets();
-
-            return new CompiledExpression($symbol->getType(), $symbol->getValue());
-        }
-
-        $compiledExpression = new Expression($expr->expr, $this->context);
-        $result = $compiledExpression->compile($expr->expr);
-        if (is_object($result) && $result instanceof CompiledExpression) {
+            $symbol->modify($result->getType(), $result->getValue());
+        } else {
             $this->context->addVariable(new Variable($name, $result->getValue(), $result->getType()));
-            return new CompiledExpression($result->getType(), $result->getValue());
         }
 
-        $this->context->addSymbol($name);
-        return new CompiledExpression(CompiledExpression::UNKNOWN);
+        return $compiledExpression;
     }
 
     protected function passExprVariable(Node\Expr\Variable $expr)

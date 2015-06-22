@@ -87,4 +87,15 @@ class Variable
     {
         return $this->value;
     }
+
+    public function modifyType($type)
+    {
+        $this->type = $type;
+    }
+
+    public function modify($type, $value)
+    {
+        $this->type = $type;
+        $this->value = $value;
+    }
 }
