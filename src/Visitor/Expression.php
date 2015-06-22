@@ -27,8 +27,13 @@ class Expression
                         $expr
                     );
                 }
+
+                return true;
             }
         }
+
+        var_dump('Unknown method call');
+        return false;
     }
 
     protected function passFunctionCall(Node\Expr\FuncCall $expr)
@@ -39,7 +44,11 @@ class Expression
                 sprintf('Function %s() is not exists', $expr->name->parts[0]),
                 $expr
             );
+
+            return false;
         }
+
+        return true;
     }
 
     protected function passStaticFunctionCall(Node\Expr\StaticCall $expr)
@@ -67,8 +76,15 @@ class Expression
                     sprintf('Static method %s() is not exists on %s scope', $name, $scope),
                     $expr
                 );
+
+                return false;
             }
+
+            return true;
         }
+
+        var_dump('Unknown static function call');
+        return false;
     }
 
     protected function passPropertyFetch(Node\Expr\PropertyFetch $expr)
@@ -86,6 +102,7 @@ class Expression
         }
 
         var_dump('Unknown property fetch');
+        return false;
     }
 
     protected function passConstFetch(Node\Expr\ClassConstFetch $expr)
@@ -106,6 +123,7 @@ class Expression
         }
 
         var_dump('Unknown const fetch');
+        return false;
     }
 
     public function passSymbol(Node\Expr\Assign $expr)
@@ -129,6 +147,8 @@ class Expression
         $result = $compiledExpression->compile($expr->expr);
 
         $this->context->addSymbol($name);
+
+        return true;
     }
 
     public function passExprVariable(Node\Expr\Variable $expr)
@@ -159,12 +179,16 @@ class Expression
 
         $left = (new Expression($expr->left, $this->context))->compile($expr->left);
         $right = (new Expression($expr->right, $this->context))->compile($expr->right);
+
+        return true;
     }
 
     public function passBinaryOpPlus(Node\Expr\BinaryOp\Plus $expr)
     {
         $left = (new Expression($expr->left, $this->context))->compile($expr->left);
         $right = (new Expression($expr->right, $this->context))->compile($expr->right);
+
+        return true;
     }
 
     public function getLNumber(Node\Scalar\LNumber $scalar)
@@ -206,46 +230,34 @@ class Expression
     {
         switch (get_class($expr)) {
             case 'PhpParser\Node\Expr\MethodCall';
-                $this->passMethodCall($expr);
-                break;
+                return $this->passMethodCall($expr);
             case 'PhpParser\Node\Expr\PropertyFetch';
-                $this->passPropertyFetch($expr);
-                break;
+                return $this->passPropertyFetch($expr);
             case 'PhpParser\Node\Expr\FuncCall';
-                $this->passFunctionCall($expr);
-                break;
+                return $this->passFunctionCall($expr);
             case 'PhpParser\Node\Expr\StaticCall';
-                $this->passStaticFunctionCall($expr);
-                break;
+                return $this->passStaticFunctionCall($expr);
             case 'PhpParser\Node\Expr\ClassConstFetch';
-                $this->passConstFetch($expr);
-                break;
+                return $this->passConstFetch($expr);
             case 'PhpParser\Node\Expr\Assign';
-                $this->passSymbol($expr);
-                break;
+                return $this->passSymbol($expr);
             case 'PhpParser\Node\Expr\Variable';
-                $this->passExprVariable($expr);
-                break;
+                return $this->passExprVariable($expr);
             case 'PhpParser\Node\Expr\BinaryOp\Div';
-                $this->passBinaryOpDiv($expr);
-                break;
+                return $this->passBinaryOpDiv($expr);
             case 'PhpParser\Node\Expr\BinaryOp\Plus';
-                $this->passBinaryOpPlus($expr);
-                break;
+                return $this->passBinaryOpPlus($expr);
             case 'PhpParser\Node\Scalar\LNumber';
-                $this->getLNumber($expr);
-                break;
+                return $this->getLNumber($expr);
             case 'PhpParser\Node\Scalar\DNumber';
-                $this->getDNumber($expr);
-                break;
+                return $this->getDNumber($expr);
             case 'PhpParser\Node\Scalar\String_';
-                $this->getString($expr);
-                break;
+                return $this->getString($expr);
             case 'PhpParser\Node\Expr\ConstFetch';
-                $this->constFetch($expr);
-                break;
+                return $this->constFetch($expr);
             default:
                 var_dump(get_class($expr));
+                return -1;
                 break;
         }
     }
