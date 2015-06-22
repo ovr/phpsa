@@ -5,10 +5,13 @@
 
 namespace PHPSA\Command;
 
+use FilesystemIterator;
 use PHPSA\Definition\ClassDefinition;
 use PHPSA\Definition\ClassMethod;
 use PhpParser\Node;
 
+use RecursiveDirectoryIterator;
+use SplFileInfo;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -25,6 +28,11 @@ class CheckCommand extends Command
                 new InputArgument('path', InputArgument::OPTIONAL, 'Path to check files', '.'),
             ));
     }
+
+    /**
+     * @var ClassDefinition[]
+     */
+    protected $classes = array();
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
@@ -43,75 +51,77 @@ class CheckCommand extends Command
 
         $parser = new \PhpParser\Parser(new \PhpParser\Lexer\Emulative);
 
-        $inputDir = $input->getArgument('path');
+        $path = $input->getArgument('path');
 
         $context = new \PHPSA\Context();
         $context->output = $output;
 
-        $it = new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($inputDir, \FilesystemIterator::SKIP_DOTS));
-        $it = new \CallbackFilterIterator($it, function (\SplFileInfo $file) {
-            return $file->getExtension() == 'php';
-        });
+        if (is_dir($path)) {
+            $it = new \RecursiveIteratorIterator(new RecursiveDirectoryIterator($path, FilesystemIterator::SKIP_DOTS));
+            $it = new \CallbackFilterIterator($it, function (SplFileInfo $file) {
+                return $file->getExtension() == 'php';
+            });
 
-        /** @var \SplFileInfo $file */
-        foreach ($it as $file) {
-            $filepath = $file->getPathname();
-
-            try {
-                $code = file_get_contents($filepath);
-                $stmts = $parser->parse($code);
-
-
-                /**
-                 * Step 1 Precompile
-                 */
-
-                /**
-                 * @var ClassDefinition[]
-                 */
-                $classes = [];
-
-                foreach ($stmts as $st) {
-                    if ($st instanceof Node\Stmt\Class_) {
-                        $classDefintion = new ClassDefinition($st->name);
-                        $classDefintion->setFilepath($filepath);
-
-                        foreach ($st->stmts as $st) {
-                            if ($st instanceof Node\Stmt\ClassMethod) {
-                                $method = new ClassMethod($st->name, $st->stmts, $st->type);
-
-                                $classDefintion->addMethod($method);
-                            } elseif ($st instanceof Node\Stmt\Property) {
-                                $classDefintion->addProperty($st);
-                            } elseif ($st instanceof Node\Stmt\ClassConst) {
-                                $classDefintion->addConst($st);
-                            }
-                        }
-
-                        $classes[] = $classDefintion;
-                    }
-                }
-
-                $context->application = $this->getApplication();
-                $context->clear();
-
-                /**
-                 * Step 2 Recursive check ...
-                 */
-
-                /**
-                 * @var $class ClassDefinition
-                 */
-                foreach ($classes as $class) {
-                    $context->scope = $class;
-
-                    $class->compile($context);
-                }
-            } catch (\PhpParser\Error $e) {
-                $context->sytaxError($e, $filepath);
+            /** @var SplFileInfo $file */
+            foreach ($it as $file) {
+                $this->parserFile($file->getPathname(), $parser, $context);
             }
+        } elseif (is_file($path)) {
+            $this->parserFile($path, $parser, $context);
+        }
+
+
+        /**
+         * Step 2 Recursive check ...
+         */
+
+        /**
+         * @var $class ClassDefinition
+         */
+        foreach ($this->classes as $class) {
+            $context->scope = $class;
+
+            $class->compile($context);
         }
 
         $output->writeln('');
+    }
+
+    protected function parserFile($filepath, $parser, $context)
+    {
+        try {
+            $code = file_get_contents($filepath);
+            $stmts = $parser->parse($code);
+
+            /**
+             * Step 1 Precompile
+             */
+
+            foreach ($stmts as $st) {
+                if ($st instanceof Node\Stmt\Class_) {
+                    $classDefintion = new ClassDefinition($st->name);
+                    $classDefintion->setFilepath($filepath);
+
+                    foreach ($st->stmts as $st) {
+                        if ($st instanceof Node\Stmt\ClassMethod) {
+                            $method = new ClassMethod($st->name, $st->stmts, $st->type);
+
+                            $classDefintion->addMethod($method);
+                        } elseif ($st instanceof Node\Stmt\Property) {
+                            $classDefintion->addProperty($st);
+                        } elseif ($st instanceof Node\Stmt\ClassConst) {
+                            $classDefintion->addConst($st);
+                        }
+                    }
+
+                    $this->classes[] = $classDefintion;
+                }
+            }
+
+            $context->application = $this->getApplication();
+            $context->clear();
+        } catch (\PhpParser\Error $e) {
+            $context->sytaxError($e, $filepath);
+        }
     }
 }
