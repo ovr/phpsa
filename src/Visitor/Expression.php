@@ -502,7 +502,13 @@ class Expression
             }
         }
 
-        var_dump('Unknown const fetch');
-        return new CompiledExpression(CompiledExpression::UNKNOWN);
+        /**
+         * @todo Implement check
+         */
+
+        $expression = new Expression($expr->name, $this->context);
+        $compiledExpr = $expression->compile($expr->name);
+
+        return $compiledExpr;
     }
 }
