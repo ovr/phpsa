@@ -227,6 +227,11 @@ class Expression
             case CompiledExpression::DNUMBER:
             case CompiledExpression::UNKNOWN:
                 if ($left->isEquals(0)) {
+                    /**
+                     * Micro optimization -> 0/{expr} -> 0
+                     */
+                    return new CompiledExpression(CompiledExpression::LNUMBER, 0);
+
                     $this->context->notice(
                         'division-zero',
                         sprintf('You trying to use division from %s', $left->getValue()),
@@ -251,6 +256,26 @@ class Expression
                         sprintf('You trying to use division on %s', $right->getValue()),
                         $expr
                     );
+
+                    return new CompiledExpression(CompiledExpression::UNKNOWN);
+                }
+                break;
+            default:
+                //
+                break;
+        }
+
+        switch ($left->getType()) {
+            case CompiledExpression::LNUMBER:
+            case CompiledExpression::DNUMBER:
+                switch ($right->getType()) {
+                    case CompiledExpression::LNUMBER:
+                    case CompiledExpression::DNUMBER:
+                        return new CompiledExpression(CompiledExpression::DNUMBER, $left->getValue() / $right->getValue());
+                        break;
+                    default:
+                        //
+                        break;
                 }
                 break;
             default:
