@@ -15,7 +15,9 @@ class CompiledExpression
 
     const STRING = 3;
 
-    const BOOLEAN = 3;
+    const BOOLEAN = 4;
+
+    const ARR = 5;
 
     protected $type = self::UNKNOWN;
 

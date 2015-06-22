@@ -6,11 +6,11 @@ class Test
 
   public function a()
   {
-    return $this->a;
+      return $this->a;
   }
 
   public function b()
   {
-    return $this->b;
+      return $this->b;
   }
 }
