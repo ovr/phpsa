@@ -3,7 +3,7 @@
  * @author Patsura Dmitry https://github.com/ovr <talk@dmtry.me>
  */
 
-namespace PHPSA\Visotor;
+namespace PHPSA\Visitor;
 
 use PHPSA\Context;
 use PhpParser\Node;

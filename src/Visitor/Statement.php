@@ -3,7 +3,7 @@
  * @author Patsura Dmitry https://github.com/ovr <talk@dmtry.me>
  */
 
-namespace PHPSA\Visotor;
+namespace PHPSA\Visitor;
 
 class Statement
 {
@@ -11,7 +11,6 @@ class Statement
     {
         $expr = new Expression($st->expr, $context);
     }
-
 
     public function __construct(\PhpParser\Node\Stmt $st, $context)
     {

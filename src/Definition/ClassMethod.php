@@ -7,6 +7,7 @@ namespace PHPSA\Definition;
 
 use PhpParser\Node\Stmt\Class_;
 use PHPSA\Context;
+use PHPSA\Visitor;
 
 class ClassMethod
 {
@@ -41,9 +42,9 @@ class ClassMethod
 
         foreach ($this->ast as $st) {
             if ($st instanceof \PhpParser\Node\Stmt) {
-                $expr = new \PHPSA\Visotor\Statement($st, $context);
+                $expr = new Visitor\Statement($st, $context);
             } else {
-                $expr = new \PHPSA\Visotor\Expression($st, $context);
+                $expr = new Visitor\Expression($st, $context);
             }
         }
     }
