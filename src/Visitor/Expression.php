@@ -117,7 +117,7 @@ class Expression
                 break;
             case CompiledExpression::DNUMBER:
             case CompiledExpression::LNUMBER:
-                return new CompiledExpression(CompiledExpression::BOOLEAN, boolval($compiledExpression->getValue()));
+                return new CompiledExpression(CompiledExpression::BOOLEAN, (bool) $compiledExpression->getValue());
                 break;
         }
 
