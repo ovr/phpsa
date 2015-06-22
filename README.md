@@ -44,7 +44,7 @@ What is needed or planned as future.
 
 #### Probable bugs
 
-- [ ] Division by zero
+- [X] Division by zero
 - [ ] Missing 'break' statement
 - [ ] Void function result used
 

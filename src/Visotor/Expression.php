@@ -104,6 +104,19 @@ class Expression
         $this->context->addSymbol($expr->var->name);
     }
 
+    public function passBinaryOpDiv(Node\Expr\BinaryOp\Div $expr)
+    {
+        if ($expr->right instanceof Node\Scalar\LNumber) {
+            if ($expr->right->value == 0) {
+                $this->context->notice(
+                    'division-zero',
+                    sprintf('You trying to use division on %s', $expr->right->value),
+                    $expr
+                );
+            }
+        }
+    }
+
     public function __construct($expr, $context)
     {
         $this->context = $context;
@@ -126,6 +139,9 @@ class Expression
                 break;
             case 'PhpParser\Node\Expr\Assign';
                 $this->passSymbol($expr);
+                break;
+            case 'PhpParser\Node\Expr\BinaryOp\Div';
+                $this->passBinaryOpDiv($expr);
                 break;
             default:
                 var_dump(get_class($expr));
