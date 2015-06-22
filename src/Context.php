@@ -82,12 +82,24 @@ class Context
         return isset($this->symbols[$name]) ? $this->symbols[$name] : null;
     }
 
+    /**
+     * @param $type
+     * @param $message
+     * @return bool
+     */
     public function warning($type, $message)
     {
         $this->output->writeln('<comment>Notice:  ' . $message . " in {$this->scope->getFilepath()}  [{$type}]</comment>");
         $this->output->writeln('');
+        return true;
     }
 
+    /**
+     * @param $type
+     * @param $message
+     * @param \PhpParser\NodeAbstract $expr
+     * @return bool
+     */
     public function notice($type, $message, \PhpParser\NodeAbstract $expr)
     {
         $code = file($this->scope->getFilepath());
@@ -100,14 +112,21 @@ class Context
         $this->output->writeln('');
 
         unset($code);
+        return true;
     }
 
+    /**
+     * @param \PhpParser\Error $e
+     * @param $filepath
+     * @return bool
+     */
     public function sytaxError(\PhpParser\Error $e, $filepath)
     {
         $code = file($e->getFile());
 
         $this->output->writeln('<error>Syntax error:  ' . $e->getMessage() . " in {$filepath} </error>");
         $this->output->writeln('');
+        return true;
     }
 
     /**
