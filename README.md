@@ -58,7 +58,27 @@ What is needed or planned as future.
 
 ## Installation
 
-@todo
+### Composer
+
+The recommended way to install phpsa is via `composer`.
+
+1. If you do not have composer installed, download the [`composer.phar`](https://getcomposer.org/composer.phar) executable or use the installer.
+
+``` sh
+$ curl -sS https://getcomposer.org/installer | php
+```
+
+2. Run `php composer.phar require ovr/phpsa` or add requirement in composer.json.
+
+``` json
+{
+  "require": {
+    "ovr/phpsa": "*"
+  }
+}
+```
+
+3. Run `php composer.phar update`
 
 ## How to use
 
