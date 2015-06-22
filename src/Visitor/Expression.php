@@ -17,11 +17,19 @@ class Expression
      */
     protected $context;
 
+    /**
+     * @param $expr
+     * @param Context $context
+     */
     public function __construct($expr, Context $context)
     {
         $this->context = $context;
     }
 
+    /**
+     * @param $expr
+     * @return bool|int|CompiledExpression
+     */
     public function compile($expr)
     {
         switch (get_class($expr)) {
@@ -58,7 +66,7 @@ class Expression
             case 'PhpParser\Node\Expr\ConstFetch';
                 return $this->constFetch($expr);
             default:
-                var_dump(get_class($expr));
+                var_dump('Unknown expression: ' . get_class($expr));
                 return -1;
                 break;
         }
