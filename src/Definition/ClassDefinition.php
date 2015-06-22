@@ -48,21 +48,33 @@ class ClassDefinition
      */
     protected $filepath;
 
+    /**
+     * @param $name
+     */
     public function __construct($name)
     {
         $this->name = $name;
     }
 
+    /**
+     * @param ClassMethod $methodDefintion
+     */
     public function addMethod(ClassMethod $methodDefintion)
     {
         $this->methods[$methodDefintion->getName()] = $methodDefintion;
     }
 
+    /**
+     * @param Node\Stmt\Property $property
+     */
     public function addProperty(Node\Stmt\Property $property)
     {
         $this->properties[$property->props[0]->name] = $property;
     }
 
+    /**
+     * @param Node\Stmt\ClassConst $const
+     */
     public function addConst(Node\Stmt\ClassConst $const)
     {
         $this->constants[$const->consts[0]->name] = $const;
@@ -70,6 +82,8 @@ class ClassDefinition
 
     /**
      * Compile methods to check it
+     *
+     * @param Context $context
      */
     public function compile(Context $context)
     {
