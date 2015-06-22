@@ -197,15 +197,37 @@ class Expression
         return new CompiledExpression(CompiledExpression::UNKNOWN);
     }
 
+    public function passBinaryOpXor(Node\Expr\BinaryOp\BitwiseXor $expr)
+    {
+        $expression = new Expression($expr->left, $this->context);
+        $left = $expression->compile($expr->left);
+
+        $expression = new Expression($expr->right, $this->context);
+        $right = $expression->compile($expr->right);
+
+        return new CompiledExpression(CompiledExpression::UNKNOWN);
+    }
+
+    public function passBinaryOpMul(Node\Expr\BinaryOp\Mul $expr)
+    {
+        $expression = new Expression($expr->left, $this->context);
+        $left = $expression->compile($expr->left);
+
+        $expression = new Expression($expr->right, $this->context);
+        $right = $expression->compile($expr->right);
+
+        return new CompiledExpression(CompiledExpression::UNKNOWN);
+    }
+
     public function passBinaryOpPlus(Node\Expr\BinaryOp\Plus $expr)
     {
         $expression = new Expression($expr->left, $this->context);
         $left = $expression->compile($expr->left);
-        
+
         $expression = new Expression($expr->right, $this->context);
         $right = $expression->compile($expr->right);
 
-        return true;
+        return new CompiledExpression(CompiledExpression::UNKNOWN);
     }
 
     /**
@@ -289,6 +311,10 @@ class Expression
                 return $this->passBinaryOpDiv($expr);
             case 'PhpParser\Node\Expr\BinaryOp\Plus';
                 return $this->passBinaryOpPlus($expr);
+            case 'PhpParser\Node\Expr\BinaryOp\BitwiseXor';
+                return $this->passBinaryOpXor($expr);
+            case 'PhpParser\Node\Expr\BinaryOp\Mul';
+                return $this->passBinaryOpMul($expr);
             case 'PhpParser\Node\Scalar\LNumber';
                 return $this->getLNumber($expr);
             case 'PhpParser\Node\Scalar\DNumber';
