@@ -152,14 +152,19 @@ class Expression
         new Expression($expr->right, $this->context);
     }
 
-    public function getLNumber(Node\Scalar\LNumber $number)
+    public function getLNumber(Node\Scalar\LNumber $scalar)
     {
-        return $number->value;
+        return $scalar->value;
     }
 
-    public function getDNumber(Node\Scalar\DNumber $number)
+    public function getDNumber(Node\Scalar\DNumber $scalar)
     {
-        return $number->value;
+        return $scalar->value;
+    }
+
+    public function getString(Node\Scalar\String_ $scalar)
+    {
+        return $scalar->value;
     }
 
     public function __construct($expr, $context)
@@ -199,6 +204,9 @@ class Expression
                 break;
             case 'PhpParser\Node\Scalar\DNumber';
                 $this->getDNumber($expr);
+                break;
+            case 'PhpParser\Node\Scalar\String_';
+                $this->getString($expr);
                 break;
             default:
                 var_dump(get_class($expr));
