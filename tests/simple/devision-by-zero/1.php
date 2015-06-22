@@ -27,6 +27,11 @@ class DevisionByZero
         return 1000 / ((-25) + (5*5));
     }
 
+    public function testDivisionOnZero6()
+    {
+        return 1000 / ((-4) + (5^1));
+    }
+
     public function testDivisionFromZero()
     {
         return 0 / 1000;
