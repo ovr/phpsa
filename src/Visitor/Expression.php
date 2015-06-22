@@ -100,6 +100,8 @@ class Expression
                         $expr
                     );
                 }
+
+                return true;
             }
         }
 
