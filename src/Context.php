@@ -28,7 +28,7 @@ class Context
     /**
      * @var Variable[]
      */
-    protected $symbols = [];
+    protected $symbols = array();
 
     /**
      * @param $name
@@ -58,14 +58,14 @@ class Context
      */
     public function clear()
     {
-        $this->symbols = [];
-        $this->scope = [];
+        $this->symbols = array();
+        $this->scope = array();
     }
 
     public function clearSymbols()
     {
         unset($this->symbols);
-        $this->symbols = [];
+        $this->symbols = array();
     }
 
     public function dump()

@@ -24,21 +24,21 @@ class ClassDefinition
      *
      * @var ClassMethod[]
      */
-    protected $methods = [];
+    protected $methods = array();
 
     /**
      * Class properties
      *
      * @var \PhpParser\Node\Stmt\Property[]
      */
-    protected $properties = [];
+    protected $properties = array();
 
     /**
      * Class constants
      *
      * @var \PhpParser\Node\Stmt\Const_[]
      */
-    protected $constants = [];
+    protected $constants = array();
 
     /**
      * @todo Use Finder
