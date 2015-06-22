@@ -117,9 +117,16 @@ class Expression
             return $symbol->incSets();
         }
 
-        if ($expr->expr instanceof Node\Scalar\LNumber) {
-            return $this->context->addVariable(new Variable($name, $expr->expr->value));
-        }
+//        if ($expr->expr instanceof Node\Scalar\LNumber) {
+//            return $this->context->addVariable(new Variable($name, $expr->expr->value));
+//        } else {
+//            var_dump($expr->expr);
+//            die();
+//        }
+
+
+        $compiledExpression = new Expression($expr->expr, $this->context);
+        $result = $compiledExpression->compile($expr->expr);
 
         $this->context->addSymbol($name);
     }
@@ -150,14 +157,14 @@ class Expression
             }
         }
 
-        new Expression($expr->left, $this->context);
-        new Expression($expr->right, $this->context);
+        $left = (new Expression($expr->left, $this->context))->compile($expr->left);
+        $right = (new Expression($expr->right, $this->context))->compile($expr->right);
     }
 
     public function passBinaryOpPlus(Node\Expr\BinaryOp\Plus $expr)
     {
-        new Expression($expr->left, $this->context);
-        new Expression($expr->right, $this->context);
+        $left = (new Expression($expr->left, $this->context))->compile($expr->left);
+        $right = (new Expression($expr->right, $this->context))->compile($expr->right);
     }
 
     public function getLNumber(Node\Scalar\LNumber $scalar)
@@ -193,7 +200,10 @@ class Expression
     public function __construct($expr, $context)
     {
         $this->context = $context;
+    }
 
+    public function compile($expr)
+    {
         switch (get_class($expr)) {
             case 'PhpParser\Node\Expr\MethodCall';
                 $this->passMethodCall($expr);
@@ -236,7 +246,6 @@ class Expression
                 break;
             default:
                 var_dump(get_class($expr));
-//                var_dump($expr);
                 break;
         }
     }

@@ -45,6 +45,7 @@ class ClassMethod
                 $expr = new Visitor\Statement($st, $context);
             } else {
                 $expr = new Visitor\Expression($st, $context);
+                $expr->compile($st);
             }
         }
     }
