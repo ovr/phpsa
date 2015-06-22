@@ -230,6 +230,17 @@ class Expression
         return new CompiledExpression(CompiledExpression::UNKNOWN);
     }
 
+    public function passBinaryOpMinus(Node\Expr\BinaryOp\Minus $expr)
+    {
+        $expression = new Expression($expr->left, $this->context);
+        $left = $expression->compile($expr->left);
+
+        $expression = new Expression($expr->right, $this->context);
+        $right = $expression->compile($expr->right);
+
+        return new CompiledExpression(CompiledExpression::UNKNOWN);
+    }
+
     /**
      * Convert lnumber scalar expr to CompiledExpression
      *
@@ -315,6 +326,8 @@ class Expression
                 return $this->passBinaryOpXor($expr);
             case 'PhpParser\Node\Expr\BinaryOp\Mul';
                 return $this->passBinaryOpMul($expr);
+            case 'PhpParser\Node\Expr\BinaryOp\Minus';
+                return $this->passBinaryOpMinus($expr);
             case 'PhpParser\Node\Scalar\LNumber';
                 return $this->getLNumber($expr);
             case 'PhpParser\Node\Scalar\DNumber';
