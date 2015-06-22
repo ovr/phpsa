@@ -17,6 +17,53 @@ class Expression
      */
     protected $context;
 
+    public function __construct($expr, Context $context)
+    {
+        $this->context = $context;
+    }
+
+    public function compile($expr)
+    {
+        switch (get_class($expr)) {
+            case 'PhpParser\Node\Expr\MethodCall';
+                return $this->passMethodCall($expr);
+            case 'PhpParser\Node\Expr\PropertyFetch';
+                return $this->passPropertyFetch($expr);
+            case 'PhpParser\Node\Expr\FuncCall';
+                return $this->passFunctionCall($expr);
+            case 'PhpParser\Node\Expr\StaticCall';
+                return $this->passStaticFunctionCall($expr);
+            case 'PhpParser\Node\Expr\ClassConstFetch';
+                return $this->passConstFetch($expr);
+            case 'PhpParser\Node\Expr\Assign';
+                return $this->passSymbol($expr);
+            case 'PhpParser\Node\Expr\Variable';
+                return $this->passExprVariable($expr);
+            case 'PhpParser\Node\Expr\BinaryOp\Div';
+                return $this->passBinaryOpDiv($expr);
+            case 'PhpParser\Node\Expr\BinaryOp\Plus';
+                return $this->passBinaryOpPlus($expr);
+            case 'PhpParser\Node\Expr\BinaryOp\BitwiseXor';
+                return $this->passBinaryOpXor($expr);
+            case 'PhpParser\Node\Expr\BinaryOp\Mul';
+                return $this->passBinaryOpMul($expr);
+            case 'PhpParser\Node\Expr\BinaryOp\Minus';
+                return $this->passBinaryOpMinus($expr);
+            case 'PhpParser\Node\Scalar\LNumber';
+                return $this->getLNumber($expr);
+            case 'PhpParser\Node\Scalar\DNumber';
+                return $this->getDNumber($expr);
+            case 'PhpParser\Node\Scalar\String_';
+                return $this->getString($expr);
+            case 'PhpParser\Node\Expr\ConstFetch';
+                return $this->constFetch($expr);
+            default:
+                var_dump(get_class($expr));
+                return -1;
+                break;
+        }
+    }
+
     protected function passMethodCall(Node\Expr\MethodCall $expr)
     {
         if ($expr->var instanceof Node\Expr\Variable) {
@@ -127,7 +174,7 @@ class Expression
         return false;
     }
 
-    public function passSymbol(Node\Expr\Assign $expr)
+    protected function passSymbol(Node\Expr\Assign $expr)
     {
         $name = $expr->var->name;
 
@@ -145,7 +192,7 @@ class Expression
         return $this->context->addSymbol($name);
     }
 
-    public function passExprVariable(Node\Expr\Variable $expr)
+    protected function passExprVariable(Node\Expr\Variable $expr)
     {
         $variable = $this->context->getSymbol($expr->name);
         if ($variable) {
@@ -159,7 +206,7 @@ class Expression
         );
     }
 
-    public function passBinaryOpDiv(Node\Expr\BinaryOp\Div $expr)
+    protected function passBinaryOpDiv(Node\Expr\BinaryOp\Div $expr)
     {
         $expression = new Expression($expr->left, $this->context);
         $left = $expression->compile($expr->left);
@@ -197,7 +244,7 @@ class Expression
         return new CompiledExpression(CompiledExpression::UNKNOWN);
     }
 
-    public function passBinaryOpXor(Node\Expr\BinaryOp\BitwiseXor $expr)
+    protected function passBinaryOpXor(Node\Expr\BinaryOp\BitwiseXor $expr)
     {
         $expression = new Expression($expr->left, $this->context);
         $left = $expression->compile($expr->left);
@@ -208,7 +255,7 @@ class Expression
         return new CompiledExpression(CompiledExpression::UNKNOWN);
     }
 
-    public function passBinaryOpMul(Node\Expr\BinaryOp\Mul $expr)
+    protected function passBinaryOpMul(Node\Expr\BinaryOp\Mul $expr)
     {
         $expression = new Expression($expr->left, $this->context);
         $left = $expression->compile($expr->left);
@@ -219,7 +266,7 @@ class Expression
         return new CompiledExpression(CompiledExpression::UNKNOWN);
     }
 
-    public function passBinaryOpPlus(Node\Expr\BinaryOp\Plus $expr)
+    protected function passBinaryOpPlus(Node\Expr\BinaryOp\Plus $expr)
     {
         $expression = new Expression($expr->left, $this->context);
         $left = $expression->compile($expr->left);
@@ -230,7 +277,7 @@ class Expression
         return new CompiledExpression(CompiledExpression::UNKNOWN);
     }
 
-    public function passBinaryOpMinus(Node\Expr\BinaryOp\Minus $expr)
+    protected function passBinaryOpMinus(Node\Expr\BinaryOp\Minus $expr)
     {
         $expression = new Expression($expr->left, $this->context);
         $left = $expression->compile($expr->left);
@@ -247,7 +294,7 @@ class Expression
      * @param Node\Scalar\LNumber $scalar
      * @return CompiledExpression
      */
-    public function getLNumber(Node\Scalar\LNumber $scalar)
+    protected function getLNumber(Node\Scalar\LNumber $scalar)
     {
         return new CompiledExpression(CompiledExpression::LNUMBER, $scalar->value);
     }
@@ -258,7 +305,7 @@ class Expression
      * @param Node\Scalar\DNumber $scalar
      * @return CompiledExpression
      */
-    public function getDNumber(Node\Scalar\DNumber $scalar)
+    protected function getDNumber(Node\Scalar\DNumber $scalar)
     {
         return new CompiledExpression(CompiledExpression::DNUMBER, $scalar->value);
     }
@@ -269,7 +316,7 @@ class Expression
      * @param Node\Scalar\String_ $scalar
      * @return CompiledExpression
      */
-    public function getString(Node\Scalar\String_ $scalar)
+    protected function getString(Node\Scalar\String_ $scalar)
     {
         return new CompiledExpression(CompiledExpression::STRING, $scalar->value);
     }
@@ -280,7 +327,7 @@ class Expression
      * @param Node\Expr\ConstFetch $expr
      * @return bool|CompiledExpression
      */
-    public function constFetch(Node\Expr\ConstFetch $expr)
+    protected function constFetch(Node\Expr\ConstFetch $expr)
     {
         if ($expr->name instanceof Node\Name) {
             if ($expr->name->parts[0] === "true") {
@@ -294,52 +341,5 @@ class Expression
 
         return false;
         var_dump('Unknown const fetch');
-    }
-
-    public function __construct($expr, Context $context)
-    {
-        $this->context = $context;
-    }
-
-    public function compile($expr)
-    {
-        switch (get_class($expr)) {
-            case 'PhpParser\Node\Expr\MethodCall';
-                return $this->passMethodCall($expr);
-            case 'PhpParser\Node\Expr\PropertyFetch';
-                return $this->passPropertyFetch($expr);
-            case 'PhpParser\Node\Expr\FuncCall';
-                return $this->passFunctionCall($expr);
-            case 'PhpParser\Node\Expr\StaticCall';
-                return $this->passStaticFunctionCall($expr);
-            case 'PhpParser\Node\Expr\ClassConstFetch';
-                return $this->passConstFetch($expr);
-            case 'PhpParser\Node\Expr\Assign';
-                return $this->passSymbol($expr);
-            case 'PhpParser\Node\Expr\Variable';
-                return $this->passExprVariable($expr);
-            case 'PhpParser\Node\Expr\BinaryOp\Div';
-                return $this->passBinaryOpDiv($expr);
-            case 'PhpParser\Node\Expr\BinaryOp\Plus';
-                return $this->passBinaryOpPlus($expr);
-            case 'PhpParser\Node\Expr\BinaryOp\BitwiseXor';
-                return $this->passBinaryOpXor($expr);
-            case 'PhpParser\Node\Expr\BinaryOp\Mul';
-                return $this->passBinaryOpMul($expr);
-            case 'PhpParser\Node\Expr\BinaryOp\Minus';
-                return $this->passBinaryOpMinus($expr);
-            case 'PhpParser\Node\Scalar\LNumber';
-                return $this->getLNumber($expr);
-            case 'PhpParser\Node\Scalar\DNumber';
-                return $this->getDNumber($expr);
-            case 'PhpParser\Node\Scalar\String_';
-                return $this->getString($expr);
-            case 'PhpParser\Node\Expr\ConstFetch';
-                return $this->constFetch($expr);
-            default:
-                var_dump(get_class($expr));
-                return -1;
-                break;
-        }
     }
 }
