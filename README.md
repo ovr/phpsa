@@ -18,9 +18,9 @@ What is needed or planned as future.
 #### Undefined checks
 
 - [ ] Undefined class
-- [ ] Undefined class constant
-- [ ] Undefined class property
-- [ ] Undefined class method
+- [X] Undefined class constant
+- [X] Undefined class property
+- [X] Undefined class method
 - [ ] Undefined callback
 - [ ] Undefined constant
 - [ ] Undefined function
