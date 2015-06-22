@@ -1,8 +1,8 @@
 <?php
 
-class Test
+class Property
 {
-  protected $b;
+  protected $b = "test string";
 
   public function a()
   {

@@ -88,6 +88,9 @@ class Expression
             }
         }
 
+        $expression = new Expression($expr->var, $this->context);
+        $compiledExpression = $expression->compile($expr->var);
+
         var_dump('Unknown method call');
         return false;
     }
@@ -223,7 +226,13 @@ class Expression
             case CompiledExpression::LNUMBER:
             case CompiledExpression::DNUMBER:
             case CompiledExpression::UNKNOWN:
-
+                if ($left->isEquals(0)) {
+                    $this->context->notice(
+                        'division-zero',
+                        sprintf('You trying to use division from %s', $left->getValue()),
+                        $expr
+                    );
+                }
                 break;
             default:
                 //
