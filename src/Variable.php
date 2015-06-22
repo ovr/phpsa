@@ -30,13 +30,19 @@ class Variable
         }
     }
 
+    /**
+     * @return int
+     */
     public function incGets()
     {
-        $this->gets++;
+        return $this->gets++;
     }
 
+    /**
+     * @return int
+     */
     public function incSets()
     {
-        $this->sets++;
+        return $this->sets++;
     }
 }
