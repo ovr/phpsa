@@ -5,6 +5,7 @@
 
 namespace PHPSA\Command;
 
+use CallbackFilterIterator;
 use FilesystemIterator;
 use PhpParser\Parser;
 use PHPSA\Context;
@@ -13,6 +14,7 @@ use PHPSA\Definition\ClassMethod;
 use PhpParser\Node;
 
 use RecursiveDirectoryIterator;
+use RecursiveIteratorIterator;
 use SplFileInfo;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
@@ -59,8 +61,8 @@ class CheckCommand extends Command
         $context->output = $output;
 
         if (is_dir($path)) {
-            $it = new \RecursiveIteratorIterator(new RecursiveDirectoryIterator($path, FilesystemIterator::SKIP_DOTS));
-            $it = new \CallbackFilterIterator($it, function (SplFileInfo $file) {
+            $it = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($path, FilesystemIterator::SKIP_DOTS));
+            $it = new CallbackFilterIterator($it, function (SplFileInfo $file) {
                 return $file->getExtension() == 'php';
             });
 
