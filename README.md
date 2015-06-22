@@ -24,7 +24,7 @@ What is needed or planned as future.
 - [X] Class constant
 - [X] Class property
 - [X] Class method
-- [ ] callback
+- [ ] Callback
 - [ ] Constant
 - [ ] Function
 - [ ] Namespace
