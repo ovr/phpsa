@@ -296,7 +296,7 @@ class Expression
         var_dump('Unknown const fetch');
     }
 
-    public function __construct($expr, $context)
+    public function __construct($expr, Context $context)
     {
         $this->context = $context;
     }
