@@ -152,6 +152,11 @@ class Expression
         new Expression($expr->right, $this->context);
     }
 
+    public function getLNumber(Node\Scalar\LNumber $number)
+    {
+        return $number->value;
+    }
+
     public function __construct($expr, $context)
     {
         $this->context = $context;
@@ -183,6 +188,9 @@ class Expression
                 break;
             case 'PhpParser\Node\Expr\BinaryOp\Plus';
                 $this->passBinaryOpPlus($expr);
+                break;
+            case 'PhpParser\Node\Scalar\LNumber';
+                $this->getLNumber($expr);
                 break;
             default:
                 var_dump(get_class($expr));
