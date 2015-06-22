@@ -407,7 +407,7 @@ class Expression
             }
         }
 
-        return false;
         var_dump('Unknown const fetch');
+        return new CompiledExpression(CompiledExpression::UNKNOWN);
     }
 }
