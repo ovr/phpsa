@@ -235,16 +235,16 @@ class Expression
             case CompiledExpression::DNUMBER:
             case CompiledExpression::UNKNOWN:
                 if ($left->isEquals(0)) {
-                    /**
-                     * Micro optimization -> 0/{expr} -> 0
-                     */
-                    return new CompiledExpression(CompiledExpression::LNUMBER, 0);
-
                     $this->context->notice(
                         'division-zero',
                         sprintf('You trying to use division from %s', $left->getValue()),
                         $expr
                     );
+
+                    /**
+                     * Micro optimization -> 0/{expr} -> 0
+                     */
+                    return new CompiledExpression(CompiledExpression::LNUMBER, 0);
                 }
                 break;
             default:
