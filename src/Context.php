@@ -119,8 +119,18 @@ class Context
         $this->output->writeln('<comment>Notice:  ' . $message . " in {$this->scope->getFilepath()} on {$expr->getLine()} [{$type}]</comment>");
         $this->output->writeln('');
 
-        $code = trim($code[$expr->getLine()-1]);
-        $this->output->writeln("<comment>\t {$code} </comment>");
+        if ($this->application->getConfiguration()->valueIsTrue('blame')) {
+            exec("git blame --show-email -L {$expr->getLine()},{$expr->getLine()} " . $this->scope->getFilepath(), $result);
+            if ($result && isset($result[0])) {
+                $result[0] = trim($result[0]);
+
+                $this->output->writeln("<comment>\t {$result[0]}</comment>");
+            }
+        } else {
+            $code = trim($code[$expr->getLine()-1]);
+            $this->output->writeln("<comment>\t {$code} </comment>");
+        }
+
         $this->output->writeln('');
 
         unset($code);

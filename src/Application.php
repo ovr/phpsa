@@ -9,7 +9,10 @@ use PHPSA\Command\CheckCommand;
 
 class Application extends \Symfony\Component\Console\Application
 {
-    protected $finder;
+    /**
+     * @var Configuration
+     */
+    protected $configuration;
 
     const VERSION = '0.1-dev';
 
@@ -18,6 +21,8 @@ class Application extends \Symfony\Component\Console\Application
         parent::__construct('PHP Static Analyzer', self::VERSION . ' #' . $this->getCVVersion());
 
         $this->add(new CheckCommand());
+
+        $this->configuration = new Configuration();
     }
 
     protected function getCVVersion()
@@ -25,5 +30,13 @@ class Application extends \Symfony\Component\Console\Application
         exec('git describe --always', $version_mini_hash);
 
         return $version_mini_hash ? $version_mini_hash[0] : '';
+    }
+
+    /**
+     * @return Configuration
+     */
+    public function getConfiguration()
+    {
+        return $this->configuration;
     }
 }

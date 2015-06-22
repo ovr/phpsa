@@ -24,4 +24,22 @@ class Configuration
             'division-zero' => true
         )
     );
+
+    protected $values = array(
+        'blame' => false
+    );
+
+    public function setValue($name, $value)
+    {
+        $this->values[$name] = $value;
+    }
+
+    public function valueIsTrue($name)
+    {
+        if (isset($this->values[$name])) {
+            return $this->values[$name] == true;
+        }
+
+        return false;
+    }
 }

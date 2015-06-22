@@ -5,6 +5,8 @@
 
 namespace PHPSA\Command;
 
+use PHPSA\Application;
+use PHPSA\Configuration;
 use PHPSA\Context;
 use PHPSA\Definition\ClassDefinition;
 use PHPSA\Definition\ClassMethod;
@@ -56,13 +58,20 @@ class CheckCommand extends Command
             )
         ));
 
-
         if (extension_loaded('xdebug')) {
             $output->writeln('<error>It is highly recommended to disable the XDebug extension before invoking this command.</error>');
         }
 
         $parser = new Parser(new \PhpParser\Lexer\Emulative);
-        $context = new Context($output, $this->getApplication());
+
+        /** @var Application $application */
+        $application = $this->getApplication();
+        $context = new Context($output, $application);
+
+        /**
+         * Store option's in application's configuration
+         */
+        $application->getConfiguration()->setValue('blame', $input->getOption('blame'));
 
         $path = $input->getArgument('path');
         if (is_dir($path)) {
