@@ -26,6 +26,7 @@ class ClassMethod
     {
         $this->name = $name;
         $this->ast = $ast;
+        $this->type = $type;
         $this->st = $st;
     }
 
