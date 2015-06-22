@@ -52,9 +52,12 @@ class CheckCommand extends Command
             )
         ));
 
+        
+        if (extension_loaded('xdebug')) {
+            $output->writeln('<error>It is highly recommended to disable the XDebug extension before invoking this command.</error>');
+        }
 
         $parser = new Parser(new \PhpParser\Lexer\Emulative);
-
         $path = $input->getArgument('path');
 
         $context = new Context();
