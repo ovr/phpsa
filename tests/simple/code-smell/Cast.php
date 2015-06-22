@@ -21,4 +21,14 @@ class Cast
 
         return $a;
     }
+
+    public function testCastIntFromInt()
+    {
+        return (int) 123456789;
+    }
+
+    public function testCastIntFromFloat()
+    {
+        return (int) 123456789.5;
+    }
 }
