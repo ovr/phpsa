@@ -60,6 +60,8 @@ class Expression
                 return $this->passBinaryOpMinus($expr);
             case 'PhpParser\Node\Expr\UnaryMinus';
                 return $this->passUnaryMinus($expr);
+            case 'PhpParser\Node\Expr\New_';
+                return $this->passNew($expr);
             /**
              * Cast operators
              */
@@ -85,6 +87,16 @@ class Expression
                 return new CompiledExpression(-1);
                 break;
         }
+    }
+
+    protected function passNew(Node\Expr\New_ $expr)
+    {
+        if ($expr->class instanceof Node\Name) {
+            return new CompiledExpression(CompiledExpression::OBJECT, $expr->class->parts[0]);
+        }
+
+        $this->context->debug('Unknown how to pass new');
+        return new CompiledExpression(CompiledExpression::UNKNOWN);
     }
 
     protected function passMethodCall(Node\Expr\MethodCall $expr)
