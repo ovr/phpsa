@@ -20,9 +20,12 @@ class ClassMethod
 
     protected $type;
 
+    /**
+     * @var \PhpParser\Node\Stmt\ClassMethod
+     */
     protected $st;
 
-    public function __construct($name, $ast, $type, $st)
+    public function __construct($name, $ast, $type, \PhpParser\Node\Stmt\ClassMethod $st)
     {
         $this->name = $name;
         $this->ast = $ast;
@@ -48,11 +51,18 @@ class ClassMethod
             );
         }
 
+        if (count($this->st->params) > 0) {
+            /** @var  \PhpParser\Node\Param $parameter */
+            foreach ($this->st->params as $parameter) {
+                $context->addSymbol($parameter->name);
+            }
+        }
+
         foreach ($this->ast as $st) {
             if ($st instanceof \PhpParser\Node\Stmt) {
-                $expr = new Visitor\Statement($st, $context);
+                $expr = new Visitor\Statement($st, clone $context);
             } else {
-                $expr = new Visitor\Expression($st, $context);
+                $expr = new Visitor\Expression($st, clone $context);
                 $expr->compile($st);
             }
         }

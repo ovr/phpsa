@@ -245,7 +245,6 @@ class Expression
                     $expr
                 );
             }
-            
         }
 
         var_dump('Unknown property fetch');
