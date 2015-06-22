@@ -144,7 +144,7 @@ class Expression
                 break;
             case CompiledExpression::BOOLEAN:
             case CompiledExpression::DNUMBER:
-                return new CompiledExpression(CompiledExpression::BOOLEAN, (int) $compiledExpression->getValue());
+                return new CompiledExpression(CompiledExpression::LNUMBER, (int) $compiledExpression->getValue());
                 break;
         }
 
