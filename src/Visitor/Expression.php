@@ -65,6 +65,8 @@ class Expression
                 return $this->getDNumber($expr);
             case 'PhpParser\Node\Scalar\String_';
                 return $this->getString($expr);
+            case 'PhpParser\Node\Expr\Cast\Bool_';
+                return $this->passCastBoolean($expr);
             case 'PhpParser\Node\Expr\ConstFetch';
                 return $this->constFetch($expr);
             default:
@@ -95,6 +97,25 @@ class Expression
 
         var_dump('Unknown method call');
         return false;
+    }
+
+    protected function passCastBoolean(Node\Expr\Cast\Bool_ $expr)
+    {
+        $expression = new Expression($expr->expr, $this->context);
+        $compiledExpression = $expression->compile($expr->expr);
+
+        switch ($compiledExpression->getType()) {
+            case CompiledExpression::BOOLEAN:
+                //@todo CodeSmell
+                return $compiledExpression;
+                break;
+            case CompiledExpression::DNUMBER:
+            case CompiledExpression::LNUMBER:
+                return new CompiledExpression(CompiledExpression::BOOLEAN, boolval($compiledExpression->getValue()));
+                break;
+        }
+
+        return new CompiledExpression(CompiledExpression::UNKNOWN);
     }
 
     protected function passFunctionCall(Node\Expr\FuncCall $expr)
