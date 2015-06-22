@@ -116,6 +116,14 @@ class Expression
         $this->context->addSymbol($name);
     }
 
+    public function passExprVariable(Node\Expr\Variable $expr)
+    {
+        $variable = $this->context->getSymbol($expr->name);
+        if ($variable) {
+            $variable->incGets();
+        }
+    }
+
     public function passBinaryOpDiv(Node\Expr\BinaryOp\Div $expr)
     {
         if ($expr->right instanceof Node\Scalar\LNumber) {
@@ -151,6 +159,9 @@ class Expression
                 break;
             case 'PhpParser\Node\Expr\Assign';
                 $this->passSymbol($expr);
+                break;
+            case 'PhpParser\Node\Expr\Variable';
+                $this->passExprVariable($expr);
                 break;
             case 'PhpParser\Node\Expr\BinaryOp\Div';
                 $this->passBinaryOpDiv($expr);

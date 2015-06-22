@@ -79,6 +79,19 @@ class ClassDefinition
             $method->compile($context);
 
 //            $context->dump();
+
+            $symbols = $context->getSymbols();
+            if (count($symbols) > 0) {
+                foreach ($symbols as $name => $variable) {
+                    if ($variable->getGets() == 0 && $variable->incSets()) {
+                        $context->notice(
+                            'unused-variable',
+                            sprintf('Unused variable %s in method %s()', $variable->getName(), $method->getName()),
+                            null
+                        );
+                    }
+                }
+            }
         }
     }
 

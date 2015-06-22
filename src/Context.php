@@ -92,4 +92,12 @@ class Context
         $this->output->writeln('<error>Syntax error:  ' . $e->getMessage() . " in {$filepath} </error>");
         $this->output->writeln('');
     }
+
+    /**
+     * @return Variable[]
+     */
+    public function getSymbols()
+    {
+        return $this->symbols;
+    }
 }

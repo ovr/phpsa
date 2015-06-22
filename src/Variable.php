@@ -45,4 +45,28 @@ class Variable
     {
         return $this->sets++;
     }
+
+    /**
+     * @return int
+     */
+    public function getGets()
+    {
+        return $this->gets;
+    }
+
+    /**
+     * @return int
+     */
+    public function getSets()
+    {
+        return $this->sets;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
 }
