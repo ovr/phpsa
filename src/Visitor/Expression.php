@@ -28,7 +28,7 @@ class Expression
 
     /**
      * @param $expr
-     * @return bool|int|CompiledExpression
+     * @return CompiledExpression
      */
     public function compile($expr)
     {
@@ -99,6 +99,12 @@ class Expression
         return false;
     }
 
+    /**
+     * (bool) {$expr}
+     *
+     * @param Node\Expr\Cast\Bool_ $expr
+     * @return CompiledExpression
+     */
     protected function passCastBoolean(Node\Expr\Cast\Bool_ $expr)
     {
         $expression = new Expression($expr->expr, $this->context);
