@@ -5,7 +5,6 @@
 
 namespace PHPSA\Command;
 
-use CallbackFilterIterator;
 use FilesystemIterator;
 use PhpParser\Parser;
 use PHPSA\Context;
@@ -99,7 +98,7 @@ class CheckCommand extends Command
                 if ($file->getExtension() != 'php') {
                     continue;
                 }
-                
+
                 $this->parserFile($file->getPathname(), $parser, $context);
             }
         } elseif (is_file($path)) {
