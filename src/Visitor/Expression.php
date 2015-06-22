@@ -161,7 +161,9 @@ class Expression
 
     public function passBinaryOpDiv(Node\Expr\BinaryOp\Div $expr)
     {
-        $left = (new Expression($expr->left, $this->context))->compile($expr->left);
+        $expression = new Expression($expr->left, $this->context);
+        $left = $expression->compile($expr->left);
+
         switch ($left->getType()) {
             case CompiledExpression::LNUMBER:
             case CompiledExpression::DNUMBER:
@@ -173,7 +175,8 @@ class Expression
                 break;
         }
 
-        $right = (new Expression($expr->right, $this->context))->compile($expr->right);
+        $expression = new Expression($expr->right, $this->context);
+        $right = $expression->compile($expr->right);
         switch ($right->getType()) {
             case CompiledExpression::LNUMBER:
             case CompiledExpression::DNUMBER:
@@ -196,8 +199,11 @@ class Expression
 
     public function passBinaryOpPlus(Node\Expr\BinaryOp\Plus $expr)
     {
-        $left = (new Expression($expr->left, $this->context))->compile($expr->left);
-        $right = (new Expression($expr->right, $this->context))->compile($expr->right);
+        $expression = new Expression($expr->left, $this->context);
+        $left = $expression->compile($expr->left);
+        
+        $expression = new Expression($expr->right, $this->context);
+        $right = $expression->compile($expr->right);
 
         return true;
     }
