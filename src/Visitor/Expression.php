@@ -136,20 +136,13 @@ class Expression
             return $symbol->incSets();
         }
 
-//        if ($expr->expr instanceof Node\Scalar\LNumber) {
-//            return $this->context->addVariable(new Variable($name, $expr->expr->value));
-//        } else {
-//            var_dump($expr->expr);
-//            die();
-//        }
-
-
         $compiledExpression = new Expression($expr->expr, $this->context);
         $result = $compiledExpression->compile($expr->expr);
+        if (is_object($result) && $result instanceof CompiledExpression) {
+            $this->context->addVariable($result->toVariable());
+        }
 
-        $this->context->addSymbol($name);
-
-        return true;
+        return $this->context->addSymbol($name);
     }
 
     public function passExprVariable(Node\Expr\Variable $expr)

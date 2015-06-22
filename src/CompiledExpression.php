@@ -26,4 +26,28 @@ class CompiledExpression
         $this->type = $type;
         $this->value = $value;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getValue()
+    {
+        return $this->value;
+    }
+
+    /**
+     * @return int
+     */
+    public function getType()
+    {
+        return $this->type;
+    }
+
+    /**
+     * @return Variable
+     */
+    public function toVariable()
+    {
+        return new Variable($this->type, $this->value);
+    }
 }
