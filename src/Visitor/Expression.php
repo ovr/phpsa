@@ -268,7 +268,7 @@ class Expression
                 return new CompiledExpression(CompiledExpression::UNKNOWN);
             }
         }
-        
+
         $this->context->debug('Unknown const fetch');
         return new CompiledExpression(CompiledExpression::UNKNOWN);
     }
