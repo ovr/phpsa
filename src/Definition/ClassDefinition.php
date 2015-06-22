@@ -75,7 +75,10 @@ class ClassDefinition
     public function compile(Context $context)
     {
         foreach ($this->methods as $method) {
+            $context->clearSymbols();
             $method->compile($context);
+
+//            $context->dump();
         }
     }
 

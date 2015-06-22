@@ -93,6 +93,7 @@ class CheckCommand extends Command
                 }
 
                 $context->application = $this->getApplication();
+                $context->clear();
 
                 /**
                  * Step 2 Recursive check ...

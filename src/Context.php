@@ -43,6 +43,26 @@ class Context
     }
 
     /**
+     * Clear prevent context
+     */
+    public function clear()
+    {
+        $this->symbols = [];
+        $this->scope = [];
+    }
+
+    public function clearSymbols()
+    {
+        unset($this->symbols);
+        $this->symbols = [];
+    }
+
+    public function dump()
+    {
+        var_dump($this->symbols);
+    }
+
+    /**
      * @param $name
      * @return Variable|null
      */
