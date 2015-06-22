@@ -184,7 +184,7 @@ class Expression
                 if ($right->isEquals(0)) {
                     $this->context->notice(
                         'division-zero',
-                        sprintf('You trying to use division on %s', $expr->right->value),
+                        sprintf('You trying to use division on %s', $right->getValue()),
                         $expr
                     );
                 }
