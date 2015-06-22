@@ -75,13 +75,15 @@ class Expression
     {
         if ($expr->var->name == 'this') {
             if (!$this->context->scope->hasProperty($expr->name)) {
-                $this->context->notice(
+                return $this->context->notice(
                     'undefined-property',
                     sprintf('Property %s is not exists on %s scope', $expr->name, $expr->var->name),
                     $expr
                 );
             }
         }
+
+        var_dump('Unknown property fetch');
     }
 
     protected function passConstFetch(Node\Expr\ClassConstFetch $expr)
@@ -90,7 +92,7 @@ class Expression
             $scope = $expr->class->parts[0];
             if ($scope == 'self') {
                 if (!$this->context->scope->hasConst($expr->name)) {
-                    $this->context->notice(
+                    return $this->context->notice(
                         'undefined-const',
                         sprintf('Constant %s is not exists on %s scope', $expr->name, $scope),
                         $expr
@@ -98,6 +100,8 @@ class Expression
                 }
             }
         }
+
+        var_dump('Unknown const fetch');
     }
 
     public function passSymbol(Node\Expr\Assign $expr)
