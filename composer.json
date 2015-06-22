@@ -15,6 +15,9 @@
       "symfony/console": "~2.5",
       "nikic/php-parser": "~1.3.0"
     },
+    "bin": [
+      "bin/phpsa"
+    ],
     "autoload": {
       "psr-4": {
           "PHPSA\\": "src/"
