@@ -141,6 +141,15 @@ class Expression
                 );
             }
         }
+
+        new Expression($expr->left, $this->context);
+        new Expression($expr->right, $this->context);
+    }
+
+    public function passBinaryOpPlus(Node\Expr\BinaryOp\Plus $expr)
+    {
+        new Expression($expr->left, $this->context);
+        new Expression($expr->right, $this->context);
     }
 
     public function __construct($expr, $context)
@@ -171,6 +180,9 @@ class Expression
                 break;
             case 'PhpParser\Node\Expr\BinaryOp\Div';
                 $this->passBinaryOpDiv($expr);
+                break;
+            case 'PhpParser\Node\Expr\BinaryOp\Plus';
+                $this->passBinaryOpPlus($expr);
                 break;
             default:
                 var_dump(get_class($expr));
