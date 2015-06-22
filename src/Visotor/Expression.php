@@ -120,8 +120,14 @@ class Expression
     {
         $variable = $this->context->getSymbol($expr->name);
         if ($variable) {
-            $variable->incGets();
+            return $variable->incGets();
         }
+
+        $this->context->notice(
+            'undefined-variable',
+            sprintf('You trying to use undefined variable $%s', $expr->name),
+            $expr
+        );
     }
 
     public function passBinaryOpDiv(Node\Expr\BinaryOp\Div $expr)
