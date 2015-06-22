@@ -6,6 +6,7 @@
 namespace PHPSA\Definition;
 
 use PHPSA\Context;
+use PhpParser\Node;
 
 class ClassDefinition
 {
@@ -29,14 +30,14 @@ class ClassDefinition
     /**
      * Class properties
      *
-     * @var \PhpParser\Node\Stmt\Property[]
+     * @var Node\Stmt\Property[]
      */
     protected $properties = array();
 
     /**
      * Class constants
      *
-     * @var \PhpParser\Node\Stmt\Const_[]
+     * @var Node\Stmt\Const_[]
      */
     protected $constants = array();
 
@@ -57,12 +58,12 @@ class ClassDefinition
         $this->methods[$methodDefintion->getName()] = $methodDefintion;
     }
 
-    public function addProperty(\PhpParser\Node\Stmt\Property $property)
+    public function addProperty(Node\Stmt\Property $property)
     {
         $this->properties[$property->props[0]->name] = $property;
     }
 
-    public function addConst(\PhpParser\Node\Stmt\ClassConst $const)
+    public function addConst(Node\Stmt\ClassConst $const)
     {
         $this->constants[$const->consts[0]->name] = $const;
     }
