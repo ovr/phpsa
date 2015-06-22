@@ -57,6 +57,8 @@ class Expression
                 return $this->passBinaryOpMul($expr);
             case 'PhpParser\Node\Expr\BinaryOp\Minus';
                 return $this->passBinaryOpMinus($expr);
+            case 'PhpParser\Node\Expr\UnaryMinus';
+                return $this->passUnaryMinus($expr);
             case 'PhpParser\Node\Scalar\LNumber';
                 return $this->getLNumber($expr);
             case 'PhpParser\Node\Scalar\DNumber';
@@ -301,6 +303,24 @@ class Expression
 
         $expression = new Expression($expr->right, $this->context);
         $right = $expression->compile($expr->right);
+
+        return new CompiledExpression(CompiledExpression::UNKNOWN);
+    }
+
+    protected function passUnaryMinus(Node\Expr\UnaryMinus $expr)
+    {
+        $expression = new Expression($expr->expr, $this->context);
+        $left = $expression->compile($expr->expr);
+
+        switch ($left->getType()) {
+            case CompiledExpression::LNUMBER:
+            case CompiledExpression::DNUMBER:
+                return new CompiledExpression($left->getType(), -$left->getValue());
+                break;
+            default:
+                //@todo implement it
+                break;
+        }
 
         return new CompiledExpression(CompiledExpression::UNKNOWN);
     }
