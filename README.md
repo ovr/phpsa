@@ -13,23 +13,23 @@ What is needed or planned as future.
 #### Unused
 
 - [ ] Import
-- [ ] Local variable
+- [X] Local variable
 - [ ] Parameter
 - [ ] Private field
 - [ ] Private method
 
-#### Undefined checks
+#### Undefined
 
-- [ ] Undefined class
-- [X] Undefined class constant
-- [X] Undefined class property
-- [X] Undefined class method
-- [ ] Undefined callback
-- [ ] Undefined constant
-- [ ] Undefined function
-- [ ] Undefined namespace
-- [ ] Undefined variable
-- [ ] Undefined callback
+- [ ] Class
+- [X] Class constant
+- [X] Class property
+- [X] Class method
+- [ ] callback
+- [ ] Constant
+- [ ] Function
+- [ ] Namespace
+- [X] Variable
+- [ ] Callback
 
 #### PHPDockblock
 
@@ -44,10 +44,13 @@ What is needed or planned as future.
 - [ ] Not optimal if conditions
 - [ ] Infinity loop
 - [ ] Unreachable statement
+- [X] Stupid cast
+- [X] Not implemented class methods
 
 #### Probable bugs
 
-- [X] Division by zero
+- [X] Division by zero {expr}/0
+- [X] Division from zero 0/{expr}
 - [ ] Missing 'break' statement
 - [ ] Void function result used
 
