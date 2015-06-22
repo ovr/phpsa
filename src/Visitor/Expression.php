@@ -161,20 +161,37 @@ class Expression
 
     public function passBinaryOpDiv(Node\Expr\BinaryOp\Div $expr)
     {
-        if ($expr->right instanceof Node\Scalar\LNumber) {
-            if ($expr->right->value == 0) {
-                $this->context->notice(
-                    'division-zero',
-                    sprintf('You trying to use division on %s', $expr->right->value),
-                    $expr
-                );
-            }
+        $left = (new Expression($expr->left, $this->context))->compile($expr->left);
+        switch ($left->getType()) {
+            case CompiledExpression::LNUMBER:
+            case CompiledExpression::DNUMBER:
+            case CompiledExpression::UNKNOWN:
+
+                break;
+            default:
+                //
+                break;
         }
 
-        $left = (new Expression($expr->left, $this->context))->compile($expr->left);
         $right = (new Expression($expr->right, $this->context))->compile($expr->right);
+        switch ($right->getType()) {
+            case CompiledExpression::LNUMBER:
+            case CompiledExpression::DNUMBER:
+            case CompiledExpression::UNKNOWN:
+                if ($right->isEquals(0)) {
+                    $this->context->notice(
+                        'division-zero',
+                        sprintf('You trying to use division on %s', $expr->right->value),
+                        $expr
+                    );
+                }
+                break;
+            default:
+                //
+                break;
+        }
 
-        return true;
+        return new CompiledExpression(CompiledExpression::UNKNOWN);
     }
 
     public function passBinaryOpPlus(Node\Expr\BinaryOp\Plus $expr)

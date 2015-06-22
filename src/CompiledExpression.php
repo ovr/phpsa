@@ -7,7 +7,7 @@ namespace PHPSA;
 
 class CompiledExpression
 {
-    const UNKNOW_TYPE = 0;
+    const UNKNOWN = 0;
 
     const LNUMBER = 1;
 
@@ -17,11 +17,11 @@ class CompiledExpression
 
     const BOOLEAN = 3;
 
-    protected $type = self::UNKNOW_TYPE;
+    protected $type = self::UNKNOWN;
 
     protected $value;
 
-    public function __construct($type, $value)
+    public function __construct($type, $value = null)
     {
         $this->type = $type;
         $this->value = $value;
@@ -33,6 +33,11 @@ class CompiledExpression
     public function getValue()
     {
         return $this->value;
+    }
+
+    public function isEquals($value)
+    {
+        return $this->value === $value;
     }
 
     /**
