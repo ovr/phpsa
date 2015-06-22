@@ -5,6 +5,7 @@
 
 namespace PHPSA\Command;
 
+use Exception;
 use FilesystemIterator;
 use PhpParser\Parser;
 use PHPSA\Context;
@@ -14,6 +15,7 @@ use PhpParser\Node;
 
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
+use RuntimeException;
 use SplFileInfo;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
@@ -131,6 +133,10 @@ class CheckCommand extends Command
     protected function parserFile($filepath, Parser $parser, Context $context)
     {
         try {
+            if (!is_readable($filepath)) {
+                throw new RuntimeException('File ' . $filepath . ' is not readable');
+            }
+
             $code = file_get_contents($filepath);
             $stmts = $parser->parse($code);
 
@@ -166,6 +172,8 @@ class CheckCommand extends Command
             $context->clear();
         } catch (\PhpParser\Error $e) {
             $context->sytaxError($e, $filepath);
+        } catch (Exception $e) {
+            $context->output->writeln("<error>{$e->getMessage()}</error>");
         }
     }
 }
