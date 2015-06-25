@@ -4,6 +4,10 @@ namespace Simple\CodeSmell;
 
 class Cast
 {
+    /**
+     * Boolean cast (bool)
+     */
+
     public function testCastBooleanTrue()
     {
         return (bool) true;
@@ -21,6 +25,10 @@ class Cast
 
         return $a;
     }
+
+    /**
+     * Int cast (int)
+     */
 
     public function testCastIntFromInt()
     {
@@ -52,6 +60,10 @@ class Cast
         return (int) "";
     }
 
+    /**
+     * Float cast (float)
+     */
+
     public function testCastFloatFromInt()
     {
         return (float) 123456789;
@@ -80,5 +92,39 @@ class Cast
     public function testCastFloatFromString()
     {
         return (float) "test string";
+    }
+
+    /**
+     * String cast (string)
+     */
+
+    public function testCastStringFromEmptyString()
+    {
+        return (string) "";
+    }
+
+    public function testCastStringFromString()
+    {
+        return (string) "test string";
+    }
+
+    public function testCastStringFromInt()
+    {
+        return (string) 12345;
+    }
+
+    public function testCastStringFromFloat()
+    {
+        return (string) 25.2525;
+    }
+
+    public function testCastStringFromBooleanTrue()
+    {
+        return (string) true;
+    }
+
+    public function testCastStringFromBooleanFalse()
+    {
+        return (string) true;
     }
 }
