@@ -190,6 +190,7 @@ class Expression
                 break;
             case CompiledExpression::BOOLEAN:
             case CompiledExpression::LNUMBER:
+            case CompiledExpression::STRING:
                 return new CompiledExpression(CompiledExpression::DNUMBER, (float) $compiledExpression->getValue());
                 break;
         }

@@ -41,4 +41,24 @@ class Cast
     {
         return (float) 123456789.5;
     }
+
+    public function testCastFloatFromBooleanTrue()
+    {
+        return (float) true;
+    }
+
+    public function testCastFloatFromBooleanFalse()
+    {
+        return (float) false;
+    }
+
+    public function testCastFloatFromStringEmpty()
+    {
+        return (float) "";
+    }
+
+    public function testCastFloatFromString()
+    {
+        return (float) "test string";
+    }
 }
