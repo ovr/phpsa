@@ -68,4 +68,19 @@ class PossibleReturn
 
         return true;
     }
+
+    /**
+     * @param $a
+     * @return string
+     */
+    public function simpleIf4($a)
+    {
+        if ($a === 1) {
+            return 'hello';
+        } elseif ($a == 4) {
+            return 'world';
+        } else {
+            return 'unknown';
+        }
+    }
 }

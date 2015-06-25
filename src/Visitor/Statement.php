@@ -24,13 +24,13 @@ class Statement
     /**
      * @param Node\Stmt\If_ $st
      */
-    public function passIf(Node\Stmt\If_ $st)
+    public function passIf(Node\Stmt\If_ $ifStatement)
     {
-        $expression = new Expression($st->cond, $this->context);
-        $compiledExpression = $expression->compile($st->cond);
+        $expression = new Expression($ifStatement->cond, $this->context);
+        $compiledExpression = $expression->compile($ifStatement->cond);
 
-        if (count($st->stmts) > 0) {
-            foreach ($st->stmts as $st) {
+        if (count($ifStatement->stmts) > 0) {
+            foreach ($ifStatement->stmts as $st) {
                 if ($st instanceof Node\Stmt) {
                     $expr = new Statement($st, $this->context);
                 } else {
@@ -40,6 +40,43 @@ class Statement
             }
         } else {
 
+        }
+
+        if (count($ifStatement->elseifs) > 0) {
+            foreach ($ifStatement->elseifs as $elseIfStatement) {
+                $expression = new Expression($elseIfStatement->cond, $this->context);
+                $compiledExpression = $expression->compile($elseIfStatement->cond);
+
+                if (count($elseIfStatement->stmts) > 0) {
+                    foreach ($elseIfStatement->stmts as $st) {
+                        if ($st instanceof Node\Stmt) {
+                            $expr = new Statement($st, $this->context);
+                        } else {
+                            $expr = new Expression($st, $this->context);
+                            $expr->compile($st);
+                        }
+                    }
+                } else {
+
+                }
+            }
+        } else {
+
+        }
+
+        if ($ifStatement->else) {
+            if (count($ifStatement->else->stmts) > 0) {
+                foreach ($ifStatement->else->stmts as $st) {
+                    if ($st instanceof Node\Stmt) {
+                        $expr = new Statement($st, $this->context);
+                    } else {
+                        $expr = new Expression($st, $this->context);
+                        $expr->compile($st);
+                    }
+                }
+            } else {
+
+            }
         }
     }
 
