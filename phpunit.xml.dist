@@ -1,0 +1,18 @@
+<phpunit backupGlobals="false"
+         backupStaticAttributes="false"
+         colors="true"
+         convertErrorsToExceptions="true"
+         convertNoticesToExceptions="true"
+         convertWarningsToExceptions="true"
+         processIsolation="false"
+         stopOnFailure="true"
+         syntaxCheck="false"
+         bootstrap="./unit-tests/PHPSA/Bootstrap.php"
+        >
+
+    <testsuites>
+        <testsuite name="All tests">
+            <directory>./unit-tests/PHPSA/Expression/</directory>
+        </testsuite>
+    </testsuites>
+</phpunit>
