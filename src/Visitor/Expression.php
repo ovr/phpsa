@@ -47,6 +47,11 @@ class Expression
                 return $this->passSymbol($expr);
             case 'PhpParser\Node\Expr\Variable';
                 return $this->passExprVariable($expr);
+            /**
+             * Operators
+             */
+            case 'PhpParser\Node\Expr\BinaryOp\Identical';
+                return $this->passBinaryOpIdentical($expr);
             case 'PhpParser\Node\Expr\BinaryOp\Div';
                 return $this->passBinaryOpDiv($expr);
             case 'PhpParser\Node\Expr\BinaryOp\Plus';
@@ -57,6 +62,9 @@ class Expression
                 return $this->passBinaryOpMul($expr);
             case 'PhpParser\Node\Expr\BinaryOp\Minus';
                 return $this->passBinaryOpMinus($expr);
+            /**
+             * Another
+             */
             case 'PhpParser\Node\Expr\UnaryMinus';
                 return $this->passUnaryMinus($expr);
             case 'PhpParser\Node\Expr\New_';
@@ -495,6 +503,38 @@ class Expression
                 break;
             default:
                 //@todo implement it
+                break;
+        }
+
+        return new CompiledExpression(CompiledExpression::UNKNOWN);
+    }
+
+    /**
+     * It's used in conditions
+     * {left-expr} === {right-expr}
+     *
+     * @param Node\Expr\BinaryOp\Identical $expr
+     * @return CompiledExpression
+     */
+    protected function passBinaryOpIdentical(Node\Expr\BinaryOp\Identical $expr)
+    {
+        $expression = new Expression($expr->left, $this->context);
+        $left = $expression->compile($expr->left);
+
+        $expression = new Expression($expr->right, $this->context);
+        $right = $expression->compile($expr->right);
+
+        switch ($left->getType()) {
+            case CompiledExpression::LNUMBER:
+            case CompiledExpression::DNUMBER:
+            case CompiledExpression::BOOLEAN:
+                switch ($right->getType()) {
+                    case CompiledExpression::LNUMBER:
+                    case CompiledExpression::DNUMBER:
+                    case CompiledExpression::BOOLEAN:
+                        return new CompiledExpression(CompiledExpression::BOOLEAN, $left->getValue() === $right->getValue());
+                        break;
+                }
                 break;
         }
 

@@ -53,6 +53,12 @@ class CompiledExpression
      */
     const NULL = 8;
 
+
+    /**
+     * We cant explain what it's
+     */
+    const DYNAMIC = 9;
+
     /**
      * By default we dont know what it is
      *
