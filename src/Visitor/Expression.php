@@ -86,11 +86,27 @@ class Expression
                 return $this->getString($expr);
             case 'PhpParser\Node\Expr\ConstFetch';
                 return $this->constFetch($expr);
+            case 'PhpParser\Node\Name';
+                return $this->getNodeName($expr);
             default:
                 $this->context->debug('Unknown expression: ' . get_class($expr));
                 return new CompiledExpression(-1);
                 break;
         }
+    }
+
+    /**
+     * @param Node\Name $expr
+     * @return CompiledExpression
+     */
+    public function getNodeName(Node\Name $expr)
+    {
+        if ($expr->parts[0] === 'null') {
+            return new CompiledExpression(CompiledExpression::NULL);
+        }
+
+        $this->context->debug('Unknown how to get node name');
+        return new CompiledExpression(CompiledExpression::UNKNOWN);
     }
 
     protected function passNew(Node\Expr\New_ $expr)
