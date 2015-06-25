@@ -22,11 +22,37 @@ class MathTest extends \PHPUnit_Framework_TestCase
         return $context;
     }
 
-    public function testPlusIntToInt()
+    /**
+     * Data provider for Plus {int} + {int} = {int}
+     *
+     * @return array
+     */
+    public function testIntToIntDataProvider()
+    {
+        return array(
+            array(-1, -1, -2),
+            array(-1, 0, -1),
+            array(0, -1, -1),
+            array(-1, 2, 1),
+            array(2, -1, 1),
+            array(0, 0, 0),
+            array(0, 1, 1),
+            array(1, 0, 1),
+            array(1, 2, 3),
+            array(2, 1, 3),
+            array(25, 25, 50),
+            array(50, 50, 100),
+        );
+    }
+
+    /**
+     * @dataProvider testIntToIntDataProvider
+     */
+    public function testPlusIntToInt($a, $b, $c)
     {
         $baseExpression = new Node\Expr\BinaryOp\Plus(
-            new Node\Scalar\LNumber(1),
-            new Node\Scalar\LNumber(1)
+            new Node\Scalar\LNumber($a),
+            new Node\Scalar\LNumber($b)
         );
 
         $visitor = new Expression($baseExpression, $this->getContext());
@@ -34,7 +60,7 @@ class MathTest extends \PHPUnit_Framework_TestCase
 
         $this->assertInstanceOf('PHPSA\CompiledExpression', $compiledExpression);
         $this->assertSame(CompiledExpression::LNUMBER, $compiledExpression->getType());
-        $this->assertSame(2, $compiledExpression->getValue());
+        $this->assertSame($c, $compiledExpression->getValue());
     }
 
     public function testPlusIntToFloat()
