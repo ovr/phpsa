@@ -9,7 +9,6 @@ use PHPSA\CompiledExpression;
 use PHPSA\Context;
 use PhpParser\Node;
 use PHPSA\Variable;
-use Symfony\Component\Console\Output\OutputInterface;
 
 class Expression
 {
