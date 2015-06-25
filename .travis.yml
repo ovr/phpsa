@@ -23,4 +23,4 @@ install:
   - composer --prefer-source install
 
 script:
-  - ./bin/phpsa check ./tests
+  - ./bin/phpsa check -vvv ./tests
