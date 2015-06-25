@@ -582,7 +582,7 @@ class Expression
             }
 
             if ($expr->name->parts[0] === "false") {
-                return new CompiledExpression(CompiledExpression::LNUMBER, false);
+                return new CompiledExpression(CompiledExpression::BOOLEAN, false);
             }
         }
 
