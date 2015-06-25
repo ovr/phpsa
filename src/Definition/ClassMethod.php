@@ -5,7 +5,7 @@
 
 namespace PHPSA\Definition;
 
-use PhpParser\Node\Stmt\Class_;
+use PhpParser\Node;
 use PHPSA\Context;
 use PHPSA\Visitor;
 
@@ -21,11 +21,11 @@ class ClassMethod
     protected $type;
 
     /**
-     * @var \PhpParser\Node\Stmt\ClassMethod
+     * @var Node\Stmt\ClassMethod
      */
     protected $st;
 
-    public function __construct($name, $ast, $type, \PhpParser\Node\Stmt\ClassMethod $st)
+    public function __construct($name, $ast, $type, Node\Stmt\ClassMethod $st)
     {
         $this->name = $name;
         $this->ast = $ast;
@@ -52,14 +52,14 @@ class ClassMethod
         }
 
         if (count($this->st->params) > 0) {
-            /** @var  \PhpParser\Node\Param $parameter */
+            /** @var  Node\Param $parameter */
             foreach ($this->st->params as $parameter) {
                 $context->addSymbol($parameter->name);
             }
         }
 
         foreach ($this->ast as $st) {
-            if ($st instanceof \PhpParser\Node\Stmt) {
+            if ($st instanceof Node\Stmt) {
                 $expr = new Visitor\Statement($st, $context);
             } else {
                 $expr = new Visitor\Expression($st, $context);
@@ -73,7 +73,7 @@ class ClassMethod
      */
     public function isStatic()
     {
-        return (bool) ($this->type & Class_::MODIFIER_STATIC);
+        return (bool) ($this->type & Node\Stmt\Class_::MODIFIER_STATIC);
     }
 
     /**
@@ -81,7 +81,7 @@ class ClassMethod
      */
     public function isPublic()
     {
-        return ($this->type & Class_::MODIFIER_PUBLIC) !== 0 || $this->type === 0;
+        return ($this->type & Node\Stmt\Class_::MODIFIER_PUBLIC) !== 0 || $this->type === 0;
     }
 
     /**
@@ -89,7 +89,7 @@ class ClassMethod
      */
     public function isProtected()
     {
-        return (bool) ($this->type & Class_::MODIFIER_PROTECTED);
+        return (bool) ($this->type & Node\Stmt\Class_::MODIFIER_PROTECTED);
     }
 
     /**
@@ -97,6 +97,6 @@ class ClassMethod
      */
     public function isPrivate()
     {
-        return (bool) ($this->type & Class_::MODIFIER_PRIVATE);
+        return (bool) ($this->type & Node\Stmt\Class_::MODIFIER_PRIVATE);
     }
 }
