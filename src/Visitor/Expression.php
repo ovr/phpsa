@@ -559,19 +559,32 @@ class Expression
 
         switch ($left->getType()) {
             case CompiledExpression::LNUMBER:
+                switch ($right->getType()) {
+                    case CompiledExpression::LNUMBER:
+                        /**
+                         * php -r "var_dump(1 + 1);" int(2)
+                         */
+                        return new CompiledExpression(CompiledExpression::LNUMBER, $left->getValue() + $right->getValue());
+                        break;
+                    case CompiledExpression::DNUMBER:
+                        /**
+                         * php -r "var_dump(1 + 1.0);" double(2)
+                         */
+                        return new CompiledExpression(CompiledExpression::DNUMBER, $left->getValue() + $right->getValue());
+                        break;
+                }
+                break;
             case CompiledExpression::DNUMBER:
                 switch ($right->getType()) {
                     case CompiledExpression::LNUMBER:
                     case CompiledExpression::DNUMBER:
+                        /**
+                         * php -r "var_dump(1.0 + 1);"   double(2)
+                         * php -r "var_dump(1.0 + 1.0);" double(2)
+                         */
                         return new CompiledExpression(CompiledExpression::DNUMBER, $left->getValue() + $right->getValue());
                         break;
-                    default:
-                        //
-                        break;
                 }
-                break;
-            default:
-                //
                 break;
         }
 
