@@ -1,12 +1,12 @@
 <?php
 
-namespace Tests\PHPSA\Expression;
+namespace Tests\PHPSA\Expression\BinaryOp;
 
 use PhpParser\Node;
 use PHPSA\CompiledExpression;
 use PHPSA\Visitor\Expression;
 
-class MathTest extends \Tests\PHPSA\TestCase
+class PlusTest extends \Tests\PHPSA\TestCase
 {
     /**
      * Data provider for Plus {int} + {int} = {int}
