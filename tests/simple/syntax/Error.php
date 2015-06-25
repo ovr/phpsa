@@ -1,6 +1,8 @@
 <?php
 
-class Test
+namespace Tests\Simple\Syntax;
+
+class Error
 {
   public function a()
   {

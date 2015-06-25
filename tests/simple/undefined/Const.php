@@ -1,5 +1,7 @@
 <?php
 
+namespace Tests\Simple\Undefined;
+
 class UndefinedConst
 {
   const A = 1;

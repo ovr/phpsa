@@ -1,5 +1,7 @@
 <?php
 
+namespace Tests\Simple\Undefined;
+
 class UndefinedVar
 {
     public function test1()

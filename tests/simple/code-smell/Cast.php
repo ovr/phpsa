@@ -1,6 +1,6 @@
 <?php
 
-namespace Simple\CodeSmell;
+namespace Tests\Simple\CodeSmell;
 
 class Cast
 {

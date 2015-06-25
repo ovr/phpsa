@@ -1,6 +1,8 @@
 <?php
 
-class DevisionByZero
+namespace Tests\Simple\CodeSmell;
+
+class DevisionZero
 {
     public function testDivisionOnZero1()
     {

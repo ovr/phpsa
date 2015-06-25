@@ -1,6 +1,8 @@
 <?php
 
-class PassVariable
+namespace Tests\Simple\Tests;
+
+class PossibleReturn
 {
   public function returnInt()
   {

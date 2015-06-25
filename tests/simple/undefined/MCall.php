@@ -1,6 +1,6 @@
 <?php
 
-namespace Test\Simple\Undefined;
+namespace Tests\Simple\Undefined;
 
 class MCall
 {
