@@ -8,6 +8,10 @@ namespace PHPSA\Definition;
 use PHPSA\Context;
 use PhpParser\Node;
 
+/**
+ * Class ClassDefinition
+ * @package PHPSA\Definition
+ */
 class ClassDefinition
 {
     /**
@@ -137,6 +141,10 @@ class ClassDefinition
         return $this->methods[$name];
     }
 
+    /**
+     * @param $name
+     * @return bool
+     */
     public function hasProperty($name)
     {
         return isset($this->properties[$name]);
