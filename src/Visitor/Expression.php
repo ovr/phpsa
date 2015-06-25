@@ -71,6 +71,8 @@ class Expression
                 return $this->passCastInt($expr);
             case 'PhpParser\Node\Expr\Cast\Double';
                 return $this->passCastFloat($expr);
+            case 'PhpParser\Node\Expr\Cast\String_';
+                return $this->passCastString($expr);
             /**
              * Scalars
              */
@@ -193,6 +195,32 @@ class Expression
             case CompiledExpression::LNUMBER:
             case CompiledExpression::STRING:
                 return new CompiledExpression(CompiledExpression::DNUMBER, (float) $compiledExpression->getValue());
+                break;
+        }
+
+        return new CompiledExpression(CompiledExpression::UNKNOWN);
+    }
+
+    /**
+     * (string) {$expr}
+     *
+     * @param Node\Expr\Cast\String_ $expr
+     * @return CompiledExpression
+     */
+    protected function passCastString(Node\Expr\Cast\String_ $expr)
+    {
+        $expression = new Expression($expr->expr, $this->context);
+        $compiledExpression = $expression->compile($expr->expr);
+
+        switch ($compiledExpression->getType()) {
+            case CompiledExpression::STRING:
+                $this->context->notice('stupid-cast', "You are trying to cast 'string' to 'string'", $expr);
+                return $compiledExpression;
+                break;
+            case CompiledExpression::BOOLEAN:
+            case CompiledExpression::LNUMBER:
+            case CompiledExpression::DNUMBER:
+                return new CompiledExpression(CompiledExpression::DNUMBER, (string) $compiledExpression->getValue());
                 break;
         }
 
