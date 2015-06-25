@@ -49,6 +49,11 @@ class CompiledExpression
     const RESOURCE = 7;
 
     /**
+     * Resource handler
+     */
+    const NULL = 8;
+
+    /**
      * By default we dont know what it is
      *
      * @var int

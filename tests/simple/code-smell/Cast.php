@@ -127,4 +127,23 @@ class Cast
     {
         return (string) true;
     }
+
+    /**
+     * Unset cast (unset)
+     */
+
+    public function testCastUnsetFromBooleanTrue()
+    {
+        return (unset) true;
+    }
+
+    public function testCastUnsetFromBooleanFalse()
+    {
+        return (unset) false;
+    }
+
+    public function testCastUnsetFromNull()
+    {
+        return (unset) null;
+    }
 }

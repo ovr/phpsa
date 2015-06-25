@@ -73,6 +73,8 @@ class Expression
                 return $this->passCastFloat($expr);
             case 'PhpParser\Node\Expr\Cast\String_';
                 return $this->passCastString($expr);
+            case 'PhpParser\Node\Expr\Cast\Unset_';
+                return $this->passCastUnset($expr);
             /**
              * Scalars
              */
@@ -225,6 +227,32 @@ class Expression
         }
 
         return new CompiledExpression(CompiledExpression::UNKNOWN);
+    }
+
+    /**
+     * (unset) {$expr}
+     *
+     * @param Node\Expr\Cast\Unset_ $expr
+     * @return CompiledExpression
+     */
+    protected function passCastUnset(Node\Expr\Cast\Unset_ $expr)
+    {
+        $expression = new Expression($expr->expr, $this->context);
+        $compiledExpression = $expression->compile($expr->expr);
+
+        switch ($compiledExpression->getType()) {
+            case CompiledExpression::NULL:
+                $this->context->notice('stupid-cast', "You are trying to cast 'unset' to 'null'", $expr);
+                return $compiledExpression;
+                break;
+            case CompiledExpression::BOOLEAN:
+            case CompiledExpression::LNUMBER:
+            case CompiledExpression::DNUMBER:
+                return new CompiledExpression(CompiledExpression::DNUMBER, (unset) $compiledExpression->getValue());
+                break;
+        }
+
+        return new CompiledExpression(CompiledExpression::NULL, null);
     }
 
     protected function passFunctionCall(Node\Expr\FuncCall $expr)
