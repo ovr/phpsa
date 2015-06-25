@@ -32,6 +32,26 @@ class Cast
         return (int) 123456789.5;
     }
 
+    public function testCastIntFromBooleanTrue()
+    {
+        return (int) true;
+    }
+
+    public function testCastIntFromBooleanFalse()
+    {
+        return (int) false;
+    }
+
+    public function testCastIntFromString()
+    {
+        return (int) "test string";
+    }
+
+    public function testCastIntFromEmptyString()
+    {
+        return (int) "";
+    }
+
     public function testCastFloatFromInt()
     {
         return (float) 123456789;
@@ -52,7 +72,7 @@ class Cast
         return (float) false;
     }
 
-    public function testCastFloatFromStringEmpty()
+    public function testCastFloatFromEmptyString()
     {
         return (float) "";
     }

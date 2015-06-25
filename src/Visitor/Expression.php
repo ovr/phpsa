@@ -165,6 +165,7 @@ class Expression
                 break;
             case CompiledExpression::BOOLEAN:
             case CompiledExpression::DNUMBER:
+            case CompiledExpression::STRING:
                 return new CompiledExpression(CompiledExpression::LNUMBER, (int) $compiledExpression->getValue());
                 break;
         }
