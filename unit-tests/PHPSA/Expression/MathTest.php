@@ -46,24 +46,6 @@ class MathTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @dataProvider testIntToIntDataProvider
-     */
-    public function testPlusIntToInt($a, $b, $c)
-    {
-        $baseExpression = new Node\Expr\BinaryOp\Plus(
-            new Node\Scalar\LNumber($a),
-            new Node\Scalar\LNumber($b)
-        );
-
-        $visitor = new Expression($baseExpression, $this->getContext());
-        $compiledExpression = $visitor->compile($baseExpression);
-
-        $this->assertInstanceOf('PHPSA\CompiledExpression', $compiledExpression);
-        $this->assertSame(CompiledExpression::LNUMBER, $compiledExpression->getType());
-        $this->assertSame($c, $compiledExpression->getValue());
-    }
-
-    /**
      * Data provider for Plus {int} + {float} = {int}
      *
      * @return array
@@ -84,6 +66,28 @@ class MathTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * Tests {int} + {int} = {int}
+     *
+     * @dataProvider testIntToIntDataProvider
+     */
+    public function testPlusIntToInt($a, $b, $c)
+    {
+        $baseExpression = new Node\Expr\BinaryOp\Plus(
+            new Node\Scalar\LNumber($a),
+            new Node\Scalar\LNumber($b)
+        );
+
+        $visitor = new Expression($baseExpression, $this->getContext());
+        $compiledExpression = $visitor->compile($baseExpression);
+
+        $this->assertInstanceOf('PHPSA\CompiledExpression', $compiledExpression);
+        $this->assertSame(CompiledExpression::LNUMBER, $compiledExpression->getType());
+        $this->assertSame($c, $compiledExpression->getValue());
+    }
+
+    /**
+     * Tests {int} + {float} = {float}
+     *
      * @dataProvider testIntToFloatDataProvider
      */
     public function testPlusIntToFloat($a, $b, $c)
@@ -101,11 +105,18 @@ class MathTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($c, $compiledExpression->getValue());
     }
 
-    public function testPlusFloatToInt()
+    /**
+     * Tests {float} + {int} = {float}
+     *
+     * testPlusFloatToInt($b, $a - it's special to use already defined fixtures
+     *
+     * @dataProvider testIntToFloatDataProvider
+     */
+    public function testPlusFloatToInt($b, $a, $c)
     {
         $baseExpression = new Node\Expr\BinaryOp\Plus(
-            new Node\Scalar\DNumber(1.5),
-            new Node\Scalar\LNumber(1)
+            new Node\Scalar\DNumber($a),
+            new Node\Scalar\LNumber($b)
         );
 
         $visitor = new Expression($baseExpression, $this->getContext());
@@ -113,14 +124,22 @@ class MathTest extends \PHPUnit_Framework_TestCase
 
         $this->assertInstanceOf('PHPSA\CompiledExpression', $compiledExpression);
         $this->assertSame(CompiledExpression::DNUMBER, $compiledExpression->getType());
-        $this->assertSame(2.5, $compiledExpression->getValue());
+        $this->assertSame($c, $compiledExpression->getValue());
     }
 
-    public function testPlusFloatToFloat()
+    /**
+     * Tests {float} + {float} = {float}
+     *
+     * @dataProvider testIntToFloatDataProvider
+     */
+    public function testPlusFloatToFloat($a, $b, $c)
     {
         $baseExpression = new Node\Expr\BinaryOp\Plus(
-            new Node\Scalar\DNumber(1.5),
-            new Node\Scalar\LNumber(1.5)
+            /**
+             * float casting to use already defined fixtures (float) {int} + {float} = {float}
+             */
+            new Node\Scalar\DNumber((float) $a),
+            new Node\Scalar\DNumber($b)
         );
 
         $visitor = new Expression($baseExpression, $this->getContext());
@@ -128,6 +147,6 @@ class MathTest extends \PHPUnit_Framework_TestCase
 
         $this->assertInstanceOf('PHPSA\CompiledExpression', $compiledExpression);
         $this->assertSame(CompiledExpression::DNUMBER, $compiledExpression->getType());
-        $this->assertSame(3.0, $compiledExpression->getValue());
+        $this->assertSame($c, $compiledExpression->getValue());
     }
 }
