@@ -3,25 +3,11 @@
 namespace Tests\PHPSA\Expression;
 
 use PhpParser\Node;
-use PHPSA\Application;
 use PHPSA\CompiledExpression;
-use PHPSA\Definition\ClassDefinition;
 use PHPSA\Visitor\Expression;
-use Symfony\Component\Console\Output\ConsoleOutput;
 
-class MathTest extends \PHPUnit_Framework_TestCase
+class MathTest extends \Tests\PHPSA\TestCase
 {
-    /**
-     * @return \PHPSA\Context
-     */
-    protected function getContext()
-    {
-        $context = new \PHPSA\Context(new ConsoleOutput(), new Application());
-        $context->setScope(new ClassDefinition('MathTest'));
-
-        return $context;
-    }
-
     /**
      * Data provider for Plus {int} + {int} = {int}
      *
