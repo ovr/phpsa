@@ -6,6 +6,10 @@ use PhpParser\Node;
 use PHPSA\CompiledExpression;
 use PHPSA\Visitor\Expression;
 
+/**
+ * Class IndenticalTest
+ * @package Tests\PHPSA\Expression\BinaryOp
+ */
 class IndenticalTest extends \Tests\PHPSA\TestCase
 {
     /**
@@ -36,9 +40,7 @@ class IndenticalTest extends \Tests\PHPSA\TestCase
             new Node\Scalar\LNumber($a),
             new Node\Scalar\LNumber($b)
         );
-
-        $visitor = new Expression($baseExpression, $this->getContext());
-        $compiledExpression = $visitor->compile($baseExpression);
+        $compiledExpression = $this->compileExpression($baseExpression);
 
         $this->assertInstanceOf('PHPSA\CompiledExpression', $compiledExpression);
         $this->assertSame(CompiledExpression::BOOLEAN, $compiledExpression->getType());
@@ -62,9 +64,7 @@ class IndenticalTest extends \Tests\PHPSA\TestCase
             new Node\Scalar\DNumber((float) $a),
             new Node\Scalar\DNumber((float) $b)
         );
-
-        $visitor = new Expression($baseExpression, $this->getContext());
-        $compiledExpression = $visitor->compile($baseExpression);
+        $compiledExpression = $this->compileExpression($baseExpression);
 
         $this->assertInstanceOf('PHPSA\CompiledExpression', $compiledExpression);
         $this->assertSame(CompiledExpression::BOOLEAN, $compiledExpression->getType());
@@ -96,9 +96,7 @@ class IndenticalTest extends \Tests\PHPSA\TestCase
             new Node\Scalar\LNumber($a),
             new Node\Scalar\DNumber((float) $b)
         );
-
-        $visitor = new Expression($baseExpression, $this->getContext());
-        $compiledExpression = $visitor->compile($baseExpression);
+        $compiledExpression = $this->compileExpression($baseExpression);
 
         $this->assertInstanceOf('PHPSA\CompiledExpression', $compiledExpression);
         $this->assertSame(CompiledExpression::BOOLEAN, $compiledExpression->getType());
@@ -119,9 +117,7 @@ class IndenticalTest extends \Tests\PHPSA\TestCase
             new Node\Scalar\DNumber((float) $a),
             new Node\Scalar\LNumber($b)
         );
-
-        $visitor = new Expression($baseExpression, $this->getContext());
-        $compiledExpression = $visitor->compile($baseExpression);
+        $compiledExpression = $this->compileExpression($baseExpression);
 
         $this->assertInstanceOf('PHPSA\CompiledExpression', $compiledExpression);
         $this->assertSame(CompiledExpression::BOOLEAN, $compiledExpression->getType());

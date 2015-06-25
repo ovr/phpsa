@@ -62,9 +62,7 @@ class PlusTest extends \Tests\PHPSA\TestCase
             new Node\Scalar\LNumber($a),
             new Node\Scalar\LNumber($b)
         );
-
-        $visitor = new Expression($baseExpression, $this->getContext());
-        $compiledExpression = $visitor->compile($baseExpression);
+        $compiledExpression = $this->compileExpression($baseExpression);
 
         $this->assertInstanceOf('PHPSA\CompiledExpression', $compiledExpression);
         $this->assertSame(CompiledExpression::LNUMBER, $compiledExpression->getType());
@@ -82,9 +80,7 @@ class PlusTest extends \Tests\PHPSA\TestCase
             new Node\Scalar\LNumber($a),
             new Node\Scalar\DNumber($b)
         );
-
-        $visitor = new Expression($baseExpression, $this->getContext());
-        $compiledExpression = $visitor->compile($baseExpression);
+        $compiledExpression = $this->compileExpression($baseExpression);
 
         $this->assertInstanceOf('PHPSA\CompiledExpression', $compiledExpression);
         $this->assertSame(CompiledExpression::DNUMBER, $compiledExpression->getType());
@@ -104,9 +100,7 @@ class PlusTest extends \Tests\PHPSA\TestCase
             new Node\Scalar\DNumber($a),
             new Node\Scalar\LNumber($b)
         );
-
-        $visitor = new Expression($baseExpression, $this->getContext());
-        $compiledExpression = $visitor->compile($baseExpression);
+        $compiledExpression = $this->compileExpression($baseExpression);
 
         $this->assertInstanceOf('PHPSA\CompiledExpression', $compiledExpression);
         $this->assertSame(CompiledExpression::DNUMBER, $compiledExpression->getType());
@@ -127,9 +121,7 @@ class PlusTest extends \Tests\PHPSA\TestCase
             new Node\Scalar\DNumber((float) $a),
             new Node\Scalar\DNumber($b)
         );
-
-        $visitor = new Expression($baseExpression, $this->getContext());
-        $compiledExpression = $visitor->compile($baseExpression);
+        $compiledExpression = $this->compileExpression($baseExpression);
 
         $this->assertInstanceOf('PHPSA\CompiledExpression', $compiledExpression);
         $this->assertSame(CompiledExpression::DNUMBER, $compiledExpression->getType());
