@@ -567,10 +567,14 @@ class Expression
             case CompiledExpression::LNUMBER:
             case CompiledExpression::DNUMBER:
             case CompiledExpression::BOOLEAN:
+            case CompiledExpression::ARR:
+            case CompiledExpression::OBJECT:
                 switch ($right->getType()) {
                     case CompiledExpression::LNUMBER:
                     case CompiledExpression::DNUMBER:
                     case CompiledExpression::BOOLEAN:
+                    case CompiledExpression::ARR:
+                    case CompiledExpression::OBJECT:
                         return new CompiledExpression(CompiledExpression::BOOLEAN, $left->getValue() == $right->getValue());
                         break;
                 }
