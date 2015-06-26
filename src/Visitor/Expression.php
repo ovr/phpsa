@@ -8,6 +8,7 @@ namespace PHPSA\Visitor;
 use PHPSA\CompiledExpression;
 use PHPSA\Context;
 use PhpParser\Node;
+use PHPSA\Node\Scalar\Boolean;
 use PHPSA\Variable;
 
 class Expression
@@ -93,6 +94,8 @@ class Expression
                 return $this->getDNumber($expr);
             case 'PhpParser\Node\Scalar\String_';
                 return $this->getString($expr);
+            case 'PHPSA\Node\Scalar\Boolean';
+                return $this->getBoolean($expr);
             case 'PhpParser\Node\Expr\ConstFetch';
                 return $this->constFetch($expr);
             case 'PhpParser\Node\Name';
@@ -724,6 +727,14 @@ class Expression
     protected function getString(Node\Scalar\String_ $scalar)
     {
         return new CompiledExpression(CompiledExpression::STRING, $scalar->value);
+    }
+
+    /**
+     * @param Boolean $scalar
+     */
+    protected function getBoolean(Boolean $scalar)
+    {
+        return new CompiledExpression(CompiledExpression::BOOLEAN, $scalar->value);
     }
 
     /**

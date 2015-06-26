@@ -2,6 +2,7 @@
 
 namespace Tests\PHPSA;
 
+use PHPSA\Node\Scalar\Boolean;
 use PHPSA\Visitor\Expression;
 use RuntimeException;
 use Symfony\Component\Console\Output\ConsoleOutput;
@@ -46,6 +47,7 @@ class TestCase extends \PHPUnit_Framework_TestCase
                 return new Node\Scalar\DNumber($value);
                 break;
             case 'boolean':
+                return new Boolean($value);
                 break;
             default:
                 throw new RuntimeException('Unexpected type: ' . gettype($value));
