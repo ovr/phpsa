@@ -94,6 +94,8 @@ class Expression
                 return $this->getDNumber($expr);
             case 'PhpParser\Node\Scalar\String_';
                 return $this->getString($expr);
+            case 'PhpParser\Node\Expr\Array_';
+                return $this->getArray($expr);
             case 'PHPSA\Node\Scalar\Boolean';
                 return $this->getBoolean($expr);
             case 'PhpParser\Node\Expr\ConstFetch';
@@ -727,6 +729,22 @@ class Expression
     protected function getString(Node\Scalar\String_ $scalar)
     {
         return new CompiledExpression(CompiledExpression::STRING, $scalar->value);
+    }
+
+
+    /**
+     * Compile Array_ expression to CompiledExpression
+     *
+     * @param Node\Expr\Array_ $expr
+     * @return CompiledExpression
+     */
+    protected function getArray(Node\Expr\Array_ $expr)
+    {
+        if ($expr->items === []) {
+            return new CompiledExpression(CompiledExpression::ARR, []);
+        }
+
+        return new CompiledExpression(CompiledExpression::ARR | CompiledExpression::UNKNOWN);
     }
 
     /**
