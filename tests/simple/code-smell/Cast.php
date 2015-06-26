@@ -18,6 +18,11 @@ class Cast
         return (bool) false;
     }
 
+    public function testCastBooleanFromEqualStaticCondition()
+    {
+        return (bool) ([] == []);
+    }
+
     public function testAssignCastBooleanFalse()
     {
         $a = 123456789;
