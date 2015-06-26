@@ -740,8 +740,8 @@ class Expression
      */
     protected function getArray(Node\Expr\Array_ $expr)
     {
-        if ($expr->items === []) {
-            return new CompiledExpression(CompiledExpression::ARR, []);
+        if ($expr->items === array()) {
+            return new CompiledExpression(CompiledExpression::ARR, array());
         }
 
         return new CompiledExpression(CompiledExpression::ARR | CompiledExpression::UNKNOWN);
