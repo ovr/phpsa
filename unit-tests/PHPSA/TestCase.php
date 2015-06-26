@@ -49,6 +49,13 @@ class TestCase extends \PHPUnit_Framework_TestCase
             case 'boolean':
                 return new Boolean($value);
                 break;
+            case 'array':
+                if ($value === array()) {
+                    return new Node\Expr\Array_([]);
+                }
+
+                throw new RuntimeException('newScalarExpr is not working with non-empty arrays');
+                break;
             default:
                 throw new RuntimeException('Unexpected type: ' . gettype($value));
                 break;
