@@ -752,7 +752,11 @@ class Expression
     }
 
     /**
+     * Compile Boolean expression to CompiledExpression
+     * Attention: Boolean is my node class not PHPParser ;)
+     *
      * @param Boolean $scalar
+     * @return CompiledExpression
      */
     protected function getBoolean(Boolean $scalar)
     {
