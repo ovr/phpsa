@@ -30,11 +30,15 @@ class EqualTest extends \Tests\PHPSA\TestCase
             array(150, 150.0),
             array(150.0, 150),
             array(150.0, 150.0),
+            //boolean true
             array(true, true),
             array(true, 1),
+            array(1, true),
+            // boolean false
             array(false, false),
             array(false, 0),
             array(0, false),
+            // empty arrays
             array([], false),
             array(false, []),
             array([], []),
