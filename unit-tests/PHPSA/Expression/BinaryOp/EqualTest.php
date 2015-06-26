@@ -52,8 +52,8 @@ class EqualTest extends \Tests\PHPSA\TestCase
     public function testStaticTrueEquals($a, $b)
     {
         $baseExpression = new Node\Expr\BinaryOp\Equal(
-            new Node\Scalar\LNumber($a),
-            new Node\Scalar\LNumber($b)
+            $this->newScalarExpr($a),
+            $this->newScalarExpr($b)
         );
         $compiledExpression = $this->compileExpression($baseExpression);
 
