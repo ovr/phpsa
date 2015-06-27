@@ -673,6 +673,10 @@ class Expression
         return new CompiledExpression(CompiledExpression::UNKNOWN);
     }
 
+    /**
+     * @param Node\Expr\BinaryOp\Minus $expr
+     * @return CompiledExpression
+     */
     protected function passBinaryOpMinus(Node\Expr\BinaryOp\Minus $expr)
     {
         $expression = new Expression($expr->left, $this->context);
@@ -683,19 +687,19 @@ class Expression
 
         switch ($left->getType()) {
             case CompiledExpression::LNUMBER:
+                switch ($right->getType()) {
+                    case CompiledExpression::LNUMBER:
+                        return new CompiledExpression(CompiledExpression::LNUMBER, $left->getValue() - $right->getValue());
+                        break;
+                }
+                break;
             case CompiledExpression::DNUMBER:
                 switch ($right->getType()) {
                     case CompiledExpression::LNUMBER:
                     case CompiledExpression::DNUMBER:
                         return new CompiledExpression(CompiledExpression::DNUMBER, $left->getValue() - $right->getValue());
                         break;
-                    default:
-                        //
-                        break;
                 }
-                break;
-            default:
-                //
                 break;
         }
 
