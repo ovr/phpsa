@@ -4,36 +4,57 @@ namespace Tests\Simple\Tests;
 
 class PossibleReturn
 {
+    /**
+     * @return int
+     */
     public function returnInt()
     {
         return 1;
     }
 
+    /**
+     * @return float
+     */
     public function returnFloat()
     {
         return 1.5;
     }
 
+    /**
+     * @return bool
+     */
     public function returnBoolTrue()
     {
         return true;
     }
 
+    /**
+     * @return bool
+     */
     public function returnBoolFalse()
     {
         return false;
     }
 
+    /**
+     * @return string
+     */
     public function returnString()
     {
         return "test string";
     }
 
+    /**
+     * @return array
+     */
     public function returnEmptyArray()
     {
         return array();
     }
 
+    /**
+     * @return array
+     */
     public function returnExampleArray()
     {
         return array(
@@ -42,6 +63,10 @@ class PossibleReturn
         );
     }
 
+    /**
+     * @param $a
+     * @return bool
+     */
     public function simpleIf($a)
     {
         if ($a) {
@@ -51,6 +76,10 @@ class PossibleReturn
         return false;
     }
 
+    /**
+     * @param $a
+     * @return bool
+     */
     public function simpleIf2($a)
     {
         if (!$a) {
@@ -60,6 +89,10 @@ class PossibleReturn
         return true;
     }
 
+    /**
+     * @param $a
+     * @return bool
+     */
     public function simpleIf3($a)
     {
         if ($a === 3) {

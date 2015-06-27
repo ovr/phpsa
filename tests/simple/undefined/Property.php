@@ -4,15 +4,24 @@ namespace Tests\Simple\Undefined;
 
 class Property
 {
-  protected $b = "test string";
+    /**
+     * @var string
+     */
+    protected $b = "test string";
 
-  public function a()
-  {
-      return $this->a;
-  }
+    /**
+     * @return mixed
+     */
+    public function a()
+    {
+        return $this->a;
+    }
 
-  public function b()
-  {
-      return $this->b;
-  }
+    /**
+     * @return string
+     */
+    public function b()
+    {
+        return $this->b;
+    }
 }

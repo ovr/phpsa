@@ -2,17 +2,30 @@
 
 namespace Tests\Simple\Undefined;
 
+/**
+ * Class UndefinedConst
+ * @package Tests\Simple\Undefined
+ */
 class UndefinedConst
 {
-  const A = 1;
+    /**
+     * @var int
+     */
+    const A = 1;
 
-  public function testA()
-  {
-    return self::A;
-  }
+    /**
+     * @return int
+     */
+    public function testA()
+    {
+        return self::A;
+    }
 
-  public function testUndefinedConst()
-  {
-    return self::BBBB;
-  }
+    /**
+     * @return mixed
+     */
+    public function testUndefinedConst()
+    {
+        return self::BBBB;
+    }
 }

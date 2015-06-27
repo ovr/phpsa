@@ -4,8 +4,9 @@ namespace Tests\Simple\Syntax;
 
 class Error
 {
-  public function a()
-  {
-    return $this->b(); 123123
-  }
+    public function a()
+    {
+        123123
+        return $this->b();
+    }
 }
