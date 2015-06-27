@@ -15,7 +15,7 @@ class EqualTest extends \Tests\PHPSA\TestCase
     /**
      * @return array
      */
-    public function providerForStaticTrueEquals()
+    public function providerForStaticEqualsTrue()
     {
         return array(
             array(-1, -1),
@@ -51,9 +51,9 @@ class EqualTest extends \Tests\PHPSA\TestCase
      * @param int $a
      * @param int $b
      *
-     * @dataProvider providerForStaticTrueEquals
+     * @dataProvider providerForStaticEqualsTrue
      */
-    public function testStaticTrueEquals($a, $b)
+    public function testStaticEqualsTrue($a, $b)
     {
         $baseExpression = new Node\Expr\BinaryOp\Equal(
             $this->newScalarExpr($a),
@@ -64,5 +64,46 @@ class EqualTest extends \Tests\PHPSA\TestCase
         $this->assertInstanceOf('PHPSA\CompiledExpression', $compiledExpression);
         $this->assertSame(CompiledExpression::BOOLEAN, $compiledExpression->getType());
         $this->assertSame(true, $compiledExpression->getValue());
+    }
+
+    /**
+     * @return array
+     */
+    public function providerForStaticEqualsFalse()
+    {
+        return array(
+            array(-1, 150),
+            array(-1, 1),
+            array(0, 1),
+            array(1, 0),
+            array(true, 0),
+            array(0, true),
+            array(false, true),
+            array(false, 1),
+            array(1, false),
+            array(true, []),
+            array([], true),
+        );
+    }
+
+    /**
+     * Tests {left-expr} == {right-expr} but for false
+     *
+     * @param int $a
+     * @param int $b
+     *
+     * @dataProvider providerForStaticEqualsFalse
+     */
+    public function testStaticEqualsFalse($a, $b)
+    {
+        $baseExpression = new Node\Expr\BinaryOp\Equal(
+            $this->newScalarExpr($a),
+            $this->newScalarExpr($b)
+        );
+        $compiledExpression = $this->compileExpression($baseExpression);
+
+        $this->assertInstanceOf('PHPSA\CompiledExpression', $compiledExpression);
+        $this->assertSame(CompiledExpression::BOOLEAN, $compiledExpression->getType());
+        $this->assertSame(false, $compiledExpression->getValue());
     }
 }
