@@ -13,12 +13,14 @@ class Boolean extends \PhpParser\Node\Scalar
      * @param boolean $value      Value of the number
      * @param array $attributes Additional attributes
      */
-    public function __construct($value, array $attributes = array()) {
+    public function __construct($value, array $attributes = array())
+    {
         parent::__construct(null, $attributes);
         $this->value = $value;
     }
 
-    public function getSubNodeNames() {
+    public function getSubNodeNames()
+    {
         return array('value');
     }
 }
