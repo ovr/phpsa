@@ -34,73 +34,73 @@ class Expression
     public function compile($expr)
     {
         switch (get_class($expr)) {
-            case 'PhpParser\Node\Expr\MethodCall';
+            case 'PhpParser\Node\Expr\MethodCall':
                 return $this->passMethodCall($expr);
-            case 'PhpParser\Node\Expr\PropertyFetch';
+            case 'PhpParser\Node\Expr\PropertyFetch':
                 return $this->passPropertyFetch($expr);
-            case 'PhpParser\Node\Expr\FuncCall';
+            case 'PhpParser\Node\Expr\FuncCall':
                 return $this->passFunctionCall($expr);
-            case 'PhpParser\Node\Expr\StaticCall';
+            case 'PhpParser\Node\Expr\StaticCall':
                 return $this->passStaticFunctionCall($expr);
-            case 'PhpParser\Node\Expr\ClassConstFetch';
+            case 'PhpParser\Node\Expr\ClassConstFetch':
                 return $this->passConstFetch($expr);
-            case 'PhpParser\Node\Expr\Assign';
+            case 'PhpParser\Node\Expr\Assign':
                 return $this->passSymbol($expr);
-            case 'PhpParser\Node\Expr\Variable';
+            case 'PhpParser\Node\Expr\Variable':
                 return $this->passExprVariable($expr);
             /**
              * Operators
              */
-            case 'PhpParser\Node\Expr\BinaryOp\Identical';
+            case 'PhpParser\Node\Expr\BinaryOp\Identical':
                 return $this->passBinaryOpIdentical($expr);
-            case 'PhpParser\Node\Expr\BinaryOp\Equal';
+            case 'PhpParser\Node\Expr\BinaryOp\Equal':
                 return $this->passBinaryOpEqual($expr);
-            case 'PhpParser\Node\Expr\BinaryOp\Div';
+            case 'PhpParser\Node\Expr\BinaryOp\Div':
                 return $this->passBinaryOpDiv($expr);
-            case 'PhpParser\Node\Expr\BinaryOp\Plus';
+            case 'PhpParser\Node\Expr\BinaryOp\Plus':
                 return $this->passBinaryOpPlus($expr);
-            case 'PhpParser\Node\Expr\BinaryOp\BitwiseXor';
+            case 'PhpParser\Node\Expr\BinaryOp\BitwiseXor':
                 return $this->passBinaryOpXor($expr);
-            case 'PhpParser\Node\Expr\BinaryOp\Mul';
+            case 'PhpParser\Node\Expr\BinaryOp\Mul':
                 return $this->passBinaryOpMul($expr);
-            case 'PhpParser\Node\Expr\BinaryOp\Minus';
+            case 'PhpParser\Node\Expr\BinaryOp\Minus':
                 return $this->passBinaryOpMinus($expr);
             /**
              * Another
              */
-            case 'PhpParser\Node\Expr\UnaryMinus';
+            case 'PhpParser\Node\Expr\UnaryMinus':
                 return $this->passUnaryMinus($expr);
-            case 'PhpParser\Node\Expr\New_';
+            case 'PhpParser\Node\Expr\New_':
                 return $this->passNew($expr);
             /**
              * Cast operators
              */
-            case 'PhpParser\Node\Expr\Cast\Bool_';
+            case 'PhpParser\Node\Expr\Cast\Bool_':
                 return $this->passCastBoolean($expr);
-            case 'PhpParser\Node\Expr\Cast\Int_';
+            case 'PhpParser\Node\Expr\Cast\Int_':
                 return $this->passCastInt($expr);
-            case 'PhpParser\Node\Expr\Cast\Double';
+            case 'PhpParser\Node\Expr\Cast\Double':
                 return $this->passCastFloat($expr);
-            case 'PhpParser\Node\Expr\Cast\String_';
+            case 'PhpParser\Node\Expr\Cast\String_':
                 return $this->passCastString($expr);
-            case 'PhpParser\Node\Expr\Cast\Unset_';
+            case 'PhpParser\Node\Expr\Cast\Unset_':
                 return $this->passCastUnset($expr);
             /**
              * Scalars
              */
-            case 'PhpParser\Node\Scalar\LNumber';
+            case 'PhpParser\Node\Scalar\LNumber':
                 return $this->getLNumber($expr);
-            case 'PhpParser\Node\Scalar\DNumber';
+            case 'PhpParser\Node\Scalar\DNumber':
                 return $this->getDNumber($expr);
-            case 'PhpParser\Node\Scalar\String_';
+            case 'PhpParser\Node\Scalar\String_':
                 return $this->getString($expr);
-            case 'PhpParser\Node\Expr\Array_';
+            case 'PhpParser\Node\Expr\Array_':
                 return $this->getArray($expr);
-            case 'PHPSA\Node\Scalar\Boolean';
+            case 'PHPSA\Node\Scalar\Boolean':
                 return $this->getBoolean($expr);
-            case 'PhpParser\Node\Expr\ConstFetch';
+            case 'PhpParser\Node\Expr\ConstFetch':
                 return $this->constFetch($expr);
-            case 'PhpParser\Node\Name';
+            case 'PhpParser\Node\Name':
                 return $this->getNodeName($expr);
             default:
                 $this->context->debug('Unknown expression: ' . get_class($expr));
