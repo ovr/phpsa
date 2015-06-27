@@ -36,6 +36,9 @@ class IndenticalTest extends \Tests\PHPSA\TestCase
      */
     public function testStaticIntToInt($a, $b)
     {
+        $this->assertInternalType('int', $a);
+        $this->assertInternalType('int', $b);
+
         $baseExpression = new Node\Expr\BinaryOp\Identical(
             new Node\Scalar\LNumber($a),
             new Node\Scalar\LNumber($b)
@@ -57,12 +60,18 @@ class IndenticalTest extends \Tests\PHPSA\TestCase
      */
     public function testStaticFloatToFloat($a, $b)
     {
+        $a = (float) $a;
+        $b = (float) $b;
+
+        $this->assertInternalType('double', $a);
+        $this->assertInternalType('double', $b);
+
         $baseExpression = new Node\Expr\BinaryOp\Identical(
             /**
              * Cheating - float casting
              */
-            new Node\Scalar\DNumber((float) $a),
-            new Node\Scalar\DNumber((float) $b)
+            new Node\Scalar\DNumber($a),
+            new Node\Scalar\DNumber($b)
         );
         $compiledExpression = $this->compileExpression($baseExpression);
 
@@ -92,9 +101,14 @@ class IndenticalTest extends \Tests\PHPSA\TestCase
      */
     public function testStaticFailIntToFloat($a, $b)
     {
+        $b = (float) $b;
+
+        $this->assertInternalType('int', $a);
+        $this->assertInternalType('double', $b);
+
         $baseExpression = new Node\Expr\BinaryOp\Identical(
             new Node\Scalar\LNumber($a),
-            new Node\Scalar\DNumber((float) $b)
+            new Node\Scalar\DNumber( $b)
         );
         $compiledExpression = $this->compileExpression($baseExpression);
 
@@ -113,8 +127,13 @@ class IndenticalTest extends \Tests\PHPSA\TestCase
      */
     public function testStaticFailFloatToInt($a, $b)
     {
+        $a = (float) $a;
+
+        $this->assertInternalType('double', $a);
+        $this->assertInternalType('int', $b);
+
         $baseExpression = new Node\Expr\BinaryOp\Identical(
-            new Node\Scalar\DNumber((float) $a),
+            new Node\Scalar\DNumber($a),
             new Node\Scalar\LNumber($b)
         );
         $compiledExpression = $this->compileExpression($baseExpression);
