@@ -43,6 +43,14 @@ class ClassMethod
 
     public function compile(Context $context)
     {
+        if ($this->st->getDocComment() === null) {
+            return $context->notice(
+                'missing-docblock',
+                sprintf('Missing docblock for %s() method', $this->name),
+                $this->st
+            );
+        }
+
         if (count($this->ast) == 0) {
             return $context->notice(
                 'not-implemented-method',
