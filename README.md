@@ -6,6 +6,8 @@ PHPSA - Static Analysis for PHP
 
 > Awesome tool for awesome PHP developers
 
+P.S This software is currently in early alpha state
+
 ## Goals
 
 What is needed or planned as future.
