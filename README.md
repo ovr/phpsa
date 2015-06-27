@@ -181,6 +181,10 @@ Notice:  You trying to use division from 0/{expr} in ./tests/simple/devision-by-
 Memory usage: 4.97 (peak: 5.25) MB
 ```
 
+## Requirements
+
+- PHP >= 5.3 (compatible up to version 7.0 && hhvm)
+
 
 ## LICENSE
 
