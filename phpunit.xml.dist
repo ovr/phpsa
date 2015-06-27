@@ -12,7 +12,7 @@
 
     <testsuites>
         <testsuite name="All tests">
-            <directory>./unit-tests/PHPSA/Expression/</directory>
+            <directory>./unit-tests/PHPSA/</directory>
         </testsuite>
     </testsuites>
 </phpunit>
