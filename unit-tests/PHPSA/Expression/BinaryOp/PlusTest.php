@@ -47,7 +47,7 @@ class PlusTest extends \Tests\PHPSA\TestCase
             array(1, 2.5, 3.5),
             array(1, 4.5, 5.5),
             array(1, 4.75, 5.75),
-            array(25.25, 24.75, 50.0)
+            array(25, 24.75, 49.75)
         );
     }
 
@@ -58,6 +58,10 @@ class PlusTest extends \Tests\PHPSA\TestCase
      */
     public function testPlusIntToInt($a, $b, $c)
     {
+        $this->assertInternalType('int', $a);
+        $this->assertInternalType('int', $b);
+        $this->assertInternalType('int', $c);
+
         $baseExpression = new Node\Expr\BinaryOp\Plus(
             new Node\Scalar\LNumber($a),
             new Node\Scalar\LNumber($b)
@@ -76,6 +80,10 @@ class PlusTest extends \Tests\PHPSA\TestCase
      */
     public function testPlusIntToFloat($a, $b, $c)
     {
+        $this->assertInternalType('int', $a);
+        $this->assertInternalType('double', $b);
+        $this->assertInternalType('double', $c);
+
         $baseExpression = new Node\Expr\BinaryOp\Plus(
             new Node\Scalar\LNumber($a),
             new Node\Scalar\DNumber($b)
@@ -96,6 +104,10 @@ class PlusTest extends \Tests\PHPSA\TestCase
      */
     public function testPlusFloatToInt($b, $a, $c)
     {
+        $this->assertInternalType('double', $a);
+        $this->assertInternalType('int', $b);
+        $this->assertInternalType('double', $c);
+
         $baseExpression = new Node\Expr\BinaryOp\Plus(
             new Node\Scalar\DNumber($a),
             new Node\Scalar\LNumber($b)
@@ -114,11 +126,17 @@ class PlusTest extends \Tests\PHPSA\TestCase
      */
     public function testPlusFloatToFloat($a, $b, $c)
     {
+        $a = (float) $a;
+
+        $this->assertInternalType('double', $a);
+        $this->assertInternalType('double', $b);
+        $this->assertInternalType('double', $c);
+
         $baseExpression = new Node\Expr\BinaryOp\Plus(
             /**
              * float casting to use already defined fixtures (float) {int} + {float} = {float}
              */
-            new Node\Scalar\DNumber((float) $a),
+            new Node\Scalar\DNumber($a),
             new Node\Scalar\DNumber($b)
         );
         $compiledExpression = $this->compileExpression($baseExpression);

@@ -42,6 +42,10 @@ class MinusTest extends \Tests\PHPSA\TestCase
      */
     public function testMinusIntFromInt($a, $b, $c)
     {
+        $this->assertInternalType('int', $a);
+        $this->assertInternalType('int', $b);
+        $this->assertInternalType('int', $c);
+
         $baseExpression = new Node\Expr\BinaryOp\Minus(
             new Node\Scalar\LNumber($a),
             new Node\Scalar\LNumber($b)
