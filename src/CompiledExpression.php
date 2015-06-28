@@ -114,4 +114,24 @@ class CompiledExpression
     {
         return new Variable($this->type, $this->value);
     }
+
+    /**
+     * If we don't know $type but know $value
+     *
+     * @param $value
+     * @return CompiledExpression|\RuntimeException
+     */
+    public static function fromZvalValue($value)
+    {
+        switch (gettype($value)) {
+            case 'int':
+                return new CompiledExpression(self::LNUMBER, $value);
+                break;
+            case 'double':
+                return new CompiledExpression(self::DNUMBER, $value);
+                break;
+        }
+
+        return new \RuntimeException("Type '{$value}' is not supported");
+    }
 }

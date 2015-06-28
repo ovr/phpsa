@@ -498,7 +498,7 @@ class Expression
                 switch ($right->getType()) {
                     case CompiledExpression::LNUMBER:
                     case CompiledExpression::DNUMBER:
-                        return new CompiledExpression(CompiledExpression::DNUMBER, $left->getValue() / $right->getValue());
+                        return CompiledExpression::fromZvalValue($left->getValue() / $right->getValue());
                         break;
                     default:
                         //
