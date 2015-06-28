@@ -108,7 +108,7 @@ class IndenticalTest extends \Tests\PHPSA\TestCase
 
         $baseExpression = new Node\Expr\BinaryOp\Identical(
             new Node\Scalar\LNumber($a),
-            new Node\Scalar\DNumber( $b)
+            new Node\Scalar\DNumber($b)
         );
         $compiledExpression = $this->compileExpression($baseExpression);
 
