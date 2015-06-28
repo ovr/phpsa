@@ -8,6 +8,7 @@ namespace PHPSA;
 use PHPSA\Visitor\Expression;
 use PHPSA\Visitor\Statement;
 use PhpParser\Node;
+use RuntimeException;
 
 /**
  * @param $st
@@ -23,5 +24,5 @@ function nodeVisitorFactory($st, Context $context)
         return $visitor->compile($st);
     }
 
-    throw new \RuntimeException('Unknown Node type to Factory() visitor');
+    throw new RuntimeException('Unknown Node type to Factory() visitor');
 }
