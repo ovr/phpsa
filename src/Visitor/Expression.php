@@ -472,9 +472,6 @@ class Expression
                     return new CompiledExpression(CompiledExpression::LNUMBER, 0);
                 }
                 break;
-            default:
-                //
-                break;
         }
 
         $expression = new Expression($expr->right, $this->context);
@@ -492,9 +489,6 @@ class Expression
 
                     return new CompiledExpression(CompiledExpression::UNKNOWN);
                 }
-                break;
-            default:
-                //
                 break;
         }
 
@@ -521,13 +515,7 @@ class Expression
                     case CompiledExpression::DNUMBER:
                         return CompiledExpression::fromZvalValue($left->getValue() / $right->getValue());
                         break;
-                    default:
-                        //
-                        break;
                 }
-                break;
-            default:
-                //
                 break;
         }
 
