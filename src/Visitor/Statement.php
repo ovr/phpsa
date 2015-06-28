@@ -17,7 +17,7 @@ class Statement
 
     protected function passReturn(Node\Stmt\Return_ $st)
     {
-        $expression = new Expression($st->expr, $this->context);
+        $expression = new Expression($this->context);
         $compiledExpression = $expression->compile($st->expr);
     }
 
@@ -26,7 +26,7 @@ class Statement
      */
     public function passIf(Node\Stmt\If_ $ifStatement)
     {
-        $expression = new Expression($ifStatement->cond, $this->context);
+        $expression = new Expression($this->context);
         $compiledExpression = $expression->compile($ifStatement->cond);
 
         if (count($ifStatement->stmts) > 0) {
@@ -44,7 +44,7 @@ class Statement
 
         if (count($ifStatement->elseifs) > 0) {
             foreach ($ifStatement->elseifs as $elseIfStatement) {
-                $expression = new Expression($elseIfStatement->cond, $this->context);
+                $expression = new Expression($this->context);
                 $compiledExpression = $expression->compile($elseIfStatement->cond);
 
                 if (count($elseIfStatement->stmts) > 0) {

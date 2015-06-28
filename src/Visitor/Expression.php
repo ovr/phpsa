@@ -19,10 +19,9 @@ class Expression
     protected $context;
 
     /**
-     * @param $expr
      * @param Context $context
      */
-    public function __construct($expr, Context $context)
+    public function __construct(Context $context)
     {
         $this->context = $context;
     }
@@ -175,7 +174,7 @@ class Expression
             }
         }
 
-        $expression = new Expression($expr->var, $this->context);
+        $expression = new Expression($this->context);
         $compiledExpression = $expression->compile($expr->var);
 
         $this->context->debug('Unknown method call');
@@ -190,7 +189,7 @@ class Expression
      */
     protected function passCastBoolean(Node\Expr\Cast\Bool_ $expr)
     {
-        $expression = new Expression($expr->expr, $this->context);
+        $expression = new Expression($this->context);
         $compiledExpression = $expression->compile($expr->expr);
 
         switch ($compiledExpression->getType()) {
@@ -215,7 +214,7 @@ class Expression
      */
     protected function passCastInt(Node\Expr\Cast\Int_ $expr)
     {
-        $expression = new Expression($expr->expr, $this->context);
+        $expression = new Expression($this->context);
         $compiledExpression = $expression->compile($expr->expr);
 
         switch ($compiledExpression->getType()) {
@@ -241,7 +240,7 @@ class Expression
      */
     protected function passCastFloat(Node\Expr\Cast\Double $expr)
     {
-        $expression = new Expression($expr->expr, $this->context);
+        $expression = new Expression($this->context);
         $compiledExpression = $expression->compile($expr->expr);
 
         switch ($compiledExpression->getType()) {
@@ -267,7 +266,7 @@ class Expression
      */
     protected function passCastString(Node\Expr\Cast\String_ $expr)
     {
-        $expression = new Expression($expr->expr, $this->context);
+        $expression = new Expression($this->context);
         $compiledExpression = $expression->compile($expr->expr);
 
         switch ($compiledExpression->getType()) {
@@ -293,7 +292,7 @@ class Expression
      */
     protected function passCastUnset(Node\Expr\Cast\Unset_ $expr)
     {
-        $expression = new Expression($expr->expr, $this->context);
+        $expression = new Expression($this->context);
         $compiledExpression = $expression->compile($expr->expr);
 
         switch ($compiledExpression->getType()) {
@@ -408,7 +407,7 @@ class Expression
         if ($expr->var instanceof Node\Expr\Variable) {
             $name = $expr->var->name;
 
-            $compiledExpression = new Expression($expr->expr, $this->context);
+            $compiledExpression = new Expression($this->context);
             $result = $compiledExpression->compile($expr->expr);
 
             $symbol = $this->context->getSymbol($name);
@@ -452,7 +451,7 @@ class Expression
      */
     protected function passBinaryOpDiv(Node\Expr\BinaryOp\Div $expr)
     {
-        $expression = new Expression($expr->left, $this->context);
+        $expression = new Expression($this->context);
         $left = $expression->compile($expr->left);
 
         switch ($left->getType()) {
@@ -474,7 +473,7 @@ class Expression
                 break;
         }
 
-        $expression = new Expression($expr->right, $this->context);
+        $expression = new Expression($this->context);
         $right = $expression->compile($expr->right);
         switch ($right->getType()) {
             case CompiledExpression::LNUMBER:
@@ -530,10 +529,10 @@ class Expression
      */
     protected function passBinaryOpXor(Node\Expr\BinaryOp\BitwiseXor $expr)
     {
-        $expression = new Expression($expr->left, $this->context);
+        $expression = new Expression($this->context);
         $left = $expression->compile($expr->left);
 
-        $expression = new Expression($expr->right, $this->context);
+        $expression = new Expression($this->context);
         $right = $expression->compile($expr->right);
 
         switch ($left->getType()) {
@@ -562,10 +561,10 @@ class Expression
      */
     protected function passBinaryOpIdentical(Node\Expr\BinaryOp\Identical $expr)
     {
-        $expression = new Expression($expr->left, $this->context);
+        $expression = new Expression($this->context);
         $left = $expression->compile($expr->left);
 
-        $expression = new Expression($expr->right, $this->context);
+        $expression = new Expression($this->context);
         $right = $expression->compile($expr->right);
 
         switch ($left->getType()) {
@@ -594,10 +593,10 @@ class Expression
      */
     protected function passBinaryOpEqual(Node\Expr\BinaryOp\Equal $expr)
     {
-        $expression = new Expression($expr->left, $this->context);
+        $expression = new Expression($this->context);
         $left = $expression->compile($expr->left);
 
-        $expression = new Expression($expr->right, $this->context);
+        $expression = new Expression($this->context);
         $right = $expression->compile($expr->right);
 
         switch ($left->getType()) {
@@ -623,7 +622,7 @@ class Expression
 
     protected function passUnaryMinus(Node\Expr\UnaryMinus $expr)
     {
-        $expression = new Expression($expr->expr, $this->context);
+        $expression = new Expression($this->context);
         $left = $expression->compile($expr->expr);
 
         switch ($left->getType()) {
@@ -641,10 +640,10 @@ class Expression
 
     protected function passBinaryOpMul(Node\Expr\BinaryOp\Mul $expr)
     {
-        $expression = new Expression($expr->left, $this->context);
+        $expression = new Expression($this->context);
         $left = $expression->compile($expr->left);
 
-        $expression = new Expression($expr->right, $this->context);
+        $expression = new Expression($this->context);
         $right = $expression->compile($expr->right);
 
         switch ($left->getType()) {
@@ -670,10 +669,10 @@ class Expression
 
     protected function passBinaryOpPlus(Node\Expr\BinaryOp\Plus $expr)
     {
-        $expression = new Expression($expr->left, $this->context);
+        $expression = new Expression($this->context);
         $left = $expression->compile($expr->left);
 
-        $expression = new Expression($expr->right, $this->context);
+        $expression = new Expression($this->context);
         $right = $expression->compile($expr->right);
 
         switch ($left->getType()) {
@@ -716,10 +715,10 @@ class Expression
      */
     protected function passBinaryOpMinus(Node\Expr\BinaryOp\Minus $expr)
     {
-        $expression = new Expression($expr->left, $this->context);
+        $expression = new Expression($this->context);
         $left = $expression->compile($expr->left);
 
-        $expression = new Expression($expr->right, $this->context);
+        $expression = new Expression($this->context);
         $right = $expression->compile($expr->right);
 
         switch ($left->getType()) {
@@ -826,7 +825,7 @@ class Expression
          * @todo Implement check
          */
 
-        $expression = new Expression($expr->name, $this->context);
+        $expression = new Expression($this->context);
         $compiledExpr = $expression->compile($expr->name);
 
         return $compiledExpr;

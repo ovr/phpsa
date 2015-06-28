@@ -70,7 +70,7 @@ class ClassMethod
             if ($st instanceof Node\Stmt) {
                 $expr = new Visitor\Statement($st, $context);
             } else {
-                $expr = new Visitor\Expression($st, $context);
+                $expr = new Visitor\Expression($context);
                 $expr->compile($st);
             }
         }

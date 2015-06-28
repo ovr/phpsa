@@ -29,7 +29,7 @@ class TestCase extends \PHPUnit_Framework_TestCase
      */
     protected function compileExpression($expr)
     {
-        $visitor = new Expression($expr, $this->getContext());
+        $visitor = new Expression($this->getContext());
         return $visitor->compile($expr);
     }
 
