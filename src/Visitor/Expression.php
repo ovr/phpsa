@@ -452,7 +452,7 @@ class Expression
         switch ($left->getType()) {
             case CompiledExpression::LNUMBER:
             case CompiledExpression::DNUMBER:
-            case CompiledExpression::UNKNOWN:
+            case CompiledExpression::BOOLEAN:
                 if ($left->isEquals(0)) {
                     $this->context->notice(
                         'division-zero',
@@ -476,7 +476,7 @@ class Expression
         switch ($right->getType()) {
             case CompiledExpression::LNUMBER:
             case CompiledExpression::DNUMBER:
-            case CompiledExpression::UNKNOWN:
+            case CompiledExpression::BOOLEAN:
                 if ($right->isEquals(0)) {
                     $this->context->notice(
                         'division-zero',
