@@ -60,11 +60,11 @@ class CompiledExpression
     const DYNAMIC = 9;
 
     /**
-     * By default we dont know what it is
+     * By default we don't know what it is
      *
      * @var int
      */
-    protected $type = self::UNKNOWN;
+    protected $type;
 
     /**
      * Possible value
@@ -73,11 +73,14 @@ class CompiledExpression
      */
     protected $value;
 
+
     /**
-     * @param $type
+     * Construct new CompiledExpression to pass result
+     *
+     * @param int $type
      * @param null $value
      */
-    public function __construct($type, $value = null)
+    public function __construct($type = self::UNKNOWN, $value = null)
     {
         $this->type = $type;
         $this->value = $value;

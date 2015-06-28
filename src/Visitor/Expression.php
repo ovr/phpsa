@@ -132,7 +132,7 @@ class Expression
         }
 
 
-        return new CompiledExpression(CompiledExpression::UNKNOWN);
+        return new CompiledExpression();
     }
 
     /**
@@ -146,7 +146,7 @@ class Expression
         }
 
         $this->context->debug('Unknown how to get node name');
-        return new CompiledExpression(CompiledExpression::UNKNOWN);
+        return new CompiledExpression();
     }
 
     protected function passNew(Node\Expr\New_ $expr)
@@ -156,7 +156,7 @@ class Expression
         }
 
         $this->context->debug('Unknown how to pass new');
-        return new CompiledExpression(CompiledExpression::UNKNOWN);
+        return new CompiledExpression();
     }
 
     protected function passMethodCall(Node\Expr\MethodCall $expr)
@@ -171,7 +171,7 @@ class Expression
                     );
                 }
 
-                return new CompiledExpression(CompiledExpression::UNKNOWN);
+                return new CompiledExpression();
             }
         }
 
@@ -179,7 +179,7 @@ class Expression
         $compiledExpression = $expression->compile($expr->var);
 
         $this->context->debug('Unknown method call');
-        return new CompiledExpression(CompiledExpression::UNKNOWN);
+        return new CompiledExpression();
     }
 
     /**
@@ -204,7 +204,7 @@ class Expression
                 break;
         }
 
-        return new CompiledExpression(CompiledExpression::UNKNOWN);
+        return new CompiledExpression();
     }
 
     /**
@@ -230,7 +230,7 @@ class Expression
                 break;
         }
 
-        return new CompiledExpression(CompiledExpression::UNKNOWN);
+        return new CompiledExpression();
     }
 
     /**
@@ -256,7 +256,7 @@ class Expression
                 break;
         }
 
-        return new CompiledExpression(CompiledExpression::UNKNOWN);
+        return new CompiledExpression();
     }
 
     /**
@@ -282,7 +282,7 @@ class Expression
                 break;
         }
 
-        return new CompiledExpression(CompiledExpression::UNKNOWN);
+        return new CompiledExpression();
     }
 
     /**
@@ -320,10 +320,10 @@ class Expression
                 $expr
             );
 
-            return new CompiledExpression(CompiledExpression::UNKNOWN);
+            return new CompiledExpression();
         }
 
-        return new CompiledExpression(CompiledExpression::UNKNOWN);
+        return new CompiledExpression();
     }
 
     protected function passStaticFunctionCall(Node\Expr\StaticCall $expr)
@@ -352,14 +352,14 @@ class Expression
                     $expr
                 );
 
-                return new CompiledExpression(CompiledExpression::UNKNOWN);
+                return new CompiledExpression();
             }
 
-            return new CompiledExpression(CompiledExpression::UNKNOWN);
+            return new CompiledExpression();
         }
 
         $this->context->debug('Unknown static function call');
-        return new CompiledExpression(CompiledExpression::UNKNOWN);
+        return new CompiledExpression();
     }
 
     protected function passPropertyFetch(Node\Expr\PropertyFetch $expr)
@@ -375,7 +375,7 @@ class Expression
         }
 
         $this->context->debug('Unknown property fetch');
-        return new CompiledExpression(CompiledExpression::UNKNOWN);
+        return new CompiledExpression();
     }
 
     protected function passConstFetch(Node\Expr\ClassConstFetch $expr)
@@ -391,18 +391,18 @@ class Expression
                     );
                 }
 
-                return new CompiledExpression(CompiledExpression::UNKNOWN);
+                return new CompiledExpression();
             }
         }
 
         $this->context->debug('Unknown const fetch');
-        return new CompiledExpression(CompiledExpression::UNKNOWN);
+        return new CompiledExpression();
     }
 
     protected function passSymbol(Node\Expr\Assign $expr)
     {
         if ($expr->var instanceof \PhpParser\Node\Expr\List_) {
-            return new CompiledExpression(CompiledExpression::UNKNOWN);
+            return new CompiledExpression();
         }
 
         if ($expr->var instanceof Node\Expr\Variable) {
@@ -424,7 +424,7 @@ class Expression
         }
 
         $this->context->debug('Unknown how to pass symbol');
-        return new CompiledExpression(CompiledExpression::UNKNOWN);
+        return new CompiledExpression();
     }
 
     protected function passExprVariable(Node\Expr\Variable $expr)
@@ -441,7 +441,7 @@ class Expression
             $expr
         );
 
-        return new CompiledExpression(CompiledExpression::UNKNOWN);
+        return new CompiledExpression();
     }
 
     protected function passBinaryOpDiv(Node\Expr\BinaryOp\Div $expr)
