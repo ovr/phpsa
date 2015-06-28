@@ -67,12 +67,7 @@ class ClassMethod
         }
 
         foreach ($this->ast as $st) {
-            if ($st instanceof Node\Stmt) {
-                $expr = new Visitor\Statement($st, $context);
-            } else {
-                $expr = new Visitor\Expression($context);
-                $expr->compile($st);
-            }
+            $result = \PHPSA\nodeVisitorFactory($st, $context);
         }
     }
 

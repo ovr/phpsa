@@ -31,12 +31,7 @@ class Statement
 
         if (count($ifStatement->stmts) > 0) {
             foreach ($ifStatement->stmts as $st) {
-                if ($st instanceof Node\Stmt) {
-                    $expr = new Statement($st, $this->context);
-                } else {
-                    $expr = new Expression($st, $this->context);
-                    $expr->compile($st);
-                }
+                $result = \PHPSA\nodeVisitorFactory($st, $this->context);
             }
         } else {
             //@todo implement
@@ -49,12 +44,7 @@ class Statement
 
                 if (count($elseIfStatement->stmts) > 0) {
                     foreach ($elseIfStatement->stmts as $st) {
-                        if ($st instanceof Node\Stmt) {
-                            $expr = new Statement($st, $this->context);
-                        } else {
-                            $expr = new Expression($st, $this->context);
-                            $expr->compile($st);
-                        }
+                        $result = \PHPSA\nodeVisitorFactory($st, $this->context);
                     }
                 } else {
                     //@todo implement
@@ -67,12 +57,7 @@ class Statement
         if ($ifStatement->else) {
             if (count($ifStatement->else->stmts) > 0) {
                 foreach ($ifStatement->else->stmts as $st) {
-                    if ($st instanceof Node\Stmt) {
-                        $expr = new Statement($st, $this->context);
-                    } else {
-                        $expr = new Expression($st, $this->context);
-                        $expr->compile($st);
-                    }
+                    $result = \PHPSA\nodeVisitorFactory($st, $this->context);
                 }
             } else {
                 //@todo implement
