@@ -19,10 +19,8 @@ function nodeVisitorFactory($st, Context $context)
     if ($st instanceof Node\Stmt) {
         $visitor = new Statement($st, $context);
         return $visitor;
-    } else {
-        $visitor = new Expression($context);
-        return $visitor->compile($st);
     }
 
-    throw new RuntimeException('Unknown Node type to Factory() visitor');
+    $visitor = new Expression($context);
+    return $visitor->compile($st);
 }
