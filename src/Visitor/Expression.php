@@ -444,6 +444,12 @@ class Expression
         return new CompiledExpression();
     }
 
+    /**
+     * {expr} / {expr}
+     *
+     * @param Node\Expr\BinaryOp\Div $expr
+     * @return CompiledExpression|\RuntimeException
+     */
     protected function passBinaryOpDiv(Node\Expr\BinaryOp\Div $expr)
     {
         $expression = new Expression($expr->left, $this->context);
@@ -528,6 +534,12 @@ class Expression
         return new CompiledExpression(CompiledExpression::UNKNOWN);
     }
 
+    /**
+     * {expr} ^ {expr}
+     *
+     * @param Node\Expr\BinaryOp\BitwiseXor $expr
+     * @return CompiledExpression
+     */
     protected function passBinaryOpXor(Node\Expr\BinaryOp\BitwiseXor $expr)
     {
         $expression = new Expression($expr->left, $this->context);
