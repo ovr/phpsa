@@ -310,6 +310,12 @@ class Expression
         return new CompiledExpression(CompiledExpression::NULL, null);
     }
 
+    /**
+     * {expr}();
+     *
+     * @param Node\Expr\FuncCall $expr
+     * @return CompiledExpression
+     */
     protected function passFunctionCall(Node\Expr\FuncCall $expr)
     {
         if (!function_exists($expr->name->parts[0])) {
@@ -325,6 +331,12 @@ class Expression
         return new CompiledExpression();
     }
 
+    /**
+     * {expr}::{expr}();
+     *
+     * @param Node\Expr\StaticCall $expr
+     * @return CompiledExpression
+     */
     protected function passStaticFunctionCall(Node\Expr\StaticCall $expr)
     {
         if ($expr->class instanceof Node\Name) {
@@ -361,6 +373,10 @@ class Expression
         return new CompiledExpression();
     }
 
+    /**
+     * @param Node\Expr\PropertyFetch $expr
+     * @return CompiledExpression
+     */
     protected function passPropertyFetch(Node\Expr\PropertyFetch $expr)
     {
         if ($expr->var->name == 'this') {
@@ -377,6 +393,10 @@ class Expression
         return new CompiledExpression();
     }
 
+    /**
+     * @param Node\Expr\ClassConstFetch $expr
+     * @return bool|CompiledExpression
+     */
     protected function passConstFetch(Node\Expr\ClassConstFetch $expr)
     {
         if ($expr->class instanceof Node\Name) {
@@ -398,6 +418,10 @@ class Expression
         return new CompiledExpression();
     }
 
+    /**
+     * @param Node\Expr\Assign $expr
+     * @return CompiledExpression|Expression
+     */
     protected function passSymbol(Node\Expr\Assign $expr)
     {
         if ($expr->var instanceof \PhpParser\Node\Expr\List_) {
@@ -426,6 +450,10 @@ class Expression
         return new CompiledExpression();
     }
 
+    /**
+     * @param Node\Expr\Variable $expr
+     * @return CompiledExpression
+     */
     protected function passExprVariable(Node\Expr\Variable $expr)
     {
         $variable = $this->context->getSymbol($expr->name);
@@ -620,6 +648,12 @@ class Expression
         return new CompiledExpression(CompiledExpression::UNKNOWN);
     }
 
+    /**
+     * -{expr}
+     *
+     * @param Node\Expr\UnaryMinus $expr
+     * @return CompiledExpression
+     */
     protected function passUnaryMinus(Node\Expr\UnaryMinus $expr)
     {
         $expression = new Expression($this->context);
@@ -630,14 +664,17 @@ class Expression
             case CompiledExpression::DNUMBER:
                 return new CompiledExpression($left->getType(), -$left->getValue());
                 break;
-            default:
-                //@todo implement it
-                break;
         }
 
-        return new CompiledExpression(CompiledExpression::UNKNOWN);
+        return new CompiledExpression();
     }
 
+    /**
+     * {expr} * {expr}
+     *
+     * @param Node\Expr\BinaryOp\Mul $expr
+     * @return CompiledExpression
+     */
     protected function passBinaryOpMul(Node\Expr\BinaryOp\Mul $expr)
     {
         $expression = new Expression($this->context);
@@ -654,19 +691,19 @@ class Expression
                     case CompiledExpression::DNUMBER:
                         return new CompiledExpression(CompiledExpression::DNUMBER, $left->getValue() * $right->getValue());
                         break;
-                    default:
-                        //@todo implement it
-                        break;
                 }
-                break;
-            default:
-                //@todo implement it
                 break;
         }
 
-        return new CompiledExpression(CompiledExpression::UNKNOWN);
+        return new CompiledExpression();
     }
 
+    /**
+     * {expr} + {expr}
+     *
+     * @param Node\Expr\BinaryOp\Plus $expr
+     * @return CompiledExpression
+     */
     protected function passBinaryOpPlus(Node\Expr\BinaryOp\Plus $expr)
     {
         $expression = new Expression($this->context);
@@ -710,6 +747,8 @@ class Expression
     }
 
     /**
+     * {expr} - {expr}
+     *
      * @param Node\Expr\BinaryOp\Minus $expr
      * @return CompiledExpression
      */

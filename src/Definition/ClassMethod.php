@@ -41,6 +41,10 @@ class ClassMethod
         return $this->name;
     }
 
+    /**
+     * @param Context $context
+     * @return bool
+     */
     public function compile(Context $context)
     {
         if ($this->st->getDocComment() === null) {

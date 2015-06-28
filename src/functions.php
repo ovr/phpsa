@@ -8,7 +8,6 @@ namespace PHPSA;
 use PHPSA\Visitor\Expression;
 use PHPSA\Visitor\Statement;
 use PhpParser\Node;
-use RuntimeException;
 
 /**
  * @param $st
