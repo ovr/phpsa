@@ -96,7 +96,7 @@ class CompiledExpression
 
     public function isEquals($value)
     {
-        return $this->value === $value;
+        return $this->value == $value;
     }
 
     /**
