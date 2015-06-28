@@ -68,6 +68,8 @@ class Expression
             /**
              * Another
              */
+            case 'PhpParser\Node\Expr\BooleanNot':
+                return $this->passBooleanNot($expr);
             case 'PhpParser\Node\Expr\UnaryMinus':
                 return $this->passUnaryMinus($expr);
             case 'PhpParser\Node\Expr\New_':
@@ -107,6 +109,30 @@ class Expression
                 return new CompiledExpression(-1);
                 break;
         }
+    }
+
+    /**
+     * !{expr}
+     *
+     * @param Node\Expr\BooleanNot $expr
+     * @return CompiledExpression
+     */
+    protected function passBooleanNot(Node\Expr\BooleanNot $expr)
+    {
+        $compiledExpression = $this->compile($expr->expr);
+
+
+        switch ($compiledExpression->getType()) {
+            case CompiledExpression::DNUMBER:
+            case CompiledExpression::LNUMBER:
+            case CompiledExpression::STRING:
+            case CompiledExpression::BOOLEAN:
+                return new CompiledExpression($compiledExpression->getType(), !$compiledExpression->getValue());
+                break;
+        }
+
+
+        return new CompiledExpression(CompiledExpression::UNKNOWN);
     }
 
     /**
