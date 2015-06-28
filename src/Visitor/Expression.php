@@ -496,6 +496,21 @@ class Expression
             case CompiledExpression::LNUMBER:
             case CompiledExpression::DNUMBER:
                 switch ($right->getType()) {
+                    case CompiledExpression::BOOLEAN:
+                        /**
+                         * Boolean is true via isEquals(0) check is not passed before
+                         * {int}/1 = {int}
+                         * {double}/1 = {double}
+                         */
+
+                        $this->context->notice(
+                            'division-on-true',
+                            sprintf('You trying to use stupid division {expr}/true ~ {expr}/1 = {expr}', $right->getValue()),
+                            $expr
+                        );
+
+                        return new CompiledExpression($left->getType(), $left->getValue());
+                        break;
                     case CompiledExpression::LNUMBER:
                     case CompiledExpression::DNUMBER:
                         return CompiledExpression::fromZvalValue($left->getValue() / $right->getValue());
