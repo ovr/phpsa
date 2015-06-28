@@ -551,22 +551,18 @@ class Expression
         switch ($left->getType()) {
             case CompiledExpression::LNUMBER:
             case CompiledExpression::DNUMBER:
+            case CompiledExpression::BOOLEAN:
                 switch ($right->getType()) {
                     case CompiledExpression::LNUMBER:
                     case CompiledExpression::DNUMBER:
+                    case CompiledExpression::BOOLEAN:
                         return new CompiledExpression(CompiledExpression::DNUMBER, $left->getValue() ^ $right->getValue());
-                        break;
-                    default:
-                        //@todo implement it
                         break;
                 }
                 break;
-            default:
-                //@todo implement it
-                break;
         }
 
-        return new CompiledExpression(CompiledExpression::UNKNOWN);
+        return new CompiledExpression();
     }
 
     /**
