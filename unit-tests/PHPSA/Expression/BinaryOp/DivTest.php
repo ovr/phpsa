@@ -18,6 +18,7 @@ class DivTest extends \Tests\PHPSA\TestCase
         return array(
             array(-1, -1, 1),
             array(1, 1, 1),
+            array(0, 1, 0),
             array(25, 25, 1),
             array(50, 50, 1),
             array(500, 50, 10),
