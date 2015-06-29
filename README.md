@@ -4,9 +4,9 @@ PHPSA - Static Analysis for PHP
 [![Build Status](https://travis-ci.org/ovr/phpsa.svg?branch=master)](https://travis-ci.org/ovr/phpsa)
 [![License](https://poser.pugx.org/ovr/phpsa/license.svg)](https://packagist.org/packages/ovr/phpsa)
 
-> Awesome tool for awesome PHP developers
+> PHPSA is a development tool aimed at bringing static analysis for PHP applications and libraries.
 
-P.S This software is currently in early alpha state
+P.S This software is currently in early alpha state, any contributions/stars will be awesome.
 
 ## Goals
 
