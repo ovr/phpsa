@@ -482,9 +482,22 @@ class Expression
         $expression = new Expression($this->context);
         $left = $expression->compile($expr->left);
 
+        $expression = new Expression($this->context);
+        $right = $expression->compile($expr->right);
+
         switch ($left->getType()) {
-            case CompiledExpression::LNUMBER:
             case CompiledExpression::DNUMBER:
+                if ($left->isEquals(0)) {
+                    $this->context->notice(
+                        'division-zero',
+                        sprintf('You trying to use division from %s/{expr}', $left->getValue()),
+                        $expr
+                    );
+
+                    return new CompiledExpression(CompiledExpression::DNUMBER, 0.0);
+                }
+                break;
+            case CompiledExpression::LNUMBER:
             case CompiledExpression::BOOLEAN:
                 if ($left->isEquals(0)) {
                     $this->context->notice(
@@ -493,16 +506,19 @@ class Expression
                         $expr
                     );
 
-                    /**
-                     * Micro optimization -> 0/{expr} -> 0
-                     */
-                    return new CompiledExpression(CompiledExpression::LNUMBER, 0);
+                    switch ($right->getType()) {
+                        case CompiledExpression::LNUMBER:
+                        case CompiledExpression::BOOLEAN:
+                            return new CompiledExpression(CompiledExpression::LNUMBER, 0);
+                            break;
+                        case CompiledExpression::DNUMBER:
+                            return new CompiledExpression(CompiledExpression::DNUMBER, 0.0);
+                            break;
+                    }
                 }
                 break;
         }
 
-        $expression = new Expression($this->context);
-        $right = $expression->compile($expr->right);
         switch ($right->getType()) {
             case CompiledExpression::LNUMBER:
             case CompiledExpression::DNUMBER:
