@@ -6,7 +6,7 @@ if (!ini_get('date.timezone')) {
 /**
  * @author Patsura Dmitry http://github.com/ovr <talk@dmtry.me>
  */
-foreach (array(__DIR__ . '/../../autoload.php', __DIR__ . '/../vendor/autoload.php', __DIR__ . '/vendor/autoload.php') as $file) {
+foreach (array(__DIR__ . '/../../../autoload.php', __DIR__ . '/../../autoload.php', __DIR__ . '/../vendor/autoload.php', __DIR__ . '/vendor/autoload.php') as $file) {
     if (file_exists($file)) {
         include_once $file;
         define('COMPOSER_INSTALL', $file);
