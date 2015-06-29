@@ -123,8 +123,9 @@ class CompiledExpression
      */
     public static function fromZvalValue($value)
     {
-        switch (gettype($value)) {
-            case 'int':
+        $type = gettype($value);
+        switch ($type) {
+            case 'integer':
                 return new CompiledExpression(self::LNUMBER, $value);
                 break;
             case 'double':
@@ -132,6 +133,6 @@ class CompiledExpression
                 break;
         }
 
-        return new \RuntimeException("Type '{$value}' is not supported");
+        return new \RuntimeException("Type '{$type}' is not supported");
     }
 }
