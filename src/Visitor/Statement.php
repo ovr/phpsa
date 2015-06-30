@@ -15,6 +15,9 @@ class Statement
      */
     protected $context;
 
+    /**
+     * @param Node\Stmt\Return_ $st
+     */
     protected function passReturn(Node\Stmt\Return_ $st)
     {
         $expression = new Expression($this->context);
@@ -22,7 +25,7 @@ class Statement
     }
 
     /**
-     * @param Node\Stmt\If_ $st
+     * @param Node\Stmt\If_ $ifStatement
      */
     public function passIf(Node\Stmt\If_ $ifStatement)
     {
