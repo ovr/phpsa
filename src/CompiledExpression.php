@@ -5,6 +5,8 @@
 
 namespace PHPSA;
 
+use Ovr\PHPReflection\Types;
+
 class CompiledExpression
 {
     /**
@@ -12,26 +14,34 @@ class CompiledExpression
      */
     const UNKNOWN = 0;
 
-    /**
-     * Int
-     */
-    const LNUMBER = 1;
+    const INTEGER = Types::INT_TYPE;
 
     /**
-     * Float
+     * @deprectated
      */
-    const DNUMBER = 2;
+    const LNUMBER = self::INTEGER;
+
+    /**
+     * Double/Float
+     */
+    const DOUBLE = Types::DOUBLE_TYPE;
+
+    /**
+     * Double/Float
+     * @deprectated
+     */
+    const DNUMBER = self::DOUBLE;
 
     /**
      * String
      */
-    const STRING = 3;
+    const STRING = Types::STRING_TYPE;
 
     /**
      * Boolean
      * true or false
      */
-    const BOOLEAN = 4;
+    const BOOLEAN = Types::BOOLEAN_TYPE;
 
     /**
      * Array

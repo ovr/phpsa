@@ -328,6 +328,12 @@ class Expression
             return new CompiledExpression();
         }
 
+        $reflector = new \Ovr\PHPReflection\Reflector(\Ovr\PHPReflection\Reflector::manuallyFactory());
+        $functionReflection = $reflector->getFunction($expr->name->parts[0]);
+        if ($functionReflection) {
+            return new CompiledExpression($functionReflection->returnType, null);
+        }
+
         return new CompiledExpression();
     }
 
