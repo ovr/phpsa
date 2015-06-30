@@ -14,6 +14,9 @@ class SwitchCase
 
     const C = 1;
 
+    /**
+     * @param $a
+     */
     public function testDuplicationInSwitch($a)
     {
         switch ($a) {
@@ -30,6 +33,10 @@ class SwitchCase
         }
     }
 
+    /**
+     * @param $a
+     * @return bool
+     */
     public function testDuplicationInSwitchWithConst($a)
     {
         switch ($a) {

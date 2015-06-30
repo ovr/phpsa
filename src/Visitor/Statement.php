@@ -65,6 +65,32 @@ class Statement
         }
     }
 
+    /**
+     * @param Node\Stmt\Switch_ $switchStatement
+     */
+    public function passSwitch(Node\Stmt\Switch_ $switchStatement)
+    {
+        $expression = new Expression($this->context);
+        $compiledExpression = $expression->compile($switchStatement->cond);
+
+        if ($switchStatement->cases) {
+            foreach ($switchStatement->cases as $case) {
+                if ($case->cond) {
+                    $expression = new Expression($this->context);
+                    $compiledExpression = $expression->compile($case->cond);
+                }
+
+                if (count($case->stmts) > 0) {
+                    foreach ($case->stmts as $st) {
+                        $result = \PHPSA\nodeVisitorFactory($st, $this->context);
+                    }
+                } else {
+                    //@todo implement
+                }
+            }
+        }
+    }
+
     public function __construct(Node\Stmt $stmt, Context $context)
     {
         $this->context = $context;
@@ -75,6 +101,9 @@ class Statement
                 break;
             case 'PhpParser\Node\Stmt\If_':
                 $this->passIf($stmt);
+                break;
+            case 'PhpParser\Node\Stmt\Switch_':
+                $this->passSwitch($stmt);
                 break;
             default:
                 $this->context->debug('Unknown statement: ' . get_class($stmt));
