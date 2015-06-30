@@ -538,6 +538,7 @@ class Expression
         switch ($left->getType()) {
             case CompiledExpression::LNUMBER:
             case CompiledExpression::DNUMBER:
+            case CompiledExpression::BOOLEAN:
                 switch ($right->getType()) {
                     case CompiledExpression::BOOLEAN:
                         /**
@@ -551,11 +552,10 @@ class Expression
                             sprintf('You trying to use stupid division {expr}/true ~ {expr}/1 = {expr}', $right->getValue()),
                             $expr
                         );
-
-                        return new CompiledExpression($left->getType(), $left->getValue());
-                        break;
+                        //no break
                     case CompiledExpression::LNUMBER:
                     case CompiledExpression::DNUMBER:
+                    case CompiledExpression::BOOLEAN:
                         return CompiledExpression::fromZvalValue($left->getValue() / $right->getValue());
                         break;
                 }

@@ -19,6 +19,9 @@ class DivTest extends \Tests\PHPSA\TestCase
             array(-1, -1, 1),
             array(-1, 1, -1),
             array(1, 1, 1),
+            array(true, 1, 1),
+            array(true, true, 1),
+            array(1, true, 1),
             array(0, 1, 0),
             array(25, 25, 1),
             array(50, 50, 1),
@@ -34,13 +37,13 @@ class DivTest extends \Tests\PHPSA\TestCase
      */
     public function testDivIntToIntWithIntResult($a, $b, $c)
     {
-        $this->assertInternalType('int', $a);
-        $this->assertInternalType('int', $b);
+//        $this->assertInternalType('int', $a);
+//        $this->assertInternalType('int', $b);
         $this->assertInternalType('int', $c);
 
         $baseExpression = new Node\Expr\BinaryOp\Div(
-            new Node\Scalar\LNumber($a),
-            new Node\Scalar\LNumber($b)
+            $this->newScalarExpr($a),
+            $this->newScalarExpr($b)
         );
         $compiledExpression = $this->compileExpression($baseExpression);
 
@@ -60,6 +63,7 @@ class DivTest extends \Tests\PHPSA\TestCase
             array(-1, -1.25, 0.8),
             array(-1, 1.25, -0.8),
             array(1, 1.25, 0.8),
+            array(true, 1.25, 0.8),
             array(0, 1.25, 0.0),
             array(25, 12.5, 2.0),
             array(25, 6.25, 4.0),
@@ -74,13 +78,13 @@ class DivTest extends \Tests\PHPSA\TestCase
      */
     public function testDivIntToDoubleWithDoubleResult($a, $b, $c)
     {
-        $this->assertInternalType('int', $a);
+//        $this->assertInternalType('int', $a);
         $this->assertInternalType('double', $b);
         $this->assertInternalType('double', $c);
 
         $baseExpression = new Node\Expr\BinaryOp\Div(
-            new Node\Scalar\LNumber($a),
-            new Node\Scalar\DNumber($b)
+            $this->newScalarExpr($a),
+            $this->newScalarExpr($b)
         );
         $compiledExpression = $this->compileExpression($baseExpression);
 
@@ -100,6 +104,7 @@ class DivTest extends \Tests\PHPSA\TestCase
             array(-1.25, -1, 1.25),
             array(1.25, -1, -1.25),
             array(1.25, 1, 1.25),
+            array(1.25, true, 1.25),
             array(12.5, 25, 1/2),
             array(6.25, 25, 1/4),
             array(3.125, 25, 1/8),
@@ -114,12 +119,12 @@ class DivTest extends \Tests\PHPSA\TestCase
     public function testDivDoubleToIntWithDoubleResult($a, $b, $c)
     {
         $this->assertInternalType('double', $a);
-        $this->assertInternalType('int', $b);
+//        $this->assertInternalType('int', $b);
         $this->assertInternalType('double', $c);
 
         $baseExpression = new Node\Expr\BinaryOp\Div(
-            new Node\Scalar\DNumber($a),
-            new Node\Scalar\LNumber($b)
+            $this->newScalarExpr($a),
+            $this->newScalarExpr($b)
         );
         $compiledExpression = $this->compileExpression($baseExpression);
 
@@ -142,8 +147,8 @@ class DivTest extends \Tests\PHPSA\TestCase
         $this->assertInternalType('double', $c);
 
         $baseExpression = new Node\Expr\BinaryOp\Div(
-            new Node\Scalar\DNumber($a),
-            new Node\Scalar\DNumber($b)
+            $this->newScalarExpr($a),
+            $this->newScalarExpr($b)
         );
         $compiledExpression = $this->compileExpression($baseExpression);
 
