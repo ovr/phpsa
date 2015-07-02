@@ -116,4 +116,19 @@ class PossibleReturn
             return 'unknown';
         }
     }
+
+    /**
+     * @param $a
+     * @return string
+     */
+    public function simpleIf5($a)
+    {
+        if ($a === 1 || ($a == 1 && $a > 0)) {
+            return 'hello';
+        } elseif ($a == 4) {
+            return 'world';
+        } else {
+            return 'unknown';
+        }
+    }
 }
