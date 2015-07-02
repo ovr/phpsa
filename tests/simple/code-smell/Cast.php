@@ -216,7 +216,7 @@ class Cast
     }
 
     /**
-     * @return unset
+     * @return null
      */
     public function testCastUnsetFromBooleanFalse()
     {
