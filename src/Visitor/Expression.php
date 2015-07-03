@@ -64,6 +64,8 @@ class Expression
                 return $this->passBinaryOpMul($expr);
             case 'PhpParser\Node\Expr\BinaryOp\Minus':
                 return $this->passBinaryOpMinus($expr);
+            case 'PhpParser\Node\Expr\BinaryOp\BooleanOr':
+                return $this->passBinaryOpBooleanOr($expr);
             /**
              * Another
              */
@@ -795,6 +797,41 @@ class Expression
                     case CompiledExpression::LNUMBER:
                     case CompiledExpression::DNUMBER:
                         return new CompiledExpression(CompiledExpression::DNUMBER, $left->getValue() - $right->getValue());
+                        break;
+                }
+                break;
+        }
+
+        return new CompiledExpression(CompiledExpression::UNKNOWN);
+    }
+
+    /**
+     * {expr} || {expr}
+     *
+     * @param Node\Expr\BinaryOp\BooleanOr $expr
+     * @return CompiledExpression|\RuntimeException
+     */
+    protected function passBinaryOpBooleanOr(Node\Expr\BinaryOp\BooleanOr $expr)
+    {
+        $expression = new Expression($this->context);
+        $left = $expression->compile($expr->left);
+
+        $expression = new Expression($this->context);
+        $right = $expression->compile($expr->right);
+
+        switch ($left->getType()) {
+            case CompiledExpression::LNUMBER:
+            case CompiledExpression::DNUMBER:
+            case CompiledExpression::STRING:
+            case CompiledExpression::BOOLEAN:
+            case CompiledExpression::NULL:
+                switch ($right->getType()) {
+                    case CompiledExpression::LNUMBER:
+                    case CompiledExpression::DNUMBER:
+                    case CompiledExpression::STRING:
+                    case CompiledExpression::BOOLEAN:
+                    case CompiledExpression::NULL:
+                        return CompiledExpression::fromZvalValue($left->getValue() || $right->getValue());
                         break;
                 }
                 break;
