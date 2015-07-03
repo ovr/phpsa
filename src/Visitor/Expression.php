@@ -9,6 +9,7 @@ use PHPSA\CompiledExpression;
 use PHPSA\Context;
 use PhpParser\Node;
 use PHPSA\Node\Scalar\Boolean;
+use PHPSA\Node\Scalar\Null;
 use PHPSA\Variable;
 
 class Expression
@@ -91,8 +92,8 @@ class Expression
             /**
              * Scalars
              */
-            case 'PhpParser\Node\Scalar\LNumber':
-                return $this->getLNumber($expr);
+            case 'PHPSA\Node\Scalar\Null':
+                return $this->getNull($expr);
             case 'PhpParser\Node\Scalar\DNumber':
                 return $this->getDNumber($expr);
             case 'PhpParser\Node\Scalar\String_':
@@ -899,6 +900,18 @@ class Expression
     protected function getBoolean(Boolean $scalar)
     {
         return new CompiledExpression(CompiledExpression::BOOLEAN, $scalar->value);
+    }
+
+    /**
+     * Compile Null to CompiledExpression
+     * Attention: Null is my node class not PHPParser ;)
+     *
+     * @param Boolean $scalar
+     * @return CompiledExpression
+     */
+    protected function getNull(Null $scalar)
+    {
+        return new CompiledExpression(CompiledExpression::NULL);
     }
 
     /**
