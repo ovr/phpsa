@@ -6,6 +6,7 @@
 namespace PHPSA;
 
 use Ovr\PHPReflection\Types;
+use RuntimeException;
 
 class CompiledExpression
 {
@@ -129,7 +130,7 @@ class CompiledExpression
      * If we don't know $type but know $value
      *
      * @param $value
-     * @return CompiledExpression|\RuntimeException
+     * @return CompiledExpression|RuntimeException
      */
     public static function fromZvalValue($value)
     {
@@ -141,8 +142,11 @@ class CompiledExpression
             case 'double':
                 return new CompiledExpression(self::DNUMBER, $value);
                 break;
+            case 'boolean':
+                return new CompiledExpression(self::BOOLEAN, $value);
+                break;
         }
 
-        return new \RuntimeException("Type '{$type}' is not supported");
+        return new RuntimeException("Type '{$type}' is not supported");
     }
 }
