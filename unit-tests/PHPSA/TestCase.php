@@ -3,6 +3,7 @@
 namespace Tests\PHPSA;
 
 use PHPSA\Node\Scalar\Boolean;
+use PHPSA\Node\Scalar\Null;
 use PHPSA\Visitor\Expression;
 use RuntimeException;
 use Symfony\Component\Console\Output\ConsoleOutput;
@@ -57,6 +58,9 @@ class TestCase extends \PHPUnit_Framework_TestCase
                 break;
             case 'boolean':
                 return new Boolean($value);
+                break;
+            case 'NULL':
+                return new Null();
                 break;
             case 'array':
                 if ($value === array()) {
