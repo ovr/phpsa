@@ -3,7 +3,7 @@
 namespace Tests\PHPSA;
 
 use PHPSA\Node\Scalar\Boolean;
-use PHPSA\Node\Scalar\Null_;
+use PHPSA\Node\Scalar\Nil;
 use PHPSA\Visitor\Expression;
 use RuntimeException;
 use Symfony\Component\Console\Output\ConsoleOutput;
