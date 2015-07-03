@@ -18,4 +18,4 @@ install:
 
 script:
   - ./vendor/bin/phpcs --standard=PSR2 --report=emacs --extensions=php --warning-severity=0 src/ unit-tests/PHPSA/
-  - ./bin/phpsa check -vvv ./tests
+  - ./bin/phpsa check -vvv ./fixtures
