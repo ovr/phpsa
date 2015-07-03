@@ -93,7 +93,7 @@ class Expression
              * Scalars
              */
             case 'PHPSA\Node\Scalar\Null':
-                return $this->getNull($expr);
+                return $this->getNull();
             case 'PhpParser\Node\Scalar\LNumber':
                 return $this->getLNumber($expr);
             case 'PhpParser\Node\Scalar\DNumber':
@@ -905,13 +905,12 @@ class Expression
     }
 
     /**
-     * Compile Null to CompiledExpression
+     * Get new CompiledExpression with NULL type
      * Attention: Null is my node class not PHPParser ;)
      *
-     * @param Boolean $scalar
      * @return CompiledExpression
      */
-    protected function getNull(Null $scalar)
+    protected function getNull()
     {
         return new CompiledExpression(CompiledExpression::NULL);
     }
