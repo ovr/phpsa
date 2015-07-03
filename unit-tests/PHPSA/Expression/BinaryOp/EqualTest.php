@@ -39,9 +39,9 @@ class EqualTest extends \Tests\PHPSA\TestCase
             array(false, 0),
             array(0, false),
             // empty arrays
-            array([], false),
-            array(false, []),
-            array([], []),
+            array(array(), false),
+            array(false, array()),
+            array(array(), array()),
         );
     }
 
@@ -81,8 +81,8 @@ class EqualTest extends \Tests\PHPSA\TestCase
             array(false, true),
             array(false, 1),
             array(1, false),
-            array(true, []),
-            array([], true),
+            array(true, array()),
+            array(array(), true),
         );
     }
 

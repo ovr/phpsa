@@ -64,7 +64,7 @@ class TestCase extends \PHPUnit_Framework_TestCase
                 break;
             case 'array':
                 if ($value === array()) {
-                    return new Node\Expr\Array_([]);
+                    return new Node\Expr\Array_(array());
                 }
 
                 throw new RuntimeException('newScalarExpr is not working with non-empty arrays');
