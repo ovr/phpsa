@@ -94,6 +94,8 @@ class Expression
              */
             case 'PHPSA\Node\Scalar\Null':
                 return $this->getNull($expr);
+            case 'PhpParser\Node\Scalar\LNumber':
+                return $this->getLNumber($expr);
             case 'PhpParser\Node\Scalar\DNumber':
                 return $this->getDNumber($expr);
             case 'PhpParser\Node\Scalar\String_':
