@@ -9,7 +9,7 @@ use PHPSA\CompiledExpression;
 use PHPSA\Context;
 use PhpParser\Node;
 use PHPSA\Node\Scalar\Boolean;
-use PHPSA\Node\Scalar\Null;
+use PHPSA\Node\Scalar\Nil;
 use PHPSA\Variable;
 
 class Expression
@@ -92,7 +92,7 @@ class Expression
             /**
              * Scalars
              */
-            case 'PHPSA\Node\Scalar\Null':
+            case 'PHPSA\Node\Scalar\Nil':
                 return $this->getNull();
             case 'PhpParser\Node\Scalar\LNumber':
                 return $this->getLNumber($expr);

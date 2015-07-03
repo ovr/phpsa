@@ -2,9 +2,9 @@
 
 namespace PHPSA\Node\Scalar;
 
-class Null extends \PhpParser\Node\Scalar
+class Nil extends \PhpParser\Node\Scalar
 {
-    /** @var null Number value */
+    /** @var null */
     public $value;
 
     /**
