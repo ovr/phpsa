@@ -139,11 +139,15 @@ class CompiledExpression
             case 'integer':
                 return new CompiledExpression(self::LNUMBER, $value);
                 break;
+            case 'float':
             case 'double':
                 return new CompiledExpression(self::DNUMBER, $value);
                 break;
             case 'boolean':
                 return new CompiledExpression(self::BOOLEAN, $value);
+                break;
+            case 'NULL':
+                return new CompiledExpression(self::NULL, null);
                 break;
         }
 
