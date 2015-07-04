@@ -10,16 +10,16 @@ use PHPSA\Visitor\Statement;
 use PhpParser\Node;
 
 /**
- * @param $st
+ * @param $stmt
  * @return Expression|Statement
  */
-function nodeVisitorFactory($st, Context $context)
+function nodeVisitorFactory($stmt, Context $context)
 {
-    if ($st instanceof Node\Stmt) {
-        $visitor = new Statement($st, $context);
+    if ($stmt instanceof Node\Stmt) {
+        $visitor = new Statement($stmt, $context);
         return $visitor;
     }
 
     $visitor = new Expression($context);
-    return $visitor->compile($st);
+    return $visitor->compile($stmt);
 }

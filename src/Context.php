@@ -71,7 +71,7 @@ class Context
     public function clear()
     {
         $this->symbols = array();
-        $this->scope = array();
+        $this->scope = null;
     }
 
     public function clearSymbols()
