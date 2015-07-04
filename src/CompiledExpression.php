@@ -105,6 +105,9 @@ class CompiledExpression
         return $this->value;
     }
 
+    /**
+     * @param integer $value
+     */
     public function isEquals($value)
     {
         return $this->value == $value;

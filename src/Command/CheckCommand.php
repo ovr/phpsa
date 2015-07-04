@@ -6,23 +6,18 @@
 namespace PHPSA\Command;
 
 use PHPSA\Application;
-use PHPSA\Configuration;
 use PHPSA\Context;
 use PHPSA\Definition\ClassDefinition;
 use PHPSA\Definition\ClassMethod;
-
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
 use RuntimeException;
 use SplFileInfo;
 use Exception;
 use FilesystemIterator;
-
 use PhpParser\Node;
 use PhpParser\Parser;
-
 use Symfony\Component\Console\Command\Command;
-use Symfony\Component\Console\Input\Input;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;

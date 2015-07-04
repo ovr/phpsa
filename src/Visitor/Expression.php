@@ -919,7 +919,7 @@ class Expression
      * Convert const fetch expr to CompiledExpression
      *
      * @param Node\Expr\ConstFetch $expr
-     * @return bool|CompiledExpression
+     * @return CompiledExpression|null
      */
     protected function constFetch(Node\Expr\ConstFetch $expr)
     {
