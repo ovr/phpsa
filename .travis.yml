@@ -18,4 +18,8 @@ install:
 script:
   - ./vendor/bin/phpcs --standard=PSR2 --report=emacs --extensions=php --warning-severity=0 src/ unit-tests/PHPSA/
   - ./bin/phpsa check -vvv ./fixtures
-  - ./vendor/bin/phpunit -v --debug
+  - ./vendor/bin/phpunit -v --debug --coverage-clover=coverage.clover
+
+after_script:
+  - wget https://scrutinizer-ci.com/ocular.phar
+  - php ocular.phar code-coverage:upload --format=php-clover coverage.clover
