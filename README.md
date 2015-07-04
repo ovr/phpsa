@@ -1,7 +1,9 @@
 PHPSA - Static Analysis for PHP
 ===============================
-[![Latest Stable Version](https://poser.pugx.org/ovr/phpsa/v/stable.svg)](https://packagist.org/packages/ovr/phpsa)
 [![Build Status](https://travis-ci.org/ovr/phpsa.svg?branch=master)](https://travis-ci.org/ovr/phpsa)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/ovr/phpsa/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/ovr/phpsa/?branch=master)
+[![Code Coverage](https://scrutinizer-ci.com/g/ovr/phpsa/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/ovr/phpsa/?branch=master)
+[![Latest Stable Version](https://poser.pugx.org/ovr/phpsa/v/stable.svg)](https://packagist.org/packages/ovr/phpsa)
 [![License](https://poser.pugx.org/ovr/phpsa/license.svg)](https://packagist.org/packages/ovr/phpsa)
 
 > PHPSA is a development tool aimed at bringing static analysis for PHP applications and libraries.
