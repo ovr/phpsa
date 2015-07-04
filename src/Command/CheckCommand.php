@@ -139,7 +139,7 @@ class CheckCommand extends Command
     }
 
     /**
-     * @param $type
+     * @param boolean $type
      * @return float
      */
     protected function getMemoryUsage($type)
