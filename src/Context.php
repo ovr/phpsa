@@ -148,10 +148,14 @@ class Context
      */
     public function sytaxError(\PhpParser\Error $exception, $filepath)
     {
-        $code = file($exception->getFile());
+        $code = file($filepath);
 
         $this->output->writeln('<error>Syntax error:  ' . $exception->getMessage() . " in {$filepath} </error>");
         $this->output->writeln('');
+
+        $code = trim($code[($exception->getStartLine()-2)]);
+        $this->output->writeln("<comment>\t {$code} </comment>");
+
         return true;
     }
 
