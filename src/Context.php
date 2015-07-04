@@ -43,7 +43,7 @@ class Context
     }
 
     /**
-     * @param $name
+     * @param string $name
      * @return Variable
      */
     public function addSymbol($name)
@@ -99,8 +99,8 @@ class Context
     }
 
     /**
-     * @param $type
-     * @param $message
+     * @param string $type
+     * @param string $message
      * @return bool
      */
     public function warning($type, $message)
@@ -111,8 +111,8 @@ class Context
     }
 
     /**
-     * @param $type
-     * @param $message
+     * @param string $type
+     * @param string $message
      * @param \PhpParser\NodeAbstract $expr
      * @return bool
      */
