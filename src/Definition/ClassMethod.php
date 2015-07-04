@@ -7,7 +7,6 @@ namespace PHPSA\Definition;
 
 use PhpParser\Node;
 use PHPSA\Context;
-use PHPSA\Visitor;
 
 class ClassMethod
 {
@@ -25,6 +24,11 @@ class ClassMethod
      */
     protected $st;
 
+    /**
+     * @param string $name
+     * @param Node[] $ast
+     * @param integer $type
+     */
     public function __construct($name, $ast, $type, Node\Stmt\ClassMethod $st)
     {
         $this->name = $name;
@@ -43,7 +47,7 @@ class ClassMethod
 
     /**
      * @param Context $context
-     * @return bool
+     * @return boolean|null
      */
     public function compile(Context $context)
     {
