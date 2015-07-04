@@ -142,15 +142,15 @@ class Context
     }
 
     /**
-     * @param \PhpParser\Error $e
-     * @param $filepath
+     * @param \PhpParser\Error $exception
+     * @param string $filepath
      * @return bool
      */
-    public function sytaxError(\PhpParser\Error $e, $filepath)
+    public function sytaxError(\PhpParser\Error $exception, $filepath)
     {
-        $code = file($e->getFile());
+        $code = file($exception->getFile());
 
-        $this->output->writeln('<error>Syntax error:  ' . $e->getMessage() . " in {$filepath} </error>");
+        $this->output->writeln('<error>Syntax error:  ' . $exception->getMessage() . " in {$filepath} </error>");
         $this->output->writeln('');
         return true;
     }
