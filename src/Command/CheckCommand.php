@@ -75,7 +75,9 @@ class CheckCommand extends Command
 
         $path = $input->getArgument('path');
         if (is_dir($path)) {
-            $it = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($path, FilesystemIterator::SKIP_DOTS));
+            $directoryIterator = new RecursiveIteratorIterator(
+                new RecursiveDirectoryIterator($path, FilesystemIterator::SKIP_DOTS)
+            );
 
             /**
              * @todo Uncomment after PHP >=5.4
@@ -89,7 +91,7 @@ class CheckCommand extends Command
             $count = 0;
 
             /** @var SplFileInfo $file */
-            foreach ($it as $file) {
+            foreach ($directoryIterator as $file) {
                 if ($file->getExtension() != 'php') {
                     continue;
                 }
@@ -107,7 +109,7 @@ class CheckCommand extends Command
             $output->writeln('');
 
             /** @var SplFileInfo $file */
-            foreach ($it as $file) {
+            foreach ($directoryIterator as $file) {
                 if ($file->getExtension() != 'php') {
                     continue;
                 }
