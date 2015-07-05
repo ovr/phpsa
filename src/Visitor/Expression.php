@@ -108,11 +108,10 @@ class Expression
                 return $this->constFetch($expr);
             case 'PhpParser\Node\Name':
                 return $this->getNodeName($expr);
-            default:
-                $this->context->debug('Unknown expression: ' . get_class($expr));
-                return new CompiledExpression(CompiledExpression::UNIMPLEMENTED);
-                break;
         }
+
+        $this->context->debug('Unknown expression: ' . get_class($expr));
+        return new CompiledExpression(CompiledExpression::UNIMPLEMENTED);
     }
 
     /**
@@ -132,7 +131,6 @@ class Expression
             case CompiledExpression::STRING:
             case CompiledExpression::BOOLEAN:
                 return new CompiledExpression($compiledExpression->getType(), !$compiledExpression->getValue());
-                break;
         }
 
 
@@ -201,11 +199,9 @@ class Expression
             case CompiledExpression::BOOLEAN:
                 $this->context->notice('stupid-cast', "You are trying to cast 'boolean' to 'boolean'", $expr);
                 return $compiledExpression;
-                break;
             case CompiledExpression::DNUMBER:
             case CompiledExpression::LNUMBER:
                 return new CompiledExpression(CompiledExpression::BOOLEAN, (bool) $compiledExpression->getValue());
-                break;
         }
 
         return new CompiledExpression();
@@ -226,12 +222,10 @@ class Expression
             case CompiledExpression::LNUMBER:
                 $this->context->notice('stupid-cast', "You are trying to cast 'int' to 'int'", $expr);
                 return $compiledExpression;
-                break;
             case CompiledExpression::BOOLEAN:
             case CompiledExpression::DNUMBER:
             case CompiledExpression::STRING:
                 return new CompiledExpression(CompiledExpression::LNUMBER, (int) $compiledExpression->getValue());
-                break;
         }
 
         return new CompiledExpression();
@@ -252,12 +246,10 @@ class Expression
             case CompiledExpression::DNUMBER:
                 $this->context->notice('stupid-cast', "You are trying to cast 'float' to 'float'", $expr);
                 return $compiledExpression;
-                break;
             case CompiledExpression::BOOLEAN:
             case CompiledExpression::LNUMBER:
             case CompiledExpression::STRING:
                 return new CompiledExpression(CompiledExpression::DNUMBER, (float) $compiledExpression->getValue());
-                break;
         }
 
         return new CompiledExpression();
@@ -278,12 +270,10 @@ class Expression
             case CompiledExpression::STRING:
                 $this->context->notice('stupid-cast', "You are trying to cast 'string' to 'string'", $expr);
                 return $compiledExpression;
-                break;
             case CompiledExpression::BOOLEAN:
             case CompiledExpression::LNUMBER:
             case CompiledExpression::DNUMBER:
                 return new CompiledExpression(CompiledExpression::DNUMBER, (string) $compiledExpression->getValue());
-                break;
         }
 
         return new CompiledExpression();
@@ -304,12 +294,10 @@ class Expression
             case CompiledExpression::NULL:
                 $this->context->notice('stupid-cast', "You are trying to cast 'unset' to 'null'", $expr);
                 return $compiledExpression;
-                break;
             case CompiledExpression::BOOLEAN:
             case CompiledExpression::LNUMBER:
             case CompiledExpression::DNUMBER:
                 return new CompiledExpression(CompiledExpression::DNUMBER, (unset) $compiledExpression->getValue());
-                break;
         }
 
         return new CompiledExpression(CompiledExpression::NULL, null);
