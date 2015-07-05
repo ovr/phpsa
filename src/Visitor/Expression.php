@@ -123,8 +123,6 @@ class Expression
     protected function passBooleanNot(Node\Expr\BooleanNot $expr)
     {
         $compiledExpression = $this->compile($expr->expr);
-
-
         switch ($compiledExpression->getType()) {
             case CompiledExpression::DNUMBER:
             case CompiledExpression::LNUMBER:
@@ -419,7 +417,7 @@ class Expression
 
     /**
      * @param Node\Expr\Assign $expr
-     * @return CompiledExpression|Expression
+     * @return CompiledExpression
      */
     protected function passSymbol(Node\Expr\Assign $expr)
     {
@@ -430,14 +428,14 @@ class Expression
         if ($expr->var instanceof Node\Expr\Variable) {
             $name = $expr->var->name;
 
-            $compiledExpression = new Expression($this->context);
-            $result = $compiledExpression->compile($expr->expr);
+            $expression = new Expression($this->context);
+            $compiledExpression = $expression->compile($expr->expr);
 
             $symbol = $this->context->getSymbol($name);
             if ($symbol) {
-                $symbol->modify($result->getType(), $result->getValue());
+                $symbol->modify($compiledExpression->getType(), $compiledExpression->getValue());
             } else {
-                $symbol = new Variable($name, $result->getValue(), $result->getType());
+                $symbol = new Variable($name, $compiledExpression->getValue(), $compiledExpression->getType());
                 $this->context->addVariable($symbol);
             }
 
