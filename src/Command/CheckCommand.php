@@ -43,21 +43,21 @@ class CheckCommand extends Command
     {
         $output->writeln('');
 
-        $lexer = new \PhpParser\Lexer(array(
-            'usedAttributes' => array(
-                'comments',
-                'startLine',
-                'endLine',
-                'startTokenPos',
-                'endTokenPos'
-            )
-        ));
-
         if (extension_loaded('xdebug')) {
             $output->writeln('<error>It is highly recommended to disable the XDebug extension before invoking this command.</error>');
         }
 
-        $parser = new Parser(new \PhpParser\Lexer\Emulative);
+        $parser = new Parser(new \PhpParser\Lexer\Emulative(
+            array(
+                'usedAttributes' => array(
+                    'comments',
+                    'startLine',
+                    'endLine',
+                    'startTokenPos',
+                    'endTokenPos'
+                )
+            )
+        ));
 
         /** @var Application $application */
         $application = $this->getApplication();
