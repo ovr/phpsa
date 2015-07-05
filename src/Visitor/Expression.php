@@ -178,7 +178,7 @@ class Expression
         }
 
         $expression = new Expression($this->context);
-        $compiledExpression = $expression->compile($expr->var);
+        $expression->compile($expr->var);
 
         $this->context->debug('Unknown method call');
         return new CompiledExpression();
