@@ -7,12 +7,12 @@
          processIsolation="false"
          stopOnFailure="true"
          syntaxCheck="false"
-         bootstrap="./unit-tests/PHPSA/Bootstrap.php"
+         bootstrap="./tests/PHPSA/Bootstrap.php"
         >
 
     <testsuites>
         <testsuite name="All tests">
-            <directory>./unit-tests/PHPSA/</directory>
+            <directory>./tests/PHPSA/</directory>
         </testsuite>
     </testsuites>
 </phpunit>
