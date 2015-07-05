@@ -52,26 +52,20 @@ class TestCase extends \PHPUnit_Framework_TestCase
         switch (gettype($value)) {
             case 'integer':
                 return new Node\Scalar\LNumber($value);
-                break;
             case 'double':
                 return new Node\Scalar\DNumber($value);
-                break;
             case 'boolean':
                 return new Boolean($value);
-                break;
             case 'NULL':
                 return new Nil();
-                break;
             case 'array':
                 if ($value === array()) {
                     return new Node\Expr\Array_(array());
                 }
 
                 throw new RuntimeException('newScalarExpr is not working with non-empty arrays');
-                break;
-            default:
-                throw new RuntimeException('Unexpected type: ' . gettype($value));
-                break;
         }
+        
+        throw new RuntimeException('Unexpected type: ' . gettype($value));
     }
 }
