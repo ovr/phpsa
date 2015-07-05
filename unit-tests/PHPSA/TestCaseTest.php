@@ -57,4 +57,11 @@ class TestCaseTest extends TestCase
         $this->assertInstanceOf('PHPSA\Node\Scalar\Nil', $scalar);
         $this->assertSame(null, $scalar->value);
     }
+
+    public function testNewScalarExprForEmptyArray()
+    {
+        $scalar = $this->newScalarExpr(array());
+        $this->assertInstanceOf('PHPParser\Node\Expr\Array_', $scalar);
+        $this->assertSame(array(), $scalar->items);
+    }
 }
