@@ -16,6 +16,11 @@ class CompiledExpression
     const UNKNOWN = Types::UNKNOWN_TYPE;
 
     /**
+     * It's not unknown, It's unimplemented
+     */
+    const UNIMPLEMENTED = -100;
+
+    /**
      * Void type
      */
     const VOID = Types::UNKNOWN_TYPE;

@@ -110,7 +110,7 @@ class Expression
                 return $this->getNodeName($expr);
             default:
                 $this->context->debug('Unknown expression: ' . get_class($expr));
-                return new CompiledExpression(-1);
+                return new CompiledExpression(CompiledExpression::UNIMPLEMENTED);
                 break;
         }
     }
