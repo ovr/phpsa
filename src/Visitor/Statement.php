@@ -21,7 +21,7 @@ class Statement
     protected function passReturn(Node\Stmt\Return_ $st)
     {
         $expression = new Expression($this->context);
-        $compiledExpression = $expression->compile($st->expr);
+        $expression->compile($st->expr);
     }
 
     /**
@@ -30,11 +30,11 @@ class Statement
     public function passIf(Node\Stmt\If_ $ifStatement)
     {
         $expression = new Expression($this->context);
-        $compiledExpression = $expression->compile($ifStatement->cond);
+        $expression->compile($ifStatement->cond);
 
         if (count($ifStatement->stmts) > 0) {
             foreach ($ifStatement->stmts as $st) {
-                $result = \PHPSA\nodeVisitorFactory($st, $this->context);
+                \PHPSA\nodeVisitorFactory($st, $this->context);
             }
         } else {
             //@todo implement
@@ -43,11 +43,11 @@ class Statement
         if (count($ifStatement->elseifs) > 0) {
             foreach ($ifStatement->elseifs as $elseIfStatement) {
                 $expression = new Expression($this->context);
-                $compiledExpression = $expression->compile($elseIfStatement->cond);
+                $expression->compile($elseIfStatement->cond);
 
                 if (count($elseIfStatement->stmts) > 0) {
                     foreach ($elseIfStatement->stmts as $st) {
-                        $result = \PHPSA\nodeVisitorFactory($st, $this->context);
+                        \PHPSA\nodeVisitorFactory($st, $this->context);
                     }
                 } else {
                     //@todo implement
@@ -60,7 +60,7 @@ class Statement
         if ($ifStatement->else) {
             if (count($ifStatement->else->stmts) > 0) {
                 foreach ($ifStatement->else->stmts as $st) {
-                    $result = \PHPSA\nodeVisitorFactory($st, $this->context);
+                    \PHPSA\nodeVisitorFactory($st, $this->context);
                 }
             } else {
                 //@todo implement
@@ -74,23 +74,25 @@ class Statement
     public function passSwitch(Node\Stmt\Switch_ $switchStatement)
     {
         $expression = new Expression($this->context);
-        $compiledExpression = $expression->compile($switchStatement->cond);
+        $expression->compile($switchStatement->cond);
 
-        if ($switchStatement->cases) {
+        if (count($switchStatement->cases)) {
             foreach ($switchStatement->cases as $case) {
                 if ($case->cond) {
                     $expression = new Expression($this->context);
-                    $compiledExpression = $expression->compile($case->cond);
+                    $expression->compile($case->cond);
                 }
 
                 if (count($case->stmts) > 0) {
                     foreach ($case->stmts as $st) {
-                        $result = \PHPSA\nodeVisitorFactory($st, $this->context);
+                        \PHPSA\nodeVisitorFactory($st, $this->context);
                     }
                 } else {
                     //@todo implement
                 }
             }
+        } else {
+            //@todo implement
         }
     }
 
