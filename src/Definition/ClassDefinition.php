@@ -165,4 +165,12 @@ class ClassDefinition
     {
         $this->filepath = $filepath;
     }
+
+    /**
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
 }
