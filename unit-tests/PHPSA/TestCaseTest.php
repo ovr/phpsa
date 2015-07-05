@@ -39,4 +39,15 @@ class TestCaseTest extends TestCase
         $this->assertInstanceOf('PHPParser\Node\Scalar\DNumber', $scalar);
         $this->assertSame(1.0, $scalar->value);
     }
+
+    public function testNewScalarExprBoolean()
+    {
+        $scalar = $this->newScalarExpr(true);
+        $this->assertInstanceOf('PHPSA\Node\Scalar\Boolean', $scalar);
+        $this->assertSame(true, $scalar->value);
+
+        $scalar = $this->newScalarExpr(false);
+        $this->assertInstanceOf('PHPSA\Node\Scalar\Boolean', $scalar);
+        $this->assertSame(false, $scalar->value);
+    }
 }
