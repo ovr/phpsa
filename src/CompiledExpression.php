@@ -13,7 +13,12 @@ class CompiledExpression
     /**
      * Unknown type
      */
-    const UNKNOWN = 0;
+    const UNKNOWN = Types::UNKNOWN_TYPE;
+
+    /**
+     * Void type
+     */
+    const VOID = Types::UNKNOWN_TYPE;
 
     const INTEGER = Types::INT_TYPE;
 
@@ -47,28 +52,28 @@ class CompiledExpression
     /**
      * Array
      */
-    const ARR = 5;
+    const ARR = Types::ARRAY_TYPE;
 
     /**
      * Object
      */
-    const OBJECT = 6;
+    const OBJECT = Types::OBJECT_TYPE;
 
     /**
      * Resource handler
      */
-    const RESOURCE = 7;
+    const RESOURCE = Types::RESOURCE_TYPE;
 
     /**
      * Resource handler
      */
-    const NULL = 8;
+    const NULL = Types::NULL_TYPE;
 
 
     /**
-     * We cant explain what it's
+     * I can't explain what it's :D
      */
-    const DYNAMIC = 9;
+    const DYNAMIC = 10000;
 
     /**
      * By default we don't know what it is

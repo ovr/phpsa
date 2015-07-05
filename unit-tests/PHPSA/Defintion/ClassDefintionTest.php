@@ -48,7 +48,7 @@ class ClassDefintionTest extends TestCase
             )
         );
         $classDefinition->addProperty($property);
-        
+
         $this->assertTrue($classDefinition->hasProperty('test1'));
         $this->assertTrue($classDefinition->hasProperty('test2'));
     }
