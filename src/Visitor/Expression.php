@@ -9,7 +9,6 @@ use PHPSA\CompiledExpression;
 use PHPSA\Context;
 use PhpParser\Node;
 use PHPSA\Node\Scalar\Boolean;
-use PHPSA\Node\Scalar\Nil;
 use PHPSA\Variable;
 use PHPSA\Visitor\Expression\AbstractExpressionCompiler;
 use RuntimeException;
