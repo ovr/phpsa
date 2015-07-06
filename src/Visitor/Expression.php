@@ -376,11 +376,12 @@ class Expression
      */
     protected function passPropertyFetch(Node\Expr\PropertyFetch $expr)
     {
-        if ($expr->var->name == 'this') {
+        $scopeExpression = $this->compile($expr->var);
+        if ($scopeExpression->getValue() == 'this') {
             if (!$this->context->scope->hasProperty($expr->name)) {
                 $this->context->notice(
                     'undefined-property',
-                    sprintf('Property %s is not exists on %s scope', $expr->name, $expr->var->name),
+                    sprintf('Property %s is not exists on %s scope', $expr->name, $scopeExpression->getValue()),
                     $expr
                 );
             }
