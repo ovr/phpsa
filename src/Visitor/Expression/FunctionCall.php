@@ -2,7 +2,9 @@
 
 namespace PHPSA\Visitor\Expression;
 
-class FunctionCall
+use PHPSA\Visitor\ExpressionCompilerInterface;
+
+class FunctionCall implements ExpressionCompilerInterface
 {
     public function compile($expression, $context)
     {

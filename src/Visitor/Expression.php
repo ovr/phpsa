@@ -11,6 +11,7 @@ use PhpParser\Node;
 use PHPSA\Node\Scalar\Boolean;
 use PHPSA\Node\Scalar\Nil;
 use PHPSA\Variable;
+use SebastianBergmann\GlobalState\RuntimeException;
 
 class Expression
 {
@@ -27,6 +28,14 @@ class Expression
         $this->context = $context;
     }
 
+    protected function factory($expr)
+    {
+        switch (get_class($expr)) {
+            case 'PhpParser\Node\Expr\MethodCall':
+                return new Expression\MethodCall();
+        }
+    }
+
     /**
      * @param $expr
      * @return CompiledExpression
@@ -35,7 +44,12 @@ class Expression
     {
         switch (get_class($expr)) {
             case 'PhpParser\Node\Expr\MethodCall':
-                return $this->passMethodCall($expr);
+                $expressionCompiler = $this->factory($expr);
+                $result = $expressionCompiler->pass($expr, $this->context);
+                if (!$result instanceof CompiledExpression) {
+                    throw new RuntimeException("Please return CompiledExpression from " . get_class($expressionCompiler));
+                }
+                break;
             case 'PhpParser\Node\Expr\PropertyFetch':
                 return $this->passPropertyFetch($expr);
             case 'PhpParser\Node\Expr\FuncCall':
@@ -156,29 +170,6 @@ class Expression
         }
 
         $this->context->debug('Unknown how to pass new');
-        return new CompiledExpression();
-    }
-
-    protected function passMethodCall(Node\Expr\MethodCall $expr)
-    {
-        if ($expr->var instanceof Node\Expr\Variable) {
-            if ($expr->var->name == 'this') {
-                if (!$this->context->scope->hasMethod($expr->name)) {
-                    $this->context->notice(
-                        'undefined-mcall',
-                        sprintf('Method %s() is not exists on %s scope', $expr->name, $expr->var->name),
-                        $expr
-                    );
-                }
-
-                return new CompiledExpression();
-            }
-        }
-
-        $expression = new Expression($this->context);
-        $expression->compile($expr->var);
-
-        $this->context->debug('Unknown method call');
         return new CompiledExpression();
     }
 
