@@ -7,7 +7,7 @@ use PHPSA\Context;
 use PHPSA\Visitor\Expression;
 use PHPSA\Visitor\Expression\AbstractExpressionCompiler;
 
-class IdenticalCall extends AbstractExpressionCompiler
+class Identical extends AbstractExpressionCompiler
 {
     protected $name = '\PhpParser\Node\Expr\BinaryOp\Identical';
 

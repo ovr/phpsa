@@ -41,7 +41,9 @@ class Expression
             case 'PhpParser\Node\Expr\FuncCall':
                 return new Expression\FunctionCall();
             case 'PhpParser\Node\Expr\BinaryOp\Identical':
-                return new Expression\BinaryOp\IdenticalCall();
+                return new Expression\BinaryOp\Identical();
+            case 'PhpParser\Node\Expr\BinaryOp\Div':
+                return new Expression\BinaryOp\Div();
         }
 
         return false;
@@ -69,8 +71,6 @@ class Expression
              */
             case 'PhpParser\Node\Expr\BinaryOp\Equal':
                 return $this->passBinaryOpEqual($expr);
-            case 'PhpParser\Node\Expr\BinaryOp\Div':
-                return $this->passBinaryOpDiv($expr);
             case 'PhpParser\Node\Expr\BinaryOp\Plus':
                 return $this->passBinaryOpPlus($expr);
             case 'PhpParser\Node\Expr\BinaryOp\BitwiseXor':
@@ -441,96 +441,6 @@ class Expression
         );
 
         return new CompiledExpression();
-    }
-
-    /**
-     * {expr} / {expr}
-     *
-     * @param Node\Expr\BinaryOp\Div $expr
-     * @return CompiledExpression
-     */
-    protected function passBinaryOpDiv(Node\Expr\BinaryOp\Div $expr)
-    {
-        $expression = new Expression($this->context);
-        $left = $expression->compile($expr->left);
-
-        $expression = new Expression($this->context);
-        $right = $expression->compile($expr->right);
-
-        switch ($left->getType()) {
-            case CompiledExpression::DNUMBER:
-                if ($left->isEquals(0)) {
-                    $this->context->notice(
-                        'division-zero',
-                        sprintf('You trying to use division from %s/{expr}', $left->getValue()),
-                        $expr
-                    );
-
-                    return new CompiledExpression(CompiledExpression::DNUMBER, 0.0);
-                }
-                break;
-            case CompiledExpression::LNUMBER:
-            case CompiledExpression::BOOLEAN:
-                if ($left->isEquals(0)) {
-                    $this->context->notice(
-                        'division-zero',
-                        sprintf('You trying to use division from %s/{expr}', $left->getValue()),
-                        $expr
-                    );
-
-                    switch ($right->getType()) {
-                        case CompiledExpression::LNUMBER:
-                        case CompiledExpression::BOOLEAN:
-                            return new CompiledExpression(CompiledExpression::LNUMBER, 0);
-                        case CompiledExpression::DNUMBER:
-                            return new CompiledExpression(CompiledExpression::DNUMBER, 0.0);
-                    }
-                }
-                break;
-        }
-
-        switch ($right->getType()) {
-            case CompiledExpression::LNUMBER:
-            case CompiledExpression::DNUMBER:
-            case CompiledExpression::BOOLEAN:
-                if ($right->isEquals(0)) {
-                    $this->context->notice(
-                        'division-zero',
-                        sprintf('You trying to use division on {expr}/%s', $right->getValue()),
-                        $expr
-                    );
-
-                    return new CompiledExpression(CompiledExpression::UNKNOWN);
-                }
-        }
-
-        switch ($left->getType()) {
-            case CompiledExpression::LNUMBER:
-            case CompiledExpression::DNUMBER:
-            case CompiledExpression::BOOLEAN:
-                switch ($right->getType()) {
-                    case CompiledExpression::BOOLEAN:
-                        /**
-                         * Boolean is true via isEquals(0) check is not passed before
-                         * {int}/1 = {int}
-                         * {double}/1 = {double}
-                         */
-
-                        $this->context->notice(
-                            'division-on-true',
-                            sprintf('You trying to use stupid division {expr}/true ~ {expr}/1 = {expr}', $right->getValue()),
-                            $expr
-                        );
-                        //no break
-                    case CompiledExpression::LNUMBER:
-                    case CompiledExpression::DNUMBER:
-                    case CompiledExpression::BOOLEAN:
-                        return CompiledExpression::fromZvalValue($left->getValue() / $right->getValue());
-                }
-                break;
-        }
-
-        return new CompiledExpression(CompiledExpression::UNKNOWN);
     }
 
     /**
