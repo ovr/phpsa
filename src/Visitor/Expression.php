@@ -392,7 +392,7 @@ class Expression
 
     /**
      * @param Node\Expr\ClassConstFetch $expr
-     * @return bool|CompiledExpression
+     * @return CompiledExpression
      */
     protected function passConstFetch(Node\Expr\ClassConstFetch $expr)
     {
