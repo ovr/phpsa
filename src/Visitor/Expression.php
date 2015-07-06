@@ -400,7 +400,7 @@ class Expression
             $scope = $expr->class->parts[0];
             if ($scope == 'self') {
                 if (!$this->context->scope->hasConst($expr->name)) {
-                    return $this->context->notice(
+                    $this->context->notice(
                         'undefined-const',
                         sprintf('Constant %s is not exists on %s scope', $expr->name, $scope),
                         $expr
