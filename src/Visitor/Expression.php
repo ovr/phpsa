@@ -507,10 +507,8 @@ class Expression
                         case CompiledExpression::LNUMBER:
                         case CompiledExpression::BOOLEAN:
                             return new CompiledExpression(CompiledExpression::LNUMBER, 0);
-                            break;
                         case CompiledExpression::DNUMBER:
                             return new CompiledExpression(CompiledExpression::DNUMBER, 0.0);
-                            break;
                     }
                 }
                 break;
@@ -529,7 +527,6 @@ class Expression
 
                     return new CompiledExpression(CompiledExpression::UNKNOWN);
                 }
-                break;
         }
 
         switch ($left->getType()) {
@@ -554,7 +551,6 @@ class Expression
                     case CompiledExpression::DNUMBER:
                     case CompiledExpression::BOOLEAN:
                         return CompiledExpression::fromZvalValue($left->getValue() / $right->getValue());
-                        break;
                 }
                 break;
         }
@@ -585,7 +581,6 @@ class Expression
                     case CompiledExpression::DNUMBER:
                     case CompiledExpression::BOOLEAN:
                         return new CompiledExpression(CompiledExpression::DNUMBER, $left->getValue() ^ $right->getValue());
-                        break;
                 }
                 break;
         }
@@ -617,9 +612,7 @@ class Expression
                     case CompiledExpression::DNUMBER:
                     case CompiledExpression::BOOLEAN:
                         return new CompiledExpression(CompiledExpression::BOOLEAN, $left->getValue() === $right->getValue());
-                        break;
                 }
-                break;
         }
 
         return new CompiledExpression(CompiledExpression::UNKNOWN);
@@ -653,7 +646,6 @@ class Expression
                     case CompiledExpression::ARR:
                     case CompiledExpression::OBJECT:
                         return new CompiledExpression(CompiledExpression::BOOLEAN, $left->getValue() == $right->getValue());
-                        break;
                 }
                 break;
         }
@@ -676,7 +668,6 @@ class Expression
             case CompiledExpression::LNUMBER:
             case CompiledExpression::DNUMBER:
                 return new CompiledExpression($left->getType(), -$left->getValue());
-                break;
         }
 
         return new CompiledExpression();
@@ -703,7 +694,6 @@ class Expression
                     case CompiledExpression::LNUMBER:
                     case CompiledExpression::DNUMBER:
                         return new CompiledExpression(CompiledExpression::DNUMBER, $left->getValue() * $right->getValue());
-                        break;
                 }
                 break;
         }
@@ -733,13 +723,11 @@ class Expression
                          * php -r "var_dump(1 + 1);" int(2)
                          */
                         return new CompiledExpression(CompiledExpression::LNUMBER, $left->getValue() + $right->getValue());
-                        break;
                     case CompiledExpression::DNUMBER:
                         /**
                          * php -r "var_dump(1 + 1.0);" double(2)
                          */
                         return new CompiledExpression(CompiledExpression::DNUMBER, $left->getValue() + $right->getValue());
-                        break;
                 }
                 break;
             case CompiledExpression::DNUMBER:
@@ -751,7 +739,6 @@ class Expression
                          * php -r "var_dump(1.0 + 1.0);" double(2)
                          */
                         return new CompiledExpression(CompiledExpression::DNUMBER, $left->getValue() + $right->getValue());
-                        break;
                 }
                 break;
         }
@@ -778,7 +765,6 @@ class Expression
                 switch ($right->getType()) {
                     case CompiledExpression::LNUMBER:
                         return new CompiledExpression(CompiledExpression::LNUMBER, $left->getValue() - $right->getValue());
-                        break;
                 }
                 break;
             case CompiledExpression::DNUMBER:
@@ -786,7 +772,6 @@ class Expression
                     case CompiledExpression::LNUMBER:
                     case CompiledExpression::DNUMBER:
                         return new CompiledExpression(CompiledExpression::DNUMBER, $left->getValue() - $right->getValue());
-                        break;
                 }
                 break;
         }
@@ -821,7 +806,6 @@ class Expression
                     case CompiledExpression::BOOLEAN:
                     case CompiledExpression::NULL:
                         return CompiledExpression::fromZvalValue($left->getValue() || $right->getValue());
-                        break;
                 }
                 break;
         }
