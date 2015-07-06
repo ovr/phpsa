@@ -39,6 +39,8 @@ class Expression
                 return new Expression\MethodCall();
             case 'PhpParser\Node\Expr\FuncCall':
                 return new Expression\FunctionCall();
+            case 'PhpParser\Node\Expr\StaticCall':
+                return new Expression\StaticCall();
             /**
              * Operators
              */
@@ -62,8 +64,6 @@ class Expression
         switch (get_class($expr)) {
             case 'PhpParser\Node\Expr\PropertyFetch':
                 return $this->passPropertyFetch($expr);
-            case 'PhpParser\Node\Expr\StaticCall':
-                return $this->passStaticFunctionCall($expr);
             case 'PhpParser\Node\Expr\ClassConstFetch':
                 return $this->passConstFetch($expr);
             case 'PhpParser\Node\Expr\Assign':
@@ -302,48 +302,6 @@ class Expression
         }
 
         return new CompiledExpression(CompiledExpression::NULL, null);
-    }
-
-    /**
-     * {expr}::{expr}();
-     *
-     * @param Node\Expr\StaticCall $expr
-     * @return CompiledExpression
-     */
-    protected function passStaticFunctionCall(Node\Expr\StaticCall $expr)
-    {
-        if ($expr->class instanceof Node\Name) {
-            $scope = $expr->class->parts[0];
-            $name = $expr->name;
-
-            $error = false;
-
-            if ($scope == 'self') {
-                if (!$this->context->scope->hasMethod($name)) {
-                    $error = true;
-                } else {
-                    $method = $this->context->scope->getMethod($name);
-                    if (!$method->isStatic()) {
-                        $error = true;
-                    }
-                }
-            }
-
-            if ($error) {
-                $this->context->notice(
-                    'undefined-scall',
-                    sprintf('Static method %s() is not exists on %s scope', $name, $scope),
-                    $expr
-                );
-
-                return new CompiledExpression();
-            }
-
-            return new CompiledExpression();
-        }
-
-        $this->context->debug('Unknown static function call');
-        return new CompiledExpression();
     }
 
     /**
