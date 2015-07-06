@@ -40,6 +40,8 @@ class Expression
                 return new Expression\MethodCall();
             case 'PhpParser\Node\Expr\FuncCall':
                 return new Expression\FunctionCall();
+            case 'PhpParser\Node\Expr\BinaryOp\Identical':
+                return new Expression\BinaryOp\IdenticalCall();
         }
 
         return false;
@@ -65,8 +67,6 @@ class Expression
             /**
              * Operators
              */
-            case 'PhpParser\Node\Expr\BinaryOp\Identical':
-                return $this->passBinaryOpIdentical($expr);
             case 'PhpParser\Node\Expr\BinaryOp\Equal':
                 return $this->passBinaryOpEqual($expr);
             case 'PhpParser\Node\Expr\BinaryOp\Div':
@@ -561,36 +561,6 @@ class Expression
         }
 
         return new CompiledExpression();
-    }
-
-    /**
-     * It's used in conditions
-     * {left-expr} === {right-expr}
-     *
-     * @param Node\Expr\BinaryOp\Identical $expr
-     * @return CompiledExpression
-     */
-    protected function passBinaryOpIdentical(Node\Expr\BinaryOp\Identical $expr)
-    {
-        $expression = new Expression($this->context);
-        $left = $expression->compile($expr->left);
-
-        $expression = new Expression($this->context);
-        $right = $expression->compile($expr->right);
-
-        switch ($left->getType()) {
-            case CompiledExpression::LNUMBER:
-            case CompiledExpression::DNUMBER:
-            case CompiledExpression::BOOLEAN:
-                switch ($right->getType()) {
-                    case CompiledExpression::LNUMBER:
-                    case CompiledExpression::DNUMBER:
-                    case CompiledExpression::BOOLEAN:
-                        return new CompiledExpression(CompiledExpression::BOOLEAN, $left->getValue() === $right->getValue());
-                }
-        }
-
-        return new CompiledExpression(CompiledExpression::UNKNOWN);
     }
 
     /**
