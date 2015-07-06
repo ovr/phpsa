@@ -143,7 +143,8 @@ class CompiledExpression
      * If we don't know $type but know $value
      *
      * @param $value
-     * @return CompiledExpression|RuntimeException
+     * @throws RuntimeException
+     * @return CompiledExpression
      */
     public static function fromZvalValue($value)
     {
@@ -160,6 +161,6 @@ class CompiledExpression
                 return new CompiledExpression(self::NULL, null);
         }
 
-        return new RuntimeException("Type '{$type}' is not supported");
+        throw new RuntimeException("Type '{$type}' is not supported");
     }
 }
