@@ -35,6 +35,9 @@ class Expression
     protected function factory($expr)
     {
         switch (get_class($expr)) {
+            /**
+             * Call(s)
+             */
             case 'PhpParser\Node\Expr\MethodCall':
                 return new Expression\MethodCall();
             case 'PhpParser\Node\Expr\FuncCall':
@@ -50,6 +53,8 @@ class Expression
                 return new Expression\BinaryOp\Div();
             case 'PhpParser\Node\Expr\BinaryOp\Plus':
                 return new Expression\BinaryOp\Plus();
+            case 'PhpParser\Node\Expr\BinaryOp\Equal':
+                return new Expression\BinaryOp\Equal();
         }
 
         return false;
@@ -73,8 +78,6 @@ class Expression
             /**
              * Operators
              */
-            case 'PhpParser\Node\Expr\BinaryOp\Equal':
-                return $this->passBinaryOpEqual($expr);
             case 'PhpParser\Node\Expr\BinaryOp\BitwiseXor':
                 return $this->passBinaryOpXor($expr);
             case 'PhpParser\Node\Expr\BinaryOp\Mul':
@@ -431,41 +434,6 @@ class Expression
         }
 
         return new CompiledExpression();
-    }
-
-    /**
-     * It's used in conditions
-     * {left-expr} == {right-expr}
-     *
-     * @param Node\Expr\BinaryOp\Equal $expr
-     * @return CompiledExpression
-     */
-    protected function passBinaryOpEqual(Node\Expr\BinaryOp\Equal $expr)
-    {
-        $expression = new Expression($this->context);
-        $left = $expression->compile($expr->left);
-
-        $expression = new Expression($this->context);
-        $right = $expression->compile($expr->right);
-
-        switch ($left->getType()) {
-            case CompiledExpression::LNUMBER:
-            case CompiledExpression::DNUMBER:
-            case CompiledExpression::BOOLEAN:
-            case CompiledExpression::ARR:
-            case CompiledExpression::OBJECT:
-                switch ($right->getType()) {
-                    case CompiledExpression::LNUMBER:
-                    case CompiledExpression::DNUMBER:
-                    case CompiledExpression::BOOLEAN:
-                    case CompiledExpression::ARR:
-                    case CompiledExpression::OBJECT:
-                        return new CompiledExpression(CompiledExpression::BOOLEAN, $left->getValue() == $right->getValue());
-                }
-                break;
-        }
-
-        return new CompiledExpression(CompiledExpression::UNKNOWN);
     }
 
     /**
