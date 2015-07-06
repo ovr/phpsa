@@ -34,6 +34,15 @@ class TestCase extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @param $actual
+     * @param string $message
+     */
+    protected function assertInstanceOfCompiledExpression($actual, $message = '')
+    {
+        $this->assertInstanceOf('PHPSA\CompiledExpression', $actual, $message);
+    }
+
+    /**
      * @param $expr
      * @return \PHPSA\CompiledExpression
      */
@@ -65,7 +74,7 @@ class TestCase extends \PHPUnit_Framework_TestCase
 
                 throw new RuntimeException('newScalarExpr is not working with non-empty arrays');
         }
-        
+
         throw new RuntimeException('Unexpected type: ' . gettype($value));
     }
 }
