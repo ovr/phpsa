@@ -12,7 +12,7 @@ use PHPSA\Node\Scalar\Boolean;
 use PHPSA\Node\Scalar\Nil;
 use PHPSA\Variable;
 use PHPSA\Visitor\Expression\AbstractExpressionCompiler;
-use SebastianBergmann\GlobalState\RuntimeException;
+use RuntimeException;
 
 class Expression
 {
