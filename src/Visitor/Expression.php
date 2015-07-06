@@ -472,7 +472,7 @@ class Expression
      * {expr} / {expr}
      *
      * @param Node\Expr\BinaryOp\Div $expr
-     * @return CompiledExpression|\RuntimeException
+     * @return CompiledExpression
      */
     protected function passBinaryOpDiv(Node\Expr\BinaryOp\Div $expr)
     {
@@ -783,7 +783,7 @@ class Expression
      * {expr} || {expr}
      *
      * @param Node\Expr\BinaryOp\BooleanOr $expr
-     * @return CompiledExpression|\RuntimeException
+     * @return CompiledExpression
      */
     protected function passBinaryOpBooleanOr(Node\Expr\BinaryOp\BooleanOr $expr)
     {
