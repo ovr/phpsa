@@ -11,6 +11,7 @@ use PhpParser\Node;
 use PHPSA\Node\Scalar\Boolean;
 use PHPSA\Node\Scalar\Nil;
 use PHPSA\Variable;
+use PHPSA\Visitor\Expression\AbstractExpressionCompiler;
 use SebastianBergmann\GlobalState\RuntimeException;
 
 class Expression
@@ -28,12 +29,20 @@ class Expression
         $this->context = $context;
     }
 
+    /**
+     * @param $expr
+     * @return ExpressionCompilerInterface|AbstractExpressionCompiler
+     */
     protected function factory($expr)
     {
         switch (get_class($expr)) {
             case 'PhpParser\Node\Expr\MethodCall':
                 return new Expression\MethodCall();
+            case 'PhpParser\Node\Expr\FuncCall':
+                return new Expression\FunctionCall();
         }
+
+        return false;
     }
 
     /**
@@ -43,17 +52,8 @@ class Expression
     public function compile($expr)
     {
         switch (get_class($expr)) {
-            case 'PhpParser\Node\Expr\MethodCall':
-                $expressionCompiler = $this->factory($expr);
-                $result = $expressionCompiler->pass($expr, $this->context);
-                if (!$result instanceof CompiledExpression) {
-                    throw new RuntimeException("Please return CompiledExpression from " . get_class($expressionCompiler));
-                }
-                break;
             case 'PhpParser\Node\Expr\PropertyFetch':
                 return $this->passPropertyFetch($expr);
-            case 'PhpParser\Node\Expr\FuncCall':
-                return $this->passFunctionCall($expr);
             case 'PhpParser\Node\Expr\StaticCall':
                 return $this->passStaticFunctionCall($expr);
             case 'PhpParser\Node\Expr\ClassConstFetch':
@@ -124,8 +124,18 @@ class Expression
                 return $this->getNodeName($expr);
         }
 
-        $this->context->debug('Unknown expression: ' . get_class($expr));
-        return new CompiledExpression(CompiledExpression::UNIMPLEMENTED);
+        $expressionCompiler = $this->factory($expr);
+        if (!$expressionCompiler) {
+            $this->context->debug('Unknown expression: ' . get_class($expr));
+            return new CompiledExpression(CompiledExpression::UNIMPLEMENTED);
+        }
+
+        $result = $expressionCompiler->pass($expr, $this->context);
+        if (!$result instanceof CompiledExpression) {
+            throw new RuntimeException("Please return CompiledExpression from " . get_class($expressionCompiler));
+        }
+
+        return $result;
     }
 
     /**
@@ -290,33 +300,6 @@ class Expression
         }
 
         return new CompiledExpression(CompiledExpression::NULL, null);
-    }
-
-    /**
-     * {expr}();
-     *
-     * @param Node\Expr\FuncCall $expr
-     * @return CompiledExpression
-     */
-    protected function passFunctionCall(Node\Expr\FuncCall $expr)
-    {
-        if (!function_exists($expr->name->parts[0])) {
-            $this->context->notice(
-                'undefined-fcall',
-                sprintf('Function %s() is not exists', $expr->name->parts[0]),
-                $expr
-            );
-
-            return new CompiledExpression();
-        }
-
-        $reflector = new \Ovr\PHPReflection\Reflector(\Ovr\PHPReflection\Reflector::manuallyFactory());
-        $functionReflection = $reflector->getFunction($expr->name->parts[0]);
-        if ($functionReflection) {
-            return new CompiledExpression($functionReflection->returnType, null);
-        }
-
-        return new CompiledExpression();
     }
 
     /**
