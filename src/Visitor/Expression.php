@@ -9,8 +9,9 @@ use PHPSA\CompiledExpression;
 use PHPSA\Context;
 use PhpParser\Node;
 use PHPSA\Node\Scalar\Boolean;
-use PHPSA\Node\Scalar\Nil;
 use PHPSA\Variable;
+use PHPSA\Visitor\Expression\AbstractExpressionCompiler;
+use RuntimeException;
 
 class Expression
 {
@@ -29,19 +30,45 @@ class Expression
 
     /**
      * @param $expr
+     * @return ExpressionCompilerInterface|AbstractExpressionCompiler
+     */
+    protected function factory($expr)
+    {
+        switch (get_class($expr)) {
+            /**
+             * Call(s)
+             */
+            case 'PhpParser\Node\Expr\MethodCall':
+                return new Expression\MethodCall();
+            case 'PhpParser\Node\Expr\FuncCall':
+                return new Expression\FunctionCall();
+            case 'PhpParser\Node\Expr\StaticCall':
+                return new Expression\StaticCall();
+            /**
+             * Operators
+             */
+            case 'PhpParser\Node\Expr\BinaryOp\Identical':
+                return new Expression\BinaryOp\Identical();
+            case 'PhpParser\Node\Expr\BinaryOp\Div':
+                return new Expression\BinaryOp\Div();
+            case 'PhpParser\Node\Expr\BinaryOp\Plus':
+                return new Expression\BinaryOp\Plus();
+            case 'PhpParser\Node\Expr\BinaryOp\Equal':
+                return new Expression\BinaryOp\Equal();
+        }
+
+        return false;
+    }
+
+    /**
+     * @param $expr
      * @return CompiledExpression
      */
     public function compile($expr)
     {
         switch (get_class($expr)) {
-            case 'PhpParser\Node\Expr\MethodCall':
-                return $this->passMethodCall($expr);
             case 'PhpParser\Node\Expr\PropertyFetch':
                 return $this->passPropertyFetch($expr);
-            case 'PhpParser\Node\Expr\FuncCall':
-                return $this->passFunctionCall($expr);
-            case 'PhpParser\Node\Expr\StaticCall':
-                return $this->passStaticFunctionCall($expr);
             case 'PhpParser\Node\Expr\ClassConstFetch':
                 return $this->passConstFetch($expr);
             case 'PhpParser\Node\Expr\Assign':
@@ -51,14 +78,6 @@ class Expression
             /**
              * Operators
              */
-            case 'PhpParser\Node\Expr\BinaryOp\Identical':
-                return $this->passBinaryOpIdentical($expr);
-            case 'PhpParser\Node\Expr\BinaryOp\Equal':
-                return $this->passBinaryOpEqual($expr);
-            case 'PhpParser\Node\Expr\BinaryOp\Div':
-                return $this->passBinaryOpDiv($expr);
-            case 'PhpParser\Node\Expr\BinaryOp\Plus':
-                return $this->passBinaryOpPlus($expr);
             case 'PhpParser\Node\Expr\BinaryOp\BitwiseXor':
                 return $this->passBinaryOpXor($expr);
             case 'PhpParser\Node\Expr\BinaryOp\Mul':
@@ -110,8 +129,18 @@ class Expression
                 return $this->getNodeName($expr);
         }
 
-        $this->context->debug('Unknown expression: ' . get_class($expr));
-        return new CompiledExpression(CompiledExpression::UNIMPLEMENTED);
+        $expressionCompiler = $this->factory($expr);
+        if (!$expressionCompiler) {
+            $this->context->debug('Unknown expression: ' . get_class($expr));
+            return new CompiledExpression(CompiledExpression::UNIMPLEMENTED);
+        }
+
+        $result = $expressionCompiler->pass($expr, $this->context);
+        if (!$result instanceof CompiledExpression) {
+            throw new RuntimeException("Please return CompiledExpression from " . get_class($expressionCompiler));
+        }
+
+        return $result;
     }
 
     /**
@@ -156,29 +185,6 @@ class Expression
         }
 
         $this->context->debug('Unknown how to pass new');
-        return new CompiledExpression();
-    }
-
-    protected function passMethodCall(Node\Expr\MethodCall $expr)
-    {
-        if ($expr->var instanceof Node\Expr\Variable) {
-            if ($expr->var->name == 'this') {
-                if (!$this->context->scope->hasMethod($expr->name)) {
-                    $this->context->notice(
-                        'undefined-mcall',
-                        sprintf('Method %s() is not exists on %s scope', $expr->name, $expr->var->name),
-                        $expr
-                    );
-                }
-
-                return new CompiledExpression();
-            }
-        }
-
-        $expression = new Expression($this->context);
-        $expression->compile($expr->var);
-
-        $this->context->debug('Unknown method call');
         return new CompiledExpression();
     }
 
@@ -302,75 +308,6 @@ class Expression
     }
 
     /**
-     * {expr}();
-     *
-     * @param Node\Expr\FuncCall $expr
-     * @return CompiledExpression
-     */
-    protected function passFunctionCall(Node\Expr\FuncCall $expr)
-    {
-        if (!function_exists($expr->name->parts[0])) {
-            $this->context->notice(
-                'undefined-fcall',
-                sprintf('Function %s() is not exists', $expr->name->parts[0]),
-                $expr
-            );
-
-            return new CompiledExpression();
-        }
-
-        $reflector = new \Ovr\PHPReflection\Reflector(\Ovr\PHPReflection\Reflector::manuallyFactory());
-        $functionReflection = $reflector->getFunction($expr->name->parts[0]);
-        if ($functionReflection) {
-            return new CompiledExpression($functionReflection->returnType, null);
-        }
-
-        return new CompiledExpression();
-    }
-
-    /**
-     * {expr}::{expr}();
-     *
-     * @param Node\Expr\StaticCall $expr
-     * @return CompiledExpression
-     */
-    protected function passStaticFunctionCall(Node\Expr\StaticCall $expr)
-    {
-        if ($expr->class instanceof Node\Name) {
-            $scope = $expr->class->parts[0];
-            $name = $expr->name;
-
-            $error = false;
-
-            if ($scope == 'self') {
-                if (!$this->context->scope->hasMethod($name)) {
-                    $error = true;
-                } else {
-                    $method = $this->context->scope->getMethod($name);
-                    if (!$method->isStatic()) {
-                        $error = true;
-                    }
-                }
-            }
-
-            if ($error) {
-                $this->context->notice(
-                    'undefined-scall',
-                    sprintf('Static method %s() is not exists on %s scope', $name, $scope),
-                    $expr
-                );
-
-                return new CompiledExpression();
-            }
-
-            return new CompiledExpression();
-        }
-
-        $this->context->debug('Unknown static function call');
-        return new CompiledExpression();
-    }
-
-    /**
      * @param Node\Expr\PropertyFetch $expr
      * @return CompiledExpression
      */
@@ -470,96 +407,6 @@ class Expression
     }
 
     /**
-     * {expr} / {expr}
-     *
-     * @param Node\Expr\BinaryOp\Div $expr
-     * @return CompiledExpression
-     */
-    protected function passBinaryOpDiv(Node\Expr\BinaryOp\Div $expr)
-    {
-        $expression = new Expression($this->context);
-        $left = $expression->compile($expr->left);
-
-        $expression = new Expression($this->context);
-        $right = $expression->compile($expr->right);
-
-        switch ($left->getType()) {
-            case CompiledExpression::DNUMBER:
-                if ($left->isEquals(0)) {
-                    $this->context->notice(
-                        'division-zero',
-                        sprintf('You trying to use division from %s/{expr}', $left->getValue()),
-                        $expr
-                    );
-
-                    return new CompiledExpression(CompiledExpression::DNUMBER, 0.0);
-                }
-                break;
-            case CompiledExpression::LNUMBER:
-            case CompiledExpression::BOOLEAN:
-                if ($left->isEquals(0)) {
-                    $this->context->notice(
-                        'division-zero',
-                        sprintf('You trying to use division from %s/{expr}', $left->getValue()),
-                        $expr
-                    );
-
-                    switch ($right->getType()) {
-                        case CompiledExpression::LNUMBER:
-                        case CompiledExpression::BOOLEAN:
-                            return new CompiledExpression(CompiledExpression::LNUMBER, 0);
-                        case CompiledExpression::DNUMBER:
-                            return new CompiledExpression(CompiledExpression::DNUMBER, 0.0);
-                    }
-                }
-                break;
-        }
-
-        switch ($right->getType()) {
-            case CompiledExpression::LNUMBER:
-            case CompiledExpression::DNUMBER:
-            case CompiledExpression::BOOLEAN:
-                if ($right->isEquals(0)) {
-                    $this->context->notice(
-                        'division-zero',
-                        sprintf('You trying to use division on {expr}/%s', $right->getValue()),
-                        $expr
-                    );
-
-                    return new CompiledExpression(CompiledExpression::UNKNOWN);
-                }
-        }
-
-        switch ($left->getType()) {
-            case CompiledExpression::LNUMBER:
-            case CompiledExpression::DNUMBER:
-            case CompiledExpression::BOOLEAN:
-                switch ($right->getType()) {
-                    case CompiledExpression::BOOLEAN:
-                        /**
-                         * Boolean is true via isEquals(0) check is not passed before
-                         * {int}/1 = {int}
-                         * {double}/1 = {double}
-                         */
-
-                        $this->context->notice(
-                            'division-on-true',
-                            sprintf('You trying to use stupid division {expr}/true ~ {expr}/1 = {expr}', $right->getValue()),
-                            $expr
-                        );
-                        //no break
-                    case CompiledExpression::LNUMBER:
-                    case CompiledExpression::DNUMBER:
-                    case CompiledExpression::BOOLEAN:
-                        return CompiledExpression::fromZvalValue($left->getValue() / $right->getValue());
-                }
-                break;
-        }
-
-        return new CompiledExpression(CompiledExpression::UNKNOWN);
-    }
-
-    /**
      * {expr} ^ {expr}
      *
      * @param Node\Expr\BinaryOp\BitwiseXor $expr
@@ -587,71 +434,6 @@ class Expression
         }
 
         return new CompiledExpression();
-    }
-
-    /**
-     * It's used in conditions
-     * {left-expr} === {right-expr}
-     *
-     * @param Node\Expr\BinaryOp\Identical $expr
-     * @return CompiledExpression
-     */
-    protected function passBinaryOpIdentical(Node\Expr\BinaryOp\Identical $expr)
-    {
-        $expression = new Expression($this->context);
-        $left = $expression->compile($expr->left);
-
-        $expression = new Expression($this->context);
-        $right = $expression->compile($expr->right);
-
-        switch ($left->getType()) {
-            case CompiledExpression::LNUMBER:
-            case CompiledExpression::DNUMBER:
-            case CompiledExpression::BOOLEAN:
-                switch ($right->getType()) {
-                    case CompiledExpression::LNUMBER:
-                    case CompiledExpression::DNUMBER:
-                    case CompiledExpression::BOOLEAN:
-                        return new CompiledExpression(CompiledExpression::BOOLEAN, $left->getValue() === $right->getValue());
-                }
-        }
-
-        return new CompiledExpression(CompiledExpression::UNKNOWN);
-    }
-
-    /**
-     * It's used in conditions
-     * {left-expr} == {right-expr}
-     *
-     * @param Node\Expr\BinaryOp\Equal $expr
-     * @return CompiledExpression
-     */
-    protected function passBinaryOpEqual(Node\Expr\BinaryOp\Equal $expr)
-    {
-        $expression = new Expression($this->context);
-        $left = $expression->compile($expr->left);
-
-        $expression = new Expression($this->context);
-        $right = $expression->compile($expr->right);
-
-        switch ($left->getType()) {
-            case CompiledExpression::LNUMBER:
-            case CompiledExpression::DNUMBER:
-            case CompiledExpression::BOOLEAN:
-            case CompiledExpression::ARR:
-            case CompiledExpression::OBJECT:
-                switch ($right->getType()) {
-                    case CompiledExpression::LNUMBER:
-                    case CompiledExpression::DNUMBER:
-                    case CompiledExpression::BOOLEAN:
-                    case CompiledExpression::ARR:
-                    case CompiledExpression::OBJECT:
-                        return new CompiledExpression(CompiledExpression::BOOLEAN, $left->getValue() == $right->getValue());
-                }
-                break;
-        }
-
-        return new CompiledExpression(CompiledExpression::UNKNOWN);
     }
 
     /**
@@ -700,51 +482,6 @@ class Expression
         }
 
         return new CompiledExpression();
-    }
-
-    /**
-     * {expr} + {expr}
-     *
-     * @param Node\Expr\BinaryOp\Plus $expr
-     * @return CompiledExpression
-     */
-    protected function passBinaryOpPlus(Node\Expr\BinaryOp\Plus $expr)
-    {
-        $expression = new Expression($this->context);
-        $left = $expression->compile($expr->left);
-
-        $expression = new Expression($this->context);
-        $right = $expression->compile($expr->right);
-
-        switch ($left->getType()) {
-            case CompiledExpression::LNUMBER:
-                switch ($right->getType()) {
-                    case CompiledExpression::LNUMBER:
-                        /**
-                         * php -r "var_dump(1 + 1);" int(2)
-                         */
-                        return new CompiledExpression(CompiledExpression::LNUMBER, $left->getValue() + $right->getValue());
-                    case CompiledExpression::DNUMBER:
-                        /**
-                         * php -r "var_dump(1 + 1.0);" double(2)
-                         */
-                        return new CompiledExpression(CompiledExpression::DNUMBER, $left->getValue() + $right->getValue());
-                }
-                break;
-            case CompiledExpression::DNUMBER:
-                switch ($right->getType()) {
-                    case CompiledExpression::LNUMBER:
-                    case CompiledExpression::DNUMBER:
-                        /**
-                         * php -r "var_dump(1.0 + 1);"   double(2)
-                         * php -r "var_dump(1.0 + 1.0);" double(2)
-                         */
-                        return new CompiledExpression(CompiledExpression::DNUMBER, $left->getValue() + $right->getValue());
-                }
-                break;
-        }
-
-        return new CompiledExpression(CompiledExpression::UNKNOWN);
     }
 
     /**
