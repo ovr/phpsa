@@ -39,10 +39,15 @@ class Expression
                 return new Expression\MethodCall();
             case 'PhpParser\Node\Expr\FuncCall':
                 return new Expression\FunctionCall();
+            /**
+             * Operators
+             */
             case 'PhpParser\Node\Expr\BinaryOp\Identical':
                 return new Expression\BinaryOp\Identical();
             case 'PhpParser\Node\Expr\BinaryOp\Div':
                 return new Expression\BinaryOp\Div();
+            case 'PhpParser\Node\Expr\BinaryOp\Plus':
+                return new Expression\BinaryOp\Plus();
         }
 
         return false;
@@ -70,8 +75,6 @@ class Expression
              */
             case 'PhpParser\Node\Expr\BinaryOp\Equal':
                 return $this->passBinaryOpEqual($expr);
-            case 'PhpParser\Node\Expr\BinaryOp\Plus':
-                return $this->passBinaryOpPlus($expr);
             case 'PhpParser\Node\Expr\BinaryOp\BitwiseXor':
                 return $this->passBinaryOpXor($expr);
             case 'PhpParser\Node\Expr\BinaryOp\Mul':
@@ -553,51 +556,6 @@ class Expression
         }
 
         return new CompiledExpression();
-    }
-
-    /**
-     * {expr} + {expr}
-     *
-     * @param Node\Expr\BinaryOp\Plus $expr
-     * @return CompiledExpression
-     */
-    protected function passBinaryOpPlus(Node\Expr\BinaryOp\Plus $expr)
-    {
-        $expression = new Expression($this->context);
-        $left = $expression->compile($expr->left);
-
-        $expression = new Expression($this->context);
-        $right = $expression->compile($expr->right);
-
-        switch ($left->getType()) {
-            case CompiledExpression::LNUMBER:
-                switch ($right->getType()) {
-                    case CompiledExpression::LNUMBER:
-                        /**
-                         * php -r "var_dump(1 + 1);" int(2)
-                         */
-                        return new CompiledExpression(CompiledExpression::LNUMBER, $left->getValue() + $right->getValue());
-                    case CompiledExpression::DNUMBER:
-                        /**
-                         * php -r "var_dump(1 + 1.0);" double(2)
-                         */
-                        return new CompiledExpression(CompiledExpression::DNUMBER, $left->getValue() + $right->getValue());
-                }
-                break;
-            case CompiledExpression::DNUMBER:
-                switch ($right->getType()) {
-                    case CompiledExpression::LNUMBER:
-                    case CompiledExpression::DNUMBER:
-                        /**
-                         * php -r "var_dump(1.0 + 1);"   double(2)
-                         * php -r "var_dump(1.0 + 1.0);" double(2)
-                         */
-                        return new CompiledExpression(CompiledExpression::DNUMBER, $left->getValue() + $right->getValue());
-                }
-                break;
-        }
-
-        return new CompiledExpression(CompiledExpression::UNKNOWN);
     }
 
     /**
