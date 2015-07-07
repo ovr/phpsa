@@ -32,7 +32,7 @@ if (!defined('PHPSA_COMPOSER_INSTALL')) {
     die(1);
 }
 
-include_once COMPOSER_INSTALL;
+include_once PHPSA_COMPOSER_INSTALL;
 
 $console = new \PHPSA\Application();
 $console->run();
