@@ -57,6 +57,8 @@ class Expression
                 return new Expression\BinaryOp\Minus();
             case 'PhpParser\Node\Expr\BinaryOp\Equal':
                 return new Expression\BinaryOp\Equal();
+            case 'PhpParser\Node\Expr\BinaryOp\Mul':
+                return new Expression\BinaryOp\Mul();
         }
 
         return false;
@@ -82,8 +84,6 @@ class Expression
              */
             case 'PhpParser\Node\Expr\BinaryOp\BitwiseXor':
                 return $this->passBinaryOpXor($expr);
-            case 'PhpParser\Node\Expr\BinaryOp\Mul':
-                return $this->passBinaryOpMul($expr);
             case 'PhpParser\Node\Expr\BinaryOp\BooleanOr':
                 return $this->passBinaryOpBooleanOr($expr);
             /**
@@ -451,34 +451,6 @@ class Expression
             case CompiledExpression::LNUMBER:
             case CompiledExpression::DNUMBER:
                 return new CompiledExpression($left->getType(), -$left->getValue());
-        }
-
-        return new CompiledExpression();
-    }
-
-    /**
-     * {expr} * {expr}
-     *
-     * @param Node\Expr\BinaryOp\Mul $expr
-     * @return CompiledExpression
-     */
-    protected function passBinaryOpMul(Node\Expr\BinaryOp\Mul $expr)
-    {
-        $expression = new Expression($this->context);
-        $left = $expression->compile($expr->left);
-
-        $expression = new Expression($this->context);
-        $right = $expression->compile($expr->right);
-
-        switch ($left->getType()) {
-            case CompiledExpression::LNUMBER:
-            case CompiledExpression::DNUMBER:
-                switch ($right->getType()) {
-                    case CompiledExpression::LNUMBER:
-                    case CompiledExpression::DNUMBER:
-                        return new CompiledExpression(CompiledExpression::DNUMBER, $left->getValue() * $right->getValue());
-                }
-                break;
         }
 
         return new CompiledExpression();
