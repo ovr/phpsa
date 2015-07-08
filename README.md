@@ -1,3 +1,5 @@
+![Logo](http://dmtry.me/img/logos/phpsa.png?v1 "PHPSA")
+
 PHPSA - Static Analysis for PHP
 ===============================
 [![Build Status](https://travis-ci.org/ovr/phpsa.svg?branch=master)](https://travis-ci.org/ovr/phpsa)
