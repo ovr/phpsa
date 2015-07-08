@@ -53,6 +53,8 @@ class Expression
                 return new Expression\BinaryOp\Div();
             case 'PhpParser\Node\Expr\BinaryOp\Plus':
                 return new Expression\BinaryOp\Plus();
+            case 'PhpParser\Node\Expr\BinaryOp\Minus':
+                return new Expression\BinaryOp\Minus();
             case 'PhpParser\Node\Expr\BinaryOp\Equal':
                 return new Expression\BinaryOp\Equal();
         }
@@ -82,8 +84,6 @@ class Expression
                 return $this->passBinaryOpXor($expr);
             case 'PhpParser\Node\Expr\BinaryOp\Mul':
                 return $this->passBinaryOpMul($expr);
-            case 'PhpParser\Node\Expr\BinaryOp\Minus':
-                return $this->passBinaryOpMinus($expr);
             case 'PhpParser\Node\Expr\BinaryOp\BooleanOr':
                 return $this->passBinaryOpBooleanOr($expr);
             /**
@@ -482,39 +482,6 @@ class Expression
         }
 
         return new CompiledExpression();
-    }
-
-    /**
-     * {expr} - {expr}
-     *
-     * @param Node\Expr\BinaryOp\Minus $expr
-     * @return CompiledExpression
-     */
-    protected function passBinaryOpMinus(Node\Expr\BinaryOp\Minus $expr)
-    {
-        $expression = new Expression($this->context);
-        $left = $expression->compile($expr->left);
-
-        $expression = new Expression($this->context);
-        $right = $expression->compile($expr->right);
-
-        switch ($left->getType()) {
-            case CompiledExpression::LNUMBER:
-                switch ($right->getType()) {
-                    case CompiledExpression::LNUMBER:
-                        return new CompiledExpression(CompiledExpression::LNUMBER, $left->getValue() - $right->getValue());
-                }
-                break;
-            case CompiledExpression::DNUMBER:
-                switch ($right->getType()) {
-                    case CompiledExpression::LNUMBER:
-                    case CompiledExpression::DNUMBER:
-                        return new CompiledExpression(CompiledExpression::DNUMBER, $left->getValue() - $right->getValue());
-                }
-                break;
-        }
-
-        return new CompiledExpression(CompiledExpression::UNKNOWN);
     }
 
     /**
