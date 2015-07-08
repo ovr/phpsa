@@ -70,7 +70,8 @@ class Expression
      */
     public function compile($expr)
     {
-        switch (get_class($expr)) {
+        $className = get_class($expr);
+        switch ($className) {
             case 'PhpParser\Node\Expr\PropertyFetch':
                 return $this->passPropertyFetch($expr);
             case 'PhpParser\Node\Expr\ClassConstFetch':
@@ -131,13 +132,13 @@ class Expression
 
         $expressionCompiler = $this->factory($expr);
         if (!$expressionCompiler) {
-            $this->context->debug('Unknown expression: ' . get_class($expr));
+            $this->context->debug("Expression compiler is not implemented for {$className}");
             return new CompiledExpression(CompiledExpression::UNIMPLEMENTED);
         }
 
         $result = $expressionCompiler->pass($expr, $this->context);
         if (!$result instanceof CompiledExpression) {
-            throw new RuntimeException("Please return CompiledExpression from " . get_class($expressionCompiler));
+            throw new RuntimeException('Please return CompiledExpression from ' . get_class($expressionCompiler));
         }
 
         return $result;
