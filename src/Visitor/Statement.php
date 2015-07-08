@@ -16,12 +16,12 @@ class Statement
     protected $context;
 
     /**
-     * @param Node\Stmt\Return_ $st
+     * @param Node\Stmt\Return_ $returnStmt
      */
-    protected function passReturn(Node\Stmt\Return_ $st)
+    protected function passReturn(Node\Stmt\Return_ $returnStmt)
     {
         $expression = new Expression($this->context);
-        $expression->compile($st->expr);
+        $expression->compile($returnStmt->expr);
     }
 
     /**
@@ -33,8 +33,8 @@ class Statement
         $expression->compile($ifStatement->cond);
 
         if (count($ifStatement->stmts) > 0) {
-            foreach ($ifStatement->stmts as $st) {
-                \PHPSA\nodeVisitorFactory($st, $this->context);
+            foreach ($ifStatement->stmts as $stmt) {
+                \PHPSA\nodeVisitorFactory($stmt, $this->context);
             }
         } else {
             //@todo implement
@@ -46,8 +46,8 @@ class Statement
                 $expression->compile($elseIfStatement->cond);
 
                 if (count($elseIfStatement->stmts) > 0) {
-                    foreach ($elseIfStatement->stmts as $st) {
-                        \PHPSA\nodeVisitorFactory($st, $this->context);
+                    foreach ($elseIfStatement->stmts as $stmt) {
+                        \PHPSA\nodeVisitorFactory($stmt, $this->context);
                     }
                 } else {
                     //@todo implement
@@ -59,8 +59,8 @@ class Statement
 
         if ($ifStatement->else) {
             if (count($ifStatement->else->stmts) > 0) {
-                foreach ($ifStatement->else->stmts as $st) {
-                    \PHPSA\nodeVisitorFactory($st, $this->context);
+                foreach ($ifStatement->else->stmts as $stmt) {
+                    \PHPSA\nodeVisitorFactory($stmt, $this->context);
                 }
             } else {
                 //@todo implement
@@ -84,8 +84,8 @@ class Statement
                 }
 
                 if (count($case->stmts) > 0) {
-                    foreach ($case->stmts as $st) {
-                        \PHPSA\nodeVisitorFactory($st, $this->context);
+                    foreach ($case->stmts as $stmt) {
+                        \PHPSA\nodeVisitorFactory($stmt, $this->context);
                     }
                 } else {
                     //@todo implement
@@ -96,6 +96,10 @@ class Statement
         }
     }
 
+    /**
+     * @param Node\Stmt $stmt
+     * @param Context $context
+     */
     public function __construct(Node\Stmt $stmt, Context $context)
     {
         $this->context = $context;
