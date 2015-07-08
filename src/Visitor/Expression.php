@@ -49,14 +49,17 @@ class Expression
              */
             case 'PhpParser\Node\Expr\BinaryOp\Identical':
                 return new Expression\BinaryOp\Identical();
+            case 'PhpParser\Node\Expr\BinaryOp\Equal':
+                return new Expression\BinaryOp\Equal();
+            /**
+             * Arithmetic
+             */
             case 'PhpParser\Node\Expr\BinaryOp\Div':
                 return new Expression\BinaryOp\Div();
             case 'PhpParser\Node\Expr\BinaryOp\Plus':
                 return new Expression\BinaryOp\Plus();
             case 'PhpParser\Node\Expr\BinaryOp\Minus':
                 return new Expression\BinaryOp\Minus();
-            case 'PhpParser\Node\Expr\BinaryOp\Equal':
-                return new Expression\BinaryOp\Equal();
             case 'PhpParser\Node\Expr\BinaryOp\Mul':
                 return new Expression\BinaryOp\Mul();
         }
