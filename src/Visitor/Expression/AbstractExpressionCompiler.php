@@ -24,7 +24,7 @@ abstract class AbstractExpressionCompiler implements ExpressionCompilerInterface
     protected function assertExpression($expression)
     {
         if (!$expression instanceof $this->name) {
-            throw new RuntimeException('You $expression must be instance of ' . $this->name);
+            throw new RuntimeException('Passed $expression must be instance of ' . $this->name);
         }
     }
 
