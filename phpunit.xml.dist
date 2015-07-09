@@ -6,7 +6,7 @@
          convertWarningsToExceptions="true"
          processIsolation="false"
          stopOnFailure="true"
-         syntaxCheck="false"
+         syntaxCheck="true"
          bootstrap="./tests/PHPSA/Bootstrap.php"
         >
 
