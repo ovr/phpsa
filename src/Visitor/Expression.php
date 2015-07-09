@@ -62,6 +62,8 @@ class Expression
                 return new Expression\BinaryOp\Minus();
             case 'PhpParser\Node\Expr\BinaryOp\Mul':
                 return new Expression\BinaryOp\Mul();
+            case 'PhpParser\Node\Expr\BinaryOp\BitwiseXor':
+                return new Expression\BinaryOp\BitwiseXor();
         }
 
         return false;
@@ -86,8 +88,6 @@ class Expression
             /**
              * Operators
              */
-            case 'PhpParser\Node\Expr\BinaryOp\BitwiseXor':
-                return $this->passBinaryOpXor($expr);
             case 'PhpParser\Node\Expr\BinaryOp\BooleanOr':
                 return $this->passBinaryOpBooleanOr($expr);
             /**
@@ -406,36 +406,6 @@ class Expression
             sprintf('You trying to use undefined variable $%s', $expr->name),
             $expr
         );
-
-        return new CompiledExpression();
-    }
-
-    /**
-     * {expr} ^ {expr}
-     *
-     * @param Node\Expr\BinaryOp\BitwiseXor $expr
-     * @return CompiledExpression
-     */
-    protected function passBinaryOpXor(Node\Expr\BinaryOp\BitwiseXor $expr)
-    {
-        $expression = new Expression($this->context);
-        $left = $expression->compile($expr->left);
-
-        $expression = new Expression($this->context);
-        $right = $expression->compile($expr->right);
-
-        switch ($left->getType()) {
-            case CompiledExpression::LNUMBER:
-            case CompiledExpression::DNUMBER:
-            case CompiledExpression::BOOLEAN:
-                switch ($right->getType()) {
-                    case CompiledExpression::LNUMBER:
-                    case CompiledExpression::DNUMBER:
-                    case CompiledExpression::BOOLEAN:
-                        return new CompiledExpression(CompiledExpression::DNUMBER, $left->getValue() ^ $right->getValue());
-                }
-                break;
-        }
 
         return new CompiledExpression();
     }
