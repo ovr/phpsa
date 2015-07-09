@@ -20,10 +20,10 @@ class BitwiseXor extends AbstractExpressionCompiler
      */
     public function compile($expr, Context $context)
     {
-        $expression = new Expression($this->context);
+        $expression = new Expression($context);
         $left = $expression->compile($expr->left);
 
-        $expression = new Expression($this->context);
+        $expression = new Expression($context);
         $right = $expression->compile($expr->right);
 
         switch ($left->getType()) {
