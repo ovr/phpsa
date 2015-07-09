@@ -64,6 +64,8 @@ class Expression
                 return new Expression\BinaryOp\Mul();
             case 'PhpParser\Node\Expr\BinaryOp\BitwiseXor':
                 return new Expression\BinaryOp\BitwiseXor();
+            case 'PhpParser\Node\Expr\BinaryOp\BooleanOr':
+                return new Expression\BinaryOp\BooleanOr();
         }
 
         return false;
@@ -85,11 +87,6 @@ class Expression
                 return $this->passSymbol($expr);
             case 'PhpParser\Node\Expr\Variable':
                 return $this->passExprVariable($expr);
-            /**
-             * Operators
-             */
-            case 'PhpParser\Node\Expr\BinaryOp\BooleanOr':
-                return $this->passBinaryOpBooleanOr($expr);
             /**
              * Another
              */
@@ -428,40 +425,6 @@ class Expression
         }
 
         return new CompiledExpression();
-    }
-
-    /**
-     * {expr} || {expr}
-     *
-     * @param Node\Expr\BinaryOp\BooleanOr $expr
-     * @return CompiledExpression
-     */
-    protected function passBinaryOpBooleanOr(Node\Expr\BinaryOp\BooleanOr $expr)
-    {
-        $expression = new Expression($this->context);
-        $left = $expression->compile($expr->left);
-
-        $expression = new Expression($this->context);
-        $right = $expression->compile($expr->right);
-
-        switch ($left->getType()) {
-            case CompiledExpression::LNUMBER:
-            case CompiledExpression::DNUMBER:
-            case CompiledExpression::STRING:
-            case CompiledExpression::BOOLEAN:
-            case CompiledExpression::NULL:
-                switch ($right->getType()) {
-                    case CompiledExpression::LNUMBER:
-                    case CompiledExpression::DNUMBER:
-                    case CompiledExpression::STRING:
-                    case CompiledExpression::BOOLEAN:
-                    case CompiledExpression::NULL:
-                        return CompiledExpression::fromZvalValue($left->getValue() || $right->getValue());
-                }
-                break;
-        }
-
-        return new CompiledExpression(CompiledExpression::UNKNOWN);
     }
 
     /**
