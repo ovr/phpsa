@@ -66,6 +66,8 @@ class Expression
                 return new Expression\BinaryOp\BitwiseXor();
             case 'PhpParser\Node\Expr\BinaryOp\BooleanOr':
                 return new Expression\BinaryOp\BooleanOr();
+            case 'PhpParser\Node\Expr\BinaryOp\BooleanAnd':
+                return new Expression\Operators\Logical\BooleanAnd();
         }
 
         return false;
