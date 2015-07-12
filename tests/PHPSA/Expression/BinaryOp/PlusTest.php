@@ -68,7 +68,7 @@ class PlusTest extends \Tests\PHPSA\TestCase
         );
         $compiledExpression = $this->compileExpression($baseExpression);
 
-        $this->assertInstanceOf('PHPSA\CompiledExpression', $compiledExpression);
+        $this->assertInstanceOfCompiledExpression($compiledExpression);
         $this->assertSame(CompiledExpression::LNUMBER, $compiledExpression->getType());
         $this->assertSame($c, $compiledExpression->getValue());
     }
@@ -90,7 +90,7 @@ class PlusTest extends \Tests\PHPSA\TestCase
         );
         $compiledExpression = $this->compileExpression($baseExpression);
 
-        $this->assertInstanceOf('PHPSA\CompiledExpression', $compiledExpression);
+        $this->assertInstanceOfCompiledExpression($compiledExpression);
         $this->assertSame(CompiledExpression::DNUMBER, $compiledExpression->getType());
         $this->assertSame($c, $compiledExpression->getValue());
     }
@@ -114,7 +114,7 @@ class PlusTest extends \Tests\PHPSA\TestCase
         );
         $compiledExpression = $this->compileExpression($baseExpression);
 
-        $this->assertInstanceOf('PHPSA\CompiledExpression', $compiledExpression);
+        $this->assertInstanceOfCompiledExpression($compiledExpression);
         $this->assertSame(CompiledExpression::DNUMBER, $compiledExpression->getType());
         $this->assertSame($c, $compiledExpression->getValue());
     }
@@ -141,7 +141,7 @@ class PlusTest extends \Tests\PHPSA\TestCase
         );
         $compiledExpression = $this->compileExpression($baseExpression);
 
-        $this->assertInstanceOf('PHPSA\CompiledExpression', $compiledExpression);
+        $this->assertInstanceOfCompiledExpression($compiledExpression);
         $this->assertSame(CompiledExpression::DNUMBER, $compiledExpression->getType());
         $this->assertSame($c, $compiledExpression->getValue());
     }

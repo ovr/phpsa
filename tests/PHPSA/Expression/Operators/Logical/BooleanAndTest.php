@@ -34,7 +34,7 @@ class BooleanAndTest extends \Tests\PHPSA\TestCase
         );
         $compiledExpression = $this->compileExpression($baseExpression);
 
-        $this->assertInstanceOf('PHPSA\CompiledExpression', $compiledExpression);
+        $this->assertInstanceOfCompiledExpression($compiledExpression);
         $this->assertSame(CompiledExpression::BOOLEAN, $compiledExpression->getType());
         $this->assertSame($c, $compiledExpression->getValue());
     }

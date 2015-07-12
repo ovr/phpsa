@@ -45,7 +45,7 @@ class IndenticalTest extends \Tests\PHPSA\TestCase
         );
         $compiledExpression = $this->compileExpression($baseExpression);
 
-        $this->assertInstanceOf('PHPSA\CompiledExpression', $compiledExpression);
+        $this->assertInstanceOfCompiledExpression($compiledExpression);
         $this->assertSame(CompiledExpression::BOOLEAN, $compiledExpression->getType());
         $this->assertSame(true, $compiledExpression->getValue());
     }
@@ -75,7 +75,7 @@ class IndenticalTest extends \Tests\PHPSA\TestCase
         );
         $compiledExpression = $this->compileExpression($baseExpression);
 
-        $this->assertInstanceOf('PHPSA\CompiledExpression', $compiledExpression);
+        $this->assertInstanceOfCompiledExpression($compiledExpression);
         $this->assertSame(CompiledExpression::BOOLEAN, $compiledExpression->getType());
         $this->assertSame(true, $compiledExpression->getValue());
     }
@@ -112,7 +112,7 @@ class IndenticalTest extends \Tests\PHPSA\TestCase
         );
         $compiledExpression = $this->compileExpression($baseExpression);
 
-        $this->assertInstanceOf('PHPSA\CompiledExpression', $compiledExpression);
+        $this->assertInstanceOfCompiledExpression($compiledExpression);
         $this->assertSame(CompiledExpression::BOOLEAN, $compiledExpression->getType());
         $this->assertSame(false, $compiledExpression->getValue());
     }
@@ -138,7 +138,7 @@ class IndenticalTest extends \Tests\PHPSA\TestCase
         );
         $compiledExpression = $this->compileExpression($baseExpression);
 
-        $this->assertInstanceOf('PHPSA\CompiledExpression', $compiledExpression);
+        $this->assertInstanceOfCompiledExpression($compiledExpression);
         $this->assertSame(CompiledExpression::BOOLEAN, $compiledExpression->getType());
         $this->assertSame(false, $compiledExpression->getValue());
     }
