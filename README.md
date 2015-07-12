@@ -188,7 +188,14 @@ Memory usage: 4.97 (peak: 5.25) MB
 ## Requirements
 
 - PHP >= 5.3 (compatible up to version 7.0 && hhvm)
+ 
+## Sponsors  
 
+Thanks to our sponsors and supporters:  
+
+| JetBrains |
+|---|
+| <a href="https://www.jetbrains.com/phpstorm/" title="PHP IDE :: JetBrains PhpStorm" target="_blank"><img src="https://www.jetbrains.com/phpstorm/documentation/docs/logo_phpstorm.png"></img></a> |
 
 ## LICENSE
 
