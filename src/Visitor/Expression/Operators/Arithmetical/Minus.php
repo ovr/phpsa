@@ -1,20 +1,20 @@
 <?php
 
-namespace PHPSA\Visitor\Expression\BinaryOp;
+namespace PHPSA\Visitor\Expression\Operators\Arithmetical;
 
 use PHPSA\CompiledExpression;
 use PHPSA\Context;
 use PHPSA\Visitor\Expression;
 use PHPSA\Visitor\Expression\AbstractExpressionCompiler;
 
-class Mul extends AbstractExpressionCompiler
+class Minus extends AbstractExpressionCompiler
 {
-    protected $name = '\PhpParser\Node\Expr\BinaryOp\Mul';
+    protected $name = '\PhpParser\Node\Expr\BinaryOp\Minus';
 
     /**
-     * {expr} * {expr}
+     * {expr} - {expr}
      *
-     * @param \PhpParser\Node\Expr\BinaryOp\Mul $expr
+     * @param \PhpParser\Node\Expr\BinaryOp\Minus $expr
      * @param Context $context
      * @return CompiledExpression
      */
@@ -28,15 +28,20 @@ class Mul extends AbstractExpressionCompiler
 
         switch ($left->getType()) {
             case CompiledExpression::LNUMBER:
+                switch ($right->getType()) {
+                    case CompiledExpression::LNUMBER:
+                        return new CompiledExpression(CompiledExpression::LNUMBER, $left->getValue() - $right->getValue());
+                }
+                break;
             case CompiledExpression::DNUMBER:
                 switch ($right->getType()) {
                     case CompiledExpression::LNUMBER:
                     case CompiledExpression::DNUMBER:
-                        return new CompiledExpression(CompiledExpression::DNUMBER, $left->getValue() * $right->getValue());
+                        return new CompiledExpression(CompiledExpression::DNUMBER, $left->getValue() - $right->getValue());
                 }
                 break;
         }
 
-        return new CompiledExpression();
+        return new CompiledExpression(CompiledExpression::UNKNOWN);
     }
 }

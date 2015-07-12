@@ -52,16 +52,19 @@ class Expression
             case 'PhpParser\Node\Expr\BinaryOp\Equal':
                 return new Expression\BinaryOp\Equal();
             /**
-             * Arithmetic
+             * Arithmetical
              */
             case 'PhpParser\Node\Expr\BinaryOp\Div':
-                return new Expression\BinaryOp\Div();
+                return new Expression\Operators\Arithmetical\Div();
             case 'PhpParser\Node\Expr\BinaryOp\Plus':
-                return new Expression\BinaryOp\Plus();
+                return new Expression\Operators\Arithmetical\Plus();
             case 'PhpParser\Node\Expr\BinaryOp\Minus':
-                return new Expression\BinaryOp\Minus();
+                return new Expression\Operators\Arithmetical\Minus();
             case 'PhpParser\Node\Expr\BinaryOp\Mul':
-                return new Expression\BinaryOp\Mul();
+                return new Expression\Operators\Arithmetical\Mul();
+            /**
+             * Logical
+             */
             case 'PhpParser\Node\Expr\BinaryOp\BitwiseXor':
                 return new Expression\BinaryOp\BitwiseXor();
             case 'PhpParser\Node\Expr\BinaryOp\BooleanOr':
