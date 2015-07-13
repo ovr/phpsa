@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\PHPSA\Expression\BinaryOp;
+namespace Tests\PHPSA\Expression\Operators\Arithmetical;
 
 use PhpParser\Node;
 use PHPSA\CompiledExpression;
