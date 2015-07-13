@@ -29,9 +29,11 @@ class Mul extends AbstractExpressionCompiler
         switch ($left->getType()) {
             case CompiledExpression::LNUMBER:
             case CompiledExpression::DNUMBER:
+            case CompiledExpression::BOOLEAN:
                 switch ($right->getType()) {
                     case CompiledExpression::LNUMBER:
                     case CompiledExpression::DNUMBER:
+                    case CompiledExpression::BOOLEAN:
                         return CompiledExpression::fromZvalValue($left->getValue() * $right->getValue());
                 }
                 break;
