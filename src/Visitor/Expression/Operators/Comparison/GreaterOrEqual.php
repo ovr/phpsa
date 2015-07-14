@@ -2,41 +2,19 @@
 
 namespace PHPSA\Visitor\Expression\Operators\Comparison;
 
-use PHPSA\CompiledExpression;
-use PHPSA\Context;
-use PHPSA\Visitor\Expression;
-use PHPSA\Visitor\Expression\AbstractExpressionCompiler;
-
-class GreaterOrEqual extends AbstractExpressionCompiler
+class GreaterOrEqual extends AbstractOperator
 {
     protected $name = '\PhpParser\Node\Expr\BinaryOp\GreaterOrEqual';
 
     /**
      * {expr} >= {expr}
      *
-     * @param \PhpParser\Node\Expr\BinaryOp\GreaterOrEqual $expr
-     * @param Context $context
-     * @return CompiledExpression
+     * @param $left
+     * @param $right
+     * @return bool
      */
-    public function compile($expr, Context $context)
+    public function compare($left, $right)
     {
-        $expression = new Expression($context);
-        $left = $expression->compile($expr->left);
-
-        $expression = new Expression($context);
-        $right = $expression->compile($expr->right);
-
-        switch ($left->getType()) {
-            case CompiledExpression::LNUMBER:
-            case CompiledExpression::DNUMBER:
-                switch ($right->getType()) {
-                    case CompiledExpression::LNUMBER:
-                    case CompiledExpression::DNUMBER:
-                        return new CompiledExpression(CompiledExpression::BOOLEAN, $left->getValue() >= $right->getValue());
-                }
-                break;
-        }
-
-        return new CompiledExpression();
+        return $left >= $right;
     }
 }
