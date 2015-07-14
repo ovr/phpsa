@@ -76,6 +76,8 @@ class Expression
              */
             case 'PhpParser\Node\Expr\BinaryOp\Greater':
                 return new Expression\Operators\Comparison\Greater();
+            case 'PhpParser\Node\Expr\BinaryOp\GreaterOrEqual':
+                return new Expression\Operators\Comparison\GreaterOrEqual();
         }
 
         return false;
