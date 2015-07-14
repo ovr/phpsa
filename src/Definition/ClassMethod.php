@@ -52,7 +52,7 @@ class ClassMethod
     public function compile(Context $context)
     {
         if ($this->statement->getDocComment() === null) {
-            return $context->notice(
+            $context->notice(
                 'missing-docblock',
                 sprintf('Missing docblock for %s() method', $this->name),
                 $this->statement
