@@ -78,6 +78,10 @@ class Expression
                 return new Expression\Operators\Comparison\Greater();
             case 'PhpParser\Node\Expr\BinaryOp\GreaterOrEqual':
                 return new Expression\Operators\Comparison\GreaterOrEqual();
+            case 'PhpParser\Node\Expr\BinaryOp\Smaller':
+                return new Expression\Operators\Comparison\Smaller();
+            case 'PhpParser\Node\Expr\BinaryOp\SmallerOrEqual':
+                return new Expression\Operators\Comparison\SmallerOrEqual();
         }
 
         return false;

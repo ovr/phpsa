@@ -29,7 +29,7 @@ class If_
     /**
      * @return bool
      */
-    public function testGreaterSameTrue()
+    public function testGreaterEqualTrue()
     {
         $a = 1;
         return $a >= 0;
@@ -38,9 +38,33 @@ class If_
     /**
      * @return bool
      */
-    public function testGreaterSameFalse()
+    public function testGreaterEqualFalse()
     {
         $a = 1;
         return $a >= 2;
+    }
+
+    public function testSmallerTrue()
+    {
+        $a = 5;
+        return $a < 6;
+    }
+
+    public function testSmallerFalse()
+    {
+        $a = 5;
+        return $a < 3;
+    }
+
+    public function testSmallerEqualTrue()
+    {
+        $a = 5;
+        return $a <= 6;
+    }
+
+    public function testSmallerEqualFalse()
+    {
+        $a = 5;
+        return $a <= 3;
     }
 }
