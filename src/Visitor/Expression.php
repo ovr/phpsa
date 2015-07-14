@@ -71,6 +71,11 @@ class Expression
                 return new Expression\BinaryOp\BooleanOr();
             case 'PhpParser\Node\Expr\BinaryOp\BooleanAnd':
                 return new Expression\Operators\Logical\BooleanAnd();
+            /**
+             * Comparison
+             */
+            case 'PhpParser\Node\Expr\BinaryOp\Greater':
+                return new Expression\Operators\Comparison\Greater();
         }
 
         return false;
