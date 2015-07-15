@@ -52,6 +52,11 @@ class Expression
             case 'PhpParser\Node\Expr\BinaryOp\Equal':
                 return new Expression\BinaryOp\Equal();
             /**
+             * @link http://php.net/manual/en/language.operators.increment.php
+             */
+            case 'PhpParser\Node\Expr\PostInc':
+                return new Expression\Operators\PostInc();
+            /**
              * Arithmetical
              */
             case 'PhpParser\Node\Expr\BinaryOp\Div':
