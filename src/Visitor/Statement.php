@@ -80,7 +80,9 @@ class Statement
                 \PHPSA\nodeVisitorFactory($stmt, $this->context);
             }
         } else {
-            //@todo implement
+            $this->context->notice(
+                'not-implemented-body', 'Missing body', $ifStatement
+            );
         }
 
         if (count($ifStatement->elseifs) > 0) {
@@ -93,7 +95,9 @@ class Statement
                         \PHPSA\nodeVisitorFactory($stmt, $this->context);
                     }
                 } else {
-                    //@todo implement
+                    $this->context->notice(
+                        'not-implemented-body', 'Missing body', $elseIfStatement
+                    );
                 }
             }
         } else {
@@ -106,7 +110,9 @@ class Statement
                     \PHPSA\nodeVisitorFactory($stmt, $this->context);
                 }
             } else {
-                //@todo implement
+                $this->context->notice(
+                    'not-implemented-body', 'Missing body', $ifStatement->else
+                );
             }
         }
     }
@@ -131,7 +137,9 @@ class Statement
                         \PHPSA\nodeVisitorFactory($stmt, $this->context);
                     }
                 } else {
-                    //@todo implement
+                    $this->context->notice(
+                        'not-implemented-body', 'Missing body', $case
+                    );
                 }
             }
         } else {
