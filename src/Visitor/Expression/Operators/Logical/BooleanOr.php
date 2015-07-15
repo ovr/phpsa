@@ -1,6 +1,6 @@
 <?php
 
-namespace PHPSA\Visitor\Expression\BinaryOp;
+namespace PHPSA\Visitor\Expression\Operators\Logical;
 
 use PHPSA\CompiledExpression;
 use PHPSA\Context;
