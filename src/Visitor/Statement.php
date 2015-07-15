@@ -37,6 +37,33 @@ class Statement
          */
     }
 
+    /**
+     * @param Node\Stmt\For_ $returnStmt
+     */
+    protected function passFor(Node\Stmt\For_ $baseStmt)
+    {
+        if (count($baseStmt->init) > 0) {
+            foreach ($baseStmt->init as $cond) {
+                $expression = new Expression($this->context);
+                $expression->compile($cond);
+            }
+        }
+
+        if (count($baseStmt->cond) > 0) {
+            foreach ($baseStmt->cond as $cond) {
+                $expression = new Expression($this->context);
+                $expression->compile($cond);
+            }
+        }
+
+        if (count($baseStmt->stmts) > 0) {
+            foreach ($baseStmt->stmts as $statement) {
+                \PHPSA\nodeVisitorFactory($statement, $this->context);
+            }
+        } else {
+            //@todo implement
+        }
+    }
 
     /**
      * @param Node\Stmt\If_ $ifStatement
@@ -130,6 +157,9 @@ class Statement
                 break;
             case 'PhpParser\Node\Stmt\While_':
                 $this->passWhile($stmt);
+                break;
+            case 'PhpParser\Node\Stmt\For_':
+                $this->passFor($stmt);
                 break;
             case 'PhpParser\Node\Stmt\Break_':
                 //@todo implement

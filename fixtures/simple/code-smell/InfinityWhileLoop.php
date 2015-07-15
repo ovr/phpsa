@@ -3,10 +3,10 @@
 namespace Tests\Simple\CodeSmell;
 
 /**
- * Class IfinityLoop
+ * Class InfinityWhileLoop
  * @package Tests\Simple\CodeSmell
  */
-class InfinityLoop
+class InfinityWhileLoop
 {
     public function testInfinityEmptyWhileLoop1()
     {
