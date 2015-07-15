@@ -25,7 +25,7 @@ class Statement
     }
 
     /**
-     * @param Node\Stmt\Return_ $returnStmt
+     * @param Node\Stmt\While_ $baseStmt
      */
     protected function passWhile(Node\Stmt\While_ $baseStmt)
     {
