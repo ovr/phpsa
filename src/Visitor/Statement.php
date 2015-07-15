@@ -114,6 +114,9 @@ class Statement
             case 'PhpParser\Node\Stmt\Switch_':
                 $this->passSwitch($stmt);
                 break;
+            case 'PhpParser\Node\Stmt\Break_':
+                //@todo implement
+                break;
             default:
                 $this->context->debug('Unknown statement: ' . get_class($stmt));
                 break;
