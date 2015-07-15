@@ -25,6 +25,20 @@ class Statement
     }
 
     /**
+     * @param Node\Stmt\Return_ $returnStmt
+     */
+    protected function passWhile(Node\Stmt\While_ $baseStmt)
+    {
+        $expression = new Expression($this->context);
+        $expression->compile($baseStmt->cond);
+
+        /**
+         * @todo Implement it
+         */
+    }
+
+
+    /**
      * @param Node\Stmt\If_ $ifStatement
      */
     public function passIf(Node\Stmt\If_ $ifStatement)
@@ -113,6 +127,9 @@ class Statement
                 break;
             case 'PhpParser\Node\Stmt\Switch_':
                 $this->passSwitch($stmt);
+                break;
+            case 'PhpParser\Node\Stmt\While_':
+                $this->passWhile($stmt);
                 break;
             case 'PhpParser\Node\Stmt\Break_':
                 //@todo implement
