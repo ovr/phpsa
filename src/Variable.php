@@ -98,4 +98,9 @@ class Variable
         $this->type = $type;
         $this->value = $value;
     }
+
+    public function inc()
+    {
+        $this->value++;
+    }
 }

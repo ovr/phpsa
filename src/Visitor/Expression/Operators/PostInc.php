@@ -12,7 +12,7 @@ class PostInc extends AbstractExpressionCompiler
     protected $name = '\PhpParser\Node\Expr\PostInc';
 
     /**
-     * {expr} && {expr}
+     * {expr}++
      *
      * @param \PhpParser\Node\Expr\PostInc $expr
      * @param Context $context
@@ -20,13 +20,25 @@ class PostInc extends AbstractExpressionCompiler
      */
     public function compile($expr, Context $context)
     {
-        $expression = new Expression($context);
-        $left = $expression->compile($expr->var);
+        if ($expr->var instanceof \PHPParser\Node\Expr\Variable) {
+            $name = $expr->var->name;
 
-        switch ($left->getType()) {
+            $variable = $context->getSymbol($name);
+            if ($variable) {
+                $variable->inc();
+                return CompiledExpression::fromZvalValue($variable->getValue());
+            }
+
+            return new CompiledExpression(CompiledExpression::UNKNOWN);
+        }
+
+        $expression = new Expression($context);
+        $compiledExpression = $expression->compile($expr->var);
+
+        switch ($compiledExpression->getType()) {
             case CompiledExpression::LNUMBER:
             case CompiledExpression::DNUMBER:
-                $value = $left->getValue();
+                $value = $compiledExpression->getValue();
                 return CompiledExpression::fromZvalValue($value++);
                 break;
         }

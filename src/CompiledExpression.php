@@ -70,6 +70,11 @@ class CompiledExpression
     const RESOURCE = Types::RESOURCE_TYPE;
 
     /**
+     * Value is handled in variable
+     */
+    const VARIABLE = 512;
+
+    /**
      * Resource handler
      */
     const NULL = Types::NULL_TYPE;
