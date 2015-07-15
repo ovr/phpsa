@@ -61,7 +61,9 @@ class Statement
                 \PHPSA\nodeVisitorFactory($statement, $this->context);
             }
         } else {
-            //@todo implement
+            return $this->context->notice(
+                'not-implemented-body', 'Missing body', $baseStmt
+            );
         }
     }
 
