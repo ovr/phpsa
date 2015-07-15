@@ -32,9 +32,15 @@ class Statement
         $expression = new Expression($this->context);
         $expression->compile($baseStmt->cond);
 
-        /**
-         * @todo Implement it
-         */
+        if (count($baseStmt->stmts) > 0) {
+            foreach ($baseStmt->stmts as $statement) {
+                \PHPSA\nodeVisitorFactory($statement, $this->context);
+            }
+        } else {
+            return $this->context->notice(
+                'not-implemented-body', 'Missing body', $baseStmt
+            );
+        }
     }
 
     /**
