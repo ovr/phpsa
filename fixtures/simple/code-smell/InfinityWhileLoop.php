@@ -61,4 +61,26 @@ class InfinityWhileLoop
 
         return true;
     }
+
+    /**
+     * @return bool
+     */
+    protected function alwaysTrue()
+    {
+        return true;
+    }
+
+    /**
+     * @return bool
+     */
+    public function testInfinityEmptyWhileLoopAlwaysTrueExpr()
+    {
+        $a = 0;
+
+        while ($this->alwaysTrue()) {
+            $a++;
+        }
+
+        return true;
+    }
 }
