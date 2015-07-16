@@ -6,7 +6,9 @@
 namespace PHPSA\Definition;
 
 use PhpParser\Node;
+use PHPSA\CompiledExpression;
 use PHPSA\Context;
+use PHPSA\Variable;
 
 class ClassMethod
 {
@@ -73,6 +75,8 @@ class ClassMethod
                 $context->addSymbol($parameter->name);
             }
         }
+
+        $context->addVariable(new Variable('this', $this, CompiledExpression::OBJECT));
 
         foreach ($this->ast as $st) {
             \PHPSA\nodeVisitorFactory($st, $context);
