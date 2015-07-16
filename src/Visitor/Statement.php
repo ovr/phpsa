@@ -37,7 +37,7 @@ class Statement
                 \PHPSA\nodeVisitorFactory($statement, $this->context);
             }
         } else {
-            return $this->context->notice('not-implemented-body', 'Missing body', $baseStmt);
+            $this->context->notice('not-implemented-body', 'Missing body', $baseStmt);
         }
     }
 
