@@ -51,7 +51,7 @@ class Compiler
     public function getFunctionNS($name, $namespace = null)
     {
         foreach ($this->functions as $function) {
-            if ($function->getName() == $name && $function->getNamespace() == $ns) {
+            if ($function->getName() == $name && $function->getNamespace() == $namespace) {
                 return $function;
             }
         }

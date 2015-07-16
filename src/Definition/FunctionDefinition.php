@@ -32,6 +32,11 @@ class FunctionDefinition extends AbstractDefinition
     protected $statement;
 
     /**
+     * @var bool
+     */
+    protected $compiled = false;
+
+    /**
      * @param $name
      */
     public function __construct($name, Node\Stmt\Function_ $statement)
@@ -48,6 +53,7 @@ class FunctionDefinition extends AbstractDefinition
      */
     public function compile(Context $context)
     {
+        $this->compiled = true;
         $context->setScope(null);
 
         if (count($this->statement->stmts) == 0) {
@@ -102,5 +108,13 @@ class FunctionDefinition extends AbstractDefinition
     public function setNamespace($namespace)
     {
         $this->namespace = $namespace;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function isCompiled()
+    {
+        return $this->compiled;
     }
 }
