@@ -53,9 +53,13 @@ class FunctionCall extends AbstractExpressionCompiler
                 $arguments = $this->parseArgs($expr, clone $context);
 
                 if ($functionReflection->isRunnable()) {
-                    array_walk($arguments, function(&$item) {
-                        $item = $item->getValue();
-                    });
+                    array_walk(
+                        $arguments,
+                        function (&$item) {
+                            /** @var CompiledExpression $item */
+                            $item = $item->getValue();
+                        }
+                    );
 
                     return new CompiledExpression(
                         $functionReflection->getReturnType(),
