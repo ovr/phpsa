@@ -33,7 +33,7 @@ class ClassMethod extends AbstractDefinition
         $this->type = $type;
         $this->statement = $statement;
     }
-    
+
     /**
      * @param Context $context
      * @return boolean|null
