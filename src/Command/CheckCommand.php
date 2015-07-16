@@ -181,7 +181,7 @@ class CheckCommand extends Command
 
                     $compiler->addClass($definition);
                 } elseif ($statement instanceof Node\Stmt\Function_) {
-                    $definition = new FunctionDefinition($statement->name);
+                    $definition = new FunctionDefinition($statement->name, $statement);
                     $definition->setFilepath($filepath);
 
                     if ($namespace) {
