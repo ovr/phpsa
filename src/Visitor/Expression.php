@@ -76,6 +76,8 @@ class Expression
                 return new Expression\Operators\Logical\BooleanOr();
             case 'PhpParser\Node\Expr\BinaryOp\BooleanAnd':
                 return new Expression\Operators\Logical\BooleanAnd();
+            case 'PhpParser\Node\Expr\BooleanNot':
+                return new Expression\Operators\Logical\BooleanNot();
             /**
              * Comparison
              */
@@ -111,8 +113,6 @@ class Expression
             /**
              * Another
              */
-            case 'PhpParser\Node\Expr\BooleanNot':
-                return $this->passBooleanNot($expr);
             case 'PhpParser\Node\Expr\UnaryMinus':
                 return $this->passUnaryMinus($expr);
             case 'PhpParser\Node\Expr\New_':
@@ -173,17 +173,7 @@ class Expression
      */
     protected function passBooleanNot(Node\Expr\BooleanNot $expr)
     {
-        $compiledExpression = $this->compile($expr->expr);
-        switch ($compiledExpression->getType()) {
-            case CompiledExpression::DNUMBER:
-            case CompiledExpression::LNUMBER:
-            case CompiledExpression::STRING:
-            case CompiledExpression::BOOLEAN:
-                return new CompiledExpression($compiledExpression->getType(), !$compiledExpression->getValue());
-        }
 
-
-        return new CompiledExpression();
     }
 
     /**
