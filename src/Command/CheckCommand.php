@@ -73,14 +73,6 @@ class CheckCommand extends Command
             $directoryIterator = new RecursiveIteratorIterator(
                 new RecursiveDirectoryIterator($path, FilesystemIterator::SKIP_DOTS)
             );
-
-            /**
-             * @todo Uncomment after PHP >=5.4
-             */
-//            $it = new CallbackFilterIterator($it, function (SplFileInfo $file) {
-//                return $file->getExtension() == 'php';
-//            });
-
             $output->writeln('Scanning directory <info>' . $path . '</info>');
 
             $count = 0;
