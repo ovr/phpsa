@@ -28,7 +28,7 @@ class BooleanNot extends AbstractExpressionCompiler
             case CompiledExpression::LNUMBER:
             case CompiledExpression::STRING:
             case CompiledExpression::BOOLEAN:
-                return new CompiledExpression($compiledExpression->getType(), !$compiledExpression->getValue());
+                return new CompiledExpression(CompiledExpression::BOOLEAN, !$compiledExpression->getValue());
         }
 
 
