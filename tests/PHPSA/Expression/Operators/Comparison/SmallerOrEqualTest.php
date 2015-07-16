@@ -6,16 +6,16 @@ use PhpParser\Node;
 use PHPSA\CompiledExpression;
 use PHPSA\Visitor\Expression;
 
-class SmallerTest extends BaseTestCase
+class SmallerOrEqualTest extends BaseTestCase
 {
     /**
      * @param $a
      * @param $b
-     * @return Node\Expr\BinaryOp\Smaller
+     * @return Node\Expr\BinaryOp\SmallerOrEqual
      */
     protected function buildExpression($a, $b)
     {
-        return new Node\Expr\BinaryOp\Smaller(
+        return new Node\Expr\BinaryOp\SmallerOrEqual(
             $this->newScalarExpr($a),
             $this->newScalarExpr($b)
         );
@@ -28,6 +28,6 @@ class SmallerTest extends BaseTestCase
      */
     protected function operator($a, $b)
     {
-        return $a < $b;
+        return $a <= $b;
     }
 }

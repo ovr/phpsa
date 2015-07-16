@@ -21,6 +21,9 @@ abstract class BaseTestCase extends \Tests\PHPSA\TestCase
             array(1, 2),
             array(1, 5),
             array(6, 5),
+            array(6, 6),
+            array(5, 6),
+            array(5, 5),
         );
     }
 
@@ -32,16 +35,20 @@ abstract class BaseTestCase extends \Tests\PHPSA\TestCase
     abstract protected function operator($a, $b);
 
     /**
+     * @param $a
+     * @param $b
+     * @return \PhpParser\Node\Expr\BinaryOp
+     */
+    abstract protected function buildExpression($a, $b);
+
+    /**
      * Tests {int} $operator {int} = {int}
      *
      * @dataProvider smallerDataProvider
      */
     public function testSmaller($a, $b)
     {
-        $baseExpression = new Node\Expr\BinaryOp\Smaller(
-            $this->newScalarExpr($a),
-            $this->newScalarExpr($b)
-        );
+        $baseExpression = $this->buildExpression($a, $b);
         $compiledExpression = $this->compileExpression($baseExpression);
 
         $this->assertInstanceOfCompiledExpression($compiledExpression);
