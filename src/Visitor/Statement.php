@@ -42,7 +42,7 @@ class Statement
     }
 
     /**
-     * @param Node\Stmt\For_ $returnStmt
+     * @param Node\Stmt\For_ $baseStmt
      */
     protected function passFor(Node\Stmt\For_ $baseStmt)
     {
