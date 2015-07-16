@@ -6,6 +6,12 @@ use PhpParser\Node;
 use PHPSA\CompiledExpression;
 use PHPSA\Visitor\Expression;
 
+/**
+ * Class SmallerOrEqualTest
+ * @package Tests\PHPSA\Expression\Operators\Comparison
+ *
+ * @see PHPSA\Visitor\Expression\Operators\Comparison\SmallerOrEqual
+ */
 class SmallerOrEqualTest extends BaseTestCase
 {
     /**
