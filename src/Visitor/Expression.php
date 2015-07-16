@@ -71,7 +71,7 @@ class Expression
              * Logical
              */
             case 'PhpParser\Node\Expr\BinaryOp\BitwiseXor':
-                return new Expression\BinaryOp\BitwiseXor();
+                return new Expression\Operators\Bitwise\BitwiseXor();
             case 'PhpParser\Node\Expr\BinaryOp\BooleanOr':
                 return new Expression\Operators\Logical\BooleanOr();
             case 'PhpParser\Node\Expr\BinaryOp\BooleanAnd':
