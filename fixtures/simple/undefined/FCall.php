@@ -3,6 +3,14 @@
 namespace Tests\Simple\Undefined;
 
 /**
+ * @return bool
+ */
+function testFunction()
+{
+    return true;
+}
+
+/**
  * Class Test
  * @package Tests\Simple\Undefined
  */
@@ -14,6 +22,14 @@ class Test
     public function failedCallToUndefinedFunction()
     {
         return undefinedFunction();
+    }
+
+    /**
+     * @return mixed
+     */
+    public function successCallFromNSFunction()
+    {
+        return testFunction();
     }
 
     /**

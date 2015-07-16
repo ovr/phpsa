@@ -9,6 +9,7 @@ use PHPSA\Application;
 use PHPSA\Context;
 use PHPSA\Definition\ClassDefinition;
 use PHPSA\Definition\ClassMethod;
+use PHPSA\Definition\FunctionDefinition;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
 use RuntimeException;
@@ -38,6 +39,11 @@ class CheckCommand extends Command
      * @var ClassDefinition[]
      */
     protected $classes = array();
+
+    /**
+     * @var ClassDefinition[]
+     */
+    protected $functions = array();
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
@@ -161,26 +167,35 @@ class CheckCommand extends Command
 
             foreach ($stmts as $statement) {
                 if ($statement instanceof Node\Stmt\Class_) {
-                    $classDefintion = new ClassDefinition($statement->name);
-                    $classDefintion->setFilepath($filepath);
+                    $definition = new ClassDefinition($statement->name);
+                    $definition->setFilepath($filepath);
 
                     if ($namespace) {
-                        $classDefintion->setNamespace($namespace);
+                        $definition->setNamespace($namespace);
                     }
 
                     foreach ($statement->stmts as $stmt) {
                         if ($stmt instanceof Node\Stmt\ClassMethod) {
                             $method = new ClassMethod($stmt->name, $stmt->stmts, $stmt->type, $stmt);
 
-                            $classDefintion->addMethod($method);
+                            $definition->addMethod($method);
                         } elseif ($stmt instanceof Node\Stmt\Property) {
-                            $classDefintion->addProperty($stmt);
+                            $definition->addProperty($stmt);
                         } elseif ($stmt instanceof Node\Stmt\ClassConst) {
-                            $classDefintion->addConst($stmt);
+                            $definition->addConst($stmt);
                         }
                     }
 
-                    $this->classes[] = $classDefintion;
+                    $this->classes[] = $definition;
+                } elseif ($statement instanceof Node\Stmt\Function_) {
+                    $definition = new FunctionDefinition($statement->name);
+                    $definition->setFilepath($filepath);
+
+                    if ($namespace) {
+                        $definition->setNamespace($namespace);
+                    }
+
+                    $this->functions[] = $definition;
                 }
             }
 
