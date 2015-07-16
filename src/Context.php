@@ -166,7 +166,7 @@ class Context
     /**
      * @param AbstractDefinition $scope
      */
-    public function setScope(AbstractDefinition $scope)
+    public function setScope(AbstractDefinition $scope = null)
     {
         $this->scope = $scope;
     }

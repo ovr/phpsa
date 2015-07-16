@@ -14,6 +14,11 @@ class Application extends \Symfony\Component\Console\Application
      */
     protected $configuration;
 
+    /**
+     * @var Compiler
+     */
+    public $compiler;
+
     const VERSION = '0.1-dev';
 
     public function __construct()

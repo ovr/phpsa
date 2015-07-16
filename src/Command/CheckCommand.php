@@ -6,6 +6,7 @@
 namespace PHPSA\Command;
 
 use PHPSA\Application;
+use PHPSA\Compiler;
 use PHPSA\Context;
 use PHPSA\Definition\ClassDefinition;
 use PHPSA\Definition\ClassMethod;
@@ -24,6 +25,12 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
+/**
+ * Class CheckCommand
+ * @package PHPSA\Command
+ *
+ * @method Application getApplication();
+ */
 class CheckCommand extends Command
 {
     protected function configure()
@@ -34,16 +41,6 @@ class CheckCommand extends Command
             ->addOption('blame', null, InputOption::VALUE_OPTIONAL, 'Git blame author for bad code ;)', false)
             ->addArgument('path', InputArgument::OPTIONAL, 'Path to check file or directory', '.');
     }
-
-    /**
-     * @var ClassDefinition[]
-     */
-    protected $classes = array();
-
-    /**
-     * @var ClassDefinition[]
-     */
-    protected $functions = array();
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
@@ -67,6 +64,8 @@ class CheckCommand extends Command
 
         /** @var Application $application */
         $application = $this->getApplication();
+        $application->compiler = new Compiler();
+
         $context = new Context($output, $application);
 
         /**
@@ -117,17 +116,9 @@ class CheckCommand extends Command
         /**
          * Step 2 Recursive check ...
          */
-
-        /**
-         * @var $class ClassDefinition
-         */
-        foreach ($this->classes as $class) {
-            $class->compile($context);
-        }
+        $application->compiler->compile($context);
 
         $output->writeln('');
-
-
         $output->writeln('Memory usage: ' . $this->getMemoryUsage(false) . ' (peak: ' . $this->getMemoryUsage(true) . ') MB');
     }
 
@@ -147,6 +138,8 @@ class CheckCommand extends Command
      */
     protected function parserFile($filepath, Parser $parser, Context $context)
     {
+        $compiler = $this->getApplication()->compiler;
+
         try {
             if (!is_readable($filepath)) {
                 throw new RuntimeException('File ' . $filepath . ' is not readable');
@@ -186,7 +179,7 @@ class CheckCommand extends Command
                         }
                     }
 
-                    $this->classes[] = $definition;
+                    $compiler->addClass($definition);
                 } elseif ($statement instanceof Node\Stmt\Function_) {
                     $definition = new FunctionDefinition($statement->name);
                     $definition->setFilepath($filepath);
@@ -195,7 +188,7 @@ class CheckCommand extends Command
                         $definition->setNamespace($namespace);
                     }
 
-                    $this->functions[] = $definition;
+                    $compiler->addFunction($definition);
                 }
             }
 

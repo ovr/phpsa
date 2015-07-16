@@ -41,7 +41,7 @@ class FunctionDefinition extends AbstractDefinition
      */
     public function compile(Context $context)
     {
-        $context->setScope($this);
+        $context->setScope(null);
     }
 
     /**
