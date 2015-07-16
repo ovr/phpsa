@@ -76,7 +76,9 @@ class ClassMethod
             }
         }
 
-        $context->addVariable(new Variable('this', $this, CompiledExpression::OBJECT));
+        $thisPtr = new Variable('this', $this, CompiledExpression::OBJECT);
+        $thisPtr->incGets();
+        $context->addVariable($thisPtr);
 
         foreach ($this->ast as $st) {
             \PHPSA\nodeVisitorFactory($st, $context);
