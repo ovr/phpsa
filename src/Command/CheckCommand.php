@@ -159,24 +159,24 @@ class CheckCommand extends Command
                 $stmts = $stmts[0]->stmts;
             }
 
-            foreach ($stmts as $st) {
-                if ($st instanceof Node\Stmt\Class_) {
-                    $classDefintion = new ClassDefinition($st->name);
+            foreach ($stmts as $statement) {
+                if ($statement instanceof Node\Stmt\Class_) {
+                    $classDefintion = new ClassDefinition($statement->name);
                     $classDefintion->setFilepath($filepath);
 
                     if ($namespace) {
                         $classDefintion->setNamespace($namespace);
                     }
 
-                    foreach ($st->stmts as $st) {
-                        if ($st instanceof Node\Stmt\ClassMethod) {
-                            $method = new ClassMethod($st->name, $st->stmts, $st->type, $st);
+                    foreach ($statement->stmts as $stmt) {
+                        if ($stmt instanceof Node\Stmt\ClassMethod) {
+                            $method = new ClassMethod($stmt->name, $stmt->stmts, $stmt->type, $stmt);
 
                             $classDefintion->addMethod($method);
-                        } elseif ($st instanceof Node\Stmt\Property) {
-                            $classDefintion->addProperty($st);
-                        } elseif ($st instanceof Node\Stmt\ClassConst) {
-                            $classDefintion->addConst($st);
+                        } elseif ($stmt instanceof Node\Stmt\Property) {
+                            $classDefintion->addProperty($stmt);
+                        } elseif ($stmt instanceof Node\Stmt\ClassConst) {
+                            $classDefintion->addConst($stmt);
                         }
                     }
 
