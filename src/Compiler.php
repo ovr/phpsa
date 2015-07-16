@@ -40,4 +40,39 @@ class Compiler
             $class->compile($context);
         }
     }
+
+    /**
+     * Try to find function with $namespace from pre-compiled function(s)
+     *
+     * @param $name
+     * @param string|null $namespace
+     * @return bool|FunctionDefinition
+     */
+    public function getFunctionNS($name, $namespace = null)
+    {
+        foreach ($this->functions as $function) {
+            if ($function->getName() == $name && $function->getNamespace() == $ns) {
+                return $function;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * Try to find function from pre-compiled function(s)
+     *
+     * @param $name
+     * @return bool|FunctionDefinition
+     */
+    public function getFunction($name)
+    {
+        foreach ($this->functions as $function) {
+            if ($function->getName() == $name) {
+                return $function;
+            }
+        }
+
+        return false;
+    }
 }
