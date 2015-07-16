@@ -12,17 +12,12 @@ use PhpParser\Node;
  * Class ClassDefinition
  * @package PHPSA\Definition
  */
-class ClassDefinition
+class ClassDefinition extends AbstractDefinition
 {
     /**
      * @var string
      */
     protected $namespace;
-
-    /**
-     * @var string
-     */
-    protected $name;
 
     /**
      * Class methods
@@ -164,13 +159,5 @@ class ClassDefinition
     public function setFilepath($filepath)
     {
         $this->filepath = $filepath;
-    }
-
-    /**
-     * @return string
-     */
-    public function getName()
-    {
-        return $this->name;
     }
 }

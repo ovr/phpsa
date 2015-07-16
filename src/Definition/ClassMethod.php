@@ -10,13 +10,8 @@ use PHPSA\CompiledExpression;
 use PHPSA\Context;
 use PHPSA\Variable;
 
-class ClassMethod
+class ClassMethod extends AbstractDefinition
 {
-    /**
-     * @var string
-     */
-    protected $name;
-
     protected $ast;
 
     protected $type;
@@ -38,15 +33,7 @@ class ClassMethod
         $this->type = $type;
         $this->statement = $statement;
     }
-
-    /**
-     * @return string
-     */
-    public function getName()
-    {
-        return $this->name;
-    }
-
+    
     /**
      * @param Context $context
      * @return boolean|null
