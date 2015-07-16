@@ -6,6 +6,10 @@ use PhpParser\Node;
 use PHPSA\CompiledExpression;
 use PHPSA\Visitor\Expression;
 
+/**
+ * Class BooleanNotTest
+ * @package Tests\PHPSA\Expression\Operators\Logical
+ */
 class BooleanNotTest extends \Tests\PHPSA\TestCase
 {
     /**
@@ -14,16 +18,17 @@ class BooleanNotTest extends \Tests\PHPSA\TestCase
     public function getDataProvider()
     {
         return array(
-            array(true, -1),
-            array(false, 0),
-            array(1, -1),
-            array(-1, 1),
+            array(true, false),
+            array(false, true),
+            array(1, false),
+            array(-1, false),
         );
     }
 
     /**
      * Tests !{expr}
      *
+     * @see \PHPSA\Visitor\Expression\Operators\Logical\BooleanNot
      * @dataProvider getDataProvider
      */
     public function testBooleanNot($a, $b)
@@ -34,6 +39,7 @@ class BooleanNotTest extends \Tests\PHPSA\TestCase
         $compiledExpression = $this->compileExpression($baseExpression);
 
         $this->assertInstanceOfCompiledExpression($compiledExpression);
+        $this->assertSame(CompiledExpression::BOOLEAN, $compiledExpression->getType());
         $this->assertSame($b, $compiledExpression->getValue());
     }
 }
