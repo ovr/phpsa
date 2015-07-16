@@ -29,15 +29,15 @@ class FunctionDefinition extends AbstractDefinition
     /**
      * @var Node\Stmt\Function_
      */
-    protected $ast;
+    protected $statement;
 
     /**
      * @param $name
      */
-    public function __construct($name, Node\Stmt\Function_ $ast)
+    public function __construct($name, Node\Stmt\Function_ $statement)
     {
         $this->name = $name;
-        $this->ast = $ast;
+        $this->statement = $statement;
     }
 
     /**
@@ -50,22 +50,22 @@ class FunctionDefinition extends AbstractDefinition
     {
         $context->setScope(null);
 
-        if (count($this->ast->stmts) == 0) {
+        if (count($this->statement->stmts) == 0) {
             return $context->notice(
                 'not-implemented-method',
                 sprintf('Method %s() is not implemented', $this->name),
-                $this->ast
+                $this->statement
             );
         }
 
-        if (count($this->ast->params) > 0) {
+        if (count($this->statement->params) > 0) {
             /** @var  Node\Param $parameter */
-            foreach ($this->ast->params as $parameter) {
+            foreach ($this->statement->params as $parameter) {
                 $context->addSymbol($parameter->name);
             }
         }
 
-        foreach ($this->ast as $st) {
+        foreach ($this->statement->stmts as $st) {
             \PHPSA\nodeVisitorFactory($st, $context);
         }
 

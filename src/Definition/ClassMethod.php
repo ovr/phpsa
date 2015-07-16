@@ -12,8 +12,6 @@ use PHPSA\Variable;
 
 class ClassMethod extends AbstractDefinition
 {
-    protected $ast;
-
     protected $type;
 
     /**
@@ -22,16 +20,15 @@ class ClassMethod extends AbstractDefinition
     protected $statement;
 
     /**
-     * @param string $name
-     * @param Node[] $ast
-     * @param integer $type
+     * @param $name
+     * @param Node\Stmt\ClassMethod $statement
+     * @param $type
      */
-    public function __construct($name, $ast, $type, Node\Stmt\ClassMethod $statement)
+    public function __construct($name, Node\Stmt\ClassMethod $statement, $type)
     {
         $this->name = $name;
-        $this->ast = $ast;
-        $this->type = $type;
         $this->statement = $statement;
+        $this->type = $type;
     }
 
     /**
@@ -48,7 +45,7 @@ class ClassMethod extends AbstractDefinition
             );
         }
 
-        if (count($this->ast) == 0) {
+        if (count($this->statement->stmts) == 0) {
             return $context->notice(
                 'not-implemented-method',
                 sprintf('Method %s() is not implemented', $this->name),
@@ -67,7 +64,7 @@ class ClassMethod extends AbstractDefinition
         $thisPtr->incGets();
         $context->addVariable($thisPtr);
 
-        foreach ($this->ast as $st) {
+        foreach ($this->statement->stmts as $st) {
             \PHPSA\nodeVisitorFactory($st, $context);
         }
     }

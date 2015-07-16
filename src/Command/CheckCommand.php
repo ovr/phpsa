@@ -169,7 +169,7 @@ class CheckCommand extends Command
 
                     foreach ($statement->stmts as $stmt) {
                         if ($stmt instanceof Node\Stmt\ClassMethod) {
-                            $method = new ClassMethod($stmt->name, $stmt->stmts, $stmt->type, $stmt);
+                            $method = new ClassMethod($stmt->name, $stmt, $stmt->type);
 
                             $definition->addMethod($method);
                         } elseif ($stmt instanceof Node\Stmt\Property) {
