@@ -39,4 +39,12 @@ class Test
     {
         return str_repeat("*", 10);
     }
+
+    /**
+     * @return double
+     */
+    public function successSin()
+    {
+        return sin(1);
+    }
 }

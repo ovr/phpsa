@@ -46,11 +46,24 @@ class FunctionCall extends AbstractExpressionCompiler
             $exists = true;
         }
 
-        if (!$functionDefinition && !$exists) {
+        if (!$functionDefinition) {
             $reflector = new Reflector(Reflector::manuallyFactory());
             $functionReflection = $reflector->getFunction($name);
             if ($functionReflection) {
-                return new CompiledExpression($functionReflection->getReturnType(), null);
+                $arguments = $this->parseArgs($expr, clone $context);
+
+                if ($functionReflection->isRunnable()) {
+                    array_walk($arguments, function(&$item) {
+                        $item = $item->getValue();
+                    });
+
+                    return new CompiledExpression(
+                        $functionReflection->getReturnType(),
+                        $functionReflection->run($arguments)
+                    );
+                }
+
+                return new CompiledExpression($functionReflection->getReturnType());
             }
         }
 
@@ -63,5 +76,21 @@ class FunctionCall extends AbstractExpressionCompiler
         }
 
         return new CompiledExpression();
+    }
+
+    /**
+     * @param \PhpParser\Node\Expr\FuncCall $expr
+     * @return array
+     */
+    protected function parseArgs($expr, Context $context)
+    {
+        $arguments = array();
+
+        foreach ($expr->args as $argument) {
+            $expression = new Expression($context);
+            $arguments[] = $expression->compile($argument->value);
+        }
+
+        return $arguments;
     }
 }
