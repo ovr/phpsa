@@ -160,4 +160,20 @@ class ClassDefinition extends AbstractDefinition
     {
         $this->filepath = $filepath;
     }
+
+    /**
+     * @return string
+     */
+    public function getNamespace()
+    {
+        return $this->namespace;
+    }
+
+    /**
+     * @param string $namespace
+     */
+    public function setNamespace($namespace)
+    {
+        $this->namespace = $namespace;
+    }
 }

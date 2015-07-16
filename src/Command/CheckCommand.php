@@ -149,10 +149,13 @@ class CheckCommand extends Command
             $code = file_get_contents($filepath);
             $stmts = $parser->parse($code);
 
+            $namespace = null;
+
             /**
              * Step 1 Precompile
              */
             if ($stmts[0] instanceof Node\Stmt\Namespace_) {
+                $namespace = implode('\\', $stmts[0]->name->parts);
                 $stmts = $stmts[0]->stmts;
             }
 
@@ -160,6 +163,10 @@ class CheckCommand extends Command
                 if ($st instanceof Node\Stmt\Class_) {
                     $classDefintion = new ClassDefinition($st->name);
                     $classDefintion->setFilepath($filepath);
+
+                    if ($namespace) {
+                        $classDefintion->setNamespace($namespace);
+                    }
 
                     foreach ($st->stmts as $st) {
                         if ($st instanceof Node\Stmt\ClassMethod) {
