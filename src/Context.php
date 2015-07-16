@@ -5,13 +5,13 @@
 
 namespace PHPSA;
 
-use PHPSA\Definition\ClassDefinition;
+use PHPSA\Definition\AbstractDefinition;
 use Symfony\Component\Console\Output\OutputInterface;
 
 class Context
 {
     /**
-     * @var ClassDefinition
+     * @var AbstractDefinition
      */
     public $scope;
 
@@ -164,9 +164,9 @@ class Context
     }
 
     /**
-     * @param ClassDefinition $scope
+     * @param AbstractDefinition $scope
      */
-    public function setScope(ClassDefinition $scope)
+    public function setScope(AbstractDefinition $scope)
     {
         $this->scope = $scope;
     }
