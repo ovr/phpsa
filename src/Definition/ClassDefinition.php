@@ -16,11 +16,6 @@ use PhpParser\Node;
 class ClassDefinition extends AbstractDefinition
 {
     /**
-     * @var string
-     */
-    protected $namespace;
-
-    /**
      * Class methods
      *
      * @var ClassMethod[]
@@ -160,21 +155,5 @@ class ClassDefinition extends AbstractDefinition
     public function setFilepath($filepath)
     {
         $this->filepath = $filepath;
-    }
-
-    /**
-     * @return string
-     */
-    public function getNamespace()
-    {
-        return $this->namespace;
-    }
-
-    /**
-     * @param string $namespace
-     */
-    public function setNamespace($namespace)
-    {
-        $this->namespace = $namespace;
     }
 }

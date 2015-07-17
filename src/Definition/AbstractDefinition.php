@@ -18,6 +18,11 @@ abstract class AbstractDefinition
      */
     protected $name;
 
+    /**
+     * @var string
+     */
+    protected $namespace;
+
     abstract public function compile(Context $context);
 
     /**
@@ -34,5 +39,21 @@ abstract class AbstractDefinition
     public function getPointer()
     {
         return new ScopePointer($this);
+    }
+
+    /**
+     * @return string
+     */
+    public function getNamespace()
+    {
+        return $this->namespace;
+    }
+
+    /**
+     * @param string $namespace
+     */
+    public function setNamespace($namespace)
+    {
+        $this->namespace = $namespace;
     }
 }

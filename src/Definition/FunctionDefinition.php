@@ -16,11 +16,6 @@ use PhpParser\Node;
 class FunctionDefinition extends AbstractDefinition
 {
     /**
-     * @var string
-     */
-    protected $namespace;
-
-    /**
      * @todo Use Finder
      *
      * @var string
@@ -113,21 +108,5 @@ class FunctionDefinition extends AbstractDefinition
     public function getNamespace()
     {
         return $this->namespace;
-    }
-
-    /**
-     * @param string $namespace
-     */
-    public function setNamespace($namespace)
-    {
-        $this->namespace = $namespace;
-    }
-
-    /**
-     * @return boolean
-     */
-    public function isCompiled()
-    {
-        return $this->compiled;
     }
 }
