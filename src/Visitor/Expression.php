@@ -75,6 +75,8 @@ class Expression
                 return new Expression\Operators\Bitwise\BitwiseXor();
             case 'PhpParser\Node\Expr\BinaryOp\BitwiseAnd':
                 return new Expression\Operators\Bitwise\BitwiseAnd();
+            case 'PhpParser\Node\Expr\BinaryOp\ShiftRight':
+                return new Expression\Operators\Bitwise\ShiftRight();
             /**
              * Logical
              */

@@ -7,14 +7,14 @@ use PHPSA\Context;
 use PHPSA\Visitor\Expression;
 use PHPSA\Visitor\Expression\AbstractExpressionCompiler;
 
-class BitwiseAnd extends AbstractExpressionCompiler
+class ShiftRight extends AbstractExpressionCompiler
 {
-    protected $name = '\PhpParser\Node\Expr\BinaryOp\BitwiseAnd';
+    protected $name = '\PhpParser\Node\Expr\BinaryOp\ShiftRight';
 
     /**
-     * {expr} & {expr}
+     * {expr} >> {expr}
      *
-     * @param \PhpParser\Node\Expr\BinaryOp\BitwiseAnd $expr
+     * @param \PhpParser\Node\Expr\BinaryOp\ShiftRight $expr
      * @param Context $context
      * @return CompiledExpression
      */
@@ -34,7 +34,7 @@ class BitwiseAnd extends AbstractExpressionCompiler
                     case CompiledExpression::LNUMBER:
                     case CompiledExpression::DNUMBER:
                     case CompiledExpression::BOOLEAN:
-                        return new CompiledExpression(CompiledExpression::INTEGER, $left->getValue() & $right->getValue());
+                        return new CompiledExpression(CompiledExpression::INTEGER, $left->getValue() >> $right->getValue());
                 }
                 break;
         }
