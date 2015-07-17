@@ -45,7 +45,7 @@ class FunctionDefinition extends AbstractDefinition
     /**
      * @var array
      */
-    protected $possibleReturnTypes = [];
+    protected $possibleReturnTypes = array();
 
     /**
      * @param $name

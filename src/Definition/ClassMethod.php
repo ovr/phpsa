@@ -37,7 +37,7 @@ class ClassMethod extends AbstractDefinition
      *
      * @var array
      */
-    protected $possibleReturnValues = [];
+    protected $possibleReturnValues = array();
 
     /**
      * @param $name
