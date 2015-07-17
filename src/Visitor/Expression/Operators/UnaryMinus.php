@@ -31,8 +31,10 @@ class UnaryMinus extends AbstractExpressionCompiler
         switch ($left->getType()) {
             case CompiledExpression::LNUMBER:
             case CompiledExpression::DNUMBER:
+            case CompiledExpression::BOOLEAN:
             case CompiledExpression::STRING:
-                return new CompiledExpression($left->getType(), -$left->getValue());
+            case CompiledExpression::NULL:
+                return new CompiledExpression(CompiledExpression::INTEGER, -$left->getValue());
             case CompiledExpression::ARR:
                 $context->notice(
                     'unsupported-operand-types',
