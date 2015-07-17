@@ -484,7 +484,30 @@ class Expression
             return new CompiledExpression(CompiledExpression::ARR, array());
         }
 
-        return new CompiledExpression(CompiledExpression::ARR | CompiledExpression::UNKNOWN);
+        $resultArray = array();
+
+        foreach ($expr->items as $item) {
+            $compiledValueResult = $this->compile($item->value);
+            if ($item->key) {
+                $compiledKeyResult = $this->compile($item->key);
+                switch ($compiledKeyResult->getType()) {
+                    case CompiledExpression::INTEGER:
+                    case CompiledExpression::BOOLEAN:
+                    case CompiledExpression::NULL:
+                    case CompiledExpression::STRING:
+                        $resultArray[$compiledKeyResult->getValue()] = $compiledValueResult->getValue();
+                        break;
+                    default:
+                        $this->context->debug("Type {$compiledKeyResult->getType()} is not supported for key value");
+                        return new CompiledExpression(CompiledExpression::ARR);
+                        break;
+                }
+            } else {
+                $resultArray[] = $compiledValueResult->getValue();
+            }
+        }
+
+        return new CompiledExpression(CompiledExpression::ARR, $resultArray);
     }
 
     /**
