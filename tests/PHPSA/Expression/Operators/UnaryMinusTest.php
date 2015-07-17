@@ -27,6 +27,7 @@ class UnaryMinusTest extends \Tests\PHPSA\TestCase
             array("test string"),
             array("10test string"),
             array(""),
+            array(null),
         );
     }
 
