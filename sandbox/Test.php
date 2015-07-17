@@ -10,6 +10,11 @@ class Test
      */
     public function returnTrue()
     {
-        return 10 | 10;
+        $a = new stdClass();
+//        $a->test = 1;
+
+        $b = $a;
+
+        return $a == $b;
     }
 }

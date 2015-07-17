@@ -207,7 +207,13 @@ class Expression
     protected function passNew(Node\Expr\New_ $expr)
     {
         if ($expr->class instanceof Node\Name) {
-            return new CompiledExpression(CompiledExpression::OBJECT, $expr->class->parts[0]);
+            $name = $expr->class->parts[0];
+
+            if (count($expr->args) > 0) {
+                return new CompiledExpression(CompiledExpression::OBJECT);
+            }
+
+            return new CompiledExpression(CompiledExpression::OBJECT, new $name());
         }
 
         $this->context->debug('Unknown how to pass new');
