@@ -1,4 +1,9 @@
 <?php
+/**
+ * PHP Static Analysis project 2015
+ *
+ * @author Patsura Dmitry https://github.com/ovr <talk@dmtry.me>
+ */
 
 namespace PHPSA\Visitor\Expression\BinaryOp;
 
