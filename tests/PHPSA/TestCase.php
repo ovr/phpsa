@@ -63,6 +63,8 @@ class TestCase extends \PHPUnit_Framework_TestCase
                 return new Node\Scalar\LNumber($value);
             case 'double':
                 return new Node\Scalar\DNumber($value);
+            case 'string':
+                return new Node\Scalar\String_($value);
             case 'boolean':
                 return new Boolean($value);
             case 'NULL':
