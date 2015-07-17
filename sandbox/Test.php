@@ -10,6 +10,6 @@ class Test
      */
     public function returnTrue()
     {
-        return 100 >> 2;
+        return 2 << 10;
     }
 }
