@@ -1,0 +1,85 @@
+<?php
+
+namespace Tests\PHPSA\Expression\BinaryOp;
+
+use PhpParser\Node;
+use PHPSA\CompiledExpression;
+use PHPSA\Visitor\Expression;
+
+/**
+ * Class ArrayTest
+ * @package Tests\PHPSA\Expression
+ */
+class ArrayTest extends \Tests\PHPSA\TestCase
+{
+    /**
+     * Tests {expr} = array();
+     */
+    public function testEmptyArray()
+    {
+        $baseExpression = new Node\Expr\Array_();
+        $compiledExpression = $this->compileExpression($baseExpression);
+
+        $this->assertInstanceOfCompiledExpression($compiledExpression);
+        $this->assertSame(CompiledExpression::ARR, $compiledExpression->getType());
+        $this->assertSame(array(), $compiledExpression->getValue());
+    }
+
+    /**
+     * Tests {expr} = array(...);
+     */
+    public function testArrayWith6IntValues()
+    {
+        $compiledExpression = $this->compileExpression(
+            new Node\Expr\Array_(
+                array(
+                    new Node\Expr\ArrayItem(
+                        $this->newScalarExpr(1)
+                    ),
+                    new Node\Expr\ArrayItem(
+                        $this->newScalarExpr(2)
+                    ),
+                    new Node\Expr\ArrayItem(
+                        $this->newScalarExpr(3)
+                    ),
+                    new Node\Expr\ArrayItem(
+                        $this->newScalarExpr(4)
+                    ),
+                    new Node\Expr\ArrayItem(
+                        $this->newScalarExpr(5)
+                    ),
+                    new Node\Expr\ArrayItem(
+                        $this->newScalarExpr(6)
+                    )
+                )
+            )
+        );
+
+        $this->assertInstanceOfCompiledExpression($compiledExpression);
+        $this->assertSame(CompiledExpression::ARR, $compiledExpression->getType());
+        $this->assertSame(array(1, 2, 3, 4, 5, 6), $compiledExpression->getValue());
+    }
+
+    /**
+     * Tests {expr} = array(...);
+     */
+    public function testArrayWith2IntValues()
+    {
+        $compiledExpression = $this->compileExpression(
+            new Node\Expr\Array_(
+                array(
+                    new Node\Expr\ArrayItem(
+                        $this->newScalarExpr(1)
+                    ),
+                    new Node\Expr\ArrayItem(
+                        $this->newScalarExpr(2)
+                    )
+                )
+            )
+        );
+
+        $this->assertInstanceOfCompiledExpression($compiledExpression);
+        $this->assertSame(CompiledExpression::ARR, $compiledExpression->getType());
+        $this->assertSame(array(1, 2), $compiledExpression->getValue());
+    }
+}
