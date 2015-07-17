@@ -79,6 +79,8 @@ class Expression
                 return new Expression\Operators\Bitwise\ShiftRight();
             case 'PhpParser\Node\Expr\BinaryOp\ShiftLeft':
                 return new Expression\Operators\Bitwise\ShiftLeft();
+            case 'PhpParser\Node\Expr\BitwiseNot':
+                return new Expression\Operators\Bitwise\BitwiseNot();
             /**
              * Logical
              */
