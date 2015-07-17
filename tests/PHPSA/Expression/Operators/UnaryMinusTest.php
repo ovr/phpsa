@@ -1,0 +1,47 @@
+<?php
+
+namespace Tests\PHPSA\Expression\Operators;
+
+use PhpParser\Node;
+use PHPSA\CompiledExpression;
+use PHPSA\Visitor\Expression;
+
+/**
+ * Class UnaryMinusTest
+ * @package Tests\PHPSA\Expression\BinaryOp
+ */
+class UnaryMinusTest extends \Tests\PHPSA\TestCase
+{
+    /**
+     * Data provider for Div {int} / {int} = {int}
+     *
+     * @return array
+     */
+    public function getDataProviderForSuccess()
+    {
+        return array(
+            array(-1),
+            array(1),
+            array(true),
+            array(false),
+            array("test string"),
+            array("10test string"),
+            array(""),
+        );
+    }
+
+    /**
+     * @dataProvider getDataProviderForSuccess
+     */
+    public function testSuccessFromDataProvider($value)
+    {
+        $baseExpression = new Node\Expr\UnaryMinus(
+            $this->newScalarExpr($value)
+        );
+        $compiledExpression = $this->compileExpression($baseExpression);
+
+        $this->assertInstanceOfCompiledExpression($compiledExpression);
+        $this->assertSame(CompiledExpression::INTEGER, $compiledExpression->getType());
+        $this->assertSame(-$value, $compiledExpression->getValue());
+    }
+}
