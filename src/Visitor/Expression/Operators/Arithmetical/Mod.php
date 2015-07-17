@@ -32,33 +32,16 @@ class Mod extends AbstractExpressionCompiler
         $right = $expression->compile($expr->right);
 
         switch ($left->getType()) {
+            case CompiledExpression::LNUMBER:
+            case CompiledExpression::BOOLEAN:
             case CompiledExpression::DNUMBER:
                 if ($left->isEquals(0)) {
                     $context->notice(
                         'division-zero',
-                        sprintf('You trying to use division from %s/{expr}', $left->getValue()),
+                        'You trying to use division from ' . $left->getValue() . '%{expr}',
                         $expr
                     );
 
-                    return new CompiledExpression(CompiledExpression::DNUMBER, 0.0);
-                }
-                break;
-            case CompiledExpression::LNUMBER:
-            case CompiledExpression::BOOLEAN:
-                if ($left->isEquals(0)) {
-                    $context->notice(
-                        'division-zero',
-                        sprintf('You trying to use division from %s/{expr}', $left->getValue()),
-                        $expr
-                    );
-
-                    switch ($right->getType()) {
-                        case CompiledExpression::LNUMBER:
-                        case CompiledExpression::BOOLEAN:
-                            return new CompiledExpression(CompiledExpression::LNUMBER, 0);
-                        case CompiledExpression::DNUMBER:
-                            return new CompiledExpression(CompiledExpression::DNUMBER, 0.0);
-                    }
                 }
                 break;
         }
@@ -70,11 +53,9 @@ class Mod extends AbstractExpressionCompiler
                 if ($right->isEquals(0)) {
                     $context->notice(
                         'division-zero',
-                        sprintf('You trying to use division on {expr}/%s', $right->getValue()),
+                        'You trying to use division on {expr}%' . $right->getValue(),
                         $expr
                     );
-
-                    return new CompiledExpression(CompiledExpression::UNKNOWN);
                 }
         }
 
@@ -84,22 +65,9 @@ class Mod extends AbstractExpressionCompiler
             case CompiledExpression::BOOLEAN:
                 switch ($right->getType()) {
                     case CompiledExpression::BOOLEAN:
-                        /**
-                         * Boolean is true via isEquals(0) check is not passed before
-                         * {int}/1 = {int}
-                         * {double}/1 = {double}
-                         */
-
-                        $context->notice(
-                            'division-on-true',
-                            sprintf('You trying to use stupid division {expr}/true ~ {expr}/1 = {expr}', $right->getValue()),
-                            $expr
-                        );
-                    //no break
                     case CompiledExpression::LNUMBER:
                     case CompiledExpression::DNUMBER:
-                    case CompiledExpression::BOOLEAN:
-                        return CompiledExpression::fromZvalValue($left->getValue() / $right->getValue());
+                        return CompiledExpression::fromZvalValue($left->getValue() % $right->getValue());
                 }
                 break;
         }

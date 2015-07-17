@@ -92,7 +92,7 @@ class Div extends AbstractExpressionCompiler
 
                         $context->notice(
                             'division-on-true',
-                            sprintf('You trying to use stupid division {expr}/true ~ {expr}/1 = {expr}', $right->getValue()),
+                            'You trying to use stupid division {expr}/true ~ {expr}/1 = {expr}',
                             $expr
                         );
                     //no break
