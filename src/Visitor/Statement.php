@@ -5,8 +5,11 @@
 
 namespace PHPSA\Visitor;
 
+use PHPSA\CompiledExpression;
 use PHPSA\Context;
 use PhpParser\Node;
+use PHPSA\Definition\ClassDefinition;
+use PHPSA\Definition\ClassMethod;
 
 class Statement
 {
@@ -21,7 +24,22 @@ class Statement
     protected function passReturn(Node\Stmt\Return_ $returnStmt)
     {
         $expression = new Expression($this->context);
-        $expression->compile($returnStmt->expr);
+        $compiledExpression = $expression->compile($returnStmt->expr);
+
+        if ($this->context->scopePointer) {
+            /**
+             * If it is a Class's method we need to work on return types, return possible values
+             */
+            if ($this->context->scopePointer->isClassMethod()) {
+                /** @var ClassMethod $classMethod */
+                $classMethod = $this->context->scopePointer->getObject();
+                $classMethod->addNewType($compiledExpression->getType());
+
+                if ($compiledExpression->isCurrectTypeValue()) {
+                    $classMethod->addReturnPossibleValue($compiledExpression->getValue());
+                }
+            }
+        }
     }
 
     /**

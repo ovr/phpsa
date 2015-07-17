@@ -5,6 +5,7 @@
 
 namespace PHPSA\Definition;
 
+use PHPSA\CompiledExpression;
 use PHPSA\Context;
 use PhpParser\Node;
 
@@ -35,6 +36,16 @@ class FunctionDefinition extends AbstractDefinition
      * @var bool
      */
     protected $compiled = false;
+
+    /**
+     * @var int
+     */
+    protected $returnTypes = CompiledExpression::MIXED;
+
+    /**
+     * @var array
+     */
+    protected $possibleReturnTypes = [];
 
     /**
      * @param $name

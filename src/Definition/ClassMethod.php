@@ -8,6 +8,7 @@ namespace PHPSA\Definition;
 use PhpParser\Node;
 use PHPSA\CompiledExpression;
 use PHPSA\Context;
+use PHPSA\ScopePointer;
 use PHPSA\Variable;
 
 class ClassMethod extends AbstractDefinition
@@ -18,6 +19,20 @@ class ClassMethod extends AbstractDefinition
      * @var Node\Stmt\ClassMethod
      */
     protected $statement;
+
+    /**
+     * Return type
+     *
+     * @var int
+     */
+    protected $returnType = CompiledExpression::VOID;
+
+    /**
+     * Array of possible return values
+     *
+     * @var array
+     */
+    protected $possibleReturnValues = [];
 
     /**
      * @param $name
@@ -37,6 +52,8 @@ class ClassMethod extends AbstractDefinition
      */
     public function compile(Context $context)
     {
+        $context->scopePointer = new ScopePointer($this);
+
         if ($this->statement->getDocComment() === null) {
             $context->notice(
                 'missing-docblock',
@@ -99,5 +116,41 @@ class ClassMethod extends AbstractDefinition
     public function isPrivate()
     {
         return (bool) ($this->type & Node\Stmt\Class_::MODIFIER_PRIVATE);
+    }
+
+    /**
+     * @param $newType
+     */
+    public function addNewType($newType)
+    {
+        if ($this->returnType != CompiledExpression::VOID) {
+            $this->returnType = $this->returnType | $newType;
+        } else {
+            $this->returnType = $newType;
+        }
+    }
+
+    /**
+     * @return int
+     */
+    public function getReturnType()
+    {
+        return $this->returnType;
+    }
+
+    /**
+     * @param $value
+     */
+    public function addReturnPossibleValue($value)
+    {
+        $this->possibleReturnValues[] = $value;
+    }
+
+    /**
+     * @return array
+     */
+    public function getPossibleReturnValues()
+    {
+        return $this->possibleReturnValues;
     }
 }

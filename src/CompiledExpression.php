@@ -79,6 +79,10 @@ class CompiledExpression
      */
     const NULL = Types::NULL_TYPE;
 
+    /**
+     * self::INT_TYPE | self::DOUBLE_TYPE | self::STRING_TYPE | self::BOOLEAN_TYPE | self::ARRAY_TYPE | self::RESOURCE_TYPE | self::OBJECT_TYPE | self::NULL_TYPE
+     */
+    const MIXED = Types::MIXED;
 
     /**
      * I can't explain what it's :D
@@ -167,5 +171,13 @@ class CompiledExpression
         }
 
         throw new RuntimeException("Type '{$type}' is not supported");
+    }
+
+    /**
+     * @return boolean
+     */
+    public function isCurrectTypeValue()
+    {
+        return true;
     }
 }

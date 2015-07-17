@@ -31,6 +31,11 @@ class Context
     protected $symbols = array();
 
     /**
+     * @var ScopePointer
+     */
+    public $scopePointer = array();
+
+    /**
      * Construct our Context with all needed information
      *
      * @param OutputInterface $output

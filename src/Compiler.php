@@ -30,8 +30,10 @@ class Compiler
         $this->functions[] = $function;
     }
 
-    public function compile($context)
+    public function compile(Context $context)
     {
+        $context->scopePointer = null;
+
         foreach ($this->functions as $class) {
             $class->compile($context);
         }
