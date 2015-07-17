@@ -103,6 +103,11 @@ class Expression
                 return new Expression\Operators\Comparison\Smaller();
             case 'PhpParser\Node\Expr\BinaryOp\SmallerOrEqual':
                 return new Expression\Operators\Comparison\SmallerOrEqual();
+            /**
+             * Another
+             */
+            case 'PhpParser\Node\Expr\UnaryMinus':
+                return new Expression\Operators\UnaryMinus();
         }
 
         return false;
@@ -127,8 +132,6 @@ class Expression
             /**
              * Another
              */
-            case 'PhpParser\Node\Expr\UnaryMinus':
-                return $this->passUnaryMinus($expr);
             case 'PhpParser\Node\Expr\New_':
                 return $this->passNew($expr);
             /**
@@ -434,26 +437,6 @@ class Expression
             sprintf('You trying to use undefined variable $%s', $expr->name),
             $expr
         );
-
-        return new CompiledExpression();
-    }
-
-    /**
-     * -{expr}
-     *
-     * @param Node\Expr\UnaryMinus $expr
-     * @return CompiledExpression
-     */
-    protected function passUnaryMinus(Node\Expr\UnaryMinus $expr)
-    {
-        $expression = new Expression($this->context);
-        $left = $expression->compile($expr->expr);
-
-        switch ($left->getType()) {
-            case CompiledExpression::LNUMBER:
-            case CompiledExpression::DNUMBER:
-                return new CompiledExpression($left->getType(), -$left->getValue());
-        }
 
         return new CompiledExpression();
     }
