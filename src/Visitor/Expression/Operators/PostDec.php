@@ -12,14 +12,14 @@ use PHPSA\Context;
 use PHPSA\Visitor\Expression;
 use PHPSA\Visitor\Expression\AbstractExpressionCompiler;
 
-class PostInc extends AbstractExpressionCompiler
+class PostDec extends AbstractExpressionCompiler
 {
-    protected $name = '\PhpParser\Node\Expr\PostInc';
+    protected $name = '\PhpParser\Node\Expr\PostDec';
 
     /**
      * {expr}++
      *
-     * @param \PhpParser\Node\Expr\PostInc $expr
+     * @param \PhpParser\Node\Expr\PostDec $expr
      * @param Context $context
      * @return CompiledExpression
      */

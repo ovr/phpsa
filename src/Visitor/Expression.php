@@ -56,6 +56,8 @@ class Expression
              */
             case 'PhpParser\Node\Expr\PostInc':
                 return new Expression\Operators\PostInc();
+            case 'PhpParser\Node\Expr\PostDec':
+                return new Expression\Operators\PostDec();
             /**
              * Arithmetical
              */

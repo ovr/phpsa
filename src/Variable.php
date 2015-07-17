@@ -99,8 +99,19 @@ class Variable
         $this->value = $value;
     }
 
+    public function incUse()
+    {
+        $this->incGets();
+        $this->incSets();
+    }
+
     public function inc()
     {
         $this->value++;
+    }
+
+    public function dec()
+    {
+        $this->value--;
     }
 }
