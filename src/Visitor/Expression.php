@@ -108,6 +108,8 @@ class Expression
              */
             case 'PhpParser\Node\Expr\UnaryMinus':
                 return new Expression\Operators\UnaryMinus();
+            case 'PhpParser\Node\Expr\UnaryPlus':
+                return new Expression\Operators\UnaryPlus();
         }
 
         return false;

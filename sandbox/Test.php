@@ -10,6 +10,6 @@ class Test
      */
     public function returnTrue()
     {
-        return -array(1);
+        return +10;
     }
 }
