@@ -52,7 +52,7 @@ class ClassMethod extends AbstractDefinition
      */
     public function compile(Context $context)
     {
-        $context->scopePointer = new ScopePointer($this);
+        $context->scopePointer = $this->getPointer();
 
         if ($this->statement->getDocComment() === null) {
             $context->notice(

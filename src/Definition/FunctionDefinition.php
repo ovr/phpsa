@@ -65,6 +65,8 @@ class FunctionDefinition extends AbstractDefinition
     public function compile(Context $context)
     {
         $this->compiled = true;
+
+        $context->scopePointer = $this->getPointer();
         $context->setScope(null);
 
         if (count($this->statement->stmts) == 0) {

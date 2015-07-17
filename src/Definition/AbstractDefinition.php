@@ -8,6 +8,7 @@ namespace PHPSA\Definition;
 use PhpParser\Node;
 use PHPSA\CompiledExpression;
 use PHPSA\Context;
+use PHPSA\ScopePointer;
 use PHPSA\Variable;
 
 abstract class AbstractDefinition
@@ -25,5 +26,13 @@ abstract class AbstractDefinition
     public function getName()
     {
         return $this->name;
+    }
+
+    /**
+     * @return ScopePointer
+     */
+    public function getPointer()
+    {
+        return new ScopePointer($this);
     }
 }
