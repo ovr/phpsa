@@ -5,10 +5,8 @@
 
 namespace PHPSA\Visitor;
 
-use PHPSA\CompiledExpression;
 use PHPSA\Context;
 use PhpParser\Node;
-use PHPSA\Definition\ClassDefinition;
 use PHPSA\Definition\ClassMethod;
 
 class Statement
