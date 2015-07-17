@@ -6,35 +6,21 @@ use PhpParser\Node;
 use PHPSA\CompiledExpression;
 use PHPSA\Visitor\Expression;
 
-class DivTest extends AbstractDivMod
+abstract class AbstractDivMod extends \Tests\PHPSA\TestCase
 {
     /**
      * @param $a
      * @param $b
      * @return float
      */
-    protected function process($a, $b)
-    {
-        return $a / $b;
-    }
+    abstract protected function process($a, $b);
 
     /**
      * @param $a
      * @param $b
      * @return Node\Expr\BinaryOp\Div
      */
-    protected function buildExpression($a, $b)
-    {
-        return new Node\Expr\BinaryOp\Div(
-            $this->newScalarExpr($a),
-            $this->newScalarExpr($b)
-        );
-    }
-
-    protected function getAssertType()
-    {
-        return CompiledExpression::DNUMBER;
-    }
+    abstract protected function buildExpression($a, $b);
 
     /**
      * Data provider for Div {int} / {int} = {int}
@@ -74,6 +60,8 @@ class DivTest extends AbstractDivMod
         $this->assertSame($this->process($a, $b), $compiledExpression->getValue());
     }
 
+    abstract protected function getAssertType();
+
     /**
      * Data provider for Div {int} / {double} = {double}
      *
@@ -109,7 +97,7 @@ class DivTest extends AbstractDivMod
         );
 
         $this->assertInstanceOfCompiledExpression($compiledExpression);
-        $this->assertSame(CompiledExpression::DNUMBER, $compiledExpression->getType());
+        $this->assertSame($this->getAssertType(), $compiledExpression->getType());
         $this->assertSame($this->process($a, $b), $compiledExpression->getValue());
     }
 
@@ -146,7 +134,7 @@ class DivTest extends AbstractDivMod
             $this->buildExpression($a, $b)
         );
         $this->assertInstanceOfCompiledExpression($compiledExpression);
-        $this->assertSame(CompiledExpression::DNUMBER, $compiledExpression->getType());
+        $this->assertSame($this->getAssertType(), $compiledExpression->getType());
         $this->assertSame($this->process($a, $b), $compiledExpression->getValue());
     }
 
@@ -167,7 +155,7 @@ class DivTest extends AbstractDivMod
             $this->buildExpression($a, $b)
         );
         $this->assertInstanceOfCompiledExpression($compiledExpression);
-        $this->assertSame(CompiledExpression::DNUMBER, $compiledExpression->getType());
+        $this->assertSame($this->getAssertType(), $compiledExpression->getType());
         $this->assertSame($this->process($a, $b), $compiledExpression->getValue());
     }
 }
