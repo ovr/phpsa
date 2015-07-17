@@ -68,10 +68,16 @@ class Expression
             case 'PhpParser\Node\Expr\BinaryOp\Mul':
                 return new Expression\Operators\Arithmetical\Mul();
             /**
-             * Logical
+             * Bitwise
+             * @link http://php.net/manual/ru/language.operators.bitwise.php
              */
             case 'PhpParser\Node\Expr\BinaryOp\BitwiseXor':
                 return new Expression\Operators\Bitwise\BitwiseXor();
+            case 'PhpParser\Node\Expr\BinaryOp\BitwiseAnd':
+                return new Expression\Operators\Bitwise\BitwiseAnd();
+            /**
+             * Logical
+             */
             case 'PhpParser\Node\Expr\BinaryOp\BooleanOr':
                 return new Expression\Operators\Logical\BooleanOr();
             case 'PhpParser\Node\Expr\BinaryOp\BooleanAnd':
