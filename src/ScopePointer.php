@@ -8,7 +8,6 @@
 
 namespace PHPSA;
 
-
 class ScopePointer
 {
     protected $object;
