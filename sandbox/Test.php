@@ -10,7 +10,6 @@ class Test
      */
     public function returnTrue()
     {
-        $a = 10;
-        return $a--;
+        return 11 % 10;
     }
 }

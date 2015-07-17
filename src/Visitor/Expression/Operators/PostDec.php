@@ -34,8 +34,6 @@ class PostDec extends AbstractExpressionCompiler
                 $variable->incUse();
                 return CompiledExpression::fromZvalValue($variable->getValue());
             }
-
-            return new CompiledExpression(CompiledExpression::UNKNOWN);
         }
 
         $expression = new Expression($context);

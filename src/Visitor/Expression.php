@@ -69,6 +69,8 @@ class Expression
                 return new Expression\Operators\Arithmetical\Minus();
             case 'PhpParser\Node\Expr\BinaryOp\Mul':
                 return new Expression\Operators\Arithmetical\Mul();
+            case 'PhpParser\Node\Expr\BinaryOp\Mod':
+                return new Expression\Operators\Arithmetical\Mod();
             /**
              * Bitwise
              * @link http://php.net/manual/ru/language.operators.bitwise.php
