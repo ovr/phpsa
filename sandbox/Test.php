@@ -10,6 +10,6 @@ class Test
      */
     public function returnTrue()
     {
-        return ~10;
+        return 10 | 10;
     }
 }

@@ -71,6 +71,8 @@ class Expression
              * Bitwise
              * @link http://php.net/manual/ru/language.operators.bitwise.php
              */
+            case 'PhpParser\Node\Expr\BinaryOp\BitwiseOr':
+                return new Expression\Operators\Bitwise\BitwiseOr();
             case 'PhpParser\Node\Expr\BinaryOp\BitwiseXor':
                 return new Expression\Operators\Bitwise\BitwiseXor();
             case 'PhpParser\Node\Expr\BinaryOp\BitwiseAnd':
