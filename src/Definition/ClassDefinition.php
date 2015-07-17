@@ -13,7 +13,7 @@ use PhpParser\Node;
  * Class ClassDefinition
  * @package PHPSA\Definition
  */
-class ClassDefinition extends AbstractDefinition
+class ClassDefinition extends ParentDefinition
 {
     /**
      * Class methods

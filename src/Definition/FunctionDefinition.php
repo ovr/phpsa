@@ -13,7 +13,7 @@ use PhpParser\Node;
  * Class FunctionDefinition
  * @package PHPSA\Definition
  */
-class FunctionDefinition extends AbstractDefinition
+class FunctionDefinition extends ParentDefinition
 {
     /**
      * @todo Use Finder

@@ -11,15 +11,13 @@ use PHPSA\Context;
 use PHPSA\ScopePointer;
 use PHPSA\Variable;
 
-abstract class AbstractDefinition
+abstract class ParentDefinition extends AbstractDefinition
 {
     /**
      * @var string
      */
-    protected $name;
-
-    abstract public function compile(Context $context);
-
+    protected $namespace;
+    
     /**
      * @return string
      */
@@ -34,5 +32,21 @@ abstract class AbstractDefinition
     public function getPointer()
     {
         return new ScopePointer($this);
+    }
+
+    /**
+     * @return string
+     */
+    public function getNamespace()
+    {
+        return $this->namespace;
+    }
+
+    /**
+     * @param string $namespace
+     */
+    public function setNamespace($namespace)
+    {
+        $this->namespace = $namespace;
     }
 }
