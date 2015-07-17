@@ -21,6 +21,11 @@ class ClassMethod extends AbstractDefinition
     protected $statement;
 
     /**
+     * @var bool
+     */
+    protected $compiled = false;
+
+    /**
      * Return type
      *
      * @var int
@@ -52,6 +57,7 @@ class ClassMethod extends AbstractDefinition
      */
     public function compile(Context $context)
     {
+        $this->compiled = true;
         $context->scopePointer = $this->getPointer();
 
         if ($this->statement->getDocComment() === null) {
@@ -152,5 +158,13 @@ class ClassMethod extends AbstractDefinition
     public function getPossibleReturnValues()
     {
         return $this->possibleReturnValues;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function isCompiled()
+    {
+        return $this->compiled;
     }
 }
