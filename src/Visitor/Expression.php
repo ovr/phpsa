@@ -359,14 +359,25 @@ class Expression
     protected function passPropertyFetch(Node\Expr\PropertyFetch $expr)
     {
         $scopeExpression = $this->compile($expr->var);
-        if ($scopeExpression->getValue() == 'this') {
-            if (!$this->context->scope->hasProperty($expr->name)) {
-                $this->context->notice(
-                    'undefined-property',
-                    sprintf('Property %s is not exists on %s scope', $expr->name, $scopeExpression->getValue()),
-                    $expr
-                );
-            }
+        switch ($scopeExpression->getType()) {
+            case CompiledExpression::OBJECT:
+                if ($scopeExpression->getValue() == 'this') {
+                    if ($this->context->scope === null) {
+                        throw new \RuntimeException('Current $this scope is null');
+                    }
+
+                    if (!$this->context->scope->hasProperty($expr->name)) {
+                        $this->context->notice(
+                            'undefined-property',
+                            sprintf('Property %s is not exists on %s scope', $expr->name, $scopeExpression->getValue()),
+                            $expr
+                        );
+                    }
+                }
+                break;
+            default:
+                $this->context->debug('You cannot fetch property from not object type');
+                break;
         }
 
         $this->context->debug('Unknown property fetch');
