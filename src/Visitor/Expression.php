@@ -363,7 +363,7 @@ class Expression
             case CompiledExpression::OBJECT:
                 if ($scopeExpression->getValue() == 'this') {
                     if ($this->context->scope === null) {
-                        throw new \RuntimeException('Current $this scope is null');
+                        throw new RuntimeException('Current $this scope is null');
                     }
 
                     if (!$this->context->scope->hasProperty($expr->name)) {
@@ -392,7 +392,12 @@ class Expression
     {
         if ($expr->class instanceof Node\Name) {
             $scope = $expr->class->parts[0];
-            if ($scope == 'self') {
+
+            if ($scope == 'self' || $scope == 'this') {
+                if ($this->context->scope === null) {
+                    throw new RuntimeException("Current {$scope} scope is null");
+                }
+
                 if (!$this->context->scope->hasConst($expr->name)) {
                     $this->context->notice(
                         'undefined-const',
