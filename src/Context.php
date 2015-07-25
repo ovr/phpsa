@@ -19,6 +19,11 @@ class Context
     public $scope;
 
     /**
+     * @var AliasManager
+     */
+    public $aliasManager;
+
+    /**
      * @var Application
      */
     public $application;

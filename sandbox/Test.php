@@ -1,5 +1,9 @@
 <?php
 
+namespace Sandbox;
+
+use stdClass;
+
 /**
  * Class Test
  */
@@ -10,6 +14,6 @@ class Test
      */
     public function returnTrue()
     {
-        return 11 % 10;
+        return new stdClass();
     }
 }

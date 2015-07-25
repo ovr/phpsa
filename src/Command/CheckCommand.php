@@ -5,12 +5,15 @@
 
 namespace PHPSA\Command;
 
+use PHPSA\AliasManager;
 use PHPSA\Application;
+use PHPSA\CompiledExpression;
 use PHPSA\Compiler;
 use PHPSA\Context;
 use PHPSA\Definition\ClassDefinition;
 use PHPSA\Definition\ClassMethod;
 use PHPSA\Definition\FunctionDefinition;
+use PHPSA\Visitor\Expression;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
 use RuntimeException;
@@ -158,8 +161,16 @@ class CheckCommand extends Command
                 $stmts = $stmts[0]->stmts;
             }
 
+            $aliasManager = new AliasManager($namespace);
+
             foreach ($stmts as $statement) {
-                if ($statement instanceof Node\Stmt\Class_) {
+                if ($statement instanceof Node\Stmt\Use_) {
+                    if (!empty($statement->uses)) {
+                        foreach ($statement->uses as $use) {
+                            $aliasManager->add($use->name->parts);
+                        }
+                    }
+                } elseif ($statement instanceof Node\Stmt\Class_) {
                     $definition = new ClassDefinition($statement->name);
                     $definition->setFilepath($filepath);
 

@@ -222,8 +222,11 @@ class Expression
                 return new CompiledExpression(CompiledExpression::OBJECT);
             }
 
+            if (class_exists($name, true)) {
+                return new CompiledExpression(CompiledExpression::OBJECT, new $name());
+            }
+
             return new CompiledExpression(CompiledExpression::OBJECT);
-//            return new CompiledExpression(CompiledExpression::OBJECT, new $name());
         }
 
         $this->context->debug('Unknown how to pass new');
