@@ -6,12 +6,15 @@
 namespace PHPSA;
 
 use PHPSA\Definition\AbstractDefinition;
+use PHPSA\Definition\ParentDefinition;
 use Symfony\Component\Console\Output\OutputInterface;
 
 class Context
 {
     /**
-     * @var AbstractDefinition
+     * For FunctionDefinition it's null, use scopePointer
+     *
+     * @var ParentDefinition|null
      */
     public $scope;
 
