@@ -158,12 +158,6 @@ class Expression
              */
             case 'PHPSA\Node\Scalar\Nil':
                 return $this->getNull();
-            case 'PhpParser\Node\Scalar\LNumber':
-                return $this->getLNumber($expr);
-            case 'PhpParser\Node\Scalar\DNumber':
-                return $this->getDNumber($expr);
-            case 'PhpParser\Node\Scalar\String_':
-                return $this->getString($expr);
             case 'PhpParser\Node\Expr\Array_':
                 return $this->getArray($expr);
             case 'PHPSA\Node\Scalar\Boolean':
@@ -172,6 +166,15 @@ class Expression
                 return $this->constFetch($expr);
             case 'PhpParser\Node\Name':
                 return $this->getNodeName($expr);
+            /**
+             * Simple Scalar(s)
+             */
+            case 'PhpParser\Node\Scalar\LNumber':
+                return $this->passScalar($expr, CompiledExpression::LNUMBER);
+            case 'PhpParser\Node\Scalar\DNumber':
+                return $this->passScalar($expr, CompiledExpression::DNUMBER);
+            case 'PhpParser\Node\Scalar\String_':
+                return $this->passScalar($expr, CompiledExpression::STRING);
         }
 
         $expressionCompiler = $this->factory($expr);
@@ -468,38 +471,15 @@ class Expression
     }
 
     /**
-     * Convert lnumber scalar expr to CompiledExpression
+     * Convert scalar expr to CompiledExpression
      *
      * @param Node\Scalar\LNumber $scalar
      * @return CompiledExpression
      */
-    protected function getLNumber(Node\Scalar\LNumber $scalar)
+    protected function passScalar(Node\Scalar $scalar, $type)
     {
-        return new CompiledExpression(CompiledExpression::LNUMBER, $scalar->value);
+        return new CompiledExpression($type, $scalar->value);
     }
-
-    /**
-     * Convert dnumber expr to CompiledExpression
-     *
-     * @param Node\Scalar\DNumber $scalar
-     * @return CompiledExpression
-     */
-    protected function getDNumber(Node\Scalar\DNumber $scalar)
-    {
-        return new CompiledExpression(CompiledExpression::DNUMBER, $scalar->value);
-    }
-
-    /**
-     * Convert string scala expr to CompiledExpression
-     *
-     * @param Node\Scalar\String_ $scalar
-     * @return CompiledExpression
-     */
-    protected function getString(Node\Scalar\String_ $scalar)
-    {
-        return new CompiledExpression(CompiledExpression::STRING, $scalar->value);
-    }
-
 
     /**
      * Compile Array_ expression to CompiledExpression
