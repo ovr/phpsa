@@ -154,14 +154,10 @@ class Expression
             case 'PhpParser\Node\Expr\Cast\Unset_':
                 return $this->passCastUnset($expr);
             /**
-             * Scalars
+             * Expressions
              */
-            case 'PHPSA\Node\Scalar\Nil':
-                return $this->getNull();
             case 'PhpParser\Node\Expr\Array_':
                 return $this->getArray($expr);
-            case 'PHPSA\Node\Scalar\Boolean':
-                return $this->getBoolean($expr);
             case 'PhpParser\Node\Expr\ConstFetch':
                 return $this->constFetch($expr);
             case 'PhpParser\Node\Name':
@@ -169,12 +165,16 @@ class Expression
             /**
              * Simple Scalar(s)
              */
+            case 'PHPSA\Node\Scalar\Nil':
+                return new CompiledExpression(CompiledExpression::NULL);
             case 'PhpParser\Node\Scalar\LNumber':
                 return $this->passScalar($expr, CompiledExpression::LNUMBER);
             case 'PhpParser\Node\Scalar\DNumber':
                 return $this->passScalar($expr, CompiledExpression::DNUMBER);
             case 'PhpParser\Node\Scalar\String_':
                 return $this->passScalar($expr, CompiledExpression::STRING);
+            case 'PHPSA\Node\Scalar\Boolean':
+                return $this->passScalar($expr, CompiledExpression::BOOLEAN);
         }
 
         $expressionCompiler = $this->factory($expr);
@@ -190,7 +190,7 @@ class Expression
 
         return $result;
     }
-    
+
     /**
      * @param Node\Name $expr
      * @return CompiledExpression
@@ -506,29 +506,6 @@ class Expression
         }
 
         return new CompiledExpression(CompiledExpression::ARR, $resultArray);
-    }
-
-    /**
-     * Compile Boolean expression to CompiledExpression
-     * Attention: Boolean is my node class not PHPParser ;)
-     *
-     * @param Boolean $scalar
-     * @return CompiledExpression
-     */
-    protected function getBoolean(Boolean $scalar)
-    {
-        return new CompiledExpression(CompiledExpression::BOOLEAN, $scalar->value);
-    }
-
-    /**
-     * Get new CompiledExpression with NULL type
-     * Attention: Null is my node class not PHPParser ;)
-     *
-     * @return CompiledExpression
-     */
-    protected function getNull()
-    {
-        return new CompiledExpression(CompiledExpression::NULL);
     }
 
     /**
