@@ -190,18 +190,7 @@ class Expression
 
         return $result;
     }
-
-    /**
-     * !{expr}
-     *
-     * @param Node\Expr\BooleanNot $expr
-     * @return CompiledExpression
-     */
-    protected function passBooleanNot(Node\Expr\BooleanNot $expr)
-    {
-
-    }
-
+    
     /**
      * @param Node\Name $expr
      * @return CompiledExpression
