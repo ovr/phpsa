@@ -21,11 +21,6 @@ class ClassMethod extends AbstractDefinition
     protected $statement;
 
     /**
-     * @var bool
-     */
-    protected $compiled = false;
-
-    /**
      * Return type
      *
      * @var int
@@ -158,13 +153,5 @@ class ClassMethod extends AbstractDefinition
     public function getPossibleReturnValues()
     {
         return $this->possibleReturnValues;
-    }
-
-    /**
-     * @return boolean
-     */
-    public function isCompiled()
-    {
-        return $this->compiled;
     }
 }

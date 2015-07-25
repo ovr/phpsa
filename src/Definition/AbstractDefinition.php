@@ -21,6 +21,11 @@ abstract class AbstractDefinition
     abstract public function compile(Context $context);
 
     /**
+     * @var bool
+     */
+    protected $compiled = false;
+
+    /**
      * @return string
      */
     public function getName()
@@ -34,5 +39,13 @@ abstract class AbstractDefinition
     public function getPointer()
     {
         return new ScopePointer($this);
+    }
+
+    /**
+     * @return boolean
+     */
+    public function isCompiled()
+    {
+        return $this->compiled;
     }
 }

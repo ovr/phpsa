@@ -5,7 +5,6 @@
 
 namespace PHPSA\Definition;
 
-use PHPSA\CompiledExpression;
 use PHPSA\Context;
 use PhpParser\Node;
 

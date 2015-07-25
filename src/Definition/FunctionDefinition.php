@@ -28,11 +28,6 @@ class FunctionDefinition extends ParentDefinition
     protected $statement;
 
     /**
-     * @var bool
-     */
-    protected $compiled = false;
-
-    /**
      * @var int
      */
     protected $returnTypes = CompiledExpression::MIXED;
