@@ -126,15 +126,15 @@ Syntax error:  Syntax error, unexpected '}' on line 8 in ./tests/simple/syntax-e
 
 Notice:  Unused variable $a in method test() in ./tests/simple/unused-variable/1.php  [unused-variable]
 
-Notice:  Property a is not exists on this scope in ./tests/simple/undefined/Property.php on 9 [undefined-property]
+Notice:  Property a does not exist in this scope in ./tests/simple/undefined/Property.php on 9 [undefined-property]
 
 	 return $this->a;
 
-Notice:  Constant BBBB is not exists on self scope in ./tests/simple/undefined/Const.php on 14 [undefined-const]
+Notice:  Constant BBBB does not exist in self scope in ./tests/simple/undefined/Const.php on 14 [undefined-const]
 
 	 return self::BBBB;
 
-Notice:  Method b() is not exists on this scope in ./tests/simple/undefined/MCall.php on 7 [undefined-mcall]
+Notice:  Method b() does not exist in this scope in ./tests/simple/undefined/MCall.php on 7 [undefined-mcall]
 
 	 return $this->b();
 
@@ -142,7 +142,7 @@ Notice:  You trying to use undefined variable $unusedVariable in ./tests/simple/
 
 	 return $unusedVariable->b();
 
-Notice:  Function undefinedFunction() is not exists in ./tests/simple/undefined/FCall.php on 7 [undefined-fcall]
+Notice:  Function undefinedFunction() does not exist in ./tests/simple/undefined/FCall.php on 7 [undefined-fcall]
 
 	 undefinedFunction();
 
@@ -150,7 +150,7 @@ Notice:  You trying to use undefined variable $b in ./tests/simple/undefined/Loc
 
 	 return $a + $b;
 
-Notice:  Static method b() is not exists on self scope in ./tests/simple/undefined/SCall.php on 7 [undefined-scall]
+Notice:  Static method b() does not exist in self scope in ./tests/simple/undefined/SCall.php on 7 [undefined-scall]
 
 	 return self::b();
 
