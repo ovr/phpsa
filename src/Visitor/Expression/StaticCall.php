@@ -44,7 +44,7 @@ class StaticCall extends AbstractExpressionCompiler
             if ($error) {
                 $context->notice(
                     'undefined-scall',
-                    sprintf('Static method %s() is not exists on %s scope', $name, $scope),
+                    sprintf('Static method %s() does not exist in %s scope', $name, $scope),
                     $expr
                 );
 

@@ -79,7 +79,7 @@ class FunctionCall extends AbstractExpressionCompiler
         if (!$exists) {
             $context->notice(
                 'undefined-fcall',
-                sprintf('Function %s() is not exists', $expr->name->parts[0]),
+                sprintf('Function %s() does not exist', $expr->name->parts[0]),
                 $expr
             );
         }

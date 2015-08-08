@@ -361,7 +361,7 @@ class Expression
                     if (!$this->context->scope->hasProperty($expr->name)) {
                         $this->context->notice(
                             'undefined-property',
-                            sprintf('Property %s is not exists on %s scope', $expr->name, $scopeExpression->getValue()),
+                            sprintf('Property %s does not exist in %s scope', $expr->name, $scopeExpression->getValue()),
                             $expr
                         );
                     }
@@ -393,7 +393,7 @@ class Expression
                 if (!$this->context->scope->hasConst($expr->name)) {
                     $this->context->notice(
                         'undefined-const',
-                        sprintf('Constant %s is not exists on %s scope', $expr->name, $scope),
+                        sprintf('Constant %s does not exist in %s scope', $expr->name, $scope),
                         $expr
                     );
                 }
