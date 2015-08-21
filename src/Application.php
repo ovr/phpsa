@@ -23,11 +23,24 @@ class Application extends \Symfony\Component\Console\Application
 
     public function __construct()
     {
-        parent::__construct('PHP Static Analyzer', self::VERSION . ' #' . $this->getCVVersion());
+        parent::__construct('PHP Static Analyzer', $this->getStringVersion());
 
         $this->add(new CheckCommand());
 
         $this->configuration = new Configuration();
+    }
+
+    /**
+     * @return string
+     */
+    protected function getStringVersion()
+    {
+        $hash = $this->getCVVersion();
+        if (!empty($hash)) {
+            return self::VERSION . ' #' . $hash;
+        }
+
+        return self::VERSION;
     }
 
     protected function getCVVersion()
