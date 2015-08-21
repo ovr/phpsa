@@ -6,7 +6,6 @@
 namespace PHPSA;
 
 use PHPSA\Definition\AbstractDefinition;
-use PHPSA\Definition\ParentDefinition;
 use Symfony\Component\Console\Output\OutputInterface;
 
 class Context
