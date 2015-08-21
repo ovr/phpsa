@@ -14,7 +14,7 @@ class Context
     /**
      * For FunctionDefinition it's null, use scopePointer
      *
-     * @var ParentDefinition|null
+     * @var AbstractDefinition|null
      */
     public $scope;
 
