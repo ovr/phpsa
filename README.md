@@ -67,7 +67,17 @@ What is needed or planned as future.
 
 ## Installation
 
-### Composer
+### Via `.phar`
+
+The easiest way to get it working is to download a tagged phpsa.phar release, and put this on your path. For example:
+
+```
+wget https://github.com/ovr/phpsa/releases/download/0.2.1/phpsa.phar
+chmod +x phpsa.phar
+sudo mv phpsa.phar /usr/local/bin/phpsa
+```
+
+### Via composer
 
 The recommended way to install phpsa is via `composer`.
 
@@ -88,6 +98,15 @@ $ curl -sS https://getcomposer.org/installer | php
 ```
 
 3. Run `php composer.phar update`
+
+
+### Via source
+
+```
+git clone https://github.com/ovr/phpsa
+cd phpsa
+./bin/phpsa
+```
 
 ## How to use
 
@@ -188,10 +207,10 @@ Memory usage: 4.97 (peak: 5.25) MB
 ## Requirements
 
 - PHP >= 5.3 (compatible up to version 7.0 && hhvm)
- 
-## Sponsors  
 
-Thanks to our sponsors and supporters:  
+## Sponsors
+
+Thanks to our sponsors and supporters:
 
 | JetBrains |
 |---|
