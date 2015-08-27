@@ -108,6 +108,13 @@ cd phpsa
 ./bin/phpsa
 ```
 
+### Via phar
+
+```
+wget https://github.com/ovr/phpsa/releases/download/0.2.1/phpsa.phar
+php phpsa.phar
+```
+
 ## How to use
 
 ```sh
