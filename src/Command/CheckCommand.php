@@ -7,13 +7,11 @@ namespace PHPSA\Command;
 
 use PHPSA\AliasManager;
 use PHPSA\Application;
-use PHPSA\CompiledExpression;
 use PHPSA\Compiler;
 use PHPSA\Context;
 use PHPSA\Definition\ClassDefinition;
 use PHPSA\Definition\ClassMethod;
 use PHPSA\Definition\FunctionDefinition;
-use PHPSA\Visitor\Expression;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
 use RuntimeException;
