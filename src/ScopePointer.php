@@ -7,6 +7,9 @@ namespace PHPSA;
 
 class ScopePointer
 {
+    /**
+     * @var Definition\ClassMethod|Definition\FunctionDefinition
+     */
     protected $object;
 
     public function __construct($object)
