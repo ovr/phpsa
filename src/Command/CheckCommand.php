@@ -169,7 +169,7 @@ class CheckCommand extends Command
                         }
                     }
                 } elseif ($statement instanceof Node\Stmt\Class_) {
-                    $definition = new ClassDefinition($statement->name);
+                    $definition = new ClassDefinition($statement->name, $statement->type);
                     $definition->setFilepath($filepath);
 
                     if ($namespace) {

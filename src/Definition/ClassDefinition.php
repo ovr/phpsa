@@ -15,6 +15,11 @@ use PhpParser\Node;
 class ClassDefinition extends ParentDefinition
 {
     /**
+     * @var int
+     */
+    protected $type;
+
+    /**
      * Class methods
      *
      * @var ClassMethod[]
@@ -43,11 +48,13 @@ class ClassDefinition extends ParentDefinition
     protected $filepath;
 
     /**
-     * @param $name
+     * @param string $name
+     * @param integer $type
      */
-    public function __construct($name)
+    public function __construct($name, $type)
     {
         $this->name = $name;
+        $this->type = $type;
     }
 
     /**
@@ -154,5 +161,13 @@ class ClassDefinition extends ParentDefinition
     public function setFilepath($filepath)
     {
         $this->filepath = $filepath;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isAbstract()
+    {
+        return (bool) ($this->type & Node\Stmt\Class_::MODIFIER_ABSTRACT);
     }
 }
