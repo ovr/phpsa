@@ -20,16 +20,25 @@ class Compiler
      */
     protected $functions = array();
 
+    /**
+     * @param ClassDefinition $class
+     */
     public function addClass(ClassDefinition $class)
     {
         $this->classes[] = $class;
     }
 
+    /**
+     * @param FunctionDefinition $function
+     */
     public function addFunction(FunctionDefinition $function)
     {
         $this->functions[] = $function;
     }
 
+    /**
+     * @param Context $context
+     */
     public function compile(Context $context)
     {
         $context->scopePointer = null;
