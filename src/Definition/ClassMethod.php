@@ -67,6 +67,16 @@ class ClassMethod extends AbstractDefinition
          * It's not needed to compile empty method via it's abstract
          */
         if ($this->isAbstract()) {
+            /** @var ClassDefinition $scope */
+            $scope = $context->scope;
+            if (!$scope->isAbstract()) {
+                $context->notice(
+                    'not-abstract-class-with-abstract-method',
+                    'Class must be an abstract',
+                    $this->statement
+                );
+            }
+
             return true;
         }
 
