@@ -63,6 +63,13 @@ class ClassMethod extends AbstractDefinition
             );
         }
 
+        /**
+         * It's not needed to compile empty method via it's abstract
+         */
+        if ($this->isAbstract()) {
+            return true;
+        }
+
         if (count($this->statement->stmts) == 0) {
             return $context->notice(
                 'not-implemented-method',
@@ -85,6 +92,14 @@ class ClassMethod extends AbstractDefinition
         foreach ($this->statement->stmts as $st) {
             \PHPSA\nodeVisitorFactory($st, $context);
         }
+    }
+
+    /**
+     * @return bool
+     */
+    public function isAbstract()
+    {
+        return (bool) ($this->type & Node\Stmt\Class_::MODIFIER_ABSTRACT);
     }
 
     /**
