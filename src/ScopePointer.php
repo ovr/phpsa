@@ -5,16 +5,19 @@
 
 namespace PHPSA;
 
+use PHPSA\Definition\ClassMethod;
+use PHPSA\Definition\FunctionDefinition;
+
 class ScopePointer
 {
     /**
-     * @var Definition\ClassMethod|Definition\FunctionDefinition
+     * @var ClassMethod|FunctionDefinition
      */
     protected $object;
 
     public function __construct($object)
     {
-        if ($object instanceof \PHPSA\Definition\ClassMethod) {
+        if ($object instanceof ClassMethod) {
             $this->object = $object;
         }
     }
@@ -26,7 +29,7 @@ class ScopePointer
      */
     public function isClassMethod()
     {
-        return $this->object instanceof \PHPSA\Definition\ClassMethod;
+        return $this->object instanceof ClassMethod;
     }
 
     /**
@@ -36,11 +39,11 @@ class ScopePointer
      */
     public function isFunction()
     {
-        return $this->object instanceof \PHPSA\Definition\FunctionDefinition;
+        return $this->object instanceof FunctionDefinition;
     }
 
     /**
-     * @return Definition\ClassMethod
+     * @return ClassMethod|FunctionDefinition
      */
     public function getObject()
     {
