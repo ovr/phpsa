@@ -8,7 +8,7 @@ class ClassDefintionTest extends TestCase
 {
     public function testSimpleInstance()
     {
-        $classDefinition = new \PHPSA\Definition\ClassDefinition('MyTestClass');
+        $classDefinition = new \PHPSA\Definition\ClassDefinition('MyTestClass', 0);
         $this->assertSame('MyTestClass', $classDefinition->getName());
 
         return $classDefinition;
