@@ -32,9 +32,12 @@ class AliasManager
         return false;
     }
 
-    public function add($ns)
+    /**
+     * @param $namespace
+     */
+    public function add($namespace)
     {
-        $this->aliases[] = $ns;
+        $this->aliases[] = $namespace;
     }
 
     /**
