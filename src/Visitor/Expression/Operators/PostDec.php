@@ -44,7 +44,6 @@ class PostDec extends AbstractExpressionCompiler
             case CompiledExpression::DNUMBER:
                 $value = $compiledExpression->getValue();
                 return CompiledExpression::fromZvalValue($value++);
-                break;
         }
 
         return new CompiledExpression(CompiledExpression::UNKNOWN);
