@@ -30,6 +30,16 @@ class ScopePointer
     }
 
     /**
+     * Is class Method?
+     *
+     * @return bool
+     */
+    public function isFunction()
+    {
+        return $this->object instanceof \PHPSA\Definition\FunctionDefinition;
+    }
+
+    /**
      * @return Definition\ClassMethod
      */
     public function getObject()
