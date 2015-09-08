@@ -8,6 +8,8 @@ namespace PHPSA\Visitor;
 use PHPSA\Context;
 use PhpParser\Node;
 use PHPSA\Definition\ClassMethod;
+use PHPSA\Visitor\Statement\AbstractCompiler;
+use RuntimeException;
 
 class Statement
 {
@@ -15,30 +17,6 @@ class Statement
      * @var Context
      */
     protected $context;
-
-    /**
-     * @param Node\Stmt\Return_ $returnStmt
-     */
-    protected function passReturn(Node\Stmt\Return_ $returnStmt)
-    {
-        $expression = new Expression($this->context);
-        $compiledExpression = $expression->compile($returnStmt->expr);
-
-        if ($this->context->scopePointer) {
-            /**
-             * If it is a Class's method we need to work on return types, return possible values
-             */
-            if ($this->context->scopePointer->isClassMethod()) {
-                /** @var ClassMethod $classMethod */
-                $classMethod = $this->context->scopePointer->getObject();
-                $classMethod->addNewType($compiledExpression->getType());
-
-                if ($compiledExpression->isCurrectTypeValue()) {
-                    $classMethod->addReturnPossibleValue($compiledExpression->getValue());
-                }
-            }
-        }
-    }
 
     /**
      * @param Node\Stmt\While_ $baseStmt
@@ -158,6 +136,21 @@ class Statement
     }
 
     /**
+     * @param $stmt
+     * @return AbstractCompiler
+     */
+    protected function factory($stmt)
+    {
+        switch (get_class($stmt)) {
+            case 'PhpParser\Node\Stmt\Return_':
+                return new Statement\Return_();
+                break;
+        }
+
+        throw new RuntimeException('Unknown statement: ' . $stmt);
+    }
+
+    /**
      * @param Node\Stmt $stmt
      * @param Context $context
      */
@@ -167,7 +160,7 @@ class Statement
 
         switch (get_class($stmt)) {
             case 'PhpParser\Node\Stmt\Return_':
-                $this->passReturn($stmt);
+                $this->factory($stmt)->pass($stmt, $context);
                 break;
             case 'PhpParser\Node\Stmt\If_':
                 $this->passIf($stmt);
