@@ -3,7 +3,7 @@
  * @author Patsura Dmitry https://github.com/ovr <talk@dmtry.me>
  */
 
-namespace PHPSA\Visitor\Expression;
+namespace PHPSA\Visitor\Statement;
 
 use PHPSA\CompiledExpression;
 use PHPSA\Context;
