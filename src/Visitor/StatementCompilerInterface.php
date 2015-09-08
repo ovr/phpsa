@@ -1,17 +1,18 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: ovr
- * Date: 06.07.15
- * Time: 16:22
+ * @author Patsura Dmitry https://github.com/ovr <talk@dmtry.me>
  */
 
 namespace PHPSA\Visitor;
 
-use PHPParser\Node\Stmt;
 use PHPSA\Context;
 
 interface StatementCompilerInterface
 {
-    public function pass(Stmt $expr, Context $context);
+    /**
+     * @param \PHPParser\Node\Stmt $expr
+     * @param Context $context
+     * @return mixed
+     */
+    public function pass($expr, Context $context);
 }
