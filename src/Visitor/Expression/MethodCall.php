@@ -35,6 +35,13 @@ class MethodCall extends AbstractExpressionCompiler
 
             $symbol = $context->getSymbol($expr->var->name);
             if ($symbol) {
+                switch ($symbol->getType()) {
+                    case CompiledExpression::OBJECT:
+                    case CompiledExpression::DYNAMIC:
+                        return new CompiledExpression();
+                        break;
+                }
+
                 $context->debug('Not full implemented type check');
                 return new CompiledExpression();
             } else {
