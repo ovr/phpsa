@@ -42,7 +42,11 @@ class MethodCall extends AbstractExpressionCompiler
                         break;
                 }
 
-                $context->debug('Not full implemented type check');
+                $context->notice(
+                    'undefined-variable.mcall',
+                    sprintf('Variable %s() is not object\\callable', $expr->var->name),
+                    $expr
+                );
                 return new CompiledExpression();
             } else {
                 $context->debug('Unknown method call - undefined variable');

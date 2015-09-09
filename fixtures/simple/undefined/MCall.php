@@ -54,4 +54,34 @@ class MCall
     {
         return $unusedVariable->b();
     }
+
+    /**
+     * @return mixed
+     */
+    public function testUnexpectedCallFromArrayVariable()
+    {
+        $arrayVariable = array();
+
+        return $arrayVariable->b();
+    }
+
+    /**
+     * @return mixed
+     */
+    public function testUnexpectedCallFromIntVariable()
+    {
+        $intVariable = 1;
+
+        return $intVariable->b();
+    }
+
+    /**
+     * @return mixed
+     */
+    public function testUnexpectedCallFromFloatVariable()
+    {
+        $floatVariable = 1;
+
+        return $floatVariable->b();
+    }
 }
