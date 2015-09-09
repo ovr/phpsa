@@ -123,9 +123,9 @@ class PossibleReturn
      */
     public function simpleIf5($a)
     {
-        if ($a === 1 || ($a == 1 && $a > 0)) {
+        if ($a === 1 || $a == 2) {
             return 'hello';
-        } elseif ($a == 4) {
+        } elseif ($a == 3) {
             return 'world';
         } else {
             return 'unknown';
