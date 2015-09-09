@@ -41,15 +41,13 @@ class MethodCall extends AbstractExpressionCompiler
                             }
 
                             return new CompiledExpression();
-                        } else {
-                            $context->debug('Unknown $calledObject - is ' . gettype($calledObject));
-                            /**
-                             * It's not implemented we need to fix it in another compilers
-                             */
-                            return new CompiledExpression();
                         }
 
-                        break;
+                        /**
+                         * It's a wrong type or value, maybe it's implemented and We need to fix it in another compilers
+                         */
+                        $context->debug('Unknown $calledObject - is ' . gettype($calledObject));
+                        return new CompiledExpression();
                 }
 
                 $context->notice(
