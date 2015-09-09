@@ -14,7 +14,7 @@ class If_ extends AbstractCompiler
     protected $name = '\PhpParser\Node\Stmt\If_';
 
     /**
-     * @param \PhpParser\Node\Stmt\If_ $stmt
+     * @param \PhpParser\Node\Stmt\If_ $ifStatement
      * @param Context $context
      * @return CompiledExpression
      */
