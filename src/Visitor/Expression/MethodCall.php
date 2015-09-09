@@ -32,6 +32,15 @@ class MethodCall extends AbstractExpressionCompiler
 
                 return new CompiledExpression();
             }
+
+            $symbol = $context->getSymbol($expr->var->name);
+            if ($symbol) {
+                $context->debug('Not full implemented type check');
+                return new CompiledExpression();
+            } else {
+                $context->debug('Unknown method call - undefined variable');
+                return new CompiledExpression();
+            }
         }
 
         $expression = new Expression($context);
