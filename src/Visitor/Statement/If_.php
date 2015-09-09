@@ -7,7 +7,6 @@ namespace PHPSA\Visitor\Statement;
 
 use PHPSA\CompiledExpression;
 use PHPSA\Context;
-use PHPSA\Definition\ClassMethod;
 use PHPSA\Visitor\Expression;
 
 class If_ extends AbstractCompiler

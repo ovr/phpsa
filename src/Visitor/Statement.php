@@ -7,14 +7,13 @@ namespace PHPSA\Visitor;
 
 use PHPSA\Context;
 use PhpParser\Node;
-use PHPSA\Definition\ClassMethod;
 use PHPSA\Visitor\Statement\AbstractCompiler;
 use RuntimeException;
 
 class Statement
 {
     /**
-     * @param $stmt
+     * @param Node\Stmt $stmt
      * @return AbstractCompiler
      */
     protected function factory($stmt)
