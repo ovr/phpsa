@@ -38,6 +38,8 @@ class MethodCall extends AbstractExpressionCompiler
                 switch ($symbol->getType()) {
                     case CompiledExpression::OBJECT:
                     case CompiledExpression::DYNAMIC:
+                        $symbol->incUse();
+
                         return new CompiledExpression();
                         break;
                 }

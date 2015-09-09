@@ -5,6 +5,14 @@ namespace Tests\Simple\Undefined;
 class MCall
 {
     /**
+     * @return boolean
+     */
+    public function simpleAlwaysTrueReturnMethod()
+    {
+        return true;
+    }
+
+    /**
      * @return mixed
      */
     public function a()
@@ -83,5 +91,15 @@ class MCall
         $floatVariable = 1;
 
         return $floatVariable->b();
+    }
+
+    /**
+     * @return mixed
+     */
+    public function testCallFromObjectVariable()
+    {
+        $thisPointer = $this;
+
+        return $thisPointer->simpleAlwaysTrueReturnMethod();
     }
 }
