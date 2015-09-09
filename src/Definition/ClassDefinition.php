@@ -95,10 +95,11 @@ class ClassDefinition extends ParentDefinition
         foreach ($this->methods as $method) {
             $context->clearSymbols();
 
-
-            $thisPtr = new Variable('this', $this, CompiledExpression::OBJECT);
-            $thisPtr->incGets();
-            $context->addVariable($thisPtr);
+            if (!$method->isStatic()) {
+                $thisPtr = new Variable('this', $this, CompiledExpression::OBJECT);
+                $thisPtr->incGets();
+                $context->addVariable($thisPtr);
+            }
 
             $method->compile($context);
 
