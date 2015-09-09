@@ -171,10 +171,7 @@ class CheckCommand extends Command
                 } elseif ($statement instanceof Node\Stmt\Class_) {
                     $definition = new ClassDefinition($statement->name, $statement->type);
                     $definition->setFilepath($filepath);
-
-                    if ($namespace) {
-                        $definition->setNamespace($namespace);
-                    }
+                    $definition->setNamespace($namespace);
 
                     foreach ($statement->stmts as $stmt) {
                         if ($stmt instanceof Node\Stmt\ClassMethod) {
@@ -192,10 +189,7 @@ class CheckCommand extends Command
                 } elseif ($statement instanceof Node\Stmt\Function_) {
                     $definition = new FunctionDefinition($statement->name, $statement);
                     $definition->setFilepath($filepath);
-
-                    if ($namespace) {
-                        $definition->setNamespace($namespace);
-                    }
+                    $definition->setNamespace($namespace);
 
                     $compiler->addFunction($definition);
                 }
