@@ -7,6 +7,7 @@ namespace PHPSA\Visitor\Expression;
 
 use PHPSA\CompiledExpression;
 use PHPSA\Context;
+use PHPSA\Definition\ClassDefinition;
 use PHPSA\Visitor\Expression;
 
 class MethodCall extends AbstractExpressionCompiler
@@ -21,18 +22,6 @@ class MethodCall extends AbstractExpressionCompiler
     public function compile($expr, Context $context)
     {
         if ($expr->var instanceof \PhpParser\Node\Expr\Variable) {
-            if ($expr->var->name == 'this') {
-                if (!$context->scope->hasMethod($expr->name)) {
-                    $context->notice(
-                        'undefined-mcall',
-                        sprintf('Method %s() does not exist in %s scope', $expr->name, $expr->var->name),
-                        $expr
-                    );
-                }
-
-                return new CompiledExpression();
-            }
-
             $symbol = $context->getSymbol($expr->var->name);
             if ($symbol) {
                 switch ($symbol->getType()) {
@@ -40,7 +29,22 @@ class MethodCall extends AbstractExpressionCompiler
                     case CompiledExpression::DYNAMIC:
                         $symbol->incUse();
 
-                        return new CompiledExpression();
+                        /** @var ClassDefinition $calledObject */
+                        $calledObject = $symbol->getValue();
+                        if ($calledObject instanceof ClassDefinition) {
+                            if (!$calledObject->hasMethod($expr->name)) {
+                                $context->notice(
+                                    'undefined-mcall',
+                                    sprintf('Method %s() does not exist in %s scope', $expr->name, $expr->var->name),
+                                    $expr
+                                );
+                            }
+
+                            return new CompiledExpression();
+                        } else {
+                            $context->debug('Unknown $calledObject - is ' . gettype($calledObject));
+                        }
+
                         break;
                 }
 

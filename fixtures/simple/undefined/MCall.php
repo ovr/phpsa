@@ -17,7 +17,7 @@ class MCall
      */
     public function a()
     {
-        return $this->b();
+        return $this->bfdf();
     }
 
     /**
@@ -70,7 +70,7 @@ class MCall
     {
         $arrayVariable = array();
 
-        return $arrayVariable->b();
+        return $arrayVariable->arrayMethod();
     }
 
     /**
@@ -80,7 +80,7 @@ class MCall
     {
         $intVariable = 1;
 
-        return $intVariable->b();
+        return $intVariable->intMethod();
     }
 
     /**
@@ -90,7 +90,7 @@ class MCall
     {
         $floatVariable = 1;
 
-        return $floatVariable->b();
+        return $floatVariable->FloatMethod();
     }
 
     /**
