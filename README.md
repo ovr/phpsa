@@ -41,6 +41,7 @@ What is needed or planned as future.
 
 - [X] Missing doc block
 - [ ] Missing @return
+- [ ] Missing @param
 
 #### Control flow
 
