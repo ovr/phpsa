@@ -95,10 +95,6 @@ class ClassMethod extends AbstractDefinition
             }
         }
 
-        $thisPtr = new Variable('this', $this, CompiledExpression::OBJECT);
-        $thisPtr->incGets();
-        $context->addVariable($thisPtr);
-
         foreach ($this->statement->stmts as $st) {
             \PHPSA\nodeVisitorFactory($st, $context);
         }

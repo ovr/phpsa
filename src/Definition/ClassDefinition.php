@@ -5,8 +5,10 @@
 
 namespace PHPSA\Definition;
 
+use PHPSA\CompiledExpression;
 use PHPSA\Context;
 use PhpParser\Node;
+use PHPSA\Variable;
 
 /**
  * Class ClassDefinition
@@ -92,6 +94,12 @@ class ClassDefinition extends ParentDefinition
 
         foreach ($this->methods as $method) {
             $context->clearSymbols();
+
+
+            $thisPtr = new Variable('this', $this, CompiledExpression::OBJECT);
+            $thisPtr->incGets();
+            $context->addVariable($thisPtr);
+
             $method->compile($context);
 
             $symbols = $context->getSymbols();
