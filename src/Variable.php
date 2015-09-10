@@ -25,7 +25,7 @@ class Variable
      */
     protected $type;
 
-    public function __construct($name, $defaultValue = null, $type = 0, $referenced = false)
+    public function __construct($name, $defaultValue = null, $type = CompiledExpression::UNKNOWN, $referenced = false)
     {
         $this->name = $name;
 
