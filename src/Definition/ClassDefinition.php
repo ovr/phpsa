@@ -106,10 +106,7 @@ class ClassDefinition extends ParentDefinition
             $symbols = $context->getSymbols();
             if (count($symbols) > 0) {
                 foreach ($symbols as $name => $variable) {
-                    /**
-                     * Check if you are setting values to variable but didn't use it (mean get)
-                     */
-                    if ($variable->getGets() == 0 && $variable->incSets()) {
+                    if ($variable->isUnused()) {
                         $context->warning(
                             'unused-variable',
                             sprintf('Unused variable $%s in method %s()', $variable->getName(), $method->getName())

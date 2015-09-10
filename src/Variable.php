@@ -128,4 +128,14 @@ class Variable
     {
         return $this->referenced;
     }
+
+    /**
+     * Check if you are setting values to variable but didn't use it (mean get)
+     * 
+     * @return bool
+     */
+    public function isUnused()
+    {
+        return $this->getGets() == 0 && $this->incSets();
+    }
 }
