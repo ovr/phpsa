@@ -21,19 +21,14 @@ class Statement
         switch (get_class($stmt)) {
             case 'PhpParser\Node\Stmt\Return_':
                 return new Statement\Return_();
-                break;
             case 'PhpParser\Node\Stmt\While_':
                 return new Statement\While_();
-                break;
             case 'PhpParser\Node\Stmt\Switch_':
                 return new Statement\Switch_();
-                break;
             case 'PhpParser\Node\Stmt\If_':
                 return new Statement\If_();
-                break;
             case 'PhpParser\Node\Stmt\For_':
                 return new Statement\For_();
-                break;
         }
 
         throw new RuntimeException('Unknown statement: ' . get_class($stmt));
