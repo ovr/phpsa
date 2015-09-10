@@ -10,7 +10,7 @@ use PHPSA\Context;
 use PHPSA\Definition\ClassMethod;
 use PHPSA\Visitor\Expression;
 
-class Switch_ extends AbstractCompiler
+class SwitchSt extends AbstractCompiler
 {
     protected $name = '\PhpParser\Node\Stmt\Switch_';
 

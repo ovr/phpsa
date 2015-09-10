@@ -131,7 +131,7 @@ class Variable
 
     /**
      * Check if you are setting values to variable but didn't use it (mean get)
-     * 
+     *
      * @return bool
      */
     public function isUnused()

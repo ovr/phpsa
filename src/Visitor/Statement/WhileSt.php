@@ -10,7 +10,7 @@ use PHPSA\Context;
 use PHPSA\Definition\ClassMethod;
 use PHPSA\Visitor\Expression;
 
-class While_ extends AbstractCompiler
+class WhileSt extends AbstractCompiler
 {
     protected $name = '\PhpParser\Node\Stmt\While_';
 

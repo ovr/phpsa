@@ -10,7 +10,7 @@ use PHPSA\Context;
 use PHPSA\Definition\ClassMethod;
 use PHPSA\Visitor\Expression;
 
-class For_ extends AbstractCompiler
+class ForSt extends AbstractCompiler
 {
     protected $name = '\PhpParser\Node\Stmt\For_';
 

@@ -9,7 +9,7 @@ use PHPSA\CompiledExpression;
 use PHPSA\Context;
 use PHPSA\Visitor\Expression;
 
-class If_ extends AbstractCompiler
+class IfSt extends AbstractCompiler
 {
     protected $name = '\PhpParser\Node\Stmt\If_';
 
