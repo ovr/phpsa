@@ -16,11 +16,16 @@ class Variable
     protected $sets = 0;
 
     /**
+     * @var bool
+     */
+    protected $referenced = false;
+
+    /**
      * @todo soon
      */
     protected $type;
 
-    public function __construct($name, $defaultValue = null, $type = 0)
+    public function __construct($name, $defaultValue = null, $type = 0, $referenced = false)
     {
         $this->name = $name;
 
@@ -30,6 +35,7 @@ class Variable
         }
 
         $this->type = $type;
+        $this->referenced = $referenced;
     }
 
     /**
@@ -113,5 +119,13 @@ class Variable
     public function dec()
     {
         $this->value--;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function isReferenced()
+    {
+        return $this->referenced;
     }
 }
