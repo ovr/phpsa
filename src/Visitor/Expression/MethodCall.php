@@ -38,6 +38,17 @@ class MethodCall extends AbstractExpressionCompiler
                                     sprintf('Method %s() does not exist in %s scope', $expr->name, $expr->var->name),
                                     $expr
                                 );
+
+                                //it's needed to exit
+                                return new CompiledExpression();
+                            }
+
+                            if ($calledObject->getMethod($expr->name)->isStatic()) {
+                                $context->notice(
+                                    'undefined-mcall',
+                                    sprintf('Method %s() is a static function but called like class method in $%s variable', $expr->name, $expr->var->name),
+                                    $expr
+                                );
                             }
 
                             return new CompiledExpression();

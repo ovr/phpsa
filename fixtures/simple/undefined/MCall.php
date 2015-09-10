@@ -7,6 +7,14 @@ class MCall
     /**
      * @return boolean
      */
+    static public function simpleStaticMethod()
+    {
+        return true;
+    }
+
+    /**
+     * @return boolean
+     */
     public function simpleAlwaysTrueReturnMethod()
     {
         return true;
@@ -101,5 +109,13 @@ class MCall
         $thisPointer = $this;
 
         return $thisPointer->simpleAlwaysTrueReturnMethod();
+    }
+
+    /**
+     * @return mixed
+     */
+    public function testUnexpectedCallOnStaticMethod()
+    {
+        return $this->simpleStaticMethod();
     }
 }
