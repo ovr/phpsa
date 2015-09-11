@@ -27,7 +27,6 @@ class BitwiseNot extends AbstractExpressionCompiler
             case CompiledExpression::DNUMBER:
             case CompiledExpression::BOOLEAN:
                 return CompiledExpression::fromZvalValue(~$compiledExpression->getValue());
-                break;
         }
 
         return new CompiledExpression();
