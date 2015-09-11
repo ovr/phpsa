@@ -52,4 +52,33 @@ class ClassDefintionTest extends TestCase
         $this->assertTrue($classDefinition->hasProperty('test1'));
         $this->assertTrue($classDefinition->hasProperty('test2'));
     }
+
+    public function testMethodSetGet()
+    {
+        $classDefinition = $this->testSimpleInstance();
+        $methodName = 'method1';
+        $nonExistsMethodName = 'method2';
+
+        $this->assertFalse($classDefinition->hasMethod($methodName));
+        $this->assertFalse($classDefinition->hasMethod($nonExistsMethodName));
+
+        $classDefinition->addMethod(
+            new \PHPSA\Definition\ClassMethod(
+                $methodName,
+                new \PhpParser\Node\Stmt\ClassMethod(
+                    $methodName
+                ),
+                0
+            )
+        );
+
+        $this->assertTrue($classDefinition->hasMethod($methodName));
+        $this->assertFalse($classDefinition->hasMethod($nonExistsMethodName));
+
+        $method = $classDefinition->getMethod($methodName);
+        $this->assertInstanceOf('PHPSA\Definition\ClassMethod', $method);
+        $this->assertSame($methodName, $method->getName());
+
+        return $classDefinition;
+    }
 }
