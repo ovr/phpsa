@@ -2,21 +2,38 @@
 
 namespace Tests\PHPSA\Defintion;
 
+use PHPSA\Definition\ClassDefinition;
 use Tests\PHPSA\TestCase;
 
 class ClassDefintionTest extends TestCase
 {
+    /**
+     * @return ClassDefinition
+     */
+    protected function getSimpleInstance()
+    {
+        return new ClassDefinition('MyTestClass', 0);
+    }
+
     public function testSimpleInstance()
     {
-        $classDefinition = new \PHPSA\Definition\ClassDefinition('MyTestClass', 0);
+        $classDefinition = $this->getSimpleInstance();
         $this->assertSame('MyTestClass', $classDefinition->getName());
+        $this->assertFalse($classDefinition->isCompiled());
+    }
 
-        return $classDefinition;
+    public function testScopePointer()
+    {
+        $classDefinition = $this->getSimpleInstance();
+        
+        $pointer = $classDefinition->getPointer();
+        $this->assertInstanceOf('PHPSA\ScopePointer', $pointer);
+        $this->assertEquals($classDefinition, $pointer->getObject());
     }
 
     public function testSetGetHasForClassProperty()
     {
-        $classDefinition = $this->testSimpleInstance();
+        $classDefinition = $this->getSimpleInstance();
         $this->assertFalse($classDefinition->hasProperty('test1'));
         $this->assertFalse($classDefinition->hasProperty('test2'));
 
@@ -55,7 +72,7 @@ class ClassDefintionTest extends TestCase
 
     public function testMethodSetGet()
     {
-        $classDefinition = $this->testSimpleInstance();
+        $classDefinition = $this->getSimpleInstance();
         $methodName = 'method1';
         $nonExistsMethodName = 'method2';
 
