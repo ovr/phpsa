@@ -42,7 +42,6 @@ class UnaryMinus extends AbstractExpressionCompiler
                     $expr
                 );
                 return new CompiledExpression();
-                break;
         }
 
         return new CompiledExpression();
