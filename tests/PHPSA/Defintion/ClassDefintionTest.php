@@ -25,7 +25,7 @@ class ClassDefintionTest extends TestCase
     public function testScopePointer()
     {
         $classDefinition = $this->getSimpleInstance();
-        
+
         $pointer = $classDefinition->getPointer();
         $this->assertInstanceOf('PHPSA\ScopePointer', $pointer);
         $this->assertEquals($classDefinition, $pointer->getObject());

@@ -18,7 +18,7 @@ abstract class AbstractDivMod extends \Tests\PHPSA\TestCase
     /**
      * @param $a
      * @param $b
-     * @return Node\Expr\BinaryOp\Div
+     * @return Node\Expr\BinaryOp
      */
     abstract protected function buildExpression($a, $b);
 
