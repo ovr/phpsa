@@ -17,9 +17,7 @@ class ScopePointer
 
     public function __construct($object)
     {
-        if ($object instanceof ClassMethod) {
-            $this->object = $object;
-        }
+        $this->object = $object;
     }
 
     /**
