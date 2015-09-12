@@ -141,6 +141,9 @@ class CheckCommand extends Command
     {
         $compiler = $this->getApplication()->compiler;
 
+        $astTraverser = new \PhpParser\NodeTraverser();
+        $astTraverser->addVisitor(new \PHPSA\Visitor\FunctionCall);
+
         try {
             if (!is_readable($filepath)) {
                 throw new RuntimeException('File ' . $filepath . ' is not readable');
@@ -148,6 +151,8 @@ class CheckCommand extends Command
 
             $code = file_get_contents($filepath);
             $stmts = $parser->parse($code);
+
+            $astTraverser->traverse($stmts);
 
             $namespace = null;
 
