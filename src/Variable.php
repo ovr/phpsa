@@ -130,6 +130,18 @@ class Variable
     }
 
     /**
+     * @return bool
+     */
+    public function isNumeric()
+    {
+        return (bool) (
+            $this->type & CompiledExpression::INTEGER ||
+            $this->type & CompiledExpression::DOUBLE ||
+            $this->type == CompiledExpression::NUMBER
+        );
+    }
+
+    /**
      * Check if you are setting values to variable but didn't use it (mean get)
      *
      * @return bool
