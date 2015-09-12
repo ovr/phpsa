@@ -112,11 +112,18 @@ class Variable
         return $this->value;
     }
 
+    /**
+     * @param int $type
+     */
     public function modifyType($type)
     {
         $this->type = (int) $type;
     }
 
+    /**
+     * @param int $type
+     * @param mixed $value
+     */
     public function modify($type, $value)
     {
         $this->type = (int) $type;
