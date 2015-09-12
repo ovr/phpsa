@@ -156,6 +156,8 @@ class CheckCommand extends Command
                 throw new RuntimeException('File ' . $filepath . ' is not readable');
             }
 
+            $context->output->writeln('<comment>Precompile: ' . $filepath . '.</comment>');
+
             $code = file_get_contents($filepath);
             $astTree = $parser->parse($code);
 
