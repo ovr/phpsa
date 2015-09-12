@@ -337,10 +337,6 @@ class Expression
             case CompiledExpression::NULL:
                 $this->context->notice('stupid-cast', "You are trying to cast 'unset' to 'null'", $expr);
                 return $compiledExpression;
-            case CompiledExpression::BOOLEAN:
-            case CompiledExpression::LNUMBER:
-            case CompiledExpression::DNUMBER:
-                return new CompiledExpression(CompiledExpression::DNUMBER, (unset) $compiledExpression->getValue());
         }
 
         return new CompiledExpression(CompiledExpression::NULL, null);
