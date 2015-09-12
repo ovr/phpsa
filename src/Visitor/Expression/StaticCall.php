@@ -28,27 +28,23 @@ class StaticCall extends AbstractExpressionCompiler
             $scope = $expr->class->parts[0];
             $name = $expr->name;
 
-            $error = false;
-
             if ($scope == 'self') {
                 if (!$context->scope->hasMethod($name)) {
-                    $error = true;
+                    $context->notice(
+                        'undefined-scall',
+                        sprintf('Static method %s() does not exist in %s scope', $name, $scope),
+                        $expr
+                    );
                 } else {
                     $method = $context->scope->getMethod($name);
                     if (!$method->isStatic()) {
-                        $error = true;
+                        $context->notice(
+                            'undefined-scall',
+                            sprintf('Method %s() is not static but it was called as static way', $name),
+                            $expr
+                        );
                     }
                 }
-            }
-
-            if ($error) {
-                $context->notice(
-                    'undefined-scall',
-                    sprintf('Static method %s() does not exist in %s scope', $name, $scope),
-                    $expr
-                );
-
-                return new CompiledExpression();
             }
 
             return new CompiledExpression();
