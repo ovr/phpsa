@@ -16,7 +16,7 @@ class RandomApiMigration
     public function visitPhpFunctionCall(FuncCall $funcCall/**, Context $context*/)
     {
         $name = $funcCall->name->getFirst();
-        if (isset($this->map[$name])) {
+        if (!$funcCall->name->isFullyQualified() && isset($this->map[$name])) {
             //@todo soon!
             return true;
         }
