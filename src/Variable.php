@@ -196,4 +196,12 @@ class Variable
     {
         $this->referencedTo = $referencedTo;
     }
+
+    /**
+     * @param boolean $referenced
+     */
+    public function setReferenced($referenced)
+    {
+        $this->referenced = $referenced;
+    }
 }

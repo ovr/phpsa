@@ -133,6 +133,8 @@ class Expression
                 return $this->passConstFetch($expr);
             case 'PhpParser\Node\Expr\Assign':
                 return $this->passSymbol($expr);
+            case 'PhpParser\Node\Expr\AssignRef':
+                return $this->passSymbolByRef($expr);
             case 'PhpParser\Node\Expr\Variable':
                 return $this->passExprVariable($expr);
             /**
@@ -435,6 +437,39 @@ class Expression
         }
 
         $this->context->debug('Unknown how to pass symbol');
+        return new CompiledExpression();
+    }
+
+    /**
+     * @param Node\Expr\AssignRef $expr
+     * @return CompiledExpression
+     */
+    protected function passSymbolByRef(Node\Expr\AssignRef $expr)
+    {
+        if ($expr->var instanceof \PhpParser\Node\Expr\List_) {
+            return new CompiledExpression();
+        }
+
+        if ($expr->var instanceof Node\Expr\Variable) {
+            $name = $expr->var->name;
+
+            $expression = new Expression($this->context);
+            $compiledExpression = $expression->compile($expr->expr);
+
+            $symbol = $this->context->getSymbol($name);
+            if ($symbol) {
+                $symbol->modify($compiledExpression->getType(), $compiledExpression->getValue());
+                $symbol->setReferenced(true);
+            } else {
+                $symbol = new Variable($name, $compiledExpression->getValue(), $compiledExpression->getType(), true);
+                $this->context->addVariable($symbol);
+            }
+
+            $symbol->incSets();
+            return $compiledExpression;
+        }
+
+        $this->context->debug('Unknown how to pass symbol by ref');
         return new CompiledExpression();
     }
 
