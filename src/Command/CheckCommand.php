@@ -133,14 +133,20 @@ class CheckCommand extends Command
     }
 
     /**
+     * @return Compiler
+     */
+    protected function getCompiler()
+    {
+        return $this->getApplication()->compiler;
+    }
+
+    /**
      * @param string $filepath
      * @param Parser $parser
      * @param Context $context
      */
     protected function parserFile($filepath, Parser $parser, Context $context)
     {
-        $compiler = $this->getApplication()->compiler;
-
         $astTraverser = new \PhpParser\NodeTraverser();
         $astTraverser->addVisitor(new \PHPSA\Visitor\FunctionCall);
         $astTraverser->addVisitor(new \PhpParser\NodeVisitor\NameResolver());
@@ -155,25 +161,23 @@ class CheckCommand extends Command
 
             $astTraverser->traverse($astTree);
 
-            $namespace = null;
-            $aliasManager = new AliasManager($namespace);
+            $aliasManager = new AliasManager();
 
+            /**
+             * Step 1 Precompile
+             */
             foreach ($astTree as $topStatement) {
                 if ($topStatement instanceof Node\Stmt\Namespace_) {
                     $namespace = $topStatement->name->toString();
                     $aliasManager->setNamespace($namespace);
 
                     if ($topStatement->stmts) {
-                        $this->parseTopDefinitions($topStatement->stmts, $aliasManager, $filepath, $namespace, $compiler);
+                        $this->parseTopDefinitions($topStatement->stmts, $aliasManager, $filepath, $namespace);
                     }
                 } else {
-                    $this->parseTopDefinitions($topStatement, $aliasManager, $filepath, $namespace, $compiler);
+                    $this->parseTopDefinitions($topStatement, $aliasManager, $filepath, $namespace);
                 }
             }
-
-            /**
-             * Step 1 Precompile
-             */
 
             $context->clear();
         } catch (\PhpParser\Error $e) {
@@ -183,7 +187,7 @@ class CheckCommand extends Command
         }
     }
 
-    protected function parseTopDefinitions($topStatement, $aliasManager, $filepath, $namespace, $compiler)
+    protected function parseTopDefinitions($topStatement, $aliasManager, $filepath, $namespace)
     {
         foreach ($topStatement as $statement) {
             if ($statement instanceof Node\Stmt\Use_) {
@@ -209,13 +213,13 @@ class CheckCommand extends Command
                     }
                 }
 
-                $compiler->addClass($definition);
+                $this->getCompiler()->addClass($definition);
             } elseif ($statement instanceof Node\Stmt\Function_) {
                 $definition = new FunctionDefinition($statement->name, $statement);
                 $definition->setFilepath($filepath);
                 $definition->setNamespace($namespace);
 
-                $compiler->addFunction($definition);
+                $this->getCompiler()->addFunction($definition);
             }
         }
     }
