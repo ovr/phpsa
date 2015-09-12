@@ -552,11 +552,11 @@ class Expression
     protected function constFetch(Node\Expr\ConstFetch $expr)
     {
         if ($expr->name instanceof Node\Name) {
-            if ($expr->name->parts[0] === "true") {
+            if ($expr->name->parts[0] === 'true') {
                 return new CompiledExpression(CompiledExpression::BOOLEAN, true);
             }
 
-            if ($expr->name->parts[0] === "false") {
+            if ($expr->name->parts[0] === 'false') {
                 return new CompiledExpression(CompiledExpression::BOOLEAN, false);
             }
         }
