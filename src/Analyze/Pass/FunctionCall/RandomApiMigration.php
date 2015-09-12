@@ -13,11 +13,15 @@ class RandomApiMigration
         'getrandmax' => 'mt_getrandmax'
     );
 
-    public function visitPhpFunctionCall(FuncCall $funcCall, Context $context)
+    public function visitPhpFunctionCall(FuncCall $funcCall/**, Context $context*/)
     {
-        if (in_array($funcCall->name, $this->map, false)) {
-
+        $name = $funcCall->name->getFirst();
+        if (isset($this->map[$name])) {
+            //@todo soon!
+            return true;
         }
+
+        return false;
     }
 }
 
