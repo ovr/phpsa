@@ -171,8 +171,13 @@ class CheckCommand extends Command
              */
             foreach ($astTree as $topStatement) {
                 if ($topStatement instanceof Node\Stmt\Namespace_) {
-                    $namespace = $topStatement->name->toString();
-                    $aliasManager->setNamespace($namespace);
+                    /**
+                     * Namespace block can be created without NS name
+                     */
+                    if ($topStatement->name) {
+                        $namespace = $topStatement->name->toString();
+                        $aliasManager->setNamespace($namespace);
+                    }
 
                     if ($topStatement->stmts) {
                         $this->parseTopDefinitions($topStatement->stmts, $aliasManager, $filepath, $namespace);
