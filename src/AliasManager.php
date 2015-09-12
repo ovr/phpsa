@@ -11,17 +11,20 @@ class AliasManager
      * Current namespace, but this can be null
      * @var string|null
      */
-    protected $namespace = null;
-
-    public function __construct($namespace)
-    {
-        $this->namespace = $namespace;
-    }
+    protected $namespace;
 
     /**
      * @var string[]
      */
     protected $aliases = array();
+
+    /**
+     * @param string|null $namespace
+     */
+    public function __construct($namespace = null)
+    {
+        $this->namespace = $namespace;
+    }
 
     public function isClassImported($classNS)
     {
