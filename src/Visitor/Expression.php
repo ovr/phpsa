@@ -521,6 +521,7 @@ class Expression
                 $compiledKeyResult = $this->compile($item->key);
                 switch ($compiledKeyResult->getType()) {
                     case CompiledExpression::INTEGER:
+                    case CompiledExpression::DOUBLE:
                     case CompiledExpression::BOOLEAN:
                     case CompiledExpression::NULL:
                     case CompiledExpression::STRING:
