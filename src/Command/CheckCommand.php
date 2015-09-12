@@ -162,6 +162,7 @@ class CheckCommand extends Command
             $astTraverser->traverse($astTree);
 
             $aliasManager = new AliasManager();
+            $namespace = null;
 
             /**
              * Step 1 Precompile
