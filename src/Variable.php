@@ -7,12 +7,24 @@ namespace PHPSA;
 
 class Variable
 {
+    /**
+     * @var string
+     */
     protected $name;
 
+    /**
+     * @var mixed
+     */
     protected $value;
 
+    /**
+     * @var int
+     */
     protected $gets = 0;
 
+    /**
+     * @var int
+     */
     protected $sets = 0;
 
     /**
@@ -21,10 +33,16 @@ class Variable
     protected $referenced = false;
 
     /**
-     * @todo soon
+     * @var int
      */
     protected $type;
 
+    /**
+     * @param string $name
+     * @param mixed|null $defaultValue
+     * @param int $type
+     * @param bool|false $referenced
+     */
     public function __construct($name, $defaultValue = null, $type = CompiledExpression::UNKNOWN, $referenced = false)
     {
         $this->name = $name;
@@ -34,7 +52,7 @@ class Variable
             $this->value = $defaultValue;
         }
 
-        $this->type = $type;
+        $this->type = (int) $type;
         $this->referenced = $referenced;
     }
 
@@ -96,12 +114,12 @@ class Variable
 
     public function modifyType($type)
     {
-        $this->type = $type;
+        $this->type = (int) $type;
     }
 
     public function modify($type, $value)
     {
-        $this->type = $type;
+        $this->type = (int) $type;
         $this->value = $value;
     }
 
