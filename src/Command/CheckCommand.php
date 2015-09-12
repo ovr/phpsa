@@ -110,8 +110,6 @@ class CheckCommand extends Command
 
             $output->writeln('');
 
-            $coroutineArray = [];
-
             $compiler = $this->getApplication()->compiler;
 
             /** @var SplFileInfo $file */
@@ -120,22 +118,30 @@ class CheckCommand extends Command
                     continue;
                 }
 
-                $coroutineArray[] = new Coroutine(
-                    Worker\enqueue(
-                        new FileCompilerTask($file->getPathname(), $context, $compiler, $parser)
-                    )
-                );
+//                $coroutineArray[] = new Coroutine(
+//                    Worker\enqueue(
+//                        new FileCompilerTask($file->getPathname(), $context, $compiler, $parser)
+//                    )
+//                );
+
+                $generator = (function() use($file, $context, $compiler, $parser) {
+                    $task = new FileCompilerTask($file->getPathname(), $context, $compiler, $parser);
+                    yield $task->run();
+                });
+
+                new Coroutine($generator());
             }
 
-            $generator = function () use ($coroutineArray) {
-                $returnValues = (yield Promise\all($coroutineArray));
-                var_dump($returnValues);
-            };
-
-            $coroutine = new Coroutine($generator());
-            $coroutine->done();
+//            $generator = function () use ($coroutineArray) {
+//                $returnValues = (yield Promise\all($coroutineArray));
+//                var_dump($returnValues);
+//            };
+//
+//            $coroutine = new Coroutine($generator());
+//            $coroutine->done();
 
             Loop\run();
+            var_dump($compiler);
         } elseif (is_file($path)) {
 //            $this->parserFile($path, $parser, $context);
         }

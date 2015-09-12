@@ -36,9 +36,6 @@ class FileCompilerTask implements TaskInterface
     public function run()
     {
         $filepath = $this->filepath;
-        var_dump($filepath);
-        return $filepath;
-
         $context = $this->context;
         $parser = $this->parser;
 
@@ -72,7 +69,6 @@ class FileCompilerTask implements TaskInterface
                     if ($topStatement->name) {
                         $namespace = $topStatement->name->toString();
                         $aliasManager->setNamespace($namespace);
-                        return $namespace;
                     }
 
                     if ($topStatement->stmts) {
@@ -117,7 +113,6 @@ class FileCompilerTask implements TaskInterface
                     }
                 }
 
-                return $definition;
                 $this->compiler->addClass($definition);
             } elseif ($statement instanceof Node\Stmt\Function_) {
                 $definition = new FunctionDefinition($statement->name, $statement);
