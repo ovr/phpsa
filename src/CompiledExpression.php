@@ -39,6 +39,11 @@ class CompiledExpression
 
     /**
      * Double/Float
+     */
+    const NUMBER = Types::NUMBER;
+
+    /**
+     * Double/Float
      * @deprectated
      */
     const DNUMBER = self::DOUBLE;
