@@ -3,6 +3,7 @@
 namespace PHPSA\Analyze\Pass\FunctionCall;
 
 use PhpParser\Node\Expr\FuncCall;
+use PhpParser\Node\Name;
 use PHPSA\Context;
 
 class RandomApiMigration
@@ -15,13 +16,15 @@ class RandomApiMigration
 
     public function visitPhpFunctionCall(FuncCall $funcCall/**, Context $context*/)
     {
-        $name = $funcCall->name->getFirst();
-        if (!$funcCall->name->isFullyQualified() && isset($this->map[$name])) {
-            //@todo soon!
-            return true;
+        $name = false;
+
+        if ($funcCall->name instanceof Name && !$funcCall->name->isFullyQualified()) {
+            $name = $funcCall->name->getFirst();
         }
 
-        return false;
+        if ($name && isset($this->map[$name])) {
+            var_dump($name);
+        }
     }
 }
 
