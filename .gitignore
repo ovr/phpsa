@@ -3,3 +3,4 @@ composer.lock
 .idea
 coverage.clover
 phpsa.phar
+examples

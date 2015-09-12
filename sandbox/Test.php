@@ -14,6 +14,9 @@ class Test
      */
     public function returnTrue()
     {
-        return new stdClass();
+        $a = 1;
+        $b = &$a;
+
+        return $b;
     }
 }
