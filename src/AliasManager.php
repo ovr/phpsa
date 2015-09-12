@@ -47,4 +47,12 @@ class AliasManager
     {
         return $this->namespace;
     }
+
+    /**
+     * @param null|string $namespace
+     */
+    public function setNamespace($namespace)
+    {
+        $this->namespace = $namespace;
+    }
 }

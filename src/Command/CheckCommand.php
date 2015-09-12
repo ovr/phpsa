@@ -151,61 +151,72 @@ class CheckCommand extends Command
             }
 
             $code = file_get_contents($filepath);
-            $stmts = $parser->parse($code);
+            $astTree = $parser->parse($code);
 
-            $astTraverser->traverse($stmts);
+            $astTraverser->traverse($astTree);
 
             $namespace = null;
+            $aliasManager = new AliasManager($namespace);
+
+            foreach ($astTree as $topStatement) {
+                if ($topStatement instanceof Node\Stmt\Namespace_) {
+                    $namespace = $topStatement->name->toString();
+                    $aliasManager->setNamespace($namespace);
+
+                    if ($topStatement->stmts) {
+                        $this->parseTopDefinitions($topStatement->stmts, $aliasManager, $filepath, $namespace, $compiler);
+                    }
+                } else {
+                    $this->parseTopDefinitions($topStatement, $aliasManager, $filepath, $namespace, $compiler);
+                }
+            }
 
             /**
              * Step 1 Precompile
              */
-            if ($stmts[0] instanceof Node\Stmt\Namespace_) {
-                $namespace = implode('\\', $stmts[0]->name->parts);
-                $stmts = $stmts[0]->stmts;
-            }
-
-            $aliasManager = new AliasManager($namespace);
-
-            foreach ($stmts as $statement) {
-                if ($statement instanceof Node\Stmt\Use_) {
-                    if (!empty($statement->uses)) {
-                        foreach ($statement->uses as $use) {
-                            $aliasManager->add($use->name->parts);
-                        }
-                    }
-                } elseif ($statement instanceof Node\Stmt\Class_) {
-                    $definition = new ClassDefinition($statement->name, $statement->type);
-                    $definition->setFilepath($filepath);
-                    $definition->setNamespace($namespace);
-
-                    foreach ($statement->stmts as $stmt) {
-                        if ($stmt instanceof Node\Stmt\ClassMethod) {
-                            $method = new ClassMethod($stmt->name, $stmt, $stmt->type);
-
-                            $definition->addMethod($method);
-                        } elseif ($stmt instanceof Node\Stmt\Property) {
-                            $definition->addProperty($stmt);
-                        } elseif ($stmt instanceof Node\Stmt\ClassConst) {
-                            $definition->addConst($stmt);
-                        }
-                    }
-
-                    $compiler->addClass($definition);
-                } elseif ($statement instanceof Node\Stmt\Function_) {
-                    $definition = new FunctionDefinition($statement->name, $statement);
-                    $definition->setFilepath($filepath);
-                    $definition->setNamespace($namespace);
-
-                    $compiler->addFunction($definition);
-                }
-            }
 
             $context->clear();
         } catch (\PhpParser\Error $e) {
             $context->sytaxError($e, $filepath);
         } catch (Exception $e) {
             $context->output->writeln("<error>{$e->getMessage()}</error>");
+        }
+    }
+
+    protected function parseTopDefinitions($topStatement, $aliasManager, $filepath, $namespace, $compiler)
+    {
+        foreach ($topStatement as $statement) {
+            if ($statement instanceof Node\Stmt\Use_) {
+                if (!empty($statement->uses)) {
+                    foreach ($statement->uses as $use) {
+                        $aliasManager->add($use->name->parts);
+                    }
+                }
+            } elseif ($statement instanceof Node\Stmt\Class_) {
+                $definition = new ClassDefinition($statement->name, $statement->type);
+                $definition->setFilepath($filepath);
+                $definition->setNamespace($namespace);
+
+                foreach ($statement->stmts as $stmt) {
+                    if ($stmt instanceof Node\Stmt\ClassMethod) {
+                        $method = new ClassMethod($stmt->name, $stmt, $stmt->type);
+
+                        $definition->addMethod($method);
+                    } elseif ($stmt instanceof Node\Stmt\Property) {
+                        $definition->addProperty($stmt);
+                    } elseif ($stmt instanceof Node\Stmt\ClassConst) {
+                        $definition->addConst($stmt);
+                    }
+                }
+
+                $compiler->addClass($definition);
+            } elseif ($statement instanceof Node\Stmt\Function_) {
+                $definition = new FunctionDefinition($statement->name, $statement);
+                $definition->setFilepath($filepath);
+                $definition->setNamespace($namespace);
+
+                $compiler->addFunction($definition);
+            }
         }
     }
 }
