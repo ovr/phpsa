@@ -113,7 +113,8 @@ class Context
      */
     public function warning($type, $message)
     {
-        $this->output->writeln('<comment>Notice:  ' . $message . " in {$this->scope->getFilepath()}  [{$type}]</comment>");
+        $filepath = $this->scope ? $this->scope->getFilepath() : $this->scopePointer->getObject()->getFilepath();
+        $this->output->writeln('<comment>Notice:  ' . $message . " in {$filepath}  [{$type}]</comment>");
         $this->output->writeln('');
         return true;
     }
@@ -126,13 +127,14 @@ class Context
      */
     public function notice($type, $message, \PhpParser\NodeAbstract $expr)
     {
-        $code = file($this->scope->getFilepath());
+        $filepath = $this->scope ? $this->scope->getFilepath() : $this->scopePointer->getObject()->getFilepath();
+        $code = file($filepath);
 
-        $this->output->writeln('<comment>Notice:  ' . $message . " in {$this->scope->getFilepath()} on {$expr->getLine()} [{$type}]</comment>");
+        $this->output->writeln('<comment>Notice:  ' . $message . " in {$filepath} on {$expr->getLine()} [{$type}]</comment>");
         $this->output->writeln('');
 
         if ($this->application->getConfiguration()->valueIsTrue('blame')) {
-            exec("git blame --show-email -L {$expr->getLine()},{$expr->getLine()} " . $this->scope->getFilepath(), $result);
+            exec("git blame --show-email -L {$expr->getLine()},{$expr->getLine()} " . $filepath, $result);
             if ($result && isset($result[0])) {
                 $result[0] = trim($result[0]);
 
