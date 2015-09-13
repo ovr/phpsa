@@ -12,6 +12,8 @@ use PHPSA\Context;
 use PHPSA\Definition\ClassDefinition;
 use PHPSA\Definition\ClassMethod;
 use PHPSA\Definition\FunctionDefinition;
+use PHPSA\ParseTask;
+use Pool;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
 use RuntimeException;
@@ -101,23 +103,100 @@ class CheckCommand extends Command
 
             $output->writeln('');
 
+            $compiler = $this->getCompiler();
+            $pool = new Pool(1, 'PHPSA\ParserWorker', [$parser, $compiler]);
+            $aliasManager = new AliasManager();
+
+
+            class_exists("PhpParser\Node\Name", true);
+            class_exists("PhpParser\Node\Stmt\Namespace_", true);
+            class_exists("PhpParser\Comment\Doc", true);
+            class_exists("PhpParser\Node\Stmt\Class_", true);
+            class_exists("PhpParser\Node\Expr\ConstFetch", true);
+            class_exists("PhpParser\Node\Stmt\Do_", true);
+            class_exists("PhpParser\Node\Stmt\ClassMethod", true);
+            class_exists("PhpParser\Node\Stmt\Return_", true);
+            class_exists("PhpParser\Node\Param", true);
+            class_exists("PhpParser\Node\Expr\Variable", true);
+            class_exists("PhpParser\Node\Stmt\UseUse", true);
+            class_exists("PhpParser\Node\Stmt\Use_", true);
+            class_exists("PhpParser\Node\Expr\New_", true);
+            class_exists("PhpParser\Node\Scalar\LNumber", true);
+            class_exists("PhpParser\Node\Expr\PostDec", true);
+            class_exists("PhpParser\Node\Expr\BinaryOp\Smaller", true);
+            class_exists("PhpParser\Node\Expr\PostInc", true);
+            class_exists("PhpParser\Node\Scalar\DNumber", true);
+            class_exists("PhpParser\Node\Scalar\String_", true);
+            class_exists("PhpParser\Node\Expr\Array_", true);
+            class_exists("PhpParser\Node\Expr\ArrayItem", true);
+            class_exists("PhpParser\Node\Stmt\If_", true);
+            class_exists("PhpParser\Node\Expr\BooleanNot", true);
+            class_exists("PhpParser\Node\Expr\BinaryOp\Identical", true);
+            class_exists("PhpParser\Node\Expr\BinaryOp\Equal", true);
+            class_exists("PhpParser\Node\Stmt\ElseIf_", true);
+            class_exists("PhpParser\Node\Stmt\Else_", true);
+            class_exists("PhpParser\Node\Expr\BinaryOp\BooleanOr", true);
+            class_exists("PhpParser\Node\Expr\StaticCall", true);
+            class_exists("PhpParser\Node\Expr\BinaryOp\Plus", true);
+            class_exists("PhpParser\Node\Expr\BinaryOp\Minus", true);
+            class_exists("PhpParser\Node\Expr\BinaryOp\Div", true);
+            class_exists("PhpParser\Node\Expr\BinaryOp\Mul", true);
+            class_exists("PhpParser\Node\Expr\BinaryOp\BitwiseXor", true);
+            class_exists("PhpParser\Node\Expr\Assign", true);
+            class_exists("PhpParser\Node\Stmt\Function_", true);
+            class_exists("PhpParser\Node\Expr\FuncCall", true);
+            class_exists("PhpParser\Node\Arg", true);
+            class_exists("PhpParser\Node\Expr\MethodCall", true);
+            class_exists("PhpParser\Node\Const_", true);
+            class_exists("PhpParser\Node\Stmt\ClassConst", true);
+            class_exists("PhpParser\Node\Expr\ClassConstFetch", true);
+            class_exists("PhpParser\Node\Stmt\Const_", true);
+            class_exists("PhpParser\Node\Stmt\PropertyProperty", true);
+            class_exists("PhpParser\Node\Stmt\Property", true);
+            class_exists("PhpParser\Node\Expr\PropertyFetch", true);
+            class_exists("PhpParser\Error", true);
+            class_exists("PhpParser\Node\Expr\Cast\Bool_", true);
+            class_exists("PhpParser\Node\Expr\Cast\String_", true);
+            class_exists("PhpParser\Node\Expr\Cast\Int_", true);
+            class_exists("PhpParser\Node\Stmt\For_", true);
+            class_exists("PhpParser\Node\Stmt\Case_", true);
+            class_exists("PhpParser\Node\Stmt\While_", true);
+            class_exists("PhpParser\Node\Stmt\Break_", true);
+            class_exists("PhpParser\Node\Expr\BinaryOp\Greater", true);
+            class_exists("PhpParser\Node\Stmt\Switch_", true);
+
+            class_exists("PHPSA\Definition\ClassDefinition", true);
+            class_exists("PHPSA\Definition\FunctionDefinition", true);
+            class_exists("PHPSA\Definition\ClassMethod", true);
+
             /** @var SplFileInfo $file */
             foreach ($directoryIterator as $file) {
                 if ($file->getExtension() != 'php') {
                     continue;
                 }
 
-                $this->parserFile($file->getPathname(), $parser, $context);
+                $pool->submit(new ParseTask($file->getPathname(), clone $context));
+                break;
             }
+
+            while ($pool->collect(function($work){
+                return $work->isGarbage();
+            })) continue;
+//            var_dump($pool);
+            $pool->shutdown();
+
+            var_dump(spl_object_hash($compiler));
+            var_dump($compiler);
+            var_dump($pool);
         } elseif (is_file($path)) {
-            $this->parserFile($path, $parser, $context);
+//            $this->parserFile($path, $parser, $context);
         }
 
 
-        /**
-         * Step 2 Recursive check ...
-         */
-        $application->compiler->compile($context);
+//        /**
+//         * Step 2 Recursive check ...
+//         */
+//        $application->compiler->compile($context);
 
         $output->writeln('');
         $output->writeln('Memory usage: ' . $this->getMemoryUsage(false) . ' (peak: ' . $this->getMemoryUsage(true) . ') MB');
@@ -138,97 +217,5 @@ class CheckCommand extends Command
     protected function getCompiler()
     {
         return $this->getApplication()->compiler;
-    }
-
-    /**
-     * @param string $filepath
-     * @param Parser $parser
-     * @param Context $context
-     */
-    protected function parserFile($filepath, Parser $parser, Context $context)
-    {
-        $astTraverser = new \PhpParser\NodeTraverser();
-        $astTraverser->addVisitor(new \PHPSA\Visitor\FunctionCall);
-        $astTraverser->addVisitor(new \PhpParser\NodeVisitor\NameResolver());
-
-        try {
-            if (!is_readable($filepath)) {
-                throw new RuntimeException('File ' . $filepath . ' is not readable');
-            }
-
-            $context->output->writeln('<comment>Precompile: ' . $filepath . '.</comment>');
-
-            $code = file_get_contents($filepath);
-            $astTree = $parser->parse($code);
-
-            $astTraverser->traverse($astTree);
-
-            $aliasManager = new AliasManager();
-            $namespace = null;
-
-            /**
-             * Step 1 Precompile
-             */
-            foreach ($astTree as $topStatement) {
-                if ($topStatement instanceof Node\Stmt\Namespace_) {
-                    /**
-                     * Namespace block can be created without NS name
-                     */
-                    if ($topStatement->name) {
-                        $namespace = $topStatement->name->toString();
-                        $aliasManager->setNamespace($namespace);
-                    }
-
-                    if ($topStatement->stmts) {
-                        $this->parseTopDefinitions($topStatement->stmts, $aliasManager, $filepath, $namespace);
-                    }
-                } else {
-                    $this->parseTopDefinitions($topStatement, $aliasManager, $filepath, $namespace);
-                }
-            }
-
-            $context->clear();
-        } catch (\PhpParser\Error $e) {
-            $context->sytaxError($e, $filepath);
-        } catch (Exception $e) {
-            $context->output->writeln("<error>{$e->getMessage()}</error>");
-        }
-    }
-
-    protected function parseTopDefinitions($topStatement, $aliasManager, $filepath, $namespace)
-    {
-        foreach ($topStatement as $statement) {
-            if ($statement instanceof Node\Stmt\Use_) {
-                if (!empty($statement->uses)) {
-                    foreach ($statement->uses as $use) {
-                        $aliasManager->add($use->name->parts);
-                    }
-                }
-            } elseif ($statement instanceof Node\Stmt\Class_) {
-                $definition = new ClassDefinition($statement->name, $statement->type);
-                $definition->setFilepath($filepath);
-                $definition->setNamespace($namespace);
-
-                foreach ($statement->stmts as $stmt) {
-                    if ($stmt instanceof Node\Stmt\ClassMethod) {
-                        $method = new ClassMethod($stmt->name, $stmt, $stmt->type);
-
-                        $definition->addMethod($method);
-                    } elseif ($stmt instanceof Node\Stmt\Property) {
-                        $definition->addProperty($stmt);
-                    } elseif ($stmt instanceof Node\Stmt\ClassConst) {
-                        $definition->addConst($stmt);
-                    }
-                }
-
-                $this->getCompiler()->addClass($definition);
-            } elseif ($statement instanceof Node\Stmt\Function_) {
-                $definition = new FunctionDefinition($statement->name, $statement);
-                $definition->setFilepath($filepath);
-                $definition->setNamespace($namespace);
-
-                $this->getCompiler()->addFunction($definition);
-            }
-        }
     }
 }

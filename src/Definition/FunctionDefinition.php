@@ -56,6 +56,7 @@ class FunctionDefinition extends ParentDefinition
     {
         $this->compiled = true;
 
+        $context->clearSymbols();
         $context->scopePointer = $this->getPointer();
         $context->setScope(null);
 

@@ -8,7 +8,7 @@ namespace PHPSA;
 use PHPSA\Definition\ClassDefinition;
 use PHPSA\Definition\FunctionDefinition;
 
-class Compiler
+class Compiler extends \Threaded
 {
     /**
      * @var ClassDefinition[]
@@ -23,9 +23,13 @@ class Compiler
     /**
      * @param ClassDefinition $class
      */
-    public function addClass(ClassDefinition $class)
+    final public function addClass(ClassDefinition $class)
     {
-        $this->classes[] = $class;
+        return $this->synchronized(function() use ($class) {
+            var_dump(count($this->classes));
+            $this->classes[] = $class;
+            return $this->notify();
+        });
     }
 
     /**
