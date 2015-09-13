@@ -421,6 +421,22 @@ class Expression
     protected function passSymbol(Node\Expr\Assign $expr)
     {
         if ($expr->var instanceof \PhpParser\Node\Expr\List_) {
+            if ($expr->var->vars) {
+                foreach ($expr->var->vars as $var) {
+                    if ($var instanceof Variable) {
+                        $name = $expr->var->name;
+
+                        $symbol = $this->context->getSymbol($name);
+                        if (!$symbol) {
+                            $symbol = new Variable($name, null, CompiledExpression::UNKNOWN);
+                            $this->context->addVariable($symbol);
+                        }
+
+                        $symbol->incSets();
+                    }
+                }
+            }
+
             return new CompiledExpression();
         }
 
