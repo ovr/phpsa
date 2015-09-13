@@ -169,6 +169,10 @@ class CompiledExpression
             case 'float':
             case 'double':
                 return new CompiledExpression(self::DNUMBER, $value);
+            case 'string':
+                return new CompiledExpression(self::STRING, $value);
+            case 'array':
+                return new CompiledExpression(self::ARR, $value);
             case 'boolean':
                 return new CompiledExpression(self::BOOLEAN, $value);
             case 'NULL':
