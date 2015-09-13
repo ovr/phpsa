@@ -420,10 +420,10 @@ class Expression
      */
     protected function passSymbol(Node\Expr\Assign $expr)
     {
-        if ($expr->var instanceof \PhpParser\Node\Expr\List_) {
+        if ($expr->var instanceof Node\Expr\List_) {
             if ($expr->var->vars) {
                 foreach ($expr->var->vars as $var) {
-                    if ($var instanceof Variable) {
+                    if ($var instanceof Node\Expr\Variable) {
                         $name = $expr->var->name;
 
                         $symbol = $this->context->getSymbol($name);
