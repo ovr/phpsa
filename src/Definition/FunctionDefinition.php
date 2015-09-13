@@ -61,8 +61,8 @@ class FunctionDefinition extends ParentDefinition
 
         if (count($this->statement->stmts) == 0) {
             return $context->notice(
-                'not-implemented-method',
-                sprintf('Method %s() is not implemented', $this->name),
+                'not-implemented-function',
+                sprintf('Function %s() is not implemented', $this->name),
                 $this->statement
             );
         }
