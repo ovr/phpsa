@@ -32,23 +32,35 @@ class MethodCall extends AbstractExpressionCompiler
                         /** @var ClassDefinition $calledObject */
                         $calledObject = $symbol->getValue();
                         if ($calledObject instanceof ClassDefinition) {
-                            if (!$calledObject->hasMethod($expr->name)) {
-                                $context->notice(
-                                    'undefined-mcall',
-                                    sprintf('Method %s() does not exist in %s scope', $expr->name, $expr->var->name),
-                                    $expr
-                                );
+                            $methodName = false;
 
-                                //it's needed to exit
-                                return new CompiledExpression();
+                            if (is_string($expr->name)) {
+                                $methodName = $expr->name;
+                            } elseif ($expr->name instanceof \PhpParser\Node\Expr\Variable) {
+                                $methodName = $expr->name->name;
                             }
 
-                            if ($calledObject->getMethod($expr->name)->isStatic()) {
-                                $context->notice(
-                                    'undefined-mcall',
-                                    sprintf('Method %s() is a static function but called like class method in $%s variable', $expr->name, $expr->var->name),
-                                    $expr
-                                );
+                            if ($methodName) {
+                                if (!$calledObject->hasMethod($methodName)) {
+                                    $context->notice(
+                                        'undefined-mcall',
+                                        sprintf('Method %s() does not exist in %s scope', $methodName, $expr->var->name),
+                                        $expr
+                                    );
+
+                                    //it's needed to exit
+                                    return new CompiledExpression();
+                                }
+
+                                if ($calledObject->getMethod($methodName)->isStatic()) {
+                                    $context->notice(
+                                        'undefined-mcall',
+                                        sprintf('Method %s() is a static function but called like class method in $%s variable', $methodName, $expr->var->name),
+                                        $expr
+                                    );
+                                }
+
+                                return new CompiledExpression();
                             }
 
                             return new CompiledExpression();
