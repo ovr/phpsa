@@ -5,6 +5,7 @@
 
 namespace PHPSA\Visitor\Expression;
 
+use PhpParser\Node\Expr\Variable;
 use PHPSA\CompiledExpression;
 use PHPSA\Context;
 use PHPSA\Definition\ClassDefinition;
@@ -21,7 +22,7 @@ class MethodCall extends AbstractExpressionCompiler
      */
     public function compile($expr, Context $context)
     {
-        if ($expr->var instanceof \PhpParser\Node\Expr\Variable) {
+        if ($expr->var instanceof Variable) {
             $symbol = $context->getSymbol($expr->var->name);
             if ($symbol) {
                 switch ($symbol->getType()) {
@@ -36,7 +37,7 @@ class MethodCall extends AbstractExpressionCompiler
 
                             if (is_string($expr->name)) {
                                 $methodName = $expr->name;
-                            } elseif ($expr->name instanceof \PhpParser\Node\Expr\Variable) {
+                            } elseif ($expr->name instanceof Variable) {
                                 $methodName = $expr->name->name;
                             }
 
