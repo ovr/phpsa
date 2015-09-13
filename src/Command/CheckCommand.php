@@ -12,6 +12,7 @@ use PHPSA\Context;
 use PHPSA\Definition\ClassDefinition;
 use PHPSA\Definition\ClassMethod;
 use PHPSA\Definition\FunctionDefinition;
+use PHPSA\ThreadQueue;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
 use RuntimeException;
@@ -25,6 +26,15 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
+
+
+abstract class class1 {
+    static function run($arg){
+        echo "task with parameter '$arg' starts\n";
+        sleep( rand(2,5) );	// wait for random seconds
+        echo "task with parameter '$arg' ENDS\n";
+    }
+}
 
 /**
  * Class CheckCommand
@@ -101,23 +111,43 @@ class CheckCommand extends Command
 
             $output->writeln('');
 
+            $classes = [];
+
+            $TQ = new ThreadQueue(function($filepath) use(&$classes, $context, $parser) {
+                $this->parserFile($filepath, $parser, $context);
+            }, 100);
+
             /** @var SplFileInfo $file */
             foreach ($directoryIterator as $file) {
                 if ($file->getExtension() != 'php') {
                     continue;
                 }
+// add tasks
+                $TQ->add($file->getPath());
+// Oops! We changed our mind, let's remove awaiting jobs.
+// Existing threads will run, but jobs not started will be removed.
 
-                $this->parserFile($file->getPathname(), $parser, $context);
+
+//                $this->parserFile($file->getPathname(), $parser, $context);
             }
+
+            while( $numberOfThreads = count($TQ->threads()) ){
+                usleep(500);	// optional
+
+                echo "waiting for all ($numberOfThreads) jobs done...\n";
+                $TQ->tick();	// mandatory!
+            }
+
+            var_dump($classes);
         } elseif (is_file($path)) {
             $this->parserFile($path, $parser, $context);
         }
 
-
-        /**
-         * Step 2 Recursive check ...
-         */
-        $application->compiler->compile($context);
+//
+//        /**
+//         * Step 2 Recursive check ...
+//         */
+//        $application->compiler->compile($context);
 
         $output->writeln('');
         $output->writeln('Memory usage: ' . $this->getMemoryUsage(false) . ' (peak: ' . $this->getMemoryUsage(true) . ') MB');
