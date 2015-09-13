@@ -132,8 +132,6 @@ class CheckCommand extends Command
             }
 
             while( $numberOfThreads = count($TQ->threads()) ){
-                usleep(500);	// optional
-
                 echo "waiting for all ($numberOfThreads) jobs done...\n";
                 $TQ->tick();	// mandatory!
             }
