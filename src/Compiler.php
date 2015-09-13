@@ -43,8 +43,8 @@ class Compiler
     {
         $context->scopePointer = null;
 
-        foreach ($this->functions as $class) {
-            $class->compile($context);
+        foreach ($this->functions as $function) {
+            $function->compile($context);
         }
 
         foreach ($this->classes as $class) {
