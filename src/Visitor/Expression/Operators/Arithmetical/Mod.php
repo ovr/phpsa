@@ -41,7 +41,6 @@ class Mod extends AbstractExpressionCompiler
                         'You trying to use division from ' . $left->getValue() . '%{expr}',
                         $expr
                     );
-
                 }
                 break;
         }
@@ -56,7 +55,10 @@ class Mod extends AbstractExpressionCompiler
                         'You trying to use division on {expr}%' . $right->getValue(),
                         $expr
                     );
+
+                    return new CompiledExpression(CompiledExpression::UNKNOWN);
                 }
+                break;
         }
 
         switch ($left->getType()) {
