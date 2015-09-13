@@ -356,12 +356,22 @@ class Expression
                         throw new RuntimeException('Current $this scope is null');
                     }
 
-                    if (!$this->context->scope->hasProperty($expr->name)) {
-                        $this->context->notice(
-                            'undefined-property',
-                            sprintf('Property %s does not exist in %s scope', $expr->name, $scopeExpression->getValue()),
-                            $expr
-                        );
+                    $propertyName = is_string($expr->name) ? $expr->name : false;
+                    if ($expr->name instanceof Variable) {
+                        /**
+                         * @todo implement fetch from symbol table
+                         */
+                        //$methodName = $expr->name->name;
+                    }
+
+                    if ($propertyName) {
+                        if (!$this->context->scope->hasProperty($propertyName)) {
+                            $this->context->notice(
+                                'undefined-property',
+                                sprintf('Property %s does not exist in %s scope', $propertyName, $scopeExpression->getValue()),
+                                $expr
+                            );
+                        }
                     }
                 }
                 break;

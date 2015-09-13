@@ -33,12 +33,13 @@ class MethodCall extends AbstractExpressionCompiler
                         /** @var ClassDefinition $calledObject */
                         $calledObject = $symbol->getValue();
                         if ($calledObject instanceof ClassDefinition) {
-                            $methodName = false;
+                            $methodName = is_string($expr->name) ? $expr->name : false;
 
-                            if (is_string($expr->name)) {
-                                $methodName = $expr->name;
-                            } elseif ($expr->name instanceof Variable) {
-                                $methodName = $expr->name->name;
+                            if ($expr->name instanceof Variable) {
+                                /**
+                                 * @todo implement fetch from symbol table
+                                 */
+                                //$methodName = $expr->name->name;
                             }
 
                             if ($methodName) {
