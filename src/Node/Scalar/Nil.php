@@ -15,7 +15,7 @@ class Nil extends \PhpParser\Node\Scalar
      */
     public function __construct($value = null, array $attributes = array())
     {
-        parent::__construct(null, $attributes);
+        parent::__construct($attributes);
         $this->value = $value;
     }
 
