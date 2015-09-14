@@ -34,5 +34,9 @@ if (!defined('PHPSA_COMPOSER_INSTALL')) {
 
 include_once PHPSA_COMPOSER_INSTALL;
 
+if (extension_loaded('xdebug')) {
+    ini_set('xdebug.max_nesting_level', 3000);
+}
+
 $console = new \PHPSA\Application();
 $console->run();
