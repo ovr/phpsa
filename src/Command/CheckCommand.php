@@ -196,7 +196,13 @@ class CheckCommand extends Command
         }
     }
 
-    protected function parseTopDefinitions($topStatement, $aliasManager, $filepath, $namespace)
+    /**
+     * @param Node\Stmt $topStatement
+     * @param AliasManager $aliasManager
+     * @param string $filepath
+     * @param string $namespace
+     */
+    protected function parseTopDefinitions($topStatement, AliasManager $aliasManager, $filepath, $namespace)
     {
         foreach ($topStatement as $statement) {
             if ($statement instanceof Node\Stmt\Use_) {
