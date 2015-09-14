@@ -181,10 +181,10 @@ class CheckCommand extends Command
                     }
 
                     if ($topStatement->stmts) {
-                        $this->parseTopDefinitions($topStatement->stmts, $aliasManager, $filepath, $namespace);
+                        $this->parseTopDefinitions($topStatement->stmts, $aliasManager, $filepath);
                     }
                 } else {
-                    $this->parseTopDefinitions($topStatement, $aliasManager, $filepath, $namespace);
+                    $this->parseTopDefinitions($topStatement, $aliasManager, $filepath);
                 }
             }
 
@@ -200,9 +200,8 @@ class CheckCommand extends Command
      * @param Node\Stmt $topStatement
      * @param AliasManager $aliasManager
      * @param string $filepath
-     * @param string $namespace
      */
-    protected function parseTopDefinitions($topStatement, AliasManager $aliasManager, $filepath, $namespace)
+    protected function parseTopDefinitions($topStatement, AliasManager $aliasManager, $filepath)
     {
         foreach ($topStatement as $statement) {
             if ($statement instanceof Node\Stmt\Use_) {
@@ -214,7 +213,7 @@ class CheckCommand extends Command
             } elseif ($statement instanceof Node\Stmt\Class_) {
                 $definition = new ClassDefinition($statement->name, $statement->type);
                 $definition->setFilepath($filepath);
-                $definition->setNamespace($namespace);
+                $definition->setNamespace($aliasManager->getNamespace());
 
                 foreach ($statement->stmts as $stmt) {
                     if ($stmt instanceof Node\Stmt\ClassMethod) {
@@ -232,7 +231,7 @@ class CheckCommand extends Command
             } elseif ($statement instanceof Node\Stmt\Function_) {
                 $definition = new FunctionDefinition($statement->name, $statement);
                 $definition->setFilepath($filepath);
-                $definition->setNamespace($namespace);
+                $definition->setNamespace($aliasManager->getNamespace());
 
                 $this->getCompiler()->addFunction($definition);
             }
