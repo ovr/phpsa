@@ -20,13 +20,13 @@ What is needed or planned as future.
 
 - [ ] Import
 - [X] Local variable
-- [ ] Parameter
+- [X] Parameter
 - [ ] Private field
 - [ ] Private method
 
 #### Undefined
 
-- [ ] Class
+- [X] Class
 - [X] Class constant
 - [X] Class property
 - [X] Class method
