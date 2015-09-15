@@ -18,6 +18,12 @@ abstract class AbstractDefinition
      */
     protected $name;
 
+    /**
+     * Compile the definition
+     *
+     * @param Context $context
+     * @return boolean
+     */
     abstract public function compile(Context $context);
 
     /**
