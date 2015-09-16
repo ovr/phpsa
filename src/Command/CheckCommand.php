@@ -150,7 +150,7 @@ class CheckCommand extends Command
     {
         $astTraverser = new \PhpParser\NodeTraverser();
         $astTraverser->addVisitor(new \PHPSA\Node\Visitor\FunctionCall);
-        $astTraverser->addVisitor(new \PhpParser\NodeVisitor\NameResolver());
+        $astTraverser->addVisitor(new \PhpParser\NodeVisitor\NameResolver);
 
         try {
             if (!is_readable($filepath)) {
