@@ -106,4 +106,36 @@ class EqualTest extends \Tests\PHPSA\TestCase
         $this->assertSame(CompiledExpression::BOOLEAN, $compiledExpression->getType());
         $this->assertSame(false, $compiledExpression->getValue());
     }
+
+    /**
+     * Tests {left-expr::UNKNOWN} == {right-expr}
+     */
+    public function testFirstUnexpectedTypes()
+    {
+        $baseExpression = new Node\Expr\BinaryOp\Equal(
+            $this->newFakeScalarExpr(),
+            $this->newScalarExpr(1)
+        );
+        $compiledExpression = $this->compileExpression($baseExpression);
+
+        $this->assertInstanceOfCompiledExpression($compiledExpression);
+        $this->assertSame(CompiledExpression::UNKNOWN, $compiledExpression->getType());
+        $this->assertSame(null, $compiledExpression->getValue());
+    }
+
+    /**
+     * Tests {left-expr} == {right-expr::UNKNOWN}
+     */
+    public function testSecondUnexpectedTypes()
+    {
+        $baseExpression = new Node\Expr\BinaryOp\Equal(
+            $this->newScalarExpr(1),
+            $this->newFakeScalarExpr()
+        );
+        $compiledExpression = $this->compileExpression($baseExpression);
+
+        $this->assertInstanceOfCompiledExpression($compiledExpression);
+        $this->assertSame(CompiledExpression::UNKNOWN, $compiledExpression->getType());
+        $this->assertSame(null, $compiledExpression->getValue());
+    }
 }
