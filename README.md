@@ -12,6 +12,13 @@ PHPSA - Static Analysis for PHP
 
 P.S This software is currently in early alpha state, any contributions/stars will be awesome.
 
+## Components
+
+- [X] Compiler - component to compile expression(s) and statement(s) from AST
+- [ ] Analyzer - pass simple analyzers (will be in 0.4)
+- [ ] ControlFlow (future)
+- [X] Definition - base definitions
+
 ## Goals
 
 What is needed or planned as future.
