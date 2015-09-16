@@ -2,7 +2,9 @@
 
 namespace Tests\PHPSA;
 
+use PHPSA\CompiledExpression;
 use PHPSA\Node\Scalar\Boolean;
+use PHPSA\Node\Scalar\Fake;
 use PHPSA\Node\Scalar\Nil;
 use PHPSA\Visitor\Expression;
 use RuntimeException;
@@ -50,6 +52,16 @@ class TestCase extends \PHPUnit_Framework_TestCase
     {
         $visitor = new Expression($this->getContext());
         return $visitor->compile($expr);
+    }
+
+    /**
+     * @param int $type
+     * @param null $value
+     * @return Fake
+     */
+    public function newFakeScalarExpr($type = CompiledExpression::UNKNOWN, $value = null)
+    {
+        return new Fake($value, $type);
     }
 
     /**
