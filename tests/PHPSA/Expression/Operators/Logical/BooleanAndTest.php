@@ -26,7 +26,7 @@ class BooleanAndTest extends \Tests\PHPSA\TestCase
      *
      * @dataProvider getDataProvider
      */
-    public function testBooleanOr($a, $b, $c)
+    public function testSimpleSuccessCompile($a, $b, $c)
     {
         $baseExpression = new Node\Expr\BinaryOp\BooleanAnd(
             $this->newScalarExpr($a),
@@ -37,5 +37,18 @@ class BooleanAndTest extends \Tests\PHPSA\TestCase
         $this->assertInstanceOfCompiledExpression($compiledExpression);
         $this->assertSame(CompiledExpression::BOOLEAN, $compiledExpression->getType());
         $this->assertSame($c, $compiledExpression->getValue());
+    }
+
+    public function testUnexpectedTypes()
+    {
+        $baseExpression = new Node\Expr\BinaryOp\BooleanAnd(
+            $this->newScalarExpr(1),
+            $this->newFakeScalarExpr()
+        );
+        $compiledExpression = $this->compileExpression($baseExpression);
+
+        $this->assertInstanceOfCompiledExpression($compiledExpression);
+        $this->assertSame(CompiledExpression::UNKNOWN, $compiledExpression->getType());
+        $this->assertSame(null, $compiledExpression->getValue());
     }
 }

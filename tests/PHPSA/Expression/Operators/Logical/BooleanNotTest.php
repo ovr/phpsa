@@ -31,7 +31,7 @@ class BooleanNotTest extends \Tests\PHPSA\TestCase
      * @see \PHPSA\Visitor\Expression\Operators\Logical\BooleanNot
      * @dataProvider getDataProvider
      */
-    public function testBooleanNot($a, $b)
+    public function testSimpleSuccessCompile($a, $b)
     {
         $baseExpression = new Node\Expr\BooleanNot(
             $this->newScalarExpr($a)
@@ -41,5 +41,17 @@ class BooleanNotTest extends \Tests\PHPSA\TestCase
         $this->assertInstanceOfCompiledExpression($compiledExpression);
         $this->assertSame(CompiledExpression::BOOLEAN, $compiledExpression->getType());
         $this->assertSame($b, $compiledExpression->getValue());
+    }
+
+    public function testUnexpectedTypes()
+    {
+        $baseExpression = new Node\Expr\BooleanNot(
+            $this->newFakeScalarExpr()
+        );
+        $compiledExpression = $this->compileExpression($baseExpression);
+
+        $this->assertInstanceOfCompiledExpression($compiledExpression);
+        $this->assertSame(CompiledExpression::UNKNOWN, $compiledExpression->getType());
+        $this->assertSame(null, $compiledExpression->getValue());
     }
 }
