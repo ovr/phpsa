@@ -58,4 +58,30 @@ abstract class BaseTestCase extends \Tests\PHPSA\TestCase
         $this->assertSame(CompiledExpression::BOOLEAN, $compiledExpression->getType());
         $this->assertSame($this->operator($a, $b), $compiledExpression->getValue());
     }
+
+    public function testFirstUnexpectedTypes()
+    {
+        $baseExpression = $this->buildExpression(
+            $this->newFakeScalarExpr(),
+            $this->newScalarExpr(1)
+        );
+        $compiledExpression = $this->compileExpression($baseExpression);
+
+        $this->assertInstanceOfCompiledExpression($compiledExpression);
+        $this->assertSame(CompiledExpression::UNKNOWN, $compiledExpression->getType());
+        $this->assertSame(null, $compiledExpression->getValue());
+    }
+
+    public function testSecondUnexpectedTypes()
+    {
+        $baseExpression = $this->buildExpression(
+            $this->newScalarExpr(1),
+            $this->newFakeScalarExpr()
+        );
+        $compiledExpression = $this->compileExpression($baseExpression);
+
+        $this->assertInstanceOfCompiledExpression($compiledExpression);
+        $this->assertSame(CompiledExpression::UNKNOWN, $compiledExpression->getType());
+        $this->assertSame(null, $compiledExpression->getValue());
+    }
 }
