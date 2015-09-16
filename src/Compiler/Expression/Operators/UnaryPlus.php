@@ -41,7 +41,6 @@ class UnaryPlus extends AbstractExpressionCompiler
                     'Unsupported operand types -{array}',
                     $expr
                 );
-                return new CompiledExpression();
         }
 
         return new CompiledExpression();
