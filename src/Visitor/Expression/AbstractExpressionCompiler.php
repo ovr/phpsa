@@ -5,10 +5,10 @@
 
 namespace PHPSA\Visitor\Expression;
 
+use Doctrine\Instantiator\Exception\InvalidArgumentException;
 use PHPSA\CompiledExpression;
 use PHPSA\Context;
 use PHPSA\Visitor\ExpressionCompilerInterface;
-use RuntimeException;
 
 abstract class AbstractExpressionCompiler implements ExpressionCompilerInterface
 {
@@ -21,7 +21,7 @@ abstract class AbstractExpressionCompiler implements ExpressionCompilerInterface
     protected function assertExpression($expression)
     {
         if (!$expression instanceof $this->name) {
-            throw new RuntimeException('Passed $expression must be instance of ' . $this->name);
+            throw new InvalidArgumentException('Passed $expression must be instance of ' . $this->name);
         }
     }
 

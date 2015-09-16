@@ -19,7 +19,7 @@ class ExpressionCompilerTest extends \Tests\PHPSA\TestCase
         $this->assertSame('PhpParser\Node\Expr\UnaryMinus', $expr->getName());
 
         $this->setExpectedException(
-            'RuntimeException',
+            'InvalidArgumentException',
             'Passed $expression must be instance of PhpParser\Node\Expr\UnaryMinus'
         );
         $expr->pass($this->newFakeScalarExpr(), $this->getContext());
