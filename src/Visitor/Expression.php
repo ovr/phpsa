@@ -177,6 +177,8 @@ class Expression
                 return $this->passScalar($expr, CompiledExpression::STRING);
             case 'PHPSA\Node\Scalar\Boolean':
                 return $this->passScalar($expr, CompiledExpression::BOOLEAN);
+            case 'PHPSA\Node\Scalar\Fake':
+                return $this->passScalar($expr, $expr->type);
         }
 
         $expressionCompiler = $this->factory($expr);
