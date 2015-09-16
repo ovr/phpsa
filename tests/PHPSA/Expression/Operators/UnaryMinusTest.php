@@ -45,4 +45,29 @@ class UnaryMinusTest extends \Tests\PHPSA\TestCase
         $this->assertSame(CompiledExpression::INTEGER, $compiledExpression->getType());
         $this->assertSame(-$value, $compiledExpression->getValue());
     }
+
+    /**
+     * @return array
+     */
+    public function getDataProviderForUnsupported()
+    {
+        return array(
+            array([]),
+        );
+    }
+
+    /**
+     * @dataProvider getDataProviderForUnsupported
+     */
+    public function testUnsupportedOperandType($value)
+    {
+        $baseExpression = new Node\Expr\UnaryMinus(
+            $this->newScalarExpr($value)
+        );
+        $compiledExpression = $this->compileExpression($baseExpression);
+
+        $this->assertInstanceOfCompiledExpression($compiledExpression);
+        $this->assertSame(CompiledExpression::UNKNOWN, $compiledExpression->getType());
+        $this->assertSame(null, $compiledExpression->getValue());
+    }
 }
