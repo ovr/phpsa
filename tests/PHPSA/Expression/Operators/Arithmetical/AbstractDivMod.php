@@ -52,7 +52,10 @@ abstract class AbstractDivMod extends \Tests\PHPSA\TestCase
     public function testDivIntToIntWithIntResult($a, $b)
     {
         $compiledExpression = $this->compileExpression(
-            $this->buildExpression($a, $b)
+            $this->buildExpression(
+                $this->newScalarExpr($a),
+                $this->newScalarExpr($b)
+            )
         );
 
         $this->assertInstanceOfCompiledExpression($compiledExpression);
@@ -93,7 +96,10 @@ abstract class AbstractDivMod extends \Tests\PHPSA\TestCase
         $this->assertInternalType('double', $c);
 
         $compiledExpression = $this->compileExpression(
-            $this->buildExpression($a, $b)
+            $this->buildExpression(
+                $this->newScalarExpr($a),
+                $this->newScalarExpr($b)
+            )
         );
 
         $this->assertInstanceOfCompiledExpression($compiledExpression);
@@ -131,7 +137,10 @@ abstract class AbstractDivMod extends \Tests\PHPSA\TestCase
         $this->assertInternalType('double', $c);
 
         $compiledExpression = $this->compileExpression(
-            $this->buildExpression($a, $b)
+            $this->buildExpression(
+                $this->newScalarExpr($a),
+                $this->newScalarExpr($b)
+            )
         );
         $this->assertInstanceOfCompiledExpression($compiledExpression);
         $this->assertSame($this->getAssertType(), $compiledExpression->getType());
@@ -152,10 +161,45 @@ abstract class AbstractDivMod extends \Tests\PHPSA\TestCase
         $this->assertInternalType('double', $c);
 
         $compiledExpression = $this->compileExpression(
-            $this->buildExpression($a, $b)
+            $this->buildExpression(
+                $this->newScalarExpr($a),
+                $this->newScalarExpr($b)
+            )
         );
         $this->assertInstanceOfCompiledExpression($compiledExpression);
         $this->assertSame($this->getAssertType(), $compiledExpression->getType());
         $this->assertSame($this->process($a, $b), $compiledExpression->getValue());
+    }
+
+    /**
+     * Tests {left-expr::UNKNOWN} $operator {right-expr}
+     */
+    public function testFirstUnexpectedTypes()
+    {
+        $baseExpression = $this->buildExpression(
+            $this->newFakeScalarExpr(),
+            $this->newScalarExpr(1)
+        );
+        $compiledExpression = $this->compileExpression($baseExpression);
+
+        $this->assertInstanceOfCompiledExpression($compiledExpression);
+        $this->assertSame(CompiledExpression::UNKNOWN, $compiledExpression->getType());
+        $this->assertSame(null, $compiledExpression->getValue());
+    }
+
+    /**
+     * Tests {left-expr} $operator {right-expr::UNKNOWN}
+     */
+    public function testSecondUnexpectedTypes()
+    {
+        $baseExpression = $this->buildExpression(
+            $this->newScalarExpr(1),
+            $this->newFakeScalarExpr()
+        );
+        $compiledExpression = $this->compileExpression($baseExpression);
+
+        $this->assertInstanceOfCompiledExpression($compiledExpression);
+        $this->assertSame(CompiledExpression::UNKNOWN, $compiledExpression->getType());
+        $this->assertSame(null, $compiledExpression->getValue());
     }
 }

@@ -56,4 +56,36 @@ class MinusTest extends \Tests\PHPSA\TestCase
         $this->assertSame(CompiledExpression::LNUMBER, $compiledExpression->getType());
         $this->assertSame($c, $compiledExpression->getValue());
     }
+
+    /**
+     * Tests {left-expr::UNKNOWN} - {right-expr}
+     */
+    public function testFirstUnexpectedTypes()
+    {
+        $baseExpression = new Node\Expr\BinaryOp\Minus(
+            $this->newFakeScalarExpr(),
+            $this->newScalarExpr(1)
+        );
+        $compiledExpression = $this->compileExpression($baseExpression);
+
+        $this->assertInstanceOfCompiledExpression($compiledExpression);
+        $this->assertSame(CompiledExpression::UNKNOWN, $compiledExpression->getType());
+        $this->assertSame(null, $compiledExpression->getValue());
+    }
+
+    /**
+     * Tests {left-expr} - {right-expr::UNKNOWN}
+     */
+    public function testSecondUnexpectedTypes()
+    {
+        $baseExpression = new Node\Expr\BinaryOp\Minus(
+            $this->newScalarExpr(1),
+            $this->newFakeScalarExpr()
+        );
+        $compiledExpression = $this->compileExpression($baseExpression);
+
+        $this->assertInstanceOfCompiledExpression($compiledExpression);
+        $this->assertSame(CompiledExpression::UNKNOWN, $compiledExpression->getType());
+        $this->assertSame(null, $compiledExpression->getValue());
+    }
 }

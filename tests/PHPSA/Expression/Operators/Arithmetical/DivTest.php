@@ -19,16 +19,13 @@ class DivTest extends AbstractDivMod
     }
 
     /**
-     * @param $a
-     * @param $b
+     * @param Node\Scalar $a
+     * @param Node\Scalar $b
      * @return Node\Expr\BinaryOp\Div
      */
     protected function buildExpression($a, $b)
     {
-        return new Node\Expr\BinaryOp\Div(
-            $this->newScalarExpr($a),
-            $this->newScalarExpr($b)
-        );
+        return new Node\Expr\BinaryOp\Div($a, $b);
     }
 
     protected function getAssertType()
@@ -66,7 +63,10 @@ class DivTest extends AbstractDivMod
     public function testDivIntToIntWithIntResult($a, $b)
     {
         $compiledExpression = $this->compileExpression(
-            $this->buildExpression($a, $b)
+            $this->buildExpression(
+                $this->newScalarExpr($a),
+                $this->newScalarExpr($b)
+            )
         );
 
         $this->assertInstanceOfCompiledExpression($compiledExpression);
@@ -105,7 +105,10 @@ class DivTest extends AbstractDivMod
         $this->assertInternalType('double', $c);
 
         $compiledExpression = $this->compileExpression(
-            $this->buildExpression($a, $b)
+            $this->buildExpression(
+                $this->newScalarExpr($a),
+                $this->newScalarExpr($b)
+            )
         );
 
         $this->assertInstanceOfCompiledExpression($compiledExpression);
@@ -143,7 +146,10 @@ class DivTest extends AbstractDivMod
         $this->assertInternalType('double', $c);
 
         $compiledExpression = $this->compileExpression(
-            $this->buildExpression($a, $b)
+            $this->buildExpression(
+                $this->newScalarExpr($a),
+                $this->newScalarExpr($b)
+            )
         );
         $this->assertInstanceOfCompiledExpression($compiledExpression);
         $this->assertSame(CompiledExpression::DNUMBER, $compiledExpression->getType());
@@ -164,7 +170,10 @@ class DivTest extends AbstractDivMod
         $this->assertInternalType('double', $c);
 
         $compiledExpression = $this->compileExpression(
-            $this->buildExpression($a, $b)
+            $this->buildExpression(
+                $this->newScalarExpr($a),
+                $this->newScalarExpr($b)
+            )
         );
         $this->assertInstanceOfCompiledExpression($compiledExpression);
         $this->assertSame(CompiledExpression::DNUMBER, $compiledExpression->getType());
