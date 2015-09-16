@@ -46,7 +46,7 @@ abstract class BaseTestCase extends \Tests\PHPSA\TestCase
      *
      * @dataProvider smallerDataProvider
      */
-    public function testSmaller($a, $b)
+    public function testSimpleSuccessCompile($a, $b)
     {
         $baseExpression = $this->buildExpression($a, $b);
         $compiledExpression = $this->compileExpression($baseExpression);
