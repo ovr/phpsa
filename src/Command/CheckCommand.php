@@ -205,7 +205,7 @@ class CheckCommand extends Command
     {
         foreach ($topStatement as $statement) {
             if ($statement instanceof Node\Stmt\Use_) {
-                if (!empty($statement->uses)) {
+                if (count($statement->uses) > 0) {
                     foreach ($statement->uses as $use) {
                         $aliasManager->add($use->name->parts);
                     }
