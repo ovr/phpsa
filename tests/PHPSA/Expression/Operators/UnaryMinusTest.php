@@ -13,8 +13,6 @@ use PHPSA\Visitor\Expression;
 class UnaryMinusTest extends \Tests\PHPSA\TestCase
 {
     /**
-     * Data provider for Div {int} / {int} = {int}
-     *
      * @return array
      */
     public function getDataProviderForSuccess()
