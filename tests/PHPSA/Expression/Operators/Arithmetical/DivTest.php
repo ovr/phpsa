@@ -128,6 +128,7 @@ class DivTest extends AbstractDivMod
             array(1.25, -1, -1.25),
             array(1.25, 1, 1.25),
             array(1.25, true, 1.25),
+            array(0.0, 1, 0.0),
             array(12.5, 25, 1/2),
             array(6.25, 25, 1/4),
             array(3.125, 25, 1/8),
