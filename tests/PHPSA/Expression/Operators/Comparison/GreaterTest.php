@@ -15,16 +15,13 @@ use PHPSA\Visitor\Expression;
 class GreaterTest extends BaseTestCase
 {
     /**
-     * @param $a
-     * @param $b
+     * @param \PhpParser\Node\Scalar $a
+     * @param \PhpParser\Node\Scalar $b
      * @return Node\Expr\BinaryOp\Greater
      */
     protected function buildExpression($a, $b)
     {
-        return new Node\Expr\BinaryOp\Greater(
-            $this->newScalarExpr($a),
-            $this->newScalarExpr($b)
-        );
+        return new Node\Expr\BinaryOp\Greater($a, $b);
     }
 
     /**

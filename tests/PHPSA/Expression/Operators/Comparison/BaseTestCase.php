@@ -35,8 +35,8 @@ abstract class BaseTestCase extends \Tests\PHPSA\TestCase
     abstract protected function operator($a, $b);
 
     /**
-     * @param $a
-     * @param $b
+     * @param \PhpParser\Node\Scalar $a
+     * @param \PhpParser\Node\Scalar $b
      * @return \PhpParser\Node\Expr\BinaryOp
      */
     abstract protected function buildExpression($a, $b);
@@ -48,7 +48,10 @@ abstract class BaseTestCase extends \Tests\PHPSA\TestCase
      */
     public function testSimpleSuccessCompile($a, $b)
     {
-        $baseExpression = $this->buildExpression($a, $b);
+        $baseExpression = $this->buildExpression(
+            $this->newScalarExpr($a),
+            $this->newScalarExpr($b)
+        );
         $compiledExpression = $this->compileExpression($baseExpression);
 
         $this->assertInstanceOfCompiledExpression($compiledExpression);
