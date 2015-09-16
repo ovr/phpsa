@@ -18,7 +18,7 @@ class BitwiseNot extends AbstractExpressionCompiler
      * @param Context $context
      * @return CompiledExpression
      */
-    public function compile($expr, Context $context)
+    protected function compile($expr, Context $context)
     {
         $expression = new Expression($context);
         $compiledExpression = $expression->compile($expr->expr);

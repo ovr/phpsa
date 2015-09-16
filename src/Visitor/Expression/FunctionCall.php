@@ -21,7 +21,7 @@ class FunctionCall extends AbstractExpressionCompiler
      * @param Context $context
      * @return CompiledExpression
      */
-    public function compile($expr, Context $context)
+    protected function compile($expr, Context $context)
     {
         $name = $expr->name->parts[0];
         $compiler = $context->application->compiler;

@@ -23,7 +23,7 @@ class PostInc extends AbstractExpressionCompiler
      * @param Context $context
      * @return CompiledExpression
      */
-    public function compile($expr, Context $context)
+    protected function compile($expr, Context $context)
     {
         if ($expr->var instanceof \PHPParser\Node\Expr\Variable) {
             $name = $expr->var->name;
