@@ -4,7 +4,7 @@ namespace Tests\PHPSA\Expression\Operators\Arithmetical;
 
 use PhpParser\Node;
 use PHPSA\CompiledExpression;
-use PHPSA\Visitor\Expression;
+use PHPSA\Compiler\Expression;
 
 class MinusTest extends \Tests\PHPSA\TestCase
 {

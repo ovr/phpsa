@@ -4,13 +4,13 @@ namespace Tests\PHPSA\Expression\Operators\Comparison;
 
 use PhpParser\Node;
 use PHPSA\CompiledExpression;
-use PHPSA\Visitor\Expression;
+use PHPSA\Compiler\Expression;
 
 /**
  * Class GreaterOrEqualTest
  * @package Tests\PHPSA\Expression\Operators\Comparison
  *
- * @see PHPSA\Visitor\Expression\Operators\Comparison\GreaterOrEqual
+ * @see PHPSA\Compiler\Expression\Operators\Comparison\GreaterOrEqual
  */
 class GreaterOrEqualTest extends BaseTestCase
 {

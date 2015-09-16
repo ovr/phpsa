@@ -4,13 +4,13 @@ namespace Tests\PHPSA\Expression\Operators\Comparison;
 
 use PhpParser\Node;
 use PHPSA\CompiledExpression;
-use PHPSA\Visitor\Expression;
+use PHPSA\Compiler\Expression;
 
 /**
  * Class GreaterTest
  * @package Tests\PHPSA\Expression\Operators\Comparison
  *
- * @see PHPSA\Visitor\Expression\Operators\Comparison\Greater
+ * @see PHPSA\Compiler\Expression\Operators\Comparison\Greater
  */
 class GreaterTest extends BaseTestCase
 {

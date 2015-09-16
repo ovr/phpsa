@@ -4,13 +4,13 @@ namespace Tests\PHPSA\Expression\Operators\Comparison;
 
 use PhpParser\Node;
 use PHPSA\CompiledExpression;
-use PHPSA\Visitor\Expression;
+use PHPSA\Compiler\Expression;
 
 /**
  * Class SmallerTest
  * @package Tests\PHPSA\Expression\Operators\Comparison
  *
- * @see PHPSA\Visitor\Expression\Operators\Comparison\Smaller
+ * @see PHPSA\Compiler\Expression\Operators\Comparison\Smaller
  */
 class SmallerTest extends BaseTestCase
 {

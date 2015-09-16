@@ -4,7 +4,7 @@ namespace Tests\PHPSA\Expression\Operators\Logical;
 
 use PhpParser\Node;
 use PHPSA\CompiledExpression;
-use PHPSA\Visitor\Expression;
+use PHPSA\Compiler\Expression;
 
 class BooleanOrTest extends \Tests\PHPSA\TestCase
 {

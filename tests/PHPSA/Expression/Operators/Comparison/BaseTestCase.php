@@ -4,7 +4,7 @@ namespace Tests\PHPSA\Expression\Operators\Comparison;
 
 use PhpParser\Node;
 use PHPSA\CompiledExpression;
-use PHPSA\Visitor\Expression;
+use PHPSA\Compiler\Expression;
 
 abstract class BaseTestCase extends \Tests\PHPSA\TestCase
 {

@@ -149,7 +149,7 @@ class CheckCommand extends Command
     protected function parserFile($filepath, Parser $parser, Context $context)
     {
         $astTraverser = new \PhpParser\NodeTraverser();
-        $astTraverser->addVisitor(new \PHPSA\Visitor\FunctionCall);
+        $astTraverser->addVisitor(new \PHPSA\Node\Visitor\FunctionCall);
         $astTraverser->addVisitor(new \PhpParser\NodeVisitor\NameResolver());
 
         try {

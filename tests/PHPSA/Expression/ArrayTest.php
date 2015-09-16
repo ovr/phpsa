@@ -4,7 +4,7 @@ namespace Tests\PHPSA\Expression\BinaryOp;
 
 use PhpParser\Node;
 use PHPSA\CompiledExpression;
-use PHPSA\Visitor\Expression;
+use PHPSA\Compiler\Expression;
 
 /**
  * Class ArrayTest

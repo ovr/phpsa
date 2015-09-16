@@ -4,7 +4,7 @@ namespace Tests\PHPSA\Expression\Operators\Logical;
 
 use PhpParser\Node;
 use PHPSA\CompiledExpression;
-use PHPSA\Visitor\Expression;
+use PHPSA\Compiler\Expression;
 
 /**
  * Class BooleanNotTest
@@ -28,7 +28,7 @@ class BooleanNotTest extends \Tests\PHPSA\TestCase
     /**
      * Tests !{expr}
      *
-     * @see \PHPSA\Visitor\Expression\Operators\Logical\BooleanNot
+     * @see \PHPSA\Compiler\Expression\Operators\Logical\BooleanNot
      * @dataProvider getDataProvider
      */
     public function testSimpleSuccessCompile($a, $b)

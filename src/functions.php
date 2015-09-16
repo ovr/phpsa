@@ -5,8 +5,8 @@
 
 namespace PHPSA;
 
-use PHPSA\Visitor\Expression;
-use PHPSA\Visitor\Statement;
+use PHPSA\Compiler\Expression;
+use PHPSA\Compiler\Statement;
 use PhpParser\Node;
 
 /**

@@ -6,7 +6,7 @@ use PHPSA\CompiledExpression;
 use PHPSA\Node\Scalar\Boolean;
 use PHPSA\Node\Scalar\Fake;
 use PHPSA\Node\Scalar\Nil;
-use PHPSA\Visitor\Expression;
+use PHPSA\Compiler\Expression;
 use RuntimeException;
 use Symfony\Component\Console\Output\ConsoleOutput;
 use PHPSA\Definition\ClassDefinition;

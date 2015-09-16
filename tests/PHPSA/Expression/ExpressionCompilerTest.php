@@ -4,8 +4,8 @@ namespace Tests\PHPSA\Expression\BinaryOp;
 
 use PhpParser\Node;
 use PHPSA\CompiledExpression;
-use PHPSA\Visitor\Expression;
-use PHPSA\Visitor\Expression\Operators\UnaryMinus;
+use PHPSA\Compiler\Expression;
+use PHPSA\Compiler\Expression\Operators\UnaryMinus;
 
 /**
  * Class ExpressionCompilerTest
