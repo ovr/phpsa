@@ -11,7 +11,10 @@ sudo: false
 
 cache:
     - apt
-
+  directories:
+    - vendor
+    - $HOME/.composer/cache
+    
 install:
   - composer self-update
   - composer --prefer-source install
