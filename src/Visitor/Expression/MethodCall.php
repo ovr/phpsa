@@ -77,14 +77,14 @@ class MethodCall extends AbstractExpressionCompiler
 
                 $context->notice(
                     'variable-wrongtype.mcall',
-                    sprintf('Variable %s is not object\\callable and cannot be called like this', $expr->var->name),
+                    sprintf('Variable $%s is not object\\callable and cannot be called like this', $expr->var->name),
                     $expr
                 );
                 return new CompiledExpression();
             } else {
                 $context->notice(
                     'undefined-variable.mcall',
-                    sprintf('Variable %s is not defined in this scope', $expr->var->name),
+                    sprintf('Variable $%s is not defined in this scope', $expr->var->name),
                     $expr
                 );
 
