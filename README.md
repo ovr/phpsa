@@ -53,6 +53,7 @@ What is needed or planned as future.
 - [ ] Unreachable statement
 - [X] Stupid cast
 - [X] Not implemented class methods
+- [X] Not implemented function
 
 #### Probable bugs
 
