@@ -19,8 +19,10 @@ class Boolean extends \PhpParser\Node\Scalar
         $this->value = $value;
     }
 
+    //@codeCoverageIgnoreStart
     public function getSubNodeNames()
     {
         return array('value');
     }
+    //@codeCoverageIgnoreEnd
 }
