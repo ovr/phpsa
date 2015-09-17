@@ -215,7 +215,7 @@ Memory usage: 4.97 (peak: 5.25) MB
 
 ## Requirements
 
-- PHP >= 5.3 (compatible up to version 7.0 && hhvm)
+- PHP >= 5.4 (compatible up to version 7.0 && hhvm)
 
 ## Sponsors
 
