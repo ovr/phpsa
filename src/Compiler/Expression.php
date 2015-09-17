@@ -484,6 +484,16 @@ class Expression
             if ($symbol) {
                 $symbol->modify($compiledExpression->getType(), $compiledExpression->getValue());
                 $symbol->setReferenced(true);
+
+                if ($expr->expr instanceof Node\Expr\Variable) {
+                    $rightVarName = $expr->expr->name;
+
+                    $rightSymbol = $this->context->getSymbol($rightVarName);
+                    if ($rightSymbol) {
+                        $rightSymbol->incUse();
+                        $symbol->setReferencedTo($rightSymbol);
+                    }
+                }
             } else {
                 $symbol = new Variable($name, $compiledExpression->getValue(), $compiledExpression->getType(), true);
                 $this->context->addVariable($symbol);
