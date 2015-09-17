@@ -34,7 +34,7 @@ class UnaryMinus extends AbstractExpressionCompiler
             case CompiledExpression::BOOLEAN:
             case CompiledExpression::STRING:
             case CompiledExpression::NULL:
-                return new CompiledExpression(CompiledExpression::INTEGER, -$left->getValue());
+                return CompiledExpression::fromZvalValue(-$left->getValue());
             case CompiledExpression::ARR:
                 $context->notice(
                     'unsupported-operand-types',
