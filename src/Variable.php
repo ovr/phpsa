@@ -131,6 +131,10 @@ class Variable
     {
         $this->type = (int) $type;
         $this->value = $value;
+
+        if ($this->referencedTo) {
+            $this->referencedTo->modify($type, $value);
+        }
     }
 
     public function incUse()
