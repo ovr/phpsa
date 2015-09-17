@@ -46,9 +46,8 @@ class Variable
      * @param string $name
      * @param mixed|null $defaultValue
      * @param int $type
-     * @param bool|false $referenced
      */
-    public function __construct($name, $defaultValue = null, $type = CompiledExpression::UNKNOWN, $referenced = false)
+    public function __construct($name, $defaultValue = null, $type = CompiledExpression::UNKNOWN)
     {
         $this->name = $name;
 
@@ -58,7 +57,6 @@ class Variable
         }
 
         $this->type = (int) $type;
-        $this->referenced = $referenced;
     }
 
     /**
