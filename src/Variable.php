@@ -192,6 +192,7 @@ class Variable
      */
     public function setReferencedTo(Variable $referencedTo = null)
     {
+        $this->referenced = true;
         $this->referencedTo = $referencedTo;
     }
 
