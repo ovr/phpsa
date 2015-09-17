@@ -197,6 +197,7 @@ class Variable
     }
 
     /**
+     * @deprecated
      * @param boolean $referenced
      */
     public function setReferenced($referenced)
