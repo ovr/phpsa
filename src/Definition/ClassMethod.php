@@ -7,6 +7,7 @@ namespace PHPSA\Definition;
 
 use PhpParser\Node;
 use PHPSA\CompiledExpression;
+use PHPSA\Compiler\Parameter;
 use PHPSA\Context;
 use PHPSA\ScopePointer;
 use PHPSA\Variable;
@@ -91,7 +92,9 @@ class ClassMethod extends AbstractDefinition
         if (count($this->statement->params) > 0) {
             /** @var  Node\Param $parameter */
             foreach ($this->statement->params as $parameter) {
-                $context->addSymbol($parameter->name);
+                $context->addVariable(
+                    new Parameter($parameter->name, CompiledExpression::UNKNOWN, null, $parameter->byRef)
+                );
             }
         }
 
