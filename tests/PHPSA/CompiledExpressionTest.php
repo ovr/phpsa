@@ -6,6 +6,17 @@ use PHPSA\CompiledExpression;
 
 class CompiledExpressionTest extends TestCase
 {
+    public function testToVariableMethod()
+    {
+        $compiledExpression = new CompiledExpression(CompiledExpression::INTEGER, 1);
+        $this->assertInstanceOfCompiledExpression($compiledExpression);
+
+        $resultVariable = $compiledExpression->toVariable('test');
+        static::assertInstanceOf('PHPSA\Variable', $resultVariable);
+        static::assertSame($compiledExpression->getType(), $resultVariable->getType());
+        static::assertSame($compiledExpression->getValue(), $resultVariable->getValue());
+    }
+
     public function testFromZvalInteger()
     {
         $result = CompiledExpression::fromZvalValue(1);
@@ -25,6 +36,22 @@ class CompiledExpressionTest extends TestCase
         $this->assertInstanceOfCompiledExpression($result);
         $this->assertSame(CompiledExpression::BOOLEAN, $result->getType());
         $this->assertSame(false, $result->getValue());
+    }
+
+    public function testFromZvalArray()
+    {
+        $result = CompiledExpression::fromZvalValue([]);
+        $this->assertInstanceOfCompiledExpression($result);
+        $this->assertSame(CompiledExpression::ARR, $result->getType());
+        $this->assertSame([], $result->getValue());
+    }
+
+    public function testFromZvalString()
+    {
+        $result = CompiledExpression::fromZvalValue("test string");
+        $this->assertInstanceOfCompiledExpression($result);
+        $this->assertSame(CompiledExpression::STRING, $result->getType());
+        $this->assertSame("test string", $result->getValue());
     }
 
     public function testFromZvalDouble()
