@@ -180,14 +180,19 @@ class CompiledExpression
                 return new CompiledExpression(self::NULL, null);
         }
 
+        //@codeCoverageIgnoreStart
         throw new RuntimeException("Type '{$type}' is not supported");
+        //@codeCoverageIgnoreEnd
     }
 
+    //@codeCoverageIgnoreStart
     /**
+     * @todo Implement it ;)
      * @return boolean
      */
     public function isCurrectTypeValue()
     {
         return true;
     }
+    //@codeCoverageIgnoreEnd
 }
