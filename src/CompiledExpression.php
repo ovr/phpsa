@@ -146,11 +146,12 @@ class CompiledExpression
     }
 
     /**
+     * @param string $name Name of the Variable
      * @return Variable
      */
-    public function toVariable()
+    public function toVariable($name)
     {
-        return new Variable($this->type, $this->value);
+        return new Variable($name, $this->value, $this->type);
     }
 
     /**
