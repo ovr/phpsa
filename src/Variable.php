@@ -180,7 +180,7 @@ class Variable
      */
     public function isUnused()
     {
-        return $this->getGets() == 0 && $this->incSets();
+        return $this->gets == 0 && $this->sets > 0;
     }
 
     /**

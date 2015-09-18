@@ -134,6 +134,22 @@ class VariableTest extends TestCase
         static::assertSame($newType, $variable->getType());
     }
 
+    public function testIsUnusedTrue()
+    {
+        $variable = new Variable('a', 1, CompiledExpression::INTEGER);
+        static::assertTrue($variable->isUnused());
+
+        $variable = new Variable('a', null, CompiledExpression::UNKNOWN);
+        $variable->incSets();
+        static::assertTrue($variable->isUnused());
+    }
+
+    public function testIsUnusedFalse()
+    {
+        $variable = new Variable('a', null, CompiledExpression::UNKNOWN);
+        static::assertFalse($variable->isUnused());
+    }
+
     public function testReferenceToChange()
     {
         /**
