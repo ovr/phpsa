@@ -7,7 +7,7 @@ use PHPSA\Variable;
 
 class VariableTest extends TestCase
 {
-    public function testSimpleConstruct()
+    public function testSimpleInstanceWithDefaultValue()
     {
         $variable = new Variable('test', 1, CompiledExpression::INTEGER);
 
@@ -22,6 +22,118 @@ class VariableTest extends TestCase
         static::assertSame(1, $variable->getSets());
     }
 
+    public function testIsNumericMethodIntSuccess()
+    {
+        $variable = new Variable('a', 1, CompiledExpression::INTEGER);
+        static::assertTrue($variable->isNumeric());
+    }
+
+    public function testIsNumericMethodDoubleSuccess()
+    {
+        $variable = new Variable('a', 1, CompiledExpression::DOUBLE);
+        static::assertTrue($variable->isNumeric());
+    }
+
+    public function testIsNumericMethodFalseOnBoolean()
+    {
+        $variable = new Variable('a', 1, CompiledExpression::BOOLEAN);
+        static::assertFalse($variable->isNumeric());
+    }
+
+    public function testIncValue()
+    {
+        $variable = new Variable('a', 1, CompiledExpression::INTEGER);
+        static::assertSame(1, $variable->getValue());
+
+        $variable->inc();
+        static::assertSame(2, $variable->getValue());
+
+        $variable->inc();
+        static::assertSame(3, $variable->getValue());
+
+        $variable->inc();
+        $variable->inc();
+        static::assertSame(5, $variable->getValue());
+    }
+
+    public function testDecValue()
+    {
+        $variable = new Variable('a', 1, CompiledExpression::INTEGER);
+        static::assertSame(1, $variable->getValue());
+
+        $variable->dec();
+        static::assertSame(0, $variable->getValue());
+
+        $variable->dec();
+        static::assertSame(-1, $variable->getValue());
+
+        $variable->dec();
+        $variable->dec();
+        static::assertSame(-3, $variable->getValue());
+    }
+
+    public function testIncUse()
+    {
+        $variable = new Variable('a', null, CompiledExpression::UNKNOWN);
+        static::assertSame(0, $variable->getGets());
+        static::assertSame(0, $variable->getSets());
+
+        $variable->incUse();
+        static::assertSame(1, $variable->getGets());
+        static::assertSame(1, $variable->getSets());
+
+        $variable->incUse();
+        static::assertSame(2, $variable->getGets());
+        static::assertSame(2, $variable->getSets());
+
+        $variable->incUse();
+        $variable->incUse();
+        static::assertSame(4, $variable->getGets());
+        static::assertSame(4, $variable->getSets());
+    }
+
+    public function testIncSets()
+    {
+        $variable = new Variable('a', null, CompiledExpression::UNKNOWN);
+        static::assertSame(0, $variable->getSets());
+
+        $variable->incSets();
+        static::assertSame(1, $variable->getSets());
+
+        $variable->incSets();
+        static::assertSame(2, $variable->getSets());
+
+        $variable->incSets();
+        $variable->incSets();
+        static::assertSame(4, $variable->getSets());
+    }
+
+    public function testIncGets()
+    {
+        $variable = new Variable('a', null, CompiledExpression::UNKNOWN);
+        static::assertSame(0, $variable->getGets());
+
+        $variable->incGets();
+        static::assertSame(1, $variable->getGets());
+
+        $variable->incGets();
+        static::assertSame(2, $variable->getGets());
+
+        $variable->incGets();
+        $variable->incGets();
+        static::assertSame(4, $variable->getGets());
+    }
+
+    public function testModifyType()
+    {
+        $variable = new Variable('a', 1, CompiledExpression::INTEGER);
+        static::assertSame(CompiledExpression::INTEGER, $variable->getType());
+
+        $newType = CompiledExpression::BOOLEAN;
+        $variable->modifyType($newType);
+        static::assertSame($newType, $variable->getType());
+    }
+
     public function testReferenceToChange()
     {
         /**
@@ -34,6 +146,7 @@ class VariableTest extends TestCase
         static::assertFalse($variable->isReferenced());
         $variable->setReferencedTo($parentVariable);
         static::assertTrue($variable->isReferenced());
+        static::assertSame($parentVariable, $variable->getReferencedTo());
 
         /**
          * $b = 55.00
