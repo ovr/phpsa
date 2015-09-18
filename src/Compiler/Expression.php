@@ -483,7 +483,6 @@ class Expression
             $symbol = $this->context->getSymbol($name);
             if ($symbol) {
                 $symbol->modify($compiledExpression->getType(), $compiledExpression->getValue());
-                $symbol->setReferenced(true);
 
                 if ($expr->expr instanceof Node\Expr\Variable) {
                     $rightVarName = $expr->expr->name;
@@ -492,8 +491,12 @@ class Expression
                     if ($rightSymbol) {
                         $rightSymbol->incUse();
                         $symbol->setReferencedTo($rightSymbol);
+                    } else {
+                        $this->context->debug('Cannot fetch variable by name: ' . $rightVarName);
                     }
                 }
+
+                $this->context->debug('Unknown how to pass referenced to symbol: ' . get_class($expr->expr));
             } else {
                 $symbol = new Variable($name, $compiledExpression->getValue(), $compiledExpression->getType(), true);
                 $this->context->addVariable($symbol);
