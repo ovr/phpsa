@@ -108,17 +108,10 @@ class ClassDefinition extends ParentDefinition
             if (count($symbols) > 0) {
                 foreach ($symbols as $name => $variable) {
                     if ($variable->isUnused()) {
-                        if ($variable instanceof Parameter) {
-                            $context->warning(
-                                'unused-parameter',
-                                sprintf('Unused parameter $%s in method %s()', $variable->getName(), $method->getName())
-                            );
-                        } else {
-                            $context->warning(
-                                'unused-variable',
-                                sprintf('Unused variable $%s in method %s()', $variable->getName(), $method->getName())
-                            );
-                        }
+                        $context->warning(
+                            'unused-' . $variable->getSymbolType(),
+                            sprintf('Unused ' . $variable->getSymbolType() . ' $%s in method %s()', $variable->getName(), $method->getName())
+                        );
                     }
                 }
             }

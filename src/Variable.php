@@ -199,4 +199,12 @@ class Variable
         $this->referenced = true;
         $this->referencedTo = $referencedTo;
     }
+
+    /**
+     * @return string
+     */
+    public function getSymbolType()
+    {
+        return 'variable';
+    }
 }
