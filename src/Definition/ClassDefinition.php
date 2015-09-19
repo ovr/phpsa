@@ -6,6 +6,7 @@
 namespace PHPSA\Definition;
 
 use PHPSA\CompiledExpression;
+use PHPSA\Compiler\Parameter;
 use PHPSA\Context;
 use PhpParser\Node;
 use PHPSA\Variable;
@@ -107,10 +108,17 @@ class ClassDefinition extends ParentDefinition
             if (count($symbols) > 0) {
                 foreach ($symbols as $name => $variable) {
                     if ($variable->isUnused()) {
-                        $context->warning(
-                            'unused-variable',
-                            sprintf('Unused variable $%s in method %s()', $variable->getName(), $method->getName())
-                        );
+                        if ($variable instanceof Parameter) {
+                            $context->warning(
+                                'unused-parameter',
+                                sprintf('Unused parameter $%s in method %s()', $variable->getName(), $method->getName())
+                            );
+                        } else {
+                            $context->warning(
+                                'unused-variable',
+                                sprintf('Unused variable $%s in method %s()', $variable->getName(), $method->getName())
+                            );
+                        }
                     }
                 }
             }
