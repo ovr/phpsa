@@ -7,12 +7,22 @@ namespace PHPSA\ControlFlow;
 
 class Graph
 {
+    /**
+     * @var object
+     */
     protected $entryPoint;
 
+    /**
+     * @var \SplObjectStorage
+     */
     protected $nodes;
 
-    public function __construct()
+    /**
+     * @param $entryPoint
+     */
+    public function __construct($entryPoint)
     {
+        $this->entryPoint = $entryPoint;
         $this->nodes = new \SplObjectStorage();
     }
 }
