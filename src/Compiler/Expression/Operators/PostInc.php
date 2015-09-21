@@ -34,9 +34,14 @@ class PostInc extends AbstractExpressionCompiler
 
             $variable = $context->getSymbol($variableName);
             if ($variable) {
-                $variable->inc();
                 $variable->incUse();
-                return CompiledExpression::fromZvalValue($variable->getValue());
+
+                switch ($variable->getType()) {
+                    case CompiledExpression::LNUMBER:
+                    case CompiledExpression::DNUMBER:
+                        $variable->inc();
+                        return CompiledExpression::fromZvalValue($variable->getValue());
+                }
             }
 
             return new CompiledExpression(CompiledExpression::UNKNOWN);
