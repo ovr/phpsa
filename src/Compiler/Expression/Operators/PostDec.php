@@ -39,7 +39,7 @@ class PostDec extends AbstractExpressionCompiler
                 switch ($variable->getType()) {
                     case CompiledExpression::LNUMBER:
                     case CompiledExpression::DNUMBER:
-                        $variable->inc();
+                        $variable->dec();
                         return CompiledExpression::fromZvalValue($variable->getValue());
                 }
             }
