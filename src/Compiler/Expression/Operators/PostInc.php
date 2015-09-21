@@ -42,6 +42,14 @@ class PostInc extends AbstractExpressionCompiler
                         $variable->inc();
                         return CompiledExpression::fromZvalValue($variable->getValue());
                 }
+
+
+                $context->debug(
+                    '[PostInc] You are trying to use post dec on variable ' . $variableName .
+                    ' with type: ' . $variable->getType()
+                );
+            } else {
+                $context->debug('[PostInc] You are trying to use operator on undefined variable: ' . $variableName);
             }
 
             return new CompiledExpression(CompiledExpression::UNKNOWN);

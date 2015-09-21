@@ -42,6 +42,13 @@ class PostDec extends AbstractExpressionCompiler
                         $variable->dec();
                         return CompiledExpression::fromZvalValue($variable->getValue());
                 }
+
+                $context->debug(
+                    '[PostDec] You are trying to use post dec on variable ' . $variableName .
+                    ' with type: ' . $variable->getType()
+                );
+            } else {
+                $context->debug('[PostDec] You are trying to use operator on undefined variable: ' . $variableName);
             }
 
             return new CompiledExpression(CompiledExpression::UNKNOWN);
