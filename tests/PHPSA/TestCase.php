@@ -3,6 +3,7 @@
 namespace Tests\PHPSA;
 
 use PHPSA\CompiledExpression;
+use PHPSA\Context;
 use PHPSA\Node\Scalar\Boolean;
 use PHPSA\Node\Scalar\Fake;
 use PHPSA\Node\Scalar\Nil;
@@ -45,12 +46,13 @@ class TestCase extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @param $expr
+     * @param object $expr
+     * @param Context|null $expr
      * @return \PHPSA\CompiledExpression
      */
-    protected function compileExpression($expr)
+    protected function compileExpression($expr, Context $context = null)
     {
-        $visitor = new Expression($this->getContext());
+        $visitor = new Expression(is_null($context) ? $this->getContext() : $context);
         return $visitor->compile($expr);
     }
 
