@@ -16,7 +16,7 @@ class Types
      * @param $value
      * @return int
      */
-    static public function getType($value)
+    public static function getType($value)
     {
         $type = gettype($value);
         switch ($type) {
