@@ -6,6 +6,7 @@
 namespace PHPSA;
 
 use Ovr\PHPReflection\Types;
+use PHPSA\Compiler\Types as CompilerTypes;
 use RuntimeException;
 
 class CompiledExpression
@@ -163,26 +164,7 @@ class CompiledExpression
      */
     public static function fromZvalValue($value)
     {
-        $type = gettype($value);
-        switch ($type) {
-            case 'integer':
-                return new CompiledExpression(self::LNUMBER, $value);
-            case 'float':
-            case 'double':
-                return new CompiledExpression(self::DNUMBER, $value);
-            case 'string':
-                return new CompiledExpression(self::STRING, $value);
-            case 'array':
-                return new CompiledExpression(self::ARR, $value);
-            case 'boolean':
-                return new CompiledExpression(self::BOOLEAN, $value);
-            case 'NULL':
-                return new CompiledExpression(self::NULL, null);
-        }
-
-        //@codeCoverageIgnoreStart
-        throw new RuntimeException("Type '{$type}' is not supported");
-        //@codeCoverageIgnoreEnd
+        return new CompiledExpression(CompilerTypes::getType($value), $value);
     }
 
     //@codeCoverageIgnoreStart
