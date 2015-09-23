@@ -172,7 +172,7 @@ class CompiledExpression
      * @todo Implement it ;)
      * @return boolean
      */
-    public function isCurrectTypeValue()
+    public function isCorrectType()
     {
         return true;
     }
