@@ -12,5 +12,10 @@ use PHPSA\Context;
 
 interface ExpressionCompilerInterface
 {
+    /**
+     * @param $expr
+     * @param Context $context
+     * @return \PHPSa\CompiledExpression
+     */
     public function pass($expr, Context $context);
 }
