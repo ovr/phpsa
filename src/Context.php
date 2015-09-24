@@ -38,9 +38,9 @@ class Context
     protected $symbols = array();
 
     /**
-     * @var ScopePointer
+     * @var ScopePointer|null
      */
-    public $scopePointer = array();
+    public $scopePointer;
 
     /**
      * Construct our Context with all needed information
