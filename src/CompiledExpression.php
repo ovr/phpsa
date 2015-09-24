@@ -132,6 +132,7 @@ class CompiledExpression
 
     /**
      * @param integer $value
+     * @return boolean
      */
     public function isEquals($value)
     {
