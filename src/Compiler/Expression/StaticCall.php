@@ -10,6 +10,7 @@ namespace PHPSA\Compiler\Expression;
 use PHPSA\CompiledExpression;
 use PHPSA\Context;
 use PHPSA\Compiler\Expression;
+use PHPSA\Definition\ClassDefinition;
 
 class StaticCall extends AbstractExpressionCompiler
 {
@@ -29,14 +30,23 @@ class StaticCall extends AbstractExpressionCompiler
             $name = $expr->name;
 
             if ($scope == 'self') {
-                if (!$context->scope->hasMethod($name)) {
+                if ($context->scopePointer instanceof ClassDefinition) {
+                    $context->notice(
+                        'scall-self-not-context',
+                        sprintf('No scope. You cannot call from %s out from class scope', $name, $scope),
+                        $expr
+                    );
+                }
+
+                $classDefinition = $context->scopePointer;
+                if (!$classDefinition->hasMethod($name)) {
                     $context->notice(
                         'undefined-scall',
                         sprintf('Static method %s() does not exist in %s scope', $name, $scope),
                         $expr
                     );
                 } else {
-                    $method = $context->scope->getMethod($name);
+                    $method = $classDefinition->getMethod($name);
                     if (!$method->isStatic()) {
                         $context->notice(
                             'undefined-scall',
