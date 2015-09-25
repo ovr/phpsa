@@ -33,7 +33,7 @@ class ReturnSt extends AbstractCompiler
                 $classMethod = $context->scopePointer->getObject();
                 $classMethod->addNewType($compiledExpression->getType());
 
-                if ($compiledExpression->isCurrectTypeValue()) {
+                if ($compiledExpression->isCorrectValue()) {
                     $classMethod->addReturnPossibleValue($compiledExpression->getValue());
                 }
             }
