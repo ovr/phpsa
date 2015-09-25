@@ -170,6 +170,8 @@ class CompiledExpression
 
     //@codeCoverageIgnoreStart
     /**
+     * Check that $this->value is correct for $this->type
+     *
      * @todo Implement it ;)
      * @return boolean
      */
