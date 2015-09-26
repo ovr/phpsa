@@ -66,6 +66,45 @@ class FunctionCall extends AbstractExpressionCompiler
                                 //continue
                                 break;
                             case CompiledExpression::NUMBER:
+                                switch ($argument->getType()) {
+                                    case CompiledExpression::INTEGER:
+                                    case CompiledExpression::STRING:
+                                    case CompiledExpression::NUMBER:
+                                        break;
+                                    default:
+                                        $argumentsSuccessPass = false;
+                                        break;
+                                }
+                                break;
+                            case CompiledExpression::RESOURCE:
+                                switch ($argument->getType()) {
+                                    case CompiledExpression::RESOURCE:
+                                        break;
+                                    default:
+                                        $argumentsSuccessPass = false;
+                                        break;
+                                }
+                                break;
+                            case CompiledExpression::ARR:
+                                switch ($argument->getType()) {
+                                    case CompiledExpression::ARR:
+                                        break;
+                                    default:
+                                        $argumentsSuccessPass = false;
+                                        break;
+                                }
+                                break;
+                            case CompiledExpression::STRING:
+                                switch ($argument->getType()) {
+                                    case CompiledExpression::STRING:
+                                        break;
+                                    default:
+                                        $argumentsSuccessPass = false;
+                                        break;
+                                }
+                                break;
+                            default:
+                                $argumentsSuccessPass = false;
                                 break;
                         }
                     }
