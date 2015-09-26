@@ -107,7 +107,7 @@ class FunctionCall extends AbstractExpressionCompiler
 
     /**
      * @param \PhpParser\Node\Expr\FuncCall $expr
-     * @return array
+     * @return CompiledExpression[]
      */
     protected function parseArgs($expr, Context $context)
     {
