@@ -57,6 +57,19 @@ class FunctionCall extends AbstractExpressionCompiler
             if ($functionReflection) {
                 $arguments = $this->parseArgs($expr, clone $context);
 
+                if (count($arguments) > 0) {
+                    foreach ($arguments as $key => $argument) {
+                        $parameter = $functionReflection->getParameter($key);
+                        switch ($parameter->getType()) {
+                            case CompiledExpression::MIXED:
+                                //continue
+                                break;
+                            case CompiledExpression::NUMBER:
+                                break;
+                        }
+                    }
+                }
+
                 if ($functionReflection->isRunnable()) {
                     array_walk(
                         $arguments,
