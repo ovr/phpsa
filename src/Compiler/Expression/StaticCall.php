@@ -30,15 +30,18 @@ class StaticCall extends AbstractExpressionCompiler
             $name = $expr->name;
 
             if ($scope == 'self') {
-                if ($context->scopePointer instanceof ClassDefinition) {
+                if ($context->scope instanceof ClassDefinition) {
                     $context->notice(
                         'scall-self-not-context',
                         sprintf('No scope. You cannot call from %s out from class scope', $name, $scope),
                         $expr
                     );
+
+                    return new CompiledExpression();
                 }
 
-                $classDefinition = $context->scopePointer;
+                /** @var ClassDefinition $classDefinition */
+                $classDefinition = $context->scope;
                 if (!$classDefinition->hasMethod($name)) {
                     $context->notice(
                         'undefined-scall',
