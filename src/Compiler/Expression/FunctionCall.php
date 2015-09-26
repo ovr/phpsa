@@ -55,6 +55,7 @@ class FunctionCall extends AbstractExpressionCompiler
             $reflector = new Reflector(Reflector::manuallyFactory());
             $functionReflection = $reflector->getFunction($name);
             if ($functionReflection) {
+                $argumentsSuccessPass = true;
                 $arguments = $this->parseArgs($expr, clone $context);
 
                 if (count($arguments) > 0) {
@@ -70,7 +71,11 @@ class FunctionCall extends AbstractExpressionCompiler
                     }
                 }
 
-                if ($functionReflection->isRunnable()) {
+                if (count($arguments) < $functionReflection->getNumberOfRequiredParameters()) {
+                    $argumentsSuccessPass = false;
+                }
+
+                if ($argumentsSuccessPass && $functionReflection->isRunnable()) {
                     array_walk(
                         $arguments,
                         function (&$item) {
