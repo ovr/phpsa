@@ -44,6 +44,11 @@ class Context
     public $scopePointer;
 
     /**
+     * @var string
+     */
+    protected $filepath;
+
+    /**
      * Construct our Context with all needed information
      *
      * @param OutputInterface $output
@@ -114,7 +119,7 @@ class Context
      */
     public function warning($type, $message)
     {
-        $filepath = $this->scope ? $this->scope->getFilepath() : $this->scopePointer->getObject()->getFilepath();
+        $filepath = $this->filepath;
         $this->output->writeln('<comment>Notice:  ' . $message . " in {$filepath}  [{$type}]</comment>");
         $this->output->writeln('');
         return true;
@@ -128,7 +133,7 @@ class Context
      */
     public function notice($type, $message, \PhpParser\NodeAbstract $expr)
     {
-        $filepath = $this->scope ? $this->scope->getFilepath() : $this->scopePointer->getObject()->getFilepath();
+        $filepath = $this->filepath;
         $code = file($filepath);
 
         $this->output->writeln('<comment>Notice:  ' . $message . " in {$filepath} on {$expr->getLine()} [{$type}]</comment>");
@@ -191,5 +196,21 @@ class Context
         if ($this->output->isDebug()) {
             $this->output->writeln($message);
         }
+    }
+
+    /**
+     * @return string
+     */
+    public function getFilepath()
+    {
+        return $this->filepath;
+    }
+
+    /**
+     * @param string $filepath
+     */
+    public function setFilepath($filepath)
+    {
+        $this->filepath = $filepath;
     }
 }
