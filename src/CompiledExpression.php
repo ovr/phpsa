@@ -76,6 +76,11 @@ class CompiledExpression
     const RESOURCE = Types::RESOURCE_TYPE;
 
     /**
+     * Callable type
+     */
+    const CALLABLE_TYPE = Types::CALLABLE_TYPE;
+
+    /**
      * Value is handled in variable
      */
     const VARIABLE = 512;
