@@ -9,7 +9,7 @@
 namespace PHPSA\Node\Visitor;
 
 use PhpParser\Node;
-use PHPSA\Analyze\Pass\FunctionCall\RandomApiMigration;
+use PHPSA\Analyzer\Pass\FunctionCall\RandomApiMigration;
 
 class FunctionCall extends \PhpParser\NodeVisitorAbstract
 {

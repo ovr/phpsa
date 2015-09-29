@@ -1,6 +1,6 @@
 <?php
 
-namespace PHPSA\Analyze\Pass\FunctionCall;
+namespace PHPSA\Analyzer\Pass\FunctionCall;
 
 use PhpParser\Node\Expr\FuncCall;
 use PhpParser\Node\Name;
