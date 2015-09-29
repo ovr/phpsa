@@ -23,7 +23,11 @@ class RandomApiMigration
         }
 
         if ($name && isset($this->map[$name])) {
-            var_dump($name);
+            $context->notice(
+                'rand.api.migration',
+                sprintf('Function %s() is not recommended, please use mt_%s analog instead of it.', $name, $name),
+                $funcCall
+            );
         }
     }
 }
