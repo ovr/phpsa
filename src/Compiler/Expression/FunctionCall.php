@@ -103,6 +103,28 @@ class FunctionCall extends AbstractExpressionCompiler
                                         break;
                                 }
                                 break;
+                            case CompiledExpression::CALLABLE_TYPE:
+                                switch ($argument->getType()) {
+                                    case CompiledExpression::CALLABLE_TYPE:
+                                        break;
+                                    case CompiledExpression::STRING:
+                                        /**
+                                         * @todo We need additional check on it
+                                         */
+                                        break;
+                                    /**
+                                     * array($this, 'method')
+                                     */
+                                    case CompiledExpression::ARR:
+                                        /**
+                                         * @todo We need additional check on it
+                                         */
+                                        break;
+                                    default:
+                                        $argumentsSuccessPass = false;
+                                        break;
+                                }
+                                break;
                             default:
                                 $argumentsSuccessPass = false;
                                 break;
