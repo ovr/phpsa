@@ -91,6 +91,7 @@ class ClassDefinition extends ParentDefinition
      */
     public function compile(Context $context)
     {
+        $context->setFilepath($this->filepath);
         $context->setScope($this);
 
         foreach ($this->methods as $method) {

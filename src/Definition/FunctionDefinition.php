@@ -54,6 +54,7 @@ class FunctionDefinition extends ParentDefinition
      */
     public function compile(Context $context)
     {
+        $context->setFilepath($this->filepath);
         $this->compiled = true;
 
         $context->scopePointer = $this->getPointer();
