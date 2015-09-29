@@ -65,6 +65,24 @@ class FunctionCall extends AbstractExpressionCompiler
                             case CompiledExpression::MIXED:
                                 //continue
                                 break;
+                            case CompiledExpression::INTEGER:
+                                switch ($argument->getType()) {
+                                    case CompiledExpression::INTEGER:
+                                        break;
+                                    default:
+                                        $argumentsSuccessPass = false;
+                                        break;
+                                }
+                                break;
+                            case CompiledExpression::DOUBLE:
+                                switch ($argument->getType()) {
+                                    case CompiledExpression::DOUBLE:
+                                        break;
+                                    default:
+                                        $argumentsSuccessPass = false;
+                                        break;
+                                }
+                                break;
                             case CompiledExpression::NUMBER:
                                 switch ($argument->getType()) {
                                     case CompiledExpression::INTEGER:
