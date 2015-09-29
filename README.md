@@ -15,8 +15,8 @@ P.S This software is currently in early alpha state, any contributions/stars wil
 ## Components
 
 - [X] Compiler - component to compile expression(s) and statement(s) from AST
-- [ ] Analyzer - pass simple analyzers (will be in 0.4)
-- [ ] ControlFlow (future)
+- [X] Analyzer (WIP)
+- [X] ControlFlow (WIP)
 - [X] Definition - base definitions
 
 ## Goals
