@@ -14,7 +14,7 @@ class RandomApiMigration
         'getrandmax' => 'mt_getrandmax'
     );
 
-    public function visitPhpFunctionCall(FuncCall $funcCall/**, Context $context*/)
+    public function visitPhpFunctionCall(FuncCall $funcCall, Context $context)
     {
         $name = false;
 
