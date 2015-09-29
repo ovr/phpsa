@@ -148,17 +148,8 @@ class CheckCommand extends Command
      */
     protected function parserFile($filepath, Parser $parser, Context $context)
     {
-        $visitors = [
-            new \PHPSA\Node\Visitor\FunctionCall
-        ];
-
         $astTraverser = new \PhpParser\NodeTraverser();
         $astTraverser->addVisitor(new \PhpParser\NodeVisitor\NameResolver);
-
-        foreach ($visitors as $visitor) {
-            $visitor->setContext($context);
-            $astTraverser->addVisitor($visitor);
-        }
 
         try {
             if (!is_readable($filepath)) {
@@ -195,6 +186,22 @@ class CheckCommand extends Command
                     $this->parseTopDefinitions($topStatement, $aliasManager, $filepath);
                 }
             }
+
+            /**
+             * Another Traverser to handler Analyzer Passe(s)
+             */
+            $analyzeTraverser = new \PhpParser\NodeTraverser();
+                    
+            $visitors = [
+                new \PHPSA\Node\Visitor\FunctionCall
+            ];
+
+            foreach ($visitors as $visitor) {
+                $visitor->setContext($context);
+                $analyzeTraverser->addVisitor($visitor);
+            }
+
+            $analyzeTraverser->traverse($astTree);
 
             $context->clear();
         } catch (\PhpParser\Error $e) {
