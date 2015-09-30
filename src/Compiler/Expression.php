@@ -444,10 +444,10 @@ class Expression
                         if (!$symbol) {
                             $symbol = new Variable($name, null, CompiledExpression::UNKNOWN);
                             $this->context->addVariable($symbol);
-                        } else {
-                            if (!$isCorrectType) {
-                                $symbol->modify(CompiledExpression::NULL, null);
-                            }
+                        }
+
+                        if (!$isCorrectType) {
+                            $symbol->modify(CompiledExpression::NULL, null);
                         }
 
                         $symbol->incSets();
