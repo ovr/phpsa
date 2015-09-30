@@ -62,4 +62,14 @@ class ScalarCompilerTest extends \Tests\PHPSA\TestCase
         $this->assertSame(CompiledExpression::STRING, $compiledExpression->getType());
         $this->assertSame($scalar->value, $compiledExpression->getValue());
     }
+
+    public function testPassNull()
+    {
+        $scalar = $this->newScalarExpr(null);
+        $compiledExpression = $this->compileExpression($scalar);
+        $this->assertInstanceOfCompiledExpression($compiledExpression);
+
+        $this->assertSame(CompiledExpression::NULL, $compiledExpression->getType());
+        $this->assertSame($scalar->value, $compiledExpression->getValue());
+    }
 }
