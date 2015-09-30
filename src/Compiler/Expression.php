@@ -12,6 +12,7 @@ use PHPSA\Node\Scalar\Boolean;
 use PHPSA\Variable;
 use PHPSA\Compiler\Expression\AbstractExpressionCompiler;
 use RuntimeException;
+use Symfony\Component\Console\Tests\Output\NullOutputTest;
 
 class Expression
 {
@@ -426,6 +427,14 @@ class Expression
         $compiledExpression = $expression->compile($expr->expr);
 
         if ($expr->var instanceof Node\Expr\List_) {
+            $isCorrectType = false;
+
+            switch ($compiledExpression->getType()) {
+                case CompiledExpression::ARR:
+                    $isCorrectType = true;
+                    break;
+            }
+
             if ($expr->var->vars) {
                 foreach ($expr->var->vars as $key => $var) {
                     if ($var instanceof Node\Expr\Variable) {
@@ -435,6 +444,10 @@ class Expression
                         if (!$symbol) {
                             $symbol = new Variable($name, null, CompiledExpression::UNKNOWN);
                             $this->context->addVariable($symbol);
+                        } else {
+                            if (!$isCorrectType) {
+                                $symbol->modify(CompiledExpression::NULL, null);
+                            }
                         }
 
                         $symbol->incSets();
