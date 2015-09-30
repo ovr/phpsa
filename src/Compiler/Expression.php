@@ -422,9 +422,12 @@ class Expression
      */
     protected function passSymbol(Node\Expr\Assign $expr)
     {
+        $expression = new Expression($this->context);
+        $compiledExpression = $expression->compile($expr->expr);
+
         if ($expr->var instanceof Node\Expr\List_) {
             if ($expr->var->vars) {
-                foreach ($expr->var->vars as $var) {
+                foreach ($expr->var->vars as $key => $var) {
                     if ($var instanceof Node\Expr\Variable) {
                         $name = $expr->var->name;
 
@@ -444,9 +447,6 @@ class Expression
 
         if ($expr->var instanceof Node\Expr\Variable) {
             $name = $expr->var->name;
-
-            $expression = new Expression($this->context);
-            $compiledExpression = $expression->compile($expr->expr);
 
             $symbol = $this->context->getSymbol($name);
             if ($symbol) {
