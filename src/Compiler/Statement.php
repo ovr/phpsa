@@ -27,6 +27,8 @@ class Statement
                 return new Statement\SwitchSt();
             case 'PhpParser\Node\Stmt\If_':
                 return new Statement\IfSt();
+            case 'PhpParser\Node\Stmt\Do_':
+                return new Statement\DoSt();
             case 'PhpParser\Node\Stmt\For_':
                 return new Statement\ForSt();
         }
