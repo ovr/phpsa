@@ -7,6 +7,7 @@ namespace PHPSA\Command;
 
 use PhpParser\ParserFactory;
 use PHPSA\AliasManager;
+use PHPSA\Analyzer\AstTraverser;
 use PHPSA\Application;
 use PHPSA\Compiler;
 use PHPSA\Context;
@@ -192,17 +193,12 @@ class CheckCommand extends Command
             /**
              * Another Traverser to handler Analyzer Passe(s)
              */
-            $analyzeTraverser = new \PhpParser\NodeTraverser();
-
-            $visitors = [
-                new \PHPSA\Node\Visitor\FunctionCall
-            ];
-
-            foreach ($visitors as $visitor) {
-                $visitor->setContext($context);
-                $analyzeTraverser->addVisitor($visitor);
-            }
-
+            $analyzeTraverser = new AstTraverser(
+                [
+                    new \PHPSA\Node\Visitor\FunctionCall
+                ],
+                $context
+            );
             $analyzeTraverser->traverse($astTree);
 
             $context->clear();
