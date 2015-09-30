@@ -14,4 +14,20 @@ class RandomApi
     {
         return rand(0, 100);
     }
+
+    /**
+     * @return integer
+     */
+    public function test2()
+    {
+        return srand();
+    }
+
+    /**
+     * @return integer
+     */
+    public function test3()
+    {
+        return getrandmax();
+    }
 }
