@@ -19,8 +19,8 @@ class AstTraverser extends \PhpParser\NodeTraverser
      * @param array $visitors
      * @param Context $context
      */
-    public function __construct(array $visitors, Context $context) {
-
+    public function __construct(array $visitors, Context $context)
+    {
         foreach ($visitors as $visitor) {
             $visitor->setContext($context);
         }
