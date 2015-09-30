@@ -8,11 +8,9 @@ namespace PHPSA\Compiler;
 use PHPSA\CompiledExpression;
 use PHPSA\Context;
 use PhpParser\Node;
-use PHPSA\Node\Scalar\Boolean;
 use PHPSA\Variable;
 use PHPSA\Compiler\Expression\AbstractExpressionCompiler;
 use RuntimeException;
-use Symfony\Component\Console\Tests\Output\NullOutputTest;
 
 class Expression
 {
