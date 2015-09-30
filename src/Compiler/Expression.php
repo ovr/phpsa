@@ -169,15 +169,15 @@ class Expression
             case 'PHPSA\Node\Scalar\Nil':
                 return new CompiledExpression(CompiledExpression::NULL);
             case 'PhpParser\Node\Scalar\LNumber':
-                return $this->passScalar($expr, CompiledExpression::LNUMBER);
+                return new CompiledExpression(CompiledExpression::LNUMBER, $expr->value);
             case 'PhpParser\Node\Scalar\DNumber':
-                return $this->passScalar($expr, CompiledExpression::DNUMBER);
+                return new CompiledExpression(CompiledExpression::DNUMBER, $expr->value);
             case 'PhpParser\Node\Scalar\String_':
-                return $this->passScalar($expr, CompiledExpression::STRING);
+                return new CompiledExpression(CompiledExpression::STRING, $expr->value);
             case 'PHPSA\Node\Scalar\Boolean':
-                return $this->passScalar($expr, CompiledExpression::BOOLEAN);
+                return new CompiledExpression(CompiledExpression::BOOLEAN, $expr->value);
             case 'PHPSA\Node\Scalar\Fake':
-                return $this->passScalar($expr, $expr->type);
+                return new CompiledExpression($expr->type, $expr->value);
         }
 
         $expressionCompiler = $this->factory($expr);
@@ -540,17 +540,6 @@ class Expression
         );
 
         return new CompiledExpression();
-    }
-
-    /**
-     * Convert scalar expr to CompiledExpression
-     *
-     * @param Node\Scalar\LNumber $scalar
-     * @return CompiledExpression
-     */
-    protected function passScalar(Node\Scalar $scalar, $type)
-    {
-        return new CompiledExpression($type, $scalar->value);
     }
 
     /**
