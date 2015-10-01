@@ -13,7 +13,7 @@ use PHPSA\Compiler\Expression;
 
 class MethodCall extends AbstractExpressionCompiler
 {
-    protected $name = '\PhpParser\Node\Expr\MethodCall';
+    protected $name = 'PhpParser\Node\Expr\MethodCall';
 
     /**
      * @param \PhpParser\Node\Expr\MethodCall $expr

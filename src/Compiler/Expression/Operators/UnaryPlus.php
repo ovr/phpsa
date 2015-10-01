@@ -14,7 +14,7 @@ use PHPSA\Compiler\Expression\AbstractExpressionCompiler;
 
 class UnaryPlus extends AbstractExpressionCompiler
 {
-    protected $name = '\PhpParser\Node\Expr\UnaryPlus';
+    protected $name = 'PhpParser\Node\Expr\UnaryPlus';
 
     /**
      * -{expr}

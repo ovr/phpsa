@@ -4,7 +4,7 @@ namespace PHPSA\Compiler\Expression\Operators\Comparison;
 
 class GreaterOrEqual extends AbstractOperator
 {
-    protected $name = '\PhpParser\Node\Expr\BinaryOp\GreaterOrEqual';
+    protected $name = 'PhpParser\Node\Expr\BinaryOp\GreaterOrEqual';
 
     /**
      * {expr} >= {expr}

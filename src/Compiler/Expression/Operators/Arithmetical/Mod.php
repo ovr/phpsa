@@ -14,7 +14,7 @@ use PHPSA\Compiler\Expression\AbstractExpressionCompiler;
 
 class Mod extends AbstractExpressionCompiler
 {
-    protected $name = '\PhpParser\Node\Expr\BinaryOp\Mod';
+    protected $name = 'PhpParser\Node\Expr\BinaryOp\Mod';
 
     /**
      * {expr} % {expr}

@@ -14,7 +14,7 @@ use PHPSA\Compiler\Expression\AbstractExpressionCompiler;
 
 class Div extends AbstractExpressionCompiler
 {
-    protected $name = '\PhpParser\Node\Expr\BinaryOp\Div';
+    protected $name = 'PhpParser\Node\Expr\BinaryOp\Div';
 
     /**
      * {expr} / {expr}

@@ -14,7 +14,7 @@ use PHPSA\Compiler\Expression\AbstractExpressionCompiler;
 
 class Mul extends AbstractExpressionCompiler
 {
-    protected $name = '\PhpParser\Node\Expr\BinaryOp\Mul';
+    protected $name = 'PhpParser\Node\Expr\BinaryOp\Mul';
 
     /**
      * {expr} * {expr}

@@ -15,7 +15,7 @@ use PHPSA\Compiler\Expression\AbstractExpressionCompiler;
 
 class PostDec extends AbstractExpressionCompiler
 {
-    protected $name = '\PhpParser\Node\Expr\PostDec';
+    protected $name = 'PhpParser\Node\Expr\PostDec';
 
     /**
      * {expr}++

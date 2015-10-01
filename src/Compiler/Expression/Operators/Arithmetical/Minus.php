@@ -14,7 +14,7 @@ use PHPSA\Compiler\Expression\AbstractExpressionCompiler;
 
 class Minus extends AbstractExpressionCompiler
 {
-    protected $name = '\PhpParser\Node\Expr\BinaryOp\Minus';
+    protected $name = 'PhpParser\Node\Expr\BinaryOp\Minus';
 
     /**
      * {expr} - {expr}

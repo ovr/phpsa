@@ -14,7 +14,7 @@ use PHPSA\Compiler\Expression\AbstractExpressionCompiler;
 
 class Plus extends AbstractExpressionCompiler
 {
-    protected $name = '\PhpParser\Node\Expr\BinaryOp\Plus';
+    protected $name = 'PhpParser\Node\Expr\BinaryOp\Plus';
 
     /**
      * {expr} + {expr}

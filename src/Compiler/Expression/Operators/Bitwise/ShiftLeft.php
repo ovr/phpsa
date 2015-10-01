@@ -9,7 +9,7 @@ use PHPSA\Compiler\Expression\AbstractExpressionCompiler;
 
 class ShiftLeft extends AbstractExpressionCompiler
 {
-    protected $name = '\PhpParser\Node\Expr\BinaryOp\ShiftLeft';
+    protected $name = 'PhpParser\Node\Expr\BinaryOp\ShiftLeft';
 
     /**
      * {expr} << {expr}

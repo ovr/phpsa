@@ -14,7 +14,7 @@ use PHPSA\Compiler\Expression;
 
 class FunctionCall extends AbstractExpressionCompiler
 {
-    protected $name = '\PhpParser\Node\Expr\FuncCall';
+    protected $name = 'PhpParser\Node\Expr\FuncCall';
 
     /**
      * @param \PhpParser\Node\Expr\FuncCall $expr

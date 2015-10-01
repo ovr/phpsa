@@ -9,7 +9,7 @@ use PHPSA\Compiler\Expression\AbstractExpressionCompiler;
 
 class BitwiseAnd extends AbstractExpressionCompiler
 {
-    protected $name = '\PhpParser\Node\Expr\BinaryOp\BitwiseAnd';
+    protected $name = 'PhpParser\Node\Expr\BinaryOp\BitwiseAnd';
 
     /**
      * {expr} & {expr}

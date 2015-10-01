@@ -9,7 +9,7 @@ use PHPSA\Compiler\Expression\AbstractExpressionCompiler;
 
 class BitwiseNot extends AbstractExpressionCompiler
 {
-    protected $name = '\PhpParser\Node\Expr\BitwiseNot';
+    protected $name = 'PhpParser\Node\Expr\BitwiseNot';
 
     /**
      * ~{expr}

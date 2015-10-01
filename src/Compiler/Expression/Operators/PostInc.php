@@ -15,7 +15,7 @@ use PHPSA\Compiler\Expression\AbstractExpressionCompiler;
 
 class PostInc extends AbstractExpressionCompiler
 {
-    protected $name = '\PhpParser\Node\Expr\PostInc';
+    protected $name = 'PhpParser\Node\Expr\PostInc';
 
     /**
      * {expr}++

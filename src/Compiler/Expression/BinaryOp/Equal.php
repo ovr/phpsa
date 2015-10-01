@@ -14,7 +14,7 @@ use PHPSA\Compiler\Expression\AbstractExpressionCompiler;
 
 class Equal extends AbstractExpressionCompiler
 {
-    protected $name = '\PhpParser\Node\Expr\BinaryOp\Equal';
+    protected $name = 'PhpParser\Node\Expr\BinaryOp\Equal';
 
     /**
      * It's used in conditions

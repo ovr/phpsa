@@ -9,7 +9,7 @@ use PHPSA\Compiler\Expression\AbstractExpressionCompiler;
 
 class BooleanAnd extends AbstractExpressionCompiler
 {
-    protected $name = '\PhpParser\Node\Expr\BinaryOp\BooleanAnd';
+    protected $name = 'PhpParser\Node\Expr\BinaryOp\BooleanAnd';
 
     /**
      * {expr} && {expr}

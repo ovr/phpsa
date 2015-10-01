@@ -9,7 +9,7 @@ use PHPSA\Compiler\Expression\AbstractExpressionCompiler;
 
 class BitwiseXor extends AbstractExpressionCompiler
 {
-    protected $name = '\PhpParser\Node\Expr\BinaryOp\BitwiseXor';
+    protected $name = 'PhpParser\Node\Expr\BinaryOp\BitwiseXor';
 
     /**
      * {expr} ^ {expr}

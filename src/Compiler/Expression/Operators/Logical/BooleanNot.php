@@ -9,7 +9,7 @@ use PHPSA\Compiler\Expression\AbstractExpressionCompiler;
 
 class BooleanNot extends AbstractExpressionCompiler
 {
-    protected $name = '\PhpParser\Node\Expr\BooleanNot';
+    protected $name = 'PhpParser\Node\Expr\BooleanNot';
 
     /**
      * !{expr}

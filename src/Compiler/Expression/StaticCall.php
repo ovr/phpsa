@@ -14,7 +14,7 @@ use PHPSA\Definition\ClassDefinition;
 
 class StaticCall extends AbstractExpressionCompiler
 {
-    protected $name = '\PhpParser\Node\Expr\StaticCall';
+    protected $name = 'PhpParser\Node\Expr\StaticCall';
 
     /**
      * {expr}::{expr}();

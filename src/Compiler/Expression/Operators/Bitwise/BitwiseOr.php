@@ -9,7 +9,7 @@ use PHPSA\Compiler\Expression\AbstractExpressionCompiler;
 
 class BitwiseOr extends AbstractExpressionCompiler
 {
-    protected $name = '\PhpParser\Node\Expr\BinaryOp\BitwiseOr';
+    protected $name = 'PhpParser\Node\Expr\BinaryOp\BitwiseOr';
 
     /**
      * {expr} | {expr}

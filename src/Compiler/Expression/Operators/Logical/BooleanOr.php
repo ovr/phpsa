@@ -9,7 +9,7 @@ use PHPSA\Compiler\Expression\AbstractExpressionCompiler;
 
 class BooleanOr extends AbstractExpressionCompiler
 {
-    protected $name = '\PhpParser\Node\Expr\BinaryOp\BooleanOr';
+    protected $name = 'PhpParser\Node\Expr\BinaryOp\BooleanOr';
 
     /**
      * {expr} || {expr}
