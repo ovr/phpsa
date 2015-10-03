@@ -43,13 +43,18 @@ class PostInc extends AbstractExpressionCompiler
                         return CompiledExpression::fromZvalValue($variable->getValue());
                 }
 
-
-                $context->debug(
-                    '[PostInc] You are trying to use post dec on variable ' . $variableName .
-                    ' with type: ' . $variable->getTypeName()
+                $context->notice(
+                    'postinc.variable.wrong-type',
+                    'You are trying to use post increment operator on variable ' . $variableName .
+                    ' with type: ' . $variable->getTypeName(),
+                    $expr
                 );
             } else {
-                $context->debug('[PostInc] You are trying to use operator on undefined variable: ' . $variableName);
+                $context->notice(
+                    'postinc.undefined-variable',
+                    'You are trying to use post increment operator on undefined variable: ' . $variableName,
+                    $expr
+                );
             }
 
             return new CompiledExpression(CompiledExpression::UNKNOWN);

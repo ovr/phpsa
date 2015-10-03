@@ -44,12 +44,18 @@ class PostDec extends AbstractExpressionCompiler
                         return CompiledExpression::fromZvalValue($variable->getValue());
                 }
 
-                $context->debug(
-                    '[PostDec] You are trying to use post dec on variable ' . $variableName .
-                    ' with type: ' . $variable->getTypeName()
+                $context->notice(
+                    'postdec.variable.wrong-type',
+                    'You are trying to use post derement operator on variable ' . $variableName .
+                    ' with type: ' . $variable->getTypeName(),
+                    $expr
                 );
             } else {
-                $context->debug('[PostDec] You are trying to use operator on undefined variable: ' . $variableName);
+                $context->notice(
+                    'postdec.undefined-variable',
+                    'You are trying to use post derement operator on undefined variable: ' . $variableName,
+                    $expr
+                );
             }
 
             return new CompiledExpression(CompiledExpression::UNKNOWN);
