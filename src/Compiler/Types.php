@@ -27,7 +27,7 @@ class Types
                 return 'number';
             case CompiledExpression::ARR:
                 return 'array';
-            case CompiledExpression::OBJECT;
+            case CompiledExpression::OBJECT:
                 return 'object';
             case CompiledExpression::RESOURCE:
                 return 'resource';
