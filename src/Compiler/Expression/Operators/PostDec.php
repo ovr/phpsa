@@ -46,7 +46,7 @@ class PostDec extends AbstractExpressionCompiler
 
                 $context->notice(
                     'postdec.variable.wrong-type',
-                    'You are trying to use post derement operator on variable ' . $variableName .
+                    'You are trying to use post derement operator on variable $' . $variableName .
                     ' with type: ' . $variable->getTypeName(),
                     $expr
                 );

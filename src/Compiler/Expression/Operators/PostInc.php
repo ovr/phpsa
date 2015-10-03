@@ -45,7 +45,7 @@ class PostInc extends AbstractExpressionCompiler
 
                 $context->notice(
                     'postinc.variable.wrong-type',
-                    'You are trying to use post increment operator on variable ' . $variableName .
+                    'You are trying to use post increment operator on variable $' . $variableName .
                     ' with type: ' . $variable->getTypeName(),
                     $expr
                 );
