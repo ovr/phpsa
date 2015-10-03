@@ -46,7 +46,7 @@ class PostInc extends AbstractExpressionCompiler
 
                 $context->debug(
                     '[PostInc] You are trying to use post dec on variable ' . $variableName .
-                    ' with type: ' . $variable->getType()
+                    ' with type: ' . $variable->getTypeName()
                 );
             } else {
                 $context->debug('[PostInc] You are trying to use operator on undefined variable: ' . $variableName);

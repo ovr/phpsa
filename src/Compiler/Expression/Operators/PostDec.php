@@ -9,6 +9,7 @@ namespace PHPSA\Compiler\Expression\Operators;
 
 use PhpParser\Node\Name;
 use PHPSA\CompiledExpression;
+use PHPSA\Compiler\Types;
 use PHPSA\Context;
 use PHPSA\Compiler\Expression;
 use PHPSA\Compiler\Expression\AbstractExpressionCompiler;
@@ -45,7 +46,7 @@ class PostDec extends AbstractExpressionCompiler
 
                 $context->debug(
                     '[PostDec] You are trying to use post dec on variable ' . $variableName .
-                    ' with type: ' . $variable->getType()
+                    ' with type: ' . $variable->getTypeName()
                 );
             } else {
                 $context->debug('[PostDec] You are trying to use operator on undefined variable: ' . $variableName);
