@@ -33,16 +33,6 @@ class Div extends AbstractExpressionCompiler
 
         switch ($left->getType()) {
             case CompiledExpression::DNUMBER:
-                if ($left->isEquals(0)) {
-                    $context->notice(
-                        'division-zero',
-                        sprintf('You trying to use division from %s/{expr}', $left->getValue()),
-                        $expr
-                    );
-
-                    return new CompiledExpression(CompiledExpression::DNUMBER, 0.0);
-                }
-                break;
             case CompiledExpression::LNUMBER:
             case CompiledExpression::BOOLEAN:
                 if ($left->isEquals(0)) {
@@ -51,14 +41,6 @@ class Div extends AbstractExpressionCompiler
                         sprintf('You trying to use division from %s/{expr}', $left->getValue()),
                         $expr
                     );
-
-                    switch ($right->getType()) {
-                        case CompiledExpression::LNUMBER:
-                        case CompiledExpression::BOOLEAN:
-                            return new CompiledExpression(CompiledExpression::LNUMBER, 0);
-                        case CompiledExpression::DNUMBER:
-                            return new CompiledExpression(CompiledExpression::DNUMBER, 0.0);
-                    }
                 }
                 break;
         }
