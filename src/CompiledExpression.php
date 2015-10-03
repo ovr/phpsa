@@ -153,6 +153,14 @@ class CompiledExpression
     }
 
     /**
+     * @return string
+     */
+    public function getTypeName()
+    {
+        return CompilerTypes::getTypeName($this->type);
+    }
+
+    /**
      * @param string $name Name of the Variable
      * @return Variable
      */

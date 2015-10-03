@@ -5,6 +5,8 @@
 
 namespace PHPSA;
 
+use PHPSA\Compiler\Types;
+
 class Variable
 {
     /**
@@ -105,6 +107,14 @@ class Variable
     public function getType()
     {
         return $this->type;
+    }
+
+    /**
+     * @return string
+     */
+    public function getTypeName()
+    {
+        return Types::getTypeName($this->type);
     }
 
     /**
