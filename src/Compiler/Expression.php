@@ -46,6 +46,8 @@ class Expression
             /**
              * Operators
              */
+            case 'PhpParser\Node\Expr\New_':
+                return new Expression\Operators\NewOp();
             case 'PhpParser\Node\Expr\BinaryOp\Identical':
                 return new Expression\BinaryOp\Identical();
             case 'PhpParser\Node\Expr\BinaryOp\Equal':
@@ -137,11 +139,6 @@ class Expression
             case 'PhpParser\Node\Expr\Variable':
                 return $this->passExprVariable($expr);
             /**
-             * Another
-             */
-            case 'PhpParser\Node\Expr\New_':
-                return $this->passNew($expr);
-            /**
              * Cast operators
              */
             case 'PhpParser\Node\Expr\Cast\Bool_':
@@ -205,26 +202,6 @@ class Expression
         }
 
         $this->context->debug('Unknown how to get node name');
-        return new CompiledExpression();
-    }
-
-    protected function passNew(Node\Expr\New_ $expr)
-    {
-        if ($expr->class instanceof Node\Name) {
-            $name = $expr->class->parts[0];
-
-            if (count($expr->args) > 0) {
-                return new CompiledExpression(CompiledExpression::OBJECT);
-            }
-
-            if (class_exists($name, true)) {
-                return new CompiledExpression(CompiledExpression::OBJECT, new $name());
-            }
-
-            return new CompiledExpression(CompiledExpression::OBJECT);
-        }
-
-        $this->context->debug('Unknown how to pass new');
         return new CompiledExpression();
     }
 
