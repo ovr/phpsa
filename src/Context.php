@@ -5,6 +5,7 @@
 
 namespace PHPSA;
 
+use PHPSA\Compiler\GlobalVariable;
 use PHPSA\Definition\AbstractDefinition;
 use PHPSA\Definition\ParentDefinition;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -58,6 +59,19 @@ class Context
     {
         $this->output = $output;
         $this->application = $application;
+
+        /**
+         * http://php.net/manual/language.variables.superglobals.php
+         */
+        $this->addVariable(new GlobalVariable('GLOBALS', array(), CompiledExpression::ARR));
+        $this->addVariable(new GlobalVariable('_SERVER', array(), CompiledExpression::ARR));
+        $this->addVariable(new GlobalVariable('_GET', array(), CompiledExpression::ARR));
+        $this->addVariable(new GlobalVariable('_POST', array(), CompiledExpression::ARR));
+        $this->addVariable(new GlobalVariable('_FILES', array(), CompiledExpression::ARR));
+        $this->addVariable(new GlobalVariable('_COOKIE', array(), CompiledExpression::ARR));
+        $this->addVariable(new GlobalVariable('_SESSION', array(), CompiledExpression::ARR));
+        $this->addVariable(new GlobalVariable('_REQUEST', array(), CompiledExpression::ARR));
+        $this->addVariable(new GlobalVariable('_ENV', array(), CompiledExpression::ARR));
     }
 
     /**
