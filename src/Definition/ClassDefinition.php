@@ -83,11 +83,10 @@ class ClassDefinition extends ParentDefinition
     {
         $this->constants[$const->consts[0]->name] = $const;
     }
-
+    
     /**
-     * Compile methods to check it
-     *
      * @param Context $context
+     * @return $this
      */
     public function compile(Context $context)
     {
@@ -117,6 +116,8 @@ class ClassDefinition extends ParentDefinition
                 }
             }
         }
+
+        return $this;
     }
 
     /**
