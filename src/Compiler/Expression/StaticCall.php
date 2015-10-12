@@ -42,7 +42,7 @@ class StaticCall extends AbstractExpressionCompiler
 
                 /** @var ClassDefinition $classDefinition */
                 $classDefinition = $context->scope;
-                if (!$classDefinition->hasMethod($name)) {
+                if (!$classDefinition->hasMethod($name, true)) {
                     $context->notice(
                         'undefined-scall',
                         sprintf('Static method %s() does not exist in %s scope', $name, $scope),

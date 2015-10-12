@@ -136,16 +136,17 @@ class ClassDefinition extends ParentDefinition
     }
 
     /**
-     * @param $name
+     * @param string $name
+     * @param boolean|false $inherit
      * @return bool
      */
-    public function hasMethod($name)
+    public function hasMethod($name, $inherit = false)
     {
         if (isset($this->methods[$name])) {
             return true;
         }
 
-        if ($this->extendsClassDefinition && $this->extendsClassDefinition->hasMethod($name)) {
+        if ($inherit && $this->extendsClassDefinition && $this->extendsClassDefinition->hasMethod($name, true)) {
             $method = $this->extendsClassDefinition->getMethod($name);
             return $method->isPublic() || $method->isProtected();
         }
@@ -164,15 +165,16 @@ class ClassDefinition extends ParentDefinition
 
     /**
      * @param $name
+     * @param boolean|false $inherit
      * @return ClassMethod
      */
-    public function getMethod($name)
+    public function getMethod($name, $inherit = false)
     {
         if (isset($this->methods[$name])) {
             return $this->methods[$name];
         }
 
-        return $this->extendsClassDefinition && $this->extendsClassDefinition->getMethod($name);
+        return $inherit && $this->extendsClassDefinition && $this->extendsClassDefinition->getMethod($name, true);
     }
 
     /**

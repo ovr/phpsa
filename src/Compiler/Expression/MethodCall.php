@@ -43,7 +43,7 @@ class MethodCall extends AbstractExpressionCompiler
                             }
 
                             if ($methodName) {
-                                if (!$calledObject->hasMethod($methodName)) {
+                                if (!$calledObject->hasMethod($methodName, true)) {
                                     $context->notice(
                                         'undefined-mcall',
                                         sprintf('Method %s() does not exist in %s scope', $methodName, $expr->var->name),
