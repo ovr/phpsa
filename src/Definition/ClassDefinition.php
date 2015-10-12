@@ -51,6 +51,21 @@ class ClassDefinition extends ParentDefinition
     protected $filepath;
 
     /**
+     * @var string|null
+     */
+    protected $extendsClass;
+
+    /**
+     * @var ClassDefinition|null
+     */
+    protected $extendsClassDefinition;
+
+    /**
+     * @var array
+     */
+    protected $interfaces = array();
+
+    /**
      * @param string $name
      * @param integer $type
      */
@@ -83,7 +98,7 @@ class ClassDefinition extends ParentDefinition
     {
         $this->constants[$const->consts[0]->name] = $const;
     }
-    
+
     /**
      * @param Context $context
      * @return $this
@@ -178,5 +193,29 @@ class ClassDefinition extends ParentDefinition
     public function isAbstract()
     {
         return (bool) ($this->type & Node\Stmt\Class_::MODIFIER_ABSTRACT);
+    }
+
+    /**
+     * @param null|string $extendsClass
+     */
+    public function setExtendsClass($extendsClass)
+    {
+        $this->extendsClass = $extendsClass;
+    }
+
+    /**
+     * @return null|ClassDefinition
+     */
+    public function getExtendsClassDefinition()
+    {
+        return $this->extendsClassDefinition;
+    }
+
+    /**
+     * @param null|ClassDefinition $extendsClassDefinition
+     */
+    public function setExtendsClassDefinition($extendsClassDefinition)
+    {
+        $this->extendsClassDefinition = $extendsClassDefinition;
     }
 }
