@@ -141,7 +141,16 @@ class ClassDefinition extends ParentDefinition
      */
     public function hasMethod($name)
     {
-        return isset($this->methods[$name]);
+        if (isset($this->methods[$name])) {
+            return true;
+        }
+
+        if ($this->extendsClassDefinition && $this->extendsClassDefinition->hasMethod($name)) {
+            $method = $this->extendsClassDefinition->getMethod($name);
+            return $method->isPublic() || $method->isProtected();
+        }
+
+        return false;
     }
 
     /**
@@ -159,7 +168,11 @@ class ClassDefinition extends ParentDefinition
      */
     public function getMethod($name)
     {
-        return $this->methods[$name];
+        if (isset($this->methods[$name])) {
+            return $this->methods[$name];
+        }
+
+        return $this->extendsClassDefinition && $this->extendsClassDefinition->getMethod($name);
     }
 
     /**
