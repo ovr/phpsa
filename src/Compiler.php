@@ -46,14 +46,12 @@ class Compiler
         /**
          * @todo Implement class map...
          */
-        for ($i = 0; $i < 100; $i++) {
-            foreach ($this->classes as $class) {
-                $extends = $class->getExtendsClass();
-                if ($extends) {
-                    $parentClassDefinition = $this->classes[$class->getName()];
-                    if ($parentClassDefinition) {
-                        $class->setExtendsClassDefinition($parentClassDefinition);
-                    }
+        foreach ($this->classes as $class) {
+            $extends = $class->getExtendsClass();
+            if ($extends) {
+                $parentClassDefinition = $this->classes[$class->getName()];
+                if ($parentClassDefinition) {
+                    $class->setExtendsClassDefinition($parentClassDefinition);
                 }
             }
         }
