@@ -218,4 +218,12 @@ class ClassDefinition extends ParentDefinition
     {
         $this->extendsClassDefinition = $extendsClassDefinition;
     }
+
+    /**
+     * @param array $interface
+     */
+    public function addInterface($interface)
+    {
+        $this->interfaces[] = $interface;
+    }
 }

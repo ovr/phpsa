@@ -228,6 +228,16 @@ class CheckCommand extends Command
                 $definition->setFilepath($filepath);
                 $definition->setNamespace($aliasManager->getNamespace());
 
+                if ($statement->extends) {
+                    $definition->setExtendsClass($statement->extends->toString());
+                }
+
+                if ($statement->implements) {
+                    foreach ($statement->implements as $interface) {
+                        $definition->addInterface($interface->toString());
+                    }
+                }
+
                 foreach ($statement->stmts as $stmt) {
                     if ($stmt instanceof Node\Stmt\ClassMethod) {
                         $method = new ClassMethod($stmt->name, $stmt, $stmt->type);
