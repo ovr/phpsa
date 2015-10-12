@@ -25,7 +25,7 @@ class Compiler
      */
     public function addClass(ClassDefinition $class)
     {
-        $this->classes[] = $class;
+        $this->classes[$class->getName()] = $class;
     }
 
     /**
@@ -42,6 +42,21 @@ class Compiler
     public function compile(Context $context)
     {
         $context->scopePointer = null;
+
+        /**
+         * @todo Implement class map...
+         */
+        for ($i = 0; $i < 100; $i++) {
+            foreach ($this->classes as $class) {
+                $extends = $class->getExtendsClass();
+                if ($extends) {
+                    $parentClassDefinition = $this->classes[$class->getName()];
+                    if ($parentClassDefinition) {
+                        $class->setExtendsClassDefinition($parentClassDefinition);
+                    }
+                }
+            }
+        }
 
         foreach ($this->functions as $function) {
             $function->compile($context);

@@ -226,4 +226,12 @@ class ClassDefinition extends ParentDefinition
     {
         $this->interfaces[] = $interface;
     }
+
+    /**
+     * @return null|string
+     */
+    public function getExtendsClass()
+    {
+        return $this->extendsClass;
+    }
 }
