@@ -24,6 +24,16 @@ class ReturnSt extends AbstractCompiler
         $expression = new Expression($context);
         $compiledExpression = $expression->compile($stmt->expr);
 
+        switch ($compiledExpression->getType()) {
+            case CompiledExpression::VOID:
+                $context->notice(
+                    'return.void',
+                    'You are trying to return void',
+                    $stmt
+                );
+                break;
+        }
+
         if ($context->scopePointer) {
             /**
              * If it is a Class's method we need to work on return types, return possible values
