@@ -50,6 +50,8 @@ class Expression
                 return new Expression\Operators\NewOp();
             case 'PhpParser\Node\Expr\BinaryOp\Identical':
                 return new Expression\BinaryOp\Identical();
+            case 'PhpParser\Node\Expr\BinaryOp\NotIdentical':
+                return new Expression\BinaryOp\NotIdentical();
             case 'PhpParser\Node\Expr\BinaryOp\Equal':
                 return new Expression\BinaryOp\Equal();
             /**
