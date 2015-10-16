@@ -31,10 +31,14 @@ class NotIdentical extends AbstractExpressionCompiler
             case CompiledExpression::LNUMBER:
             case CompiledExpression::DNUMBER:
             case CompiledExpression::BOOLEAN:
+            case CompiledExpression::NUMBER:
+            case CompiledExpression::NULL:
                 switch ($right->getType()) {
                     case CompiledExpression::LNUMBER:
                     case CompiledExpression::DNUMBER:
                     case CompiledExpression::BOOLEAN:
+                    case CompiledExpression::NUMBER:
+                    case CompiledExpression::NULL:
                         return new CompiledExpression(CompiledExpression::BOOLEAN, $left->getValue() !== $right->getValue());
                 }
         }
