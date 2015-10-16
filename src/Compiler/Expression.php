@@ -54,6 +54,8 @@ class Expression
                 return new Expression\BinaryOp\NotIdentical();
             case 'PhpParser\Node\Expr\BinaryOp\Equal':
                 return new Expression\BinaryOp\Equal();
+            case 'PhpParser\Node\Expr\BinaryOp\NotEqual':
+                return new Expression\BinaryOp\NotEqual();
             /**
              * @link http://php.net/manual/en/language.operators.increment.php
              */
