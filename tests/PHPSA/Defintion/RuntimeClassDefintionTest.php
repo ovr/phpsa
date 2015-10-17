@@ -48,7 +48,7 @@ class RuntimeClassDefintionTest extends TestCase
         foreach ($reflection->getProperties() as $property) {
             static::assertTrue($definition->hasProperty($property->getName()));
         }
-        
+
         static::assertFalse($definition->hasProperty('XXXXX'));
     }
 }
