@@ -7,6 +7,8 @@ namespace PHPSA;
 
 use PHPSA\Definition\ClassDefinition;
 use PHPSA\Definition\FunctionDefinition;
+use PHPSA\Definition\RuntimeClassDefinition;
+use ReflectionClass;
 
 class Compiler
 {
@@ -52,6 +54,16 @@ class Compiler
                 $parentClassDefinition = $this->classes[$class->getName()];
                 if ($parentClassDefinition) {
                     $class->setExtendsClassDefinition($parentClassDefinition);
+                } else {
+                    if (class_exists($extends, true)) {
+                        $class->setExtendsClassDefinition(
+                            new RuntimeClassDefinition(
+                                new ReflectionClass(
+                                    $extends
+                                )
+                            )
+                        );
+                    }
                 }
             }
         }

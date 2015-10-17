@@ -13,7 +13,7 @@ use PHPSA\Exception\NotImplementedException;
 use PHPSA\Variable;
 use ReflectionClass;
 
-class RuntimeClassDefinition extends ParentDefinition
+class RuntimeClassDefinition extends ClassDefinition
 {
     /**
      * @var ReflectionClass

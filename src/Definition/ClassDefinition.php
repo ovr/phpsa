@@ -227,9 +227,9 @@ class ClassDefinition extends ParentDefinition
     }
 
     /**
-     * @param null|ClassDefinition $extendsClassDefinition
+     * @param ClassDefinition $extendsClassDefinition
      */
-    public function setExtendsClassDefinition($extendsClassDefinition)
+    public function setExtendsClassDefinition(ClassDefinition $extendsClassDefinition)
     {
         $this->extendsClassDefinition = $extendsClassDefinition;
     }
