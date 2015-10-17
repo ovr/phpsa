@@ -15,7 +15,7 @@
     "minimum-stability": "dev",
     "require": {
         "php": ">=5.4",
-        "ovr/phpreflection": "~0.2.4",
+        "ovr/phpreflection": "~0.2.5",
         "symfony/console": "~2.5",
         "nikic/php-parser": "~2.0.0"
     },
