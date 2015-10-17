@@ -44,7 +44,7 @@ class RuntimeClassDefinition extends ParentDefinition
      */
     public function hasMethod($name, $inherit = false)
     {
-        throw new NotImplementedException(__FUNCTION__);
+        return $this->reflection->hasMethod($name);
     }
 
     /**
@@ -53,7 +53,7 @@ class RuntimeClassDefinition extends ParentDefinition
      */
     public function hasConst($name)
     {
-        throw new NotImplementedException(__FUNCTION__);
+        return $this->reflection->hasConstant($name);
     }
 
     /**
@@ -72,7 +72,7 @@ class RuntimeClassDefinition extends ParentDefinition
      */
     public function hasProperty($name)
     {
-        throw new NotImplementedException(__FUNCTION__);
+        return $this->reflection->hasProperty($name);
     }
 
     /**
