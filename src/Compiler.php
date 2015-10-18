@@ -51,9 +51,8 @@ class Compiler
         foreach ($this->classes as $class) {
             $extends = $class->getExtendsClass();
             if ($extends) {
-                $parentClassDefinition = $this->classes[$class->getName()];
-                if ($parentClassDefinition) {
-                    $class->setExtendsClassDefinition($parentClassDefinition);
+                if (isset($this->classes[$extends])) {
+                    $class->setExtendsClassDefinition($this->classes[$extends]);
                 } else {
                     if (class_exists($extends, true)) {
                         $class->setExtendsClassDefinition(
