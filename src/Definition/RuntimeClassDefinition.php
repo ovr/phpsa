@@ -63,7 +63,7 @@ class RuntimeClassDefinition extends ClassDefinition
      */
     public function getMethod($name, $inherit = false)
     {
-        throw new NotImplementedException(__FUNCTION__);
+        return new ReflectionClassMethod($this->reflection->getMethod($name));
     }
 
     /**
