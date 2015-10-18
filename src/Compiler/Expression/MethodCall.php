@@ -53,7 +53,7 @@ class MethodCall extends AbstractExpressionCompiler
                                     //it's needed to exit
                                     return new CompiledExpression();
                                 }
-
+                                
                                 if ($calledObject->getMethod($methodName)->isStatic()) {
                                     $context->notice(
                                         'undefined-mcall',

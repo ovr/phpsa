@@ -59,7 +59,7 @@ class RuntimeClassDefinition extends ClassDefinition
     /**
      * @param $name
      * @param boolean|false $inherit
-     * @return ClassMethod
+     * @return ReflectionClassMethod
      */
     public function getMethod($name, $inherit = false)
     {
