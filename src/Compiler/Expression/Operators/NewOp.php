@@ -38,7 +38,7 @@ class NewOp extends AbstractExpressionCompiler
             return new CompiledExpression(CompiledExpression::OBJECT);
         }
 
-        $this->context->debug('Unknown how to pass new');
+        $context->debug('Unknown how to pass new');
         return new CompiledExpression();
     }
 }
