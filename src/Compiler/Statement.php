@@ -31,6 +31,8 @@ class Statement
                 return new Statement\DoSt();
             case 'PhpParser\Node\Stmt\For_':
                 return new Statement\ForSt();
+            case 'PhpParser\Node\Stmt\Foreach_':
+                return new Statement\ForeachSt();
         }
 
         throw new RuntimeException('Unknown statement: ' . get_class($stmt));
