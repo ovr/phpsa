@@ -8,9 +8,9 @@ namespace PHPSA\Compiler;
 use PHPSA\CompiledExpression;
 use PHPSA\Context;
 use PhpParser\Node;
+use PHPSA\Exception\RuntimeException;
 use PHPSA\Variable;
 use PHPSA\Compiler\Expression\AbstractExpressionCompiler;
-use RuntimeException;
 
 class Expression
 {
