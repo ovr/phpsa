@@ -196,6 +196,24 @@ class Expression
     }
 
     /**
+     * @param Node\Expr\Variable $expr
+     * @return CompiledExpression
+     */
+    public function declareVariable(Node\Expr\Variable $expr)
+    {
+        $variable = $this->context->getSymbol($expr->name);
+        if ($variable) {
+            $variable->incGets();
+            return new CompiledExpression($variable->getType(), $variable->getName());
+        }
+
+        $symbol = new Variable($expr->name, null, CompiledExpression::UNKNOWN);
+        $this->context->addVariable($symbol);
+
+        return new CompiledExpression;
+    }
+
+    /**
      * @param Node\Name $expr
      * @return CompiledExpression
      */
