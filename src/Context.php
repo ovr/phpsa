@@ -60,6 +60,11 @@ class Context
         $this->output = $output;
         $this->application = $application;
 
+        $this->initGlobals();
+    }
+
+    public function initGlobals()
+    {
         /**
          * http://php.net/manual/language.variables.superglobals.php
          */
@@ -104,6 +109,8 @@ class Context
     {
         $this->symbols = array();
         $this->scope = null;
+
+        $this->initGlobals();
     }
 
     public function clearSymbols()
