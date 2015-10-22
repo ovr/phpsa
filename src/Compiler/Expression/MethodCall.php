@@ -51,10 +51,16 @@ class MethodCall extends AbstractExpressionCompiler
                                     );
 
                                     //it's needed to exit
-                                    return new CompiledExpression();
+                                    return new CompiledExpression;
                                 }
-                                
-                                if ($calledObject->getMethod($methodName)->isStatic()) {
+
+                                $method = $calledObject->getMethod($methodName);
+                                if (!$method) {
+                                    $context->debug('getMethod is not working');
+                                    return new CompiledExpression;
+                                }
+
+                                if ($method->isStatic()) {
                                     $context->notice(
                                         'undefined-mcall',
                                         sprintf('Method %s() is a static function but called like class method in $%s variable', $methodName, $expr->var->name),
@@ -62,10 +68,10 @@ class MethodCall extends AbstractExpressionCompiler
                                     );
                                 }
 
-                                return new CompiledExpression();
+                                return new CompiledExpression;
                             }
 
-                            return new CompiledExpression();
+                            return new CompiledExpression;
                         }
 
                         /**
