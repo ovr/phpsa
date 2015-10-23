@@ -24,6 +24,50 @@ class Contact extends AbstractExpressionCompiler
      */
     protected function compile($expr, Context $context)
     {
-        return new CompiledExpression(CompiledExpression::STRING);
+        $compiler = new Expression($context);
+
+        $leftExpression = $compiler->compile($expr->left);
+        $rightExpression = $compiler->compile($expr->right);
+
+        switch ($leftExpression->getType()) {
+            case CompiledExpression::ARR:
+                $context->notice(
+                    'unsupported-operand-types',
+                    'Unsupported operand types -{array}',
+                    $expr
+                );
+                break;
+        }
+
+        switch ($rightExpression->getType()) {
+            case CompiledExpression::ARR:
+                $context->notice(
+                    'unsupported-operand-types',
+                    'Unsupported operand types -{array}',
+                    $expr
+                );
+                break;
+        }
+
+        switch ($leftExpression->getType()) {
+            case CompiledExpression::STRING:
+            case CompiledExpression::NUMBER:
+            case CompiledExpression::INTEGER:
+            case CompiledExpression::DOUBLE:
+                switch ($rightExpression->getType()) {
+                    case CompiledExpression::STRING:
+                    case CompiledExpression::NUMBER:
+                    case CompiledExpression::INTEGER:
+                    case CompiledExpression::DOUBLE:
+                        return new CompiledExpression(
+                            CompiledExpression::STRING,
+                            $leftExpression->getValue() . $rightExpression->getValue()
+                        );
+                        break;
+                }
+                break;
+        }
+
+        return new CompiledExpression(CompiledExpression::NULL);
     }
 }
