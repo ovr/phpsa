@@ -474,14 +474,14 @@ class Expression
         }
 
         if ($expr->var instanceof Node\Expr\PropertyFetch) {
-            if ($expr->var->var->name == 'this') {
-                if (is_string($expr->var->name)) {
-                    /** @var ClassDefinition $classDefinition */
-                    $classDefinition = $this->context->scope;
-                    assert($classDefinition instanceof ClassDefinition);
-
-                    if ($classDefinition->hasProperty($expr->var->name)) {
-                        return new CompiledExpression;
+            $compiledExpression = $this->declareVariable($expr->var->var);
+            if ($compiledExpression->getType() == CompiledExpression::OBJECT) {
+                $objectDefinition = $compiledExpression->getValue();
+                if ($objectDefinition instanceof ClassDefinition) {
+                    if (is_string($expr->var->name)) {
+                        if ($objectDefinition->hasProperty($expr->var->name)) {
+                            return new CompiledExpression;
+                        }
                     }
                 }
             }
