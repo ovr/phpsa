@@ -474,7 +474,7 @@ class Expression
         }
 
         if ($expr->var instanceof Node\Expr\PropertyFetch) {
-            $compiledExpression = $this->declareVariable($expr->var->var);
+            $compiledExpression = $this->compile($expr->var->var);
             if ($compiledExpression->getType() == CompiledExpression::OBJECT) {
                 $objectDefinition = $compiledExpression->getValue();
                 if ($objectDefinition instanceof ClassDefinition) {
