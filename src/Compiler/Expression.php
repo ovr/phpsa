@@ -8,6 +8,7 @@ namespace PHPSA\Compiler;
 use PHPSA\CompiledExpression;
 use PHPSA\Context;
 use PhpParser\Node;
+use PHPSA\Definition\ClassDefinition;
 use PHPSA\Exception\RuntimeException;
 use PHPSA\Variable;
 use PHPSA\Compiler\Expression\AbstractExpressionCompiler;
@@ -470,6 +471,20 @@ class Expression
 
             $symbol->incSets();
             return $compiledExpression;
+        }
+
+        if ($expr->var instanceof Node\Expr\PropertyFetch) {
+            if ($expr->var->var->name == 'this') {
+                if (is_string($expr->var->name)) {
+                    /** @var ClassDefinition $classDefinition */
+                    $classDefinition = $this->context->scope;
+                    assert($classDefinition instanceof ClassDefinition);
+
+                    if ($classDefinition->hasProperty($expr->var->name)) {
+                        return new CompiledExpression;
+                    }
+                }
+            }
         }
 
         $this->context->debug('Unknown how to pass symbol');

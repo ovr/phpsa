@@ -1,4 +1,4 @@
-<?php
+su<?php
 /**
  * @author Patsura Dmitry https://github.com/ovr <talk@dmtry.me>
  */
@@ -13,7 +13,7 @@ class Types
     /**
      * Get name for the $type
      *
-     * @param $type
+     * @param integer $type
      * @return string
      */
     public static function getTypeName($type)
