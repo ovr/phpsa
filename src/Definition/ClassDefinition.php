@@ -187,6 +187,16 @@ class ClassDefinition extends ParentDefinition
     }
 
     /**
+     * @param $name
+     * @return CompiledExpression
+     */
+    public function getProperty($name)
+    {
+        assert($this->hasProperty($name));
+        return $this->properties[$name];
+    }
+
+    /**
      * @return string
      */
     public function getFilepath()

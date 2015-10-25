@@ -480,7 +480,7 @@ class Expression
                 if ($objectDefinition instanceof ClassDefinition) {
                     if (is_string($expr->var->name)) {
                         if ($objectDefinition->hasProperty($expr->var->name)) {
-                            return new CompiledExpression;
+                            return $this->compile($objectDefinition->getProperty($expr->var->name));
                         }
                     }
                 }
