@@ -546,7 +546,7 @@ class Expression
         $variable = $this->context->getSymbol($expr->name);
         if ($variable) {
             $variable->incGets();
-            return new CompiledExpression($variable->getType(), $variable->getName());
+            return new CompiledExpression($variable->getType(), $variable->getValue());
         }
 
         $this->context->notice(
