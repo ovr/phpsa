@@ -137,6 +137,8 @@ class Expression
         switch ($className) {
             case 'PhpParser\Node\Expr\PropertyFetch':
                 return $this->passPropertyFetch($expr);
+            case 'PhpParser\Node\Stmt\Property':
+                return $this->passProperty($expr);
             case 'PhpParser\Node\Expr\ClassConstFetch':
                 return $this->passConstFetch($expr);
             case 'PhpParser\Node\Expr\Assign':
@@ -196,6 +198,17 @@ class Expression
         }
 
         return $result;
+    }
+
+    /**
+     * @todo Implement
+     *
+     * @param Node\Stmt\Property $st
+     * @return CompiledExpression
+     */
+    public function passProperty(Node\Stmt\Property $st)
+    {
+        return new CompiledExpression();
     }
 
     /**
