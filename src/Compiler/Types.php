@@ -55,10 +55,15 @@ class Types
             case 'integer':
                 return CompiledExpression::LNUMBER;
             case 'float':
-            case 'double':
                 return CompiledExpression::DNUMBER;
             case 'string':
                 return CompiledExpression::STRING;
+            case 'resource':
+                return CompiledExpression::RESOURCE;
+            case 'callable':
+                return CompiledExpression::CALLABLE_TYPE;
+            case 'object':
+                return CompiledExpression::OBJECT;
             case 'array':
                 return CompiledExpression::ARR;
             case 'boolean':
@@ -70,6 +75,5 @@ class Types
         //@codeCoverageIgnoreStart
         throw new RuntimeException("Type '{$type}' is not supported");
         //@codeCoverageIgnoreEnd
-
     }
 }
