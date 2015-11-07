@@ -18,7 +18,7 @@
         "ovr/phpreflection": "~0.2.5",
         "symfony/console": "~2.7.0",
         "symfony/event-dispatcher": "~2.7.5",
-        "nikic/php-parser": "~2.0.0"
+        "nikic/php-parser": "~2.0.0beta1"
     },
     "require-dev": {
         "phpunit/phpunit": "~4.8",
