@@ -42,6 +42,13 @@ class MethodCall extends AbstractExpressionCompiler
                                 //$methodName = $expr->name->name;
                             }
 
+                            if ($expr->args) {
+                                foreach ($expr->args as $argument) {
+                                    $expression = new Expression($context);
+                                    $expression->compile($argument);
+                                }
+                            }
+
                             if ($methodName) {
                                 if (!$calledObject->hasMethod($methodName, true)) {
                                     $context->notice(
