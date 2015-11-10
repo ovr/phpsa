@@ -51,12 +51,13 @@ class FunctionCall extends AbstractExpressionCompiler
             $exists = true;
         }
 
+        $arguments = $this->parseArgs($expr, clone $context);
+
         if (!$functionDefinition) {
             $reflector = new Reflector(Reflector::manuallyFactory());
             $functionReflection = $reflector->getFunction($name);
             if ($functionReflection) {
                 $argumentsSuccessPass = true;
-                $arguments = $this->parseArgs($expr, clone $context);
 
                 if (count($arguments) > 0) {
                     foreach ($arguments as $key => $argument) {
