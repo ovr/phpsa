@@ -29,8 +29,9 @@ class UnaryPlus extends AbstractExpressionCompiler
         $left = $expression->compile($expr->expr);
 
         switch ($left->getType()) {
-            case CompiledExpression::LNUMBER:
-            case CompiledExpression::DNUMBER:
+            case CompiledExpression::INTEGER:
+            case CompiledExpression::DOUBLE:
+            case CompiledExpression::NUMBER:
             case CompiledExpression::BOOLEAN:
             case CompiledExpression::STRING:
             case CompiledExpression::NULL:
