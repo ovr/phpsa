@@ -20,7 +20,7 @@ class RandomApi
      */
     public function test2()
     {
-        return srand();
+        srand();
     }
 
     /**
