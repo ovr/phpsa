@@ -81,7 +81,7 @@ What is needed or planned as future.
 The easiest way to get it working is to download a tagged phpsa.phar release, and put this on your path. For example:
 
 ```
-wget https://github.com/ovr/phpsa/releases/download/0.3/phpsa.phar
+wget https://github.com/ovr/phpsa/releases/download/0.3.0/phpsa.phar
 chmod +x phpsa.phar
 sudo mv phpsa.phar /usr/local/bin/phpsa
 ```
