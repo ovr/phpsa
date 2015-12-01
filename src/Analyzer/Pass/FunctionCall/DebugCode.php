@@ -22,6 +22,10 @@ class DebugCode
         }
 
         if ($name && isset($this->map[$name])) {
+            if ($funcCall->getDocComment()) {
+                return true;
+            }
+
             $context->notice(
                 'debug.code',
                 sprintf('Function %s() is a debug code, please don`t use it in production.', $name),
