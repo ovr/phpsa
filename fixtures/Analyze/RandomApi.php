@@ -2,9 +2,6 @@
 
 namespace Tests\Compiling\Statements;
 
-/**
- * Class Do_
- */
 class RandomApi
 {
     /**
