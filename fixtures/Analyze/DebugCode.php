@@ -26,4 +26,17 @@ class DebugCode
 
         return true;
     }
+
+    /**
+     * @return bool
+     */
+    public function testVarDumpWitSimpleComment()
+    {
+        /**
+         * Expected
+         */
+        var_dump(1);
+
+        return true;
+    }
 }

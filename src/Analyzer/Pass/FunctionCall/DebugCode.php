@@ -23,10 +23,12 @@ class DebugCode
 
         if ($name && isset($this->map[$name])) {
             if ($funcCall->getDocComment()) {
-                /**
-                 * @todo Implement check for @expected annotation if it's enabled by config
-                 */
-                return true;
+                $phpdoc = new \phpDocumentor\Reflection\DocBlock($funcCall->getDocComment()->getText());
+                if ($phpdoc->hasTag('expected')) {
+                    return true;
+                }
+
+//                return true;
             }
 
             $context->notice(
