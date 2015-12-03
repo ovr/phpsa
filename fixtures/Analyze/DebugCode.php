@@ -39,4 +39,40 @@ class DebugCode
 
         return true;
     }
+
+    /**
+     * @return bool
+     */
+    public function testVarExporUnexpected()
+    {
+        var_export(1);
+
+        return true;
+    }
+
+    /**
+     * @return bool
+     */
+    public function testVarExporExpected()
+    {
+        /**
+         * @expected
+         */
+        var_export(1);
+
+        return true;
+    }
+
+    /**
+     * @return bool
+     */
+    public function testVarExporWitSimpleComment()
+    {
+        /**
+         * Expected
+         */
+        var_export(1);
+
+        return true;
+    }
 }
