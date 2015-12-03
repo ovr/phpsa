@@ -75,4 +75,40 @@ class DebugCode
 
         return true;
     }
+
+    /**
+     * @return bool
+     */
+    public function testDebugZvalDumpUnexpected()
+    {
+        debug_zval_dump(1);
+
+        return true;
+    }
+
+    /**
+     * @return bool
+     */
+    public function testDebugZvalDumpExpected()
+    {
+        /**
+         * @expected
+         */
+        debug_zval_dump(1);
+
+        return true;
+    }
+
+    /**
+     * @return bool
+     */
+    public function testDebugZvalDumpWitSimpleComment()
+    {
+        /**
+         * Expected
+         */
+        debug_zval_dump(1);
+
+        return true;
+    }
 }

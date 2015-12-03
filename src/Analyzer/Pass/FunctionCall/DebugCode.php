@@ -10,7 +10,8 @@ class DebugCode
 {
     protected $map = array(
         'var_dump' => 'var_dump',
-        'var_export' => 'var_export'
+        'var_export' => 'var_export',
+        'debug_zval_dump' => 'debug_zval_dump'
     );
 
     public function visitPhpFunctionCall(FuncCall $funcCall, Context $context)
