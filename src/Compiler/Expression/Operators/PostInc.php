@@ -37,8 +37,9 @@ class PostInc extends AbstractExpressionCompiler
                 $variable->incUse();
 
                 switch ($variable->getType()) {
-                    case CompiledExpression::LNUMBER:
-                    case CompiledExpression::DNUMBER:
+                    case CompiledExpression::INTEGER:
+                    case CompiledExpression::DOUBLE:
+                    case CompiledExpression::NUMBER:
                         $variable->inc();
                         return CompiledExpression::fromZvalValue($variable->getValue());
                 }
@@ -64,8 +65,9 @@ class PostInc extends AbstractExpressionCompiler
         $compiledExpression = $expression->compile($expr->var);
 
         switch ($compiledExpression->getType()) {
-            case CompiledExpression::LNUMBER:
-            case CompiledExpression::DNUMBER:
+            case CompiledExpression::INTEGER:
+            case CompiledExpression::DOUBLE:
+            case CompiledExpression::NUMBER:
                 $value = $compiledExpression->getValue();
                 return CompiledExpression::fromZvalValue($value++);
         }

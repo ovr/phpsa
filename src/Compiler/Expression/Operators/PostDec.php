@@ -38,8 +38,9 @@ class PostDec extends AbstractExpressionCompiler
                 $variable->incUse();
 
                 switch ($variable->getType()) {
-                    case CompiledExpression::LNUMBER:
-                    case CompiledExpression::DNUMBER:
+                    case CompiledExpression::INTEGER:
+                    case CompiledExpression::DOUBLE:
+                    case CompiledExpression::NUMBER:
                         $variable->dec();
                         return CompiledExpression::fromZvalValue($variable->getValue());
                 }
@@ -65,8 +66,9 @@ class PostDec extends AbstractExpressionCompiler
         $compiledExpression = $expression->compile($expr->var);
 
         switch ($compiledExpression->getType()) {
-            case CompiledExpression::LNUMBER:
-            case CompiledExpression::DNUMBER:
+            case CompiledExpression::INTEGER:
+            case CompiledExpression::DOUBLE:
+            case CompiledExpression::NUMBER:
                 $value = $compiledExpression->getValue();
                 return CompiledExpression::fromZvalValue($value++);
         }
