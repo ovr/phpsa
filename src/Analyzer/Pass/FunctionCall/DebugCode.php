@@ -28,8 +28,6 @@ class DebugCode
                 if ($phpdoc->hasTag('expected')) {
                     return true;
                 }
-
-//                return true;
             }
 
             $context->notice(
