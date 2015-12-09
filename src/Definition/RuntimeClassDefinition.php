@@ -5,12 +5,8 @@
 
 namespace PHPSA\Definition;
 
-use PHPSA\CompiledExpression;
-use PHPSA\Compiler\Parameter;
 use PHPSA\Context;
-use PhpParser\Node;
 use PHPSA\Exception\NotImplementedException;
-use PHPSA\Variable;
 use ReflectionClass;
 
 class RuntimeClassDefinition extends ClassDefinition

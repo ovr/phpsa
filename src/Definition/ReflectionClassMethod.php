@@ -49,7 +49,7 @@ class ReflectionClassMethod extends ClassMethod
 
     /**
      * @param Context $context
-     * @return boolean|null
+     * @return ReflectionClassMethod
      */
     public function compile(Context $context)
     {
