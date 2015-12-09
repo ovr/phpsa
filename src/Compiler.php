@@ -79,7 +79,7 @@ class Compiler
     /**
      * Try to find function with $namespace from pre-compiled function(s)
      *
-     * @param $name
+     * @param string $name
      * @param string|null $namespace
      * @return bool|FunctionDefinition
      */
@@ -97,7 +97,7 @@ class Compiler
     /**
      * Try to find function from pre-compiled function(s)
      *
-     * @param $name
+     * @param string $name
      * @return bool|FunctionDefinition
      */
     public function getFunction($name)
