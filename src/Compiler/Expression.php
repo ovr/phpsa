@@ -455,7 +455,12 @@ class Expression
 
                         $symbol = $this->context->getSymbol($name);
                         if (!$symbol) {
-                            $symbol = new Variable($name, null, CompiledExpression::UNKNOWN);
+                            $symbol = new Variable(
+                                $name,
+                                null,
+                                CompiledExpression::UNKNOWN,
+                                $this->context->getCurrentBranch()
+                            );
                             $this->context->addVariable($symbol);
                         }
 
@@ -478,7 +483,12 @@ class Expression
             if ($symbol) {
                 $symbol->modify($compiledExpression->getType(), $compiledExpression->getValue());
             } else {
-                $symbol = new Variable($name, $compiledExpression->getValue(), $compiledExpression->getType());
+                $symbol = new Variable(
+                    $name,
+                    $compiledExpression->getValue(),
+                    $compiledExpression->getType(),
+                    $this->context->getCurrentBranch()
+                );
                 $this->context->addVariable($symbol);
             }
 
