@@ -125,7 +125,11 @@ class ClassDefinition extends ParentDefinition
                     if ($variable->isUnused()) {
                         $context->warning(
                             'unused-' . $variable->getSymbolType(),
-                            sprintf('Unused ' . $variable->getSymbolType() . ' $%s in method %s()', $variable->getName(), $method->getName())
+                            sprintf(
+                                'Unused ' . $variable->getSymbolType() . ' $%s in method %s()',
+                                $variable->getName(),
+                                $method->getName()
+                            )
                         );
                     }
                 }
