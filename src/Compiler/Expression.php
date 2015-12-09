@@ -223,7 +223,7 @@ class Expression
             return new CompiledExpression($variable->getType(), $variable->getValue());
         }
 
-        $symbol = new Variable($expr->name, null, CompiledExpression::UNKNOWN);
+        $symbol = new Variable($expr->name, null, CompiledExpression::UNKNOWN, $this->context->getCurrentBranch());
         $this->context->addVariable($symbol);
 
         return new CompiledExpression;

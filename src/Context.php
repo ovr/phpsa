@@ -30,6 +30,11 @@ class Context
     public $application;
 
     /**
+     * @var string|integer
+     */
+    public $currentBranch;
+
+    /**
      * @var OutputInterface
      */
     public $output;
@@ -233,5 +238,21 @@ class Context
     public function setFilepath($filepath)
     {
         $this->filepath = $filepath;
+    }
+
+    /**
+     * @return int|string
+     */
+    public function getCurrentBranch()
+    {
+        return $this->currentBranch;
+    }
+
+    /**
+     * @param int|string $currentBranch
+     */
+    public function setCurrentBranch($currentBranch)
+    {
+        $this->currentBranch = $currentBranch;
     }
 }

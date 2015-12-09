@@ -9,7 +9,15 @@ use PHPSA\Compiler\Types;
 
 class Variable
 {
-    const DEFAULT_BRANCH = 0;
+    const BRANCH_ROOT = 0;
+
+    const BRANCH_CONDITIONAL_TRUE = 1;
+
+    const BRANCH_CONDITIONAL_FALSE = 2;
+
+    const BRANCH_CONDITIONAL_EXTERNAL = 3;
+
+    const BRANCH_UNKNOWN = 4;
 
     /**
      * @var string
@@ -57,7 +65,7 @@ class Variable
      * @param int $type
      * @param int|string $branch
      */
-    public function __construct($name, $defaultValue = null, $type = CompiledExpression::UNKNOWN, $branch = self::DEFAULT_BRANCH)
+    public function __construct($name, $defaultValue = null, $type = CompiledExpression::UNKNOWN, $branch = self::BRANCH_ROOT)
     {
         $this->name = $name;
 

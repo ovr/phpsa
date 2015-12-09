@@ -8,6 +8,7 @@ namespace PHPSA\Compiler\Statement;
 use PHPSA\CompiledExpression;
 use PHPSA\Context;
 use PHPSA\Compiler\Expression;
+use PHPSA\Variable;
 
 class IfSt extends AbstractCompiler
 {
@@ -20,6 +21,8 @@ class IfSt extends AbstractCompiler
      */
     public function compile($ifStatement, Context $context)
     {
+        $context->setCurrentBranch(Variable::BRANCH_CONDITIONAL_TRUE);
+
         $expression = new Expression($context);
         $expression->compile($ifStatement->cond);
 
@@ -30,6 +33,8 @@ class IfSt extends AbstractCompiler
         } else {
             $context->notice('not-implemented-body', 'Missing body', $ifStatement);
         }
+
+        $context->setCurrentBranch(Variable::BRANCH_CONDITIONAL_EXTERNAL);
 
         if (count($ifStatement->elseifs) > 0) {
             foreach ($ifStatement->elseifs as $elseIfStatement) {
@@ -48,6 +53,8 @@ class IfSt extends AbstractCompiler
             //@todo implement
         }
 
+        $context->setCurrentBranch(Variable::BRANCH_CONDITIONAL_FALSE);
+
         if ($ifStatement->else) {
             if (count($ifStatement->else->stmts) > 0) {
                 foreach ($ifStatement->else->stmts as $stmt) {
@@ -57,5 +64,7 @@ class IfSt extends AbstractCompiler
                 $context->notice('not-implemented-body', 'Missing body', $ifStatement->else);
             }
         }
+
+        $context->setCurrentBranch(Variable::BRANCH_ROOT);
     }
 }
