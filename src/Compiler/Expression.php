@@ -538,7 +538,12 @@ class Expression
 
                 $this->context->debug('Unknown how to pass referenced to symbol: ' . get_class($expr->expr));
             } else {
-                $symbol = new Variable($name, $compiledExpression->getValue(), $compiledExpression->getType(), true);
+                $symbol = new Variable(
+                    $name,
+                    $compiledExpression->getValue(),
+                    $compiledExpression->getType(),
+                    $this->context->getCurrentBranch()
+                );
                 $this->context->addVariable($symbol);
             }
 
