@@ -9,6 +9,8 @@ use PHPSA\Compiler\Types;
 
 class Variable
 {
+    const DEFAULT_BRANCH = 0;
+
     /**
      * @var string
      */
@@ -18,6 +20,11 @@ class Variable
      * @var mixed
      */
     protected $value;
+
+    /**
+     * @var integer|string
+     */
+    protected $branch;
 
     /**
      * @var int
@@ -48,8 +55,9 @@ class Variable
      * @param string $name
      * @param mixed|null $defaultValue
      * @param int $type
+     * @param int|string $branch
      */
-    public function __construct($name, $defaultValue = null, $type = CompiledExpression::UNKNOWN)
+    public function __construct($name, $defaultValue = null, $type = CompiledExpression::UNKNOWN, $branch = self::DEFAULT_BRANCH)
     {
         $this->name = $name;
 
@@ -59,6 +67,7 @@ class Variable
         }
 
         $this->type = (int) $type;
+        $this->branch = $branch;
     }
 
     /**
