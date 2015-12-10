@@ -32,8 +32,22 @@ class SwitchSt extends AbstractCompiler
                 }
 
                 if (count($case->stmts) > 0) {
+                    $beforeStatement = false;
+
                     foreach ($case->stmts as $stmt) {
                         \PHPSA\nodeVisitorFactory($stmt, $context);
+
+                        if ($beforeStatement) {
+                            if ($beforeStatement instanceof \PhpParser\Node\Stmt\Return_
+                                && $stmt instanceof \PhpParser\Node\Stmt\Break_) {
+                                $context->notice(
+                                    'switch.unneeded-break',
+                                    'Break after return statement is not needed',
+                                    $stmt
+                                );
+                            }
+                        }
+                        $beforeStatement = $stmt;
                     }
                 } else {
                     $context->notice('not-implemented-body', 'Missing body', $case);
