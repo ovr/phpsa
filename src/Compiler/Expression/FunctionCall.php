@@ -62,6 +62,13 @@ class FunctionCall extends AbstractExpressionCompiler
                 if (count($arguments) > 0) {
                     foreach ($arguments as $key => $argument) {
                         $parameter = $functionReflection->getParameter($key);
+                        if (!$parameter) {
+                            /**
+                             * @todo Think a little bit more about it
+                             */
+                            continue;
+                        }
+
                         switch ($parameter->getType()) {
                             case CompiledExpression::MIXED:
                                 //continue
