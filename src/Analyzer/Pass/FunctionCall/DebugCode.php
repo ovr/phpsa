@@ -1,4 +1,7 @@
 <?php
+/**
+ * @author Patsura Dmitry https://github.com/ovr <talk@dmtry.me>
+ */
 
 namespace PHPSA\Analyzer\Pass\FunctionCall;
 
@@ -6,7 +9,7 @@ use PhpParser\Node\Expr\FuncCall;
 use PhpParser\Node\Name;
 use PHPSA\Context;
 
-class DebugCode
+class DebugCode implements PassFunctionCallInterface
 {
     protected $map = array(
         'var_dump' => 'var_dump',
