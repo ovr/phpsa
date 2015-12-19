@@ -5,7 +5,7 @@ namespace Tests\Compiling\Statements;
 class VarExportUnexpected
 {
     /**
-     * @return bool
+     * @return string
      */
     public function testVarExportSuccess()
     {
@@ -13,7 +13,7 @@ class VarExportUnexpected
     }
 
     /**
-     * @return bool
+     * @return string
      */
     public function testVarExportUnexpected()
     {
