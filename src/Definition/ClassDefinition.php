@@ -104,6 +104,11 @@ class ClassDefinition extends ParentDefinition
      */
     public function compile(Context $context)
     {
+        if ($this->compiled) {
+            return true;
+        }
+
+        $this->compiled = true;
         $context->setFilepath($this->filepath);
         $context->setScope($this);
 

@@ -54,6 +54,10 @@ class FunctionDefinition extends ParentDefinition
      */
     public function compile(Context $context)
     {
+        if ($this->compiled) {
+            return true;
+        }
+
         $context->setFilepath($this->filepath);
         $this->compiled = true;
 
