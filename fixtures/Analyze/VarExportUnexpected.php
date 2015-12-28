@@ -20,6 +20,15 @@ class VarExportUnexpected
         /**
          * Second parameter in var_export must be true
          */
-        return "test " . var_export(1);
+        $a = "test " . var_export(1);
+        return $a;
+    }
+
+    /**
+     * @return string
+     */
+    public function testVarExportUnexpectedWithReturn()
+    {
+        return var_export(1);
     }
 }
