@@ -9,6 +9,7 @@ use PhpParser\Node;
 use PHPSA\CompiledExpression;
 use PHPSA\Compiler\Expression;
 use PHPSA\Compiler\Parameter;
+use PHPSA\Compiler\Types;
 use PHPSA\Context;
 use PHPSA\ScopePointer;
 use PHPSA\Variable;
@@ -93,8 +94,16 @@ class ClassMethod extends AbstractDefinition
         if (count($this->statement->params) > 0) {
             /** @var  Node\Param $parameter */
             foreach ($this->statement->params as $parameter) {
+                $type = CompiledExpression::UNKNOWN;
+
+                if ($parameter->type) {
+                    if (is_string($parameter->type)) {
+                        $type = Types::getType($parameter->type);
+                    }
+                }
+
                 $context->addVariable(
-                    new Parameter($parameter->name, CompiledExpression::UNKNOWN, null, $parameter->byRef)
+                    new Parameter($parameter->name, $type, null, $parameter->byRef)
                 );
             }
         }

@@ -50,8 +50,19 @@ class Types
      */
     public static function getTypeByValue($value)
     {
-        $type = gettype($value);
-        switch ($type) {
+        return self::getType(gettype($value));
+    }
+
+
+    /**
+     * Get type (integer) by $type
+     *
+     * @param string $typeName
+     * @return int
+     */
+    public static function getType($typeName)
+    {
+        switch ($typeName) {
             case 'integer':
                 return CompiledExpression::LNUMBER;
             case 'double':
@@ -73,7 +84,7 @@ class Types
         }
 
         //@codeCoverageIgnoreStart
-        throw new RuntimeException("Type '{$type}' is not supported");
+        throw new RuntimeException("Type '{$typeName}' is not supported");
         //@codeCoverageIgnoreEnd
     }
 }
