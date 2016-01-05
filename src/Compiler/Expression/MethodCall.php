@@ -75,6 +75,7 @@ class MethodCall extends AbstractExpressionCompiler
                                     );
                                 }
 
+                                $method->run($expr->args, $context);
                                 return new CompiledExpression;
                             }
 
