@@ -7,6 +7,7 @@ namespace PHPSA\Definition;
 
 use PhpParser\Node;
 use PHPSA\CompiledExpression;
+use PHPSA\Compiler\Expression;
 use PHPSA\Compiler\Parameter;
 use PHPSA\Context;
 use PHPSA\ScopePointer;
@@ -100,6 +101,16 @@ class ClassMethod extends AbstractDefinition
 
         foreach ($this->statement->stmts as $st) {
             \PHPSA\nodeVisitorFactory($st, $context);
+        }
+    }
+
+    public function run(array $args = null, Context $context)
+    {
+        if ($args) {
+            foreach ($args as $argument) {
+                $expression = new Expression($context);
+                $arguments[] = $expression->compile($argument->value);
+            }
         }
     }
 
