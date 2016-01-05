@@ -61,7 +61,7 @@ class MethodCall extends AbstractExpressionCompiler
                                     return new CompiledExpression;
                                 }
 
-                                $method = $calledObject->getMethod($methodName);
+                                $method = $calledObject->getMethod($methodName, true);
                                 if (!$method) {
                                     $context->debug('getMethod is not working');
                                     return new CompiledExpression;
