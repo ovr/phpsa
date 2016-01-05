@@ -187,21 +187,32 @@ class ClassDefinition extends ParentDefinition
 
     /**
      * @param $name
+     * @param bool $inherit
      * @return bool
      */
-    public function hasProperty($name)
+    public function hasProperty($name, $inherit = false)
     {
-        return isset($this->properties[$name]);
+        if (isset($this->properties[$name])) {
+            return isset($this->properties[$name]);
+        }
+
+        return $inherit && $this->extendsClassDefinition && $this->extendsClassDefinition->hasProperty($name, true);
     }
 
     /**
      * @param $name
-     * @return CompiledExpression
+     * @param bool $inherit
+     * @return Node\Stmt\Property
      */
-    public function getProperty($name)
+    public function getProperty($name, $inherit = false)
     {
-        assert($this->hasProperty($name));
-        return $this->properties[$name];
+        assert($this->hasProperty($name, $inherit));
+
+        if (isset($this->properties[$name])) {
+            return $this->properties[$name];
+        }
+
+        return $inherit && $this->extendsClassDefinition && $this->extendsClassDefinition->getProperty($name, true);
     }
 
     /**

@@ -64,9 +64,10 @@ class RuntimeClassDefinition extends ClassDefinition
 
     /**
      * @param $name
+     * @param bool $inherit
      * @return bool
      */
-    public function hasProperty($name)
+    public function hasProperty($name, $inherit = false)
     {
         return $this->reflection->hasProperty($name);
     }
