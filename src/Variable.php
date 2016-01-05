@@ -234,4 +234,20 @@ class Variable
     {
         return 'variable';
     }
+
+    /**
+     * @return array
+     */
+    public function __debugInfo()
+    {
+        return [
+            'name' => $this->name,
+            'type' => $this->type,
+            'value' => [
+                'type' => gettype($this->value)
+            ],
+            'branch' => $this->branch,
+            'symbol-type' => $this->getSymbolType()
+        ];
+    }
 }
