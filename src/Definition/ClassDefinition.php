@@ -156,7 +156,7 @@ class ClassDefinition extends ParentDefinition
 
         if ($inherit && $this->extendsClassDefinition && $this->extendsClassDefinition->hasMethod($name, true)) {
             $method = $this->extendsClassDefinition->getMethod($name);
-            return $method->isPublic() || $method->isProtected();
+            return $method && ($method->isPublic() || $method->isProtected());
         }
 
         return false;
