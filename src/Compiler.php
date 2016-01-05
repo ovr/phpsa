@@ -27,7 +27,7 @@ class Compiler
      */
     public function addClass(ClassDefinition $class)
     {
-        $this->classes[$class->getName()] = $class;
+        $this->classes[implode('\\', [$class->getNamespace(), $class->getName()])] = $class;
     }
 
     /**
