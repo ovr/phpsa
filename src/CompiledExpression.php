@@ -178,7 +178,7 @@ class CompiledExpression
      */
     public static function fromZvalValue($value)
     {
-        return new CompiledExpression(CompilerTypes::getType($value), $value);
+        return new CompiledExpression(CompilerTypes::getTypeByValue($value), $value);
     }
 
     //@codeCoverageIgnoreStart
