@@ -113,7 +113,12 @@ class ClassMethod extends AbstractDefinition
         }
     }
 
-    public function run(array $args = null, Context $context)
+    /**
+     * @param Context $context
+     * @param \PhpParser\Node\Arg[] $args
+     * @throws \PHPSA\Exception\RuntimeException
+     */
+    public function run(Context $context, array $args = null)
     {
         if ($args) {
             foreach ($args as $argument) {
