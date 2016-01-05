@@ -378,8 +378,8 @@ class Expression
                     }
 
                     if ($propertyName) {
-                        if ($scopeExpressionValue->hasProperty($propertyName)) {
-                            $property = $scopeExpressionValue->getProperty($propertyName);
+                        if ($scopeExpressionValue->hasProperty($propertyName, true)) {
+                            $property = $scopeExpressionValue->getProperty($propertyName, true);
                             return new CompiledExpression();
                         } else {
                             $this->context->notice(
