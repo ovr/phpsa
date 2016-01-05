@@ -174,7 +174,7 @@ class ClassDefinition extends ParentDefinition
     /**
      * @param $name
      * @param boolean|false $inherit
-     * @return ClassMethod
+     * @return ClassMethod|null
      */
     public function getMethod($name, $inherit = false)
     {
@@ -182,7 +182,11 @@ class ClassDefinition extends ParentDefinition
             return $this->methods[$name];
         }
 
-        return $inherit && $this->extendsClassDefinition && $this->extendsClassDefinition->getMethod($name, true);
+        if ($inherit && $this->extendsClassDefinition) {
+            return $this->extendsClassDefinition->getMethod($name, true);
+        }
+
+        return null;
     }
 
     /**
