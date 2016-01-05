@@ -367,11 +367,8 @@ class Expression
         $scopeExpression = $this->compile($expr->var);
         switch ($scopeExpression->getType()) {
             case CompiledExpression::OBJECT:
-                if ($scopeExpression->getValue() == 'this') {
-                    if ($this->context->scope === null) {
-                        throw new RuntimeException('Current $this scope is null');
-                    }
-
+                $scopeExpressionValue = $scopeExpression->getValue();
+                if ($scopeExpressionValue instanceof ClassDefinition) {
                     $propertyName = is_string($expr->name) ? $expr->name : false;
                     if ($expr->name instanceof Variable) {
                         /**
@@ -381,10 +378,17 @@ class Expression
                     }
 
                     if ($propertyName) {
-                        if (!$this->context->scope->hasProperty($propertyName)) {
+                        if ($scopeExpressionValue->hasProperty($propertyName)) {
+                            $property = $scopeExpressionValue->getProperty($propertyName);
+                            return new CompiledExpression();
+                        } else {
                             $this->context->notice(
                                 'undefined-property',
-                                sprintf('Property %s does not exist in %s scope', $propertyName, $scopeExpression->getValue()),
+                                sprintf(
+                                    'Property %s does not exist in %s scope',
+                                    $propertyName,
+                                    $scopeExpressionValue->getName()
+                                ),
                                 $expr
                             );
                         }
