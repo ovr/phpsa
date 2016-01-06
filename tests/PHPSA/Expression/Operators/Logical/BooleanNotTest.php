@@ -51,7 +51,7 @@ class BooleanNotTest extends \Tests\PHPSA\TestCase
         $compiledExpression = $this->compileExpression($baseExpression);
 
         $this->assertInstanceOfCompiledExpression($compiledExpression);
-        $this->assertSame(CompiledExpression::UNKNOWN, $compiledExpression->getType());
+        $this->assertSame(CompiledExpression::BOOLEAN, $compiledExpression->getType());
         $this->assertSame(null, $compiledExpression->getValue());
     }
 }
