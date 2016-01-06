@@ -126,6 +126,9 @@ class Context
 
     public function dump()
     {
+        /**
+         * @expected
+         */
         var_dump($this->symbols);
     }
 
