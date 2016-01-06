@@ -27,12 +27,17 @@ class NewOp extends AbstractExpressionCompiler
         if ($expr->class instanceof Node\Name) {
             $name = $expr->class->parts[0];
 
-            if (count($expr->args) > 0) {
-                return new CompiledExpression(CompiledExpression::OBJECT);
-            }
+            $arguments = [];
 
-            if (class_exists($name, true)) {
-                return new CompiledExpression(CompiledExpression::OBJECT, new $name());
+            if (count($expr->args) > 0) {
+                foreach ($expr->args as $argument) {
+                    $expression = new Expression($context);
+                    $arguments[] = $expression->compile($argument->value);
+                }
+            } else {
+                if (class_exists($name, true)) {
+                    return new CompiledExpression(CompiledExpression::OBJECT, new $name());
+                }
             }
 
             return new CompiledExpression(CompiledExpression::OBJECT);
