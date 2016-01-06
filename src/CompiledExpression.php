@@ -24,7 +24,7 @@ class CompiledExpression
     /**
      * Void type
      */
-    const VOID = Types::UNKNOWN_TYPE;
+    const VOID = Types::VOID_TYPE;
 
     const INTEGER = Types::INT_TYPE;
 
