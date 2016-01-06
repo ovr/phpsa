@@ -49,8 +49,6 @@ class IfSt extends AbstractCompiler
                     $context->notice('not-implemented-body', 'Missing body', $elseIfStatement);
                 }
             }
-        } else {
-            //@todo implement
         }
 
         $context->setCurrentBranch(Variable::BRANCH_CONDITIONAL_FALSE);
