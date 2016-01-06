@@ -61,7 +61,7 @@ class Variable
 
     /**
      * @param string $name
-     * @param mixed|null $defaultValue
+     * @param mixed $defaultValue
      * @param int $type
      * @param int|string $branch
      */

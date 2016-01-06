@@ -12,7 +12,7 @@ class GlobalVariable extends Variable
 {
     /**
      * @param string $name
-     * @param null $defaultValue
+     * @param mixed $defaultValue
      * @param int $type
      */
     public function __construct($name, $defaultValue = null, $type = CompiledExpression::UNKNOWN)
