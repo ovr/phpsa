@@ -32,6 +32,6 @@ class BooleanNot extends AbstractExpressionCompiler
         }
 
 
-        return new CompiledExpression();
+        return new CompiledExpression(CompiledExpression::BOOLEAN);
     }
 }

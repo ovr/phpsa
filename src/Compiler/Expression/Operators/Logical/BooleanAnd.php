@@ -43,6 +43,6 @@ class BooleanAnd extends AbstractExpressionCompiler
                 break;
         }
 
-        return new CompiledExpression(CompiledExpression::UNKNOWN);
+        return new CompiledExpression(CompiledExpression::BOOLEAN);
     }
 }
