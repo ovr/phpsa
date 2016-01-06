@@ -115,7 +115,8 @@ class ClassMethod extends AbstractDefinition
 
     /**
      * @param Context $context
-     * @param \PhpParser\Node\Arg[] $args
+     * @param array|null $args
+     * @return CompiledExpression
      * @throws \PHPSA\Exception\RuntimeException
      */
     public function run(Context $context, array $args = null)
@@ -126,6 +127,8 @@ class ClassMethod extends AbstractDefinition
                 $arguments[] = $expression->compile($argument->value);
             }
         }
+
+        return new CompiledExpression();
     }
 
     /**
