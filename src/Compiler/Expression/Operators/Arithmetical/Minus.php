@@ -36,6 +36,8 @@ class Minus extends AbstractExpressionCompiler
                 switch ($right->getType()) {
                     case CompiledExpression::LNUMBER:
                         return new CompiledExpression(CompiledExpression::LNUMBER, $left->getValue() - $right->getValue());
+                    case CompiledExpression::DNUMBER:
+                        return new CompiledExpression(CompiledExpression::DNUMBER, $left->getValue() - $right->getValue());
                 }
                 break;
             case CompiledExpression::DNUMBER:
