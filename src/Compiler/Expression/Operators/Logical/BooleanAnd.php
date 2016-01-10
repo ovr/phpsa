@@ -27,13 +27,13 @@ class BooleanAnd extends AbstractExpressionCompiler
         $right = $expression->compile($expr->right);
 
         switch ($left->getType()) {
-            case CompiledExpression::LNUMBER:
+            case CompiledExpression::INTEGER:
             case CompiledExpression::DNUMBER:
             case CompiledExpression::STRING:
             case CompiledExpression::BOOLEAN:
             case CompiledExpression::NULL:
                 switch ($right->getType()) {
-                    case CompiledExpression::LNUMBER:
+                    case CompiledExpression::INTEGER:
                     case CompiledExpression::DNUMBER:
                     case CompiledExpression::STRING:
                     case CompiledExpression::BOOLEAN:

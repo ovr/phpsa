@@ -27,11 +27,11 @@ class BitwiseXor extends AbstractExpressionCompiler
         $right = $expression->compile($expr->right);
 
         switch ($left->getType()) {
-            case CompiledExpression::LNUMBER:
+            case CompiledExpression::INTEGER:
             case CompiledExpression::DNUMBER:
             case CompiledExpression::BOOLEAN:
                 switch ($right->getType()) {
-                    case CompiledExpression::LNUMBER:
+                    case CompiledExpression::INTEGER:
                     case CompiledExpression::DNUMBER:
                     case CompiledExpression::BOOLEAN:
                         return new CompiledExpression(CompiledExpression::DNUMBER, $left->getValue() ^ $right->getValue());

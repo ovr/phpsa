@@ -175,7 +175,7 @@ class Expression
             case 'PHPSA\Node\Scalar\Nil':
                 return new CompiledExpression(CompiledExpression::NULL);
             case 'PhpParser\Node\Scalar\LNumber':
-                return new CompiledExpression(CompiledExpression::LNUMBER, $expr->value);
+                return new CompiledExpression(CompiledExpression::INTEGER, $expr->value);
             case 'PhpParser\Node\Scalar\DNumber':
                 return new CompiledExpression(CompiledExpression::DNUMBER, $expr->value);
             case 'PhpParser\Node\Scalar\String_':
@@ -259,7 +259,7 @@ class Expression
                 $this->context->notice('stupid-cast', "You are trying to cast 'boolean' to 'boolean'", $expr);
                 return $compiledExpression;
             case CompiledExpression::DNUMBER:
-            case CompiledExpression::LNUMBER:
+            case CompiledExpression::INTEGER:
                 return new CompiledExpression(CompiledExpression::BOOLEAN, (bool) $compiledExpression->getValue());
         }
 
@@ -278,13 +278,13 @@ class Expression
         $compiledExpression = $expression->compile($expr->expr);
 
         switch ($compiledExpression->getType()) {
-            case CompiledExpression::LNUMBER:
+            case CompiledExpression::INTEGER:
                 $this->context->notice('stupid-cast', "You are trying to cast 'int' to 'int'", $expr);
                 return $compiledExpression;
             case CompiledExpression::BOOLEAN:
             case CompiledExpression::DNUMBER:
             case CompiledExpression::STRING:
-                return new CompiledExpression(CompiledExpression::LNUMBER, (int) $compiledExpression->getValue());
+                return new CompiledExpression(CompiledExpression::INTEGER, (int) $compiledExpression->getValue());
         }
 
         return new CompiledExpression();
@@ -306,7 +306,7 @@ class Expression
                 $this->context->notice('stupid-cast', "You are trying to cast 'float' to 'float'", $expr);
                 return $compiledExpression;
             case CompiledExpression::BOOLEAN:
-            case CompiledExpression::LNUMBER:
+            case CompiledExpression::INTEGER:
             case CompiledExpression::STRING:
                 return new CompiledExpression(CompiledExpression::DNUMBER, (float) $compiledExpression->getValue());
         }
@@ -330,7 +330,7 @@ class Expression
                 $this->context->notice('stupid-cast', "You are trying to cast 'string' to 'string'", $expr);
                 return $compiledExpression;
             case CompiledExpression::BOOLEAN:
-            case CompiledExpression::LNUMBER:
+            case CompiledExpression::INTEGER:
             case CompiledExpression::DNUMBER:
                 return new CompiledExpression(CompiledExpression::DNUMBER, (string) $compiledExpression->getValue());
         }

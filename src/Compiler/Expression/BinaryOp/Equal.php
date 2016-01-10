@@ -33,13 +33,13 @@ class Equal extends AbstractExpressionCompiler
         $right = $expression->compile($expr->right);
 
         switch ($left->getType()) {
-            case CompiledExpression::LNUMBER:
+            case CompiledExpression::INTEGER:
             case CompiledExpression::DNUMBER:
             case CompiledExpression::BOOLEAN:
             case CompiledExpression::ARR:
             case CompiledExpression::OBJECT:
                 switch ($right->getType()) {
-                    case CompiledExpression::LNUMBER:
+                    case CompiledExpression::INTEGER:
                     case CompiledExpression::DNUMBER:
                     case CompiledExpression::BOOLEAN:
                     case CompiledExpression::ARR:

@@ -32,13 +32,13 @@ class Plus extends AbstractExpressionCompiler
         $right = $expression->compile($expr->right);
 
         switch ($left->getType()) {
-            case CompiledExpression::LNUMBER:
+            case CompiledExpression::INTEGER:
                 switch ($right->getType()) {
-                    case CompiledExpression::LNUMBER:
+                    case CompiledExpression::INTEGER:
                         /**
                          * php -r "var_dump(1 + 1);" int(2)
                          */
-                        return new CompiledExpression(CompiledExpression::LNUMBER, $left->getValue() + $right->getValue());
+                        return new CompiledExpression(CompiledExpression::INTEGER, $left->getValue() + $right->getValue());
                     case CompiledExpression::DNUMBER:
                         /**
                          * php -r "var_dump(1 + 1.0);" double(2)
@@ -48,7 +48,7 @@ class Plus extends AbstractExpressionCompiler
                 break;
             case CompiledExpression::DNUMBER:
                 switch ($right->getType()) {
-                    case CompiledExpression::LNUMBER:
+                    case CompiledExpression::INTEGER:
                     case CompiledExpression::DNUMBER:
                         /**
                          * php -r "var_dump(1.0 + 1);"   double(2)

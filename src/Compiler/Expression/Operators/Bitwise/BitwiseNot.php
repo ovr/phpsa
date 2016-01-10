@@ -23,7 +23,7 @@ class BitwiseNot extends AbstractExpressionCompiler
         $expression = new Expression($context);
         $compiledExpression = $expression->compile($expr->expr);
         switch ($compiledExpression->getType()) {
-            case CompiledExpression::LNUMBER:
+            case CompiledExpression::INTEGER:
             case CompiledExpression::DNUMBER:
             case CompiledExpression::BOOLEAN:
                 return CompiledExpression::fromZvalValue(~$compiledExpression->getValue());

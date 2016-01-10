@@ -34,10 +34,10 @@ abstract class AbstractOperator extends AbstractExpressionCompiler
         $right = $expression->compile($expr->right);
 
         switch ($left->getType()) {
-            case CompiledExpression::LNUMBER:
+            case CompiledExpression::INTEGER:
             case CompiledExpression::DNUMBER:
                 switch ($right->getType()) {
-                    case CompiledExpression::LNUMBER:
+                    case CompiledExpression::INTEGER:
                     case CompiledExpression::DNUMBER:
                         return new CompiledExpression(
                             CompiledExpression::BOOLEAN,

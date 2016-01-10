@@ -32,7 +32,7 @@ class Mod extends AbstractExpressionCompiler
         $right = $expression->compile($expr->right);
 
         switch ($left->getType()) {
-            case CompiledExpression::LNUMBER:
+            case CompiledExpression::INTEGER:
             case CompiledExpression::BOOLEAN:
             case CompiledExpression::DNUMBER:
                 if ($left->isEquals(0)) {
@@ -46,7 +46,7 @@ class Mod extends AbstractExpressionCompiler
         }
 
         switch ($right->getType()) {
-            case CompiledExpression::LNUMBER:
+            case CompiledExpression::INTEGER:
             case CompiledExpression::DNUMBER:
             case CompiledExpression::BOOLEAN:
                 if ($right->isEquals(0)) {
@@ -62,12 +62,12 @@ class Mod extends AbstractExpressionCompiler
         }
 
         switch ($left->getType()) {
-            case CompiledExpression::LNUMBER:
+            case CompiledExpression::INTEGER:
             case CompiledExpression::DNUMBER:
             case CompiledExpression::BOOLEAN:
                 switch ($right->getType()) {
                     case CompiledExpression::BOOLEAN:
-                    case CompiledExpression::LNUMBER:
+                    case CompiledExpression::INTEGER:
                     case CompiledExpression::DNUMBER:
                         return CompiledExpression::fromZvalValue($left->getValue() % $right->getValue());
                 }

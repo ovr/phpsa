@@ -32,17 +32,17 @@ class Minus extends AbstractExpressionCompiler
         $right = $expression->compile($expr->right);
 
         switch ($left->getType()) {
-            case CompiledExpression::LNUMBER:
+            case CompiledExpression::INTEGER:
                 switch ($right->getType()) {
-                    case CompiledExpression::LNUMBER:
-                        return new CompiledExpression(CompiledExpression::LNUMBER, $left->getValue() - $right->getValue());
+                    case CompiledExpression::INTEGER:
+                        return new CompiledExpression(CompiledExpression::INTEGER, $left->getValue() - $right->getValue());
                     case CompiledExpression::DNUMBER:
                         return new CompiledExpression(CompiledExpression::DNUMBER, $left->getValue() - $right->getValue());
                 }
                 break;
             case CompiledExpression::DNUMBER:
                 switch ($right->getType()) {
-                    case CompiledExpression::LNUMBER:
+                    case CompiledExpression::INTEGER:
                     case CompiledExpression::DNUMBER:
                         return new CompiledExpression(CompiledExpression::DNUMBER, $left->getValue() - $right->getValue());
                 }
