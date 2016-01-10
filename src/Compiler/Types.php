@@ -66,7 +66,7 @@ class Types
             case 'integer':
                 return CompiledExpression::INTEGER;
             case 'double':
-                return CompiledExpression::DNUMBER;
+                return CompiledExpression::DOUBLE;
             case 'string':
                 return CompiledExpression::STRING;
             case 'resource':

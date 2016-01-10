@@ -34,7 +34,7 @@ class Mod extends AbstractExpressionCompiler
         switch ($left->getType()) {
             case CompiledExpression::INTEGER:
             case CompiledExpression::BOOLEAN:
-            case CompiledExpression::DNUMBER:
+            case CompiledExpression::DOUBLE:
                 if ($left->isEquals(0)) {
                     $context->notice(
                         'division-zero',
@@ -47,7 +47,7 @@ class Mod extends AbstractExpressionCompiler
 
         switch ($right->getType()) {
             case CompiledExpression::INTEGER:
-            case CompiledExpression::DNUMBER:
+            case CompiledExpression::DOUBLE:
             case CompiledExpression::BOOLEAN:
                 if ($right->isEquals(0)) {
                     $context->notice(
@@ -63,12 +63,12 @@ class Mod extends AbstractExpressionCompiler
 
         switch ($left->getType()) {
             case CompiledExpression::INTEGER:
-            case CompiledExpression::DNUMBER:
+            case CompiledExpression::DOUBLE:
             case CompiledExpression::BOOLEAN:
                 switch ($right->getType()) {
                     case CompiledExpression::BOOLEAN:
                     case CompiledExpression::INTEGER:
-                    case CompiledExpression::DNUMBER:
+                    case CompiledExpression::DOUBLE:
                         return CompiledExpression::fromZvalValue($left->getValue() % $right->getValue());
                 }
                 break;

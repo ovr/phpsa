@@ -29,13 +29,13 @@ class NotIdentical extends AbstractExpressionCompiler
 
         switch ($left->getType()) {
             case CompiledExpression::INTEGER:
-            case CompiledExpression::DNUMBER:
+            case CompiledExpression::DOUBLE:
             case CompiledExpression::BOOLEAN:
             case CompiledExpression::NUMBER:
             case CompiledExpression::NULL:
                 switch ($right->getType()) {
                     case CompiledExpression::INTEGER:
-                    case CompiledExpression::DNUMBER:
+                    case CompiledExpression::DOUBLE:
                     case CompiledExpression::BOOLEAN:
                     case CompiledExpression::NUMBER:
                     case CompiledExpression::NULL:

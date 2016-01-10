@@ -34,13 +34,13 @@ class NotEqual extends AbstractExpressionCompiler
 
         switch ($left->getType()) {
             case CompiledExpression::INTEGER:
-            case CompiledExpression::DNUMBER:
+            case CompiledExpression::DOUBLE:
             case CompiledExpression::BOOLEAN:
             case CompiledExpression::ARR:
             case CompiledExpression::OBJECT:
                 switch ($right->getType()) {
                     case CompiledExpression::INTEGER:
-                    case CompiledExpression::DNUMBER:
+                    case CompiledExpression::DOUBLE:
                     case CompiledExpression::BOOLEAN:
                     case CompiledExpression::ARR:
                     case CompiledExpression::OBJECT:

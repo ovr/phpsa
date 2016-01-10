@@ -32,7 +32,7 @@ class Div extends AbstractExpressionCompiler
         $right = $expression->compile($expr->right);
 
         switch ($left->getType()) {
-            case CompiledExpression::DNUMBER:
+            case CompiledExpression::DOUBLE:
             case CompiledExpression::INTEGER:
             case CompiledExpression::BOOLEAN:
                 if ($left->isEquals(0)) {
@@ -47,7 +47,7 @@ class Div extends AbstractExpressionCompiler
 
         switch ($right->getType()) {
             case CompiledExpression::INTEGER:
-            case CompiledExpression::DNUMBER:
+            case CompiledExpression::DOUBLE:
             case CompiledExpression::BOOLEAN:
                 if ($right->isEquals(0)) {
                     $context->notice(
@@ -62,7 +62,7 @@ class Div extends AbstractExpressionCompiler
 
         switch ($left->getType()) {
             case CompiledExpression::INTEGER:
-            case CompiledExpression::DNUMBER:
+            case CompiledExpression::DOUBLE:
             case CompiledExpression::BOOLEAN:
                 switch ($right->getType()) {
                     case CompiledExpression::BOOLEAN:
@@ -79,7 +79,7 @@ class Div extends AbstractExpressionCompiler
                         );
                     //no break
                     case CompiledExpression::INTEGER:
-                    case CompiledExpression::DNUMBER:
+                    case CompiledExpression::DOUBLE:
                     case CompiledExpression::BOOLEAN:
                         return CompiledExpression::fromZvalValue($left->getValue() / $right->getValue());
                 }

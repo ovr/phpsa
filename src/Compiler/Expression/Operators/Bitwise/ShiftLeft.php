@@ -28,11 +28,11 @@ class ShiftLeft extends AbstractExpressionCompiler
 
         switch ($left->getType()) {
             case CompiledExpression::INTEGER:
-            case CompiledExpression::DNUMBER:
+            case CompiledExpression::DOUBLE:
             case CompiledExpression::BOOLEAN:
                 switch ($right->getType()) {
                     case CompiledExpression::INTEGER:
-                    case CompiledExpression::DNUMBER:
+                    case CompiledExpression::DOUBLE:
                     case CompiledExpression::BOOLEAN:
                         return new CompiledExpression(CompiledExpression::INTEGER, $left->getValue() << $right->getValue());
                 }

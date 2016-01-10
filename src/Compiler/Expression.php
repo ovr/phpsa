@@ -177,7 +177,7 @@ class Expression
             case 'PhpParser\Node\Scalar\LNumber':
                 return new CompiledExpression(CompiledExpression::INTEGER, $expr->value);
             case 'PhpParser\Node\Scalar\DNumber':
-                return new CompiledExpression(CompiledExpression::DNUMBER, $expr->value);
+                return new CompiledExpression(CompiledExpression::DOUBLE, $expr->value);
             case 'PhpParser\Node\Scalar\String_':
                 return new CompiledExpression(CompiledExpression::STRING, $expr->value);
             case 'PHPSA\Node\Scalar\Boolean':
@@ -258,7 +258,7 @@ class Expression
             case CompiledExpression::BOOLEAN:
                 $this->context->notice('stupid-cast', "You are trying to cast 'boolean' to 'boolean'", $expr);
                 return $compiledExpression;
-            case CompiledExpression::DNUMBER:
+            case CompiledExpression::DOUBLE:
             case CompiledExpression::INTEGER:
                 return new CompiledExpression(CompiledExpression::BOOLEAN, (bool) $compiledExpression->getValue());
         }
@@ -282,7 +282,7 @@ class Expression
                 $this->context->notice('stupid-cast', "You are trying to cast 'int' to 'int'", $expr);
                 return $compiledExpression;
             case CompiledExpression::BOOLEAN:
-            case CompiledExpression::DNUMBER:
+            case CompiledExpression::DOUBLE:
             case CompiledExpression::STRING:
                 return new CompiledExpression(CompiledExpression::INTEGER, (int) $compiledExpression->getValue());
         }
@@ -302,13 +302,13 @@ class Expression
         $compiledExpression = $expression->compile($expr->expr);
 
         switch ($compiledExpression->getType()) {
-            case CompiledExpression::DNUMBER:
+            case CompiledExpression::DOUBLE:
                 $this->context->notice('stupid-cast', "You are trying to cast 'float' to 'float'", $expr);
                 return $compiledExpression;
             case CompiledExpression::BOOLEAN:
             case CompiledExpression::INTEGER:
             case CompiledExpression::STRING:
-                return new CompiledExpression(CompiledExpression::DNUMBER, (float) $compiledExpression->getValue());
+                return new CompiledExpression(CompiledExpression::DOUBLE, (float) $compiledExpression->getValue());
         }
 
         return new CompiledExpression();
@@ -331,8 +331,8 @@ class Expression
                 return $compiledExpression;
             case CompiledExpression::BOOLEAN:
             case CompiledExpression::INTEGER:
-            case CompiledExpression::DNUMBER:
-                return new CompiledExpression(CompiledExpression::DNUMBER, (string) $compiledExpression->getValue());
+            case CompiledExpression::DOUBLE:
+                return new CompiledExpression(CompiledExpression::DOUBLE, (string) $compiledExpression->getValue());
         }
 
         return new CompiledExpression();
