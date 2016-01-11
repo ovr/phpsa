@@ -197,6 +197,8 @@ class CompiledExpression
                 return gettype($this->value) == 'integer' || gettype($this->value) == 'double';
             case CompiledExpression::DOUBLE:
                 return gettype($this->value) == 'double';
+            case CompiledExpression::BOOLEAN:
+                return gettype($this->value) == 'boolean';
         }
 
         return true;
