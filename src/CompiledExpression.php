@@ -190,15 +190,17 @@ class CompiledExpression
      */
     public function isCorrectValue()
     {
+        $type = gettype($this->value);
+
         switch ($this->type) {
             case CompiledExpression::INTEGER:
-                return gettype($this->value) == 'integer';
+                return $type == 'integer';
             case CompiledExpression::NUMBER:
-                return gettype($this->value) == 'integer' || gettype($this->value) == 'double';
+                return $type == 'integer' || $type == 'double';
             case CompiledExpression::DOUBLE:
-                return gettype($this->value) == 'double';
+                return $type == 'double';
             case CompiledExpression::BOOLEAN:
-                return gettype($this->value) == 'boolean';
+                return $type == 'boolean';
         }
 
         return true;
