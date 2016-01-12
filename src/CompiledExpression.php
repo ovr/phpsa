@@ -181,6 +181,24 @@ class CompiledExpression
         return new CompiledExpression(CompilerTypes::getTypeByValue($value), $value);
     }
 
+    /**
+     * This is needed via in feature $this->type can store multiple type(s) by bitmask
+     *
+     * @return bool
+     */
+    public function canBeObject()
+    {
+        return (boolean) ($this->type == self::OBJECT || $this->type & self::OBJECT);
+    }
+
+    /**
+     * @return bool
+     */
+    public function isObject()
+    {
+        return $this->type == self::OBJECT;
+    }
+
     //@codeCoverageIgnoreStart
     /**
      * Check that $this->value is correct for $this->type
