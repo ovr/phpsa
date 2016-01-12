@@ -222,7 +222,7 @@ class Expression
         $variable = $this->context->getSymbol($expr->name);
         if ($variable) {
             $variable->incGets();
-            return new CompiledExpression($variable->getType(), $variable->getValue());
+            return new CompiledExpression($variable->getType(), $variable->getValue(), $variable);
         }
 
         $symbol = new Variable($expr->name, null, CompiledExpression::UNKNOWN, $this->context->getCurrentBranch());
@@ -580,7 +580,7 @@ class Expression
         $variable = $this->context->getSymbol($expr->name);
         if ($variable) {
             $variable->incGets();
-            return new CompiledExpression($variable->getType(), $variable->getValue());
+            return new CompiledExpression($variable->getType(), $variable->getValue(), $variable);
         }
 
         $this->context->notice(
