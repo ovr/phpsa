@@ -114,17 +114,23 @@ class CompiledExpression
      */
     protected $value;
 
+    /**
+     * @var Variable|null
+     */
+    protected $variable;
 
     /**
      * Construct new CompiledExpression to pass result
      *
      * @param int $type
-     * @param null $value
+     * @param mixed $value
+     * @param Variable|null $variable
      */
-    public function __construct($type = self::UNKNOWN, $value = null)
+    public function __construct($type = self::UNKNOWN, $value = null, Variable $variable = null)
     {
         $this->type = $type;
         $this->value = $value;
+        $this->variable = $variable;
     }
 
     /**
@@ -224,4 +230,12 @@ class CompiledExpression
         return true;
     }
     //@codeCoverageIgnoreEnd
+
+    /**
+     * @return Variable|null
+     */
+    public function getVariable()
+    {
+        return $this->variable;
+    }
 }
