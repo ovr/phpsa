@@ -11,8 +11,6 @@ use PHPSA\Compiler\Expression;
 use PHPSA\Compiler\Parameter;
 use PHPSA\Compiler\Types;
 use PHPSA\Context;
-use PHPSA\ScopePointer;
-use PHPSA\Variable;
 
 class ClassMethod extends AbstractDefinition
 {

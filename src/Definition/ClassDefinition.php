@@ -204,7 +204,7 @@ class ClassDefinition extends ParentDefinition
     }
 
     /**
-     * @param $name
+     * @param string $name
      * @param bool $inherit
      * @return Node\Stmt\Property
      */

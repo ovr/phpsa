@@ -5,7 +5,6 @@
 
 namespace PHPSA\Analyzer;
 
-use PhpParser\NodeVisitor;
 use PHPSA\Context;
 
 class AstTraverser extends \PhpParser\NodeTraverser
