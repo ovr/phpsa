@@ -49,6 +49,8 @@ class Expression
              */
             case 'PhpParser\Node\Expr\New_':
                 return new Expression\Operators\NewOp();
+            case 'PhpParser\Node\Expr\Instanceof_':
+                return new Expression\Operators\InstanceOfOp();
             case 'PhpParser\Node\Expr\BinaryOp\Identical':
                 return new Expression\BinaryOp\Identical();
             case 'PhpParser\Node\Expr\BinaryOp\Concat':
