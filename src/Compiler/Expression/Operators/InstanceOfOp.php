@@ -28,10 +28,27 @@ class InstanceOfOp extends AbstractExpressionCompiler
     protected function compile($expr, Context $context)
     {
         $expression = new Expression($context);
-        $expression->compile($expr->expr);
+        $leftCompiledExpression = $expression->compile($expr->expr);
 
         $expression = new Expression($context);
-        $expression->compile($expr->class);
+        $rightCompiledExpression = $expression->compile($expr->class);
+
+        if ($leftCompiledExpression->isObject() && $rightCompiledExpression->isObject()) {
+            $leftVariable = $leftCompiledExpression->getVariable();
+            $rightVariable = $rightCompiledExpression->getVariable();
+
+            /**
+             * $a = new A();
+             * $b = $a;
+             *
+             * $a instanceof $b
+             */
+            if ($leftVariable && $rightVariable) {
+                if ($leftVariable->isReferenced() && $leftVariable->getReferencedTo() instanceof $rightVariable) {
+                    return new CompiledExpression(CompiledExpression::BOOLEAN, true);
+                }
+            }
+         }
 
         /**
          * Anyway this operator will return BOOLEAN
