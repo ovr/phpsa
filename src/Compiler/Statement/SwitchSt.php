@@ -48,12 +48,10 @@ class SwitchSt extends AbstractCompiler
                         }
                         $beforeStatement = $stmt;
                     }
-                } else {
-                    $context->notice('not-implemented-body', 'Missing body', $case);
                 }
             }
         } else {
-            //@todo implement
+            $context->notice('switch.empty', 'Switch block is empty, lol', $stmt);
         }
     }
 }
