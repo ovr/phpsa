@@ -48,7 +48,7 @@ class InstanceOfOp extends AbstractExpressionCompiler
                     return new CompiledExpression(CompiledExpression::BOOLEAN, true);
                 }
             }
-         }
+        }
 
         /**
          * Anyway this operator will return BOOLEAN
