@@ -225,6 +225,8 @@ class CompiledExpression
                 return $type == 'double';
             case CompiledExpression::BOOLEAN:
                 return $type == 'boolean';
+            case CompiledExpression::ARR:
+                return $type == 'array';
         }
 
         return true;
