@@ -439,7 +439,7 @@ class Expression
                 if (!$leftCEValue->hasConst($expr->name)) {
                     $this->context->notice(
                         'undefined-const',
-                        sprintf('Constant %s does not exist in %s scope', $expr->name, $scope),
+                        sprintf('Constant %s does not exist in %s scope', $expr->name, $expr->class),
                         $expr
                     );
                     return new CompiledExpression(CompiledExpression::UNKNOWN);
