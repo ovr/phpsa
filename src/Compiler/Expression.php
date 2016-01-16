@@ -432,20 +432,17 @@ class Expression
      */
     protected function passConstFetch(Node\Expr\ClassConstFetch $expr)
     {
-        if ($expr->class instanceof Node\Name) {
-            $scope = $expr->class->parts[0];
-
-            if ($scope == 'self' || $scope == 'this') {
-                if ($this->context->scope === null) {
-                    throw new RuntimeException("Current {$scope} scope is null");
-                }
-
-                if (!$this->context->scope->hasConst($expr->name)) {
+        $leftCE = $this->compile($expr->class);
+        if ($leftCE->isObject()) {
+            $leftCEValue = $leftCE->getValue();
+            if ($leftCEValue instanceof ClassDefinition) {
+                if (!$leftCEValue->hasConst($expr->name)) {
                     $this->context->notice(
                         'undefined-const',
                         sprintf('Constant %s does not exist in %s scope', $expr->name, $scope),
                         $expr
                     );
+                    return new CompiledExpression(CompiledExpression::UNKNOWN);
                 }
 
                 return new CompiledExpression();
