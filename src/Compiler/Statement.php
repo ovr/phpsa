@@ -45,6 +45,14 @@ class Statement
     public function __construct(Node\Stmt $stmt, Context $context)
     {
         try {
+            /**
+             * Dont show an error
+             * @todo This a little bit more about own statement for break;
+             */
+            if (get_class($stmt) == 'PhpParser\Node\Stmt\Break_') {
+                return;
+            }
+
             $compiler = $this->factory($stmt);
         } catch (\Exception $e) {
             $context->debug('StatementCompiler is not implemented for ' . get_class($stmt));
