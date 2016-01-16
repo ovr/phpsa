@@ -241,7 +241,7 @@ class Expression
             return new CompiledExpression(CompiledExpression::NULL);
         }
 
-        $this->context->debug('Unknown how to get node name');
+        $this->context->debug('[Unknown] How to get Node\Name for ' . $expr);
         return new CompiledExpression();
     }
 
