@@ -23,94 +23,72 @@ class MethodCall extends AbstractExpressionCompiler
      */
     protected function compile($expr, Context $context)
     {
-        if ($expr->var instanceof Variable) {
-            $symbol = $context->getSymbol($expr->var->name);
-            if ($symbol) {
-                switch ($symbol->getType()) {
-                    case CompiledExpression::OBJECT:
-                    case CompiledExpression::DYNAMIC:
-                        $symbol->incUse();
+        $expressionCompiler = new Expression($context);
+        $methodNameCE = $expressionCompiler->compile($expr->var);
 
-                        /** @var ClassDefinition $calledObject */
-                        $calledObject = $symbol->getValue();
-                        if ($calledObject instanceof ClassDefinition) {
-                            $methodName = is_string($expr->name) ? $expr->name : false;
+        $leftCompiledExpression = $expressionCompiler->compile($expr->var);
+        $leftSymbol = $leftCompiledExpression->getVariable();
+        if ($leftSymbol) {
+            if ($leftCompiledExpression->isObject()) {
+                /** @var ClassDefinition $calledObject */
+                $calledObject = $leftSymbol->getValue();
+                if ($calledObject instanceof ClassDefinition) {
+                    $methodName = $methodNameCE->isString() ? $methodNameCE->getValue() : false;
+                    if ($methodName) {
+                        if (!$calledObject->hasMethod($methodName, true)) {
+                            $context->notice(
+                                'undefined-mcall',
+                                sprintf('Method %s() does not exist in %s scope', $methodName, $expr->var->name),
+                                $expr
+                            );
 
-                            if ($expr->name instanceof Variable) {
-                                /**
-                                 * @todo implement fetch from symbol table
-                                 */
-                                //$methodName = $expr->name->name;
-                            }
-
-                            if ($expr->args) {
-                                foreach ($expr->args as $argument) {
-                                    $expression = new Expression($context);
-                                    $expression->compile($argument);
-                                }
-                            }
-
-                            if ($methodName) {
-                                if (!$calledObject->hasMethod($methodName, true)) {
-                                    $context->notice(
-                                        'undefined-mcall',
-                                        sprintf('Method %s() does not exist in %s scope', $methodName, $expr->var->name),
-                                        $expr
-                                    );
-
-                                    //it's needed to exit
-                                    return new CompiledExpression;
-                                }
-
-                                $method = $calledObject->getMethod($methodName, true);
-                                if (!$method) {
-                                    $context->debug('getMethod is not working');
-                                    return new CompiledExpression;
-                                }
-
-                                if ($method->isStatic()) {
-                                    $context->notice(
-                                        'undefined-mcall',
-                                        sprintf('Method %s() is a static function but called like class method in $%s variable', $methodName, $expr->var->name),
-                                        $expr
-                                    );
-                                }
-
-                                return $method->run($context, $expr->args);
-                            }
-
+                            //it's needed to exit
                             return new CompiledExpression;
                         }
 
-                        /**
-                         * It's a wrong type or value, maybe it's implemented and We need to fix it in another compilers
-                         */
-                        $context->debug('Unknown $calledObject - is ' . gettype($calledObject));
-                        return new CompiledExpression();
+                        $method = $calledObject->getMethod($methodName, true);
+                        if (!$method) {
+                            $context->debug('getMethod is not working');
+                            return new CompiledExpression;
+                        }
+
+                        if ($method->isStatic()) {
+                            $context->notice(
+                                'undefined-mcall',
+                                sprintf('Method %s() is a static function but called like class method in $%s variable', $methodName, $expr->var->name),
+                                $expr
+                            );
+                        }
+
+                        return $method->run($context, $expr->args);
+                    }
+
+                    return new CompiledExpression;
                 }
 
+                /**
+                 * It's a wrong type or value, maybe it's implemented and We need to fix it in another compilers
+                 */
+                $context->debug('Unknown $calledObject - is ' . gettype($calledObject));
+                return new CompiledExpression();
+            } elseif (!$leftCompiledExpression->canBeObject()) {
                 $context->notice(
                     'variable-wrongtype.mcall',
                     sprintf('Variable $%s is not object\\callable and cannot be called like this', $expr->var->name),
                     $expr,
                     Check::CHECK_ALPHA
                 );
-                return new CompiledExpression();
-            } else {
-                $context->notice(
-                    'undefined-variable.mcall',
-                    sprintf('Variable $%s is not defined in this scope', $expr->var->name),
-                    $expr
-                );
-
-                return new CompiledExpression();
             }
+
+            return new CompiledExpression;
         }
 
-        $expression = new Expression($context);
-        $expression->compile($expr->var);
+        $context->notice(
+            'undefined-variable.mcall',
+            sprintf('Variable $%s is not defined in this scope', $expr->var->name),
+            $expr
+        );
 
-        $context->debug('Unknown method call');
         return new CompiledExpression();
     }
 }
