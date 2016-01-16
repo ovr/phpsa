@@ -158,9 +158,10 @@ class Context
      * @param string $type
      * @param string $message
      * @param \PhpParser\NodeAbstract $expr
+     * @param int $status
      * @return bool
      */
-    public function notice($type, $message, \PhpParser\NodeAbstract $expr)
+    public function notice($type, $message, \PhpParser\NodeAbstract $expr, $status = Check::CHECK_ALPHA)
     {
         $filepath = $this->filepath;
         $code = file($filepath);

@@ -6,6 +6,7 @@
 namespace PHPSA\Compiler\Expression;
 
 use PhpParser\Node\Expr\Variable;
+use PHPSA\Check;
 use PHPSA\CompiledExpression;
 use PHPSA\Context;
 use PHPSA\Definition\ClassDefinition;
@@ -91,7 +92,8 @@ class MethodCall extends AbstractExpressionCompiler
                 $context->notice(
                     'variable-wrongtype.mcall',
                     sprintf('Variable $%s is not object\\callable and cannot be called like this', $expr->var->name),
-                    $expr
+                    $expr,
+                    Check::CHECK_ALPHA
                 );
                 return new CompiledExpression();
             } else {
