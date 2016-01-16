@@ -26,10 +26,10 @@ class MethodCall extends AbstractExpressionCompiler
         $expressionCompiler = new Expression($context);
         $methodNameCE = $expressionCompiler->compile($expr->var);
 
-        $leftCompiledExpression = $expressionCompiler->compile($expr->var);
-        $leftSymbol = $leftCompiledExpression->getVariable();
+        $leftCE = $expressionCompiler->compile($expr->var);
+        $leftSymbol = $leftCE->getVariable();
         if ($leftSymbol) {
-            if ($leftCompiledExpression->isObject()) {
+            if ($leftCE->isObject()) {
                 /** @var ClassDefinition $calledObject */
                 $calledObject = $leftSymbol->getValue();
                 if ($calledObject instanceof ClassDefinition) {
@@ -71,7 +71,7 @@ class MethodCall extends AbstractExpressionCompiler
                  */
                 $context->debug('Unknown $calledObject - is ' . gettype($calledObject));
                 return new CompiledExpression();
-            } elseif (!$leftCompiledExpression->canBeObject()) {
+            } elseif (!$leftCE->canBeObject()) {
                 $context->notice(
                     'variable-wrongtype.mcall',
                     sprintf('Variable $%s is not object\\callable and cannot be called like this', $expr->var->name),
