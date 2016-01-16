@@ -5,6 +5,8 @@
 
 namespace PHPSA\Compiler;
 
+use InvalidArgumentException;
+use PHPSA\Check;
 use PHPSA\CompiledExpression;
 use PHPSA\Context;
 use PhpParser\Node;
@@ -130,11 +132,19 @@ class Expression
     }
 
     /**
-     * @param $expr
+     * @param object|string $expr
      * @return CompiledExpression
      */
     public function compile($expr)
     {
+        if (is_string($expr)) {
+            return new CompiledExpression(CompiledExpression::STRING, $expr);
+        }
+
+        if (!is_object($expr)) {
+            throw new InvalidArgumentException('$expr must be string/object');
+        }
+
         $className = get_class($expr);
         switch ($className) {
             case 'PhpParser\Node\Expr\PropertyFetch':
@@ -378,44 +388,42 @@ class Expression
      */
     protected function passPropertyFetch(Node\Expr\PropertyFetch $expr)
     {
-        $scopeExpression = $this->compile($expr->var);
-        switch ($scopeExpression->getType()) {
-            case CompiledExpression::OBJECT:
-                $scopeExpressionValue = $scopeExpression->getValue();
-                if ($scopeExpressionValue instanceof ClassDefinition) {
-                    $propertyName = is_string($expr->name) ? $expr->name : false;
-                    if ($expr->name instanceof Variable) {
-                        /**
-                         * @todo implement fetch from symbol table
-                         */
-                        //$methodName = $expr->name->name;
-                    }
+        $propertNameCE = $this->compile($expr->name);
 
-                    if ($propertyName) {
-                        if ($scopeExpressionValue->hasProperty($propertyName, true)) {
-                            $property = $scopeExpressionValue->getProperty($propertyName, true);
-                            return new CompiledExpression();
-                        } else {
-                            $this->context->notice(
-                                'undefined-property',
-                                sprintf(
-                                    'Property %s does not exist in %s scope',
-                                    $propertyName,
-                                    $scopeExpressionValue->getName()
-                                ),
-                                $expr
-                            );
-                        }
+        $scopeExpression = $this->compile($expr->var);
+        if ($scopeExpression->isObject()) {
+            $scopeExpressionValue = $scopeExpression->getValue();
+            if ($scopeExpressionValue instanceof ClassDefinition) {
+                $propertyName = $propertNameCE->isString() ? $propertNameCE->getValue() : false;
+                if ($propertyName) {
+                    if ($scopeExpressionValue->hasProperty($propertyName, true)) {
+                        $property = $scopeExpressionValue->getProperty($propertyName, true);
+                        return $this->compile($property);
+                    } else {
+                        $this->context->notice(
+                            'undefined-property',
+                            sprintf(
+                                'Property %s does not exist in %s scope',
+                                $propertyName,
+                                $scopeExpressionValue->getName()
+                            ),
+                            $expr
+                        );
                     }
                 }
-                break;
-            default:
-                $this->context->debug('You cannot fetch property from not object type');
-                break;
+            }
+        } elseif (!$scopeExpression->canBeObject()) {
+            return new CompiledExpression(CompiledExpression::UNKNOWN);
         }
 
-        $this->context->debug('Unknown property fetch');
-        return new CompiledExpression();
+        $this->context->notice(
+            'property-fetch-on-non-object',
+            "It's not possible to fetch property on not object",
+            $expr,
+            Check::CHECK_BETA
+        );
+
+        return new CompiledExpression(CompiledExpression::UNKNOWN);
     }
 
     /**
