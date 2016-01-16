@@ -193,7 +193,7 @@ class Variable
      */
     public function isNumeric()
     {
-        return (bool) (
+        return (
             $this->type & CompiledExpression::INTEGER ||
             $this->type & CompiledExpression::DOUBLE ||
             $this->type == CompiledExpression::NUMBER
