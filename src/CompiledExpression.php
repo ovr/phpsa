@@ -200,6 +200,14 @@ class CompiledExpression
     /**
      * @return bool
      */
+    public function isString()
+    {
+        return $this->type == self::STRING;
+    }
+
+    /**
+     * @return bool
+     */
     public function isObject()
     {
         return $this->type == self::OBJECT;

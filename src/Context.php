@@ -161,7 +161,7 @@ class Context
      * @param int $status
      * @return bool
      */
-    public function notice($type, $message, \PhpParser\NodeAbstract $expr, $status = Check::CHECK_ALPHA)
+    public function notice($type, $message, \PhpParser\NodeAbstract $expr, $status = Check::CHECK_SAFE)
     {
         $filepath = $this->filepath;
         $code = file($filepath);
