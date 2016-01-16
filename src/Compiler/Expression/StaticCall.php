@@ -25,46 +25,36 @@ class StaticCall extends AbstractExpressionCompiler
      */
     protected function compile($expr, Context $context)
     {
-        if ($expr->class instanceof \PhpParser\Node\Name) {
-            $scope = $expr->class->parts[0];
+        $expressionCompiler = new Expression($context);
+        $leftCE = $expressionCompiler->compile($expr->class);
+
+        if ($leftCE->isObject()) {
             $name = $expr->name;
 
-            if ($scope == 'self') {
-                if ($context->scope instanceof ClassDefinition) {
-                    $context->notice(
-                        'scall-self-not-context',
-                        sprintf('No scope. You cannot call from %s out from class scope', $name, $scope),
-                        $expr
-                    );
+            /** @var ClassDefinition $classDefinition */
+            $classDefinition = $context->scope;
+            if (!$classDefinition->hasMethod($name, true)) {
+                $context->notice(
+                    'undefined-scall',
+                    sprintf('Static method %s() does not exist in %s scope', $name, $expr->class),
+                    $expr
+                );
 
-                    return new CompiledExpression();
-                }
-
-                /** @var ClassDefinition $classDefinition */
-                $classDefinition = $context->scope;
-                if (!$classDefinition->hasMethod($name, true)) {
-                    $context->notice(
-                        'undefined-scall',
-                        sprintf('Static method %s() does not exist in %s scope', $name, $scope),
-                        $expr
-                    );
-
-                    return new CompiledExpression();
-                }
-
-                $method = $classDefinition->getMethod($name);
-                if (!$method->isStatic()) {
-                    $context->notice(
-                        'undefined-scall',
-                        sprintf('Method %s() is not static but it was called as static way', $name),
-                        $expr
-                    );
-
-                    return new CompiledExpression();
-                }
+                return new CompiledExpression;
             }
 
-            return new CompiledExpression();
+            $method = $classDefinition->getMethod($name);
+            if (!$method->isStatic()) {
+                $context->notice(
+                    'undefined-scall',
+                    sprintf('Method %s() is not static but it was called as static way', $name),
+                    $expr
+                );
+
+                return new CompiledExpression;
+            }
+
+            return new CompiledExpression;
         }
 
         $context->debug('Unknown static function call');
