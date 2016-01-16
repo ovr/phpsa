@@ -66,9 +66,9 @@ class MCall
     /**
      * @return mixed
      */
-    public function testCallFromUnusedVariable()
+    public function testCallFromUndefinedVariable()
     {
-        return $unusedVariable->b();
+        return $undefinedVariable->b();
     }
 
     /**
