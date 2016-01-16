@@ -216,7 +216,11 @@ class ClassDefinition extends ParentDefinition
             return $this->properties[$name];
         }
 
-        return $inherit && $this->extendsClassDefinition && $this->extendsClassDefinition->getProperty($name, true);
+        if ($inherit && $this->extendsClassDefinition) {
+            return $this->extendsClassDefinition->getProperty($name, true);
+        }
+
+        return null;
     }
 
     /**
