@@ -241,6 +241,18 @@ class Expression
             return new CompiledExpression(CompiledExpression::NULL);
         }
 
+        if (in_array($expr, ['self', 'static'])) {
+            $scopePointer = $this->context->scopePointer;
+            if ($scopePointer) {
+                if ($scopePointer->isClassMethod()) {
+                    $classMethod = $scopePointer->getObject();
+                    if ($classMethod && $classMethod->isStatic()) {
+                        return CompiledExpression::fromZvalValue($this->context->scope);
+                    }
+                }
+            }
+        }
+
         $this->context->debug('[Unknown] How to get Node\Name for ' . $expr);
         return new CompiledExpression();
     }
