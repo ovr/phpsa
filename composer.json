@@ -12,7 +12,6 @@
             "email": "talk@dmtry.me"
         }
     ],
-    "minimum-stability": "dev",
     "require": {
         "php": ">=5.4",
         "ovr/phpreflection": "~0.2.6",
