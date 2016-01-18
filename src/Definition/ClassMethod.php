@@ -89,8 +89,7 @@ class ClassMethod extends AbstractDefinition
             );
         }
 
-        if (count($this->statement->params) > 0) {
-            /** @var  Node\Param $parameter */
+        if ($this->statement->params) {
             foreach ($this->statement->params as $parameter) {
                 $type = CompiledExpression::UNKNOWN;
 
