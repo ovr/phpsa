@@ -24,7 +24,7 @@ class MethodCall extends AbstractExpressionCompiler
     protected function compile($expr, Context $context)
     {
         $expressionCompiler = new Expression($context);
-        $methodNameCE = $expressionCompiler->compile($expr->var);
+        $methodNameCE = $expressionCompiler->compile($expr->name);
 
         $leftCE = $expressionCompiler->compile($expr->var);
         if ($leftCE->isObject()) {
@@ -36,7 +36,7 @@ class MethodCall extends AbstractExpressionCompiler
                     if (!$calledObject->hasMethod($methodName, true)) {
                         $context->notice(
                             'undefined-mcall',
-                            sprintf('Method %s() does not exist in %s scope', $methodName, $leftCE->getValue()),
+                            sprintf('Method %s() does not exist in %s scope', $methodName, $calledObject->getName()),
                             $expr
                         );
 
