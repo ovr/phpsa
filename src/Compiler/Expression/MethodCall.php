@@ -38,7 +38,7 @@ class MethodCall extends AbstractExpressionCompiler
                         if (!$calledObject->hasMethod($methodName, true)) {
                             $context->notice(
                                 'undefined-mcall',
-                                sprintf('Method %s() does not exist in %s scope', $methodName, $expr->var->name),
+                                sprintf('Method %s() does not exist in %s scope', $methodName, $leftCE->getValue()),
                                 $expr
                             );
 
@@ -74,7 +74,7 @@ class MethodCall extends AbstractExpressionCompiler
             } elseif (!$leftCE->canBeObject()) {
                 $context->notice(
                     'variable-wrongtype.mcall',
-                    sprintf('Variable $%s is not object\\callable and cannot be called like this', $expr->var->name),
+                    sprintf('Variable $%s is not object\\callable and cannot be called like this', $methodNameCE->getValue()),
                     $expr,
                     Check::CHECK_ALPHA
                 );
@@ -85,7 +85,7 @@ class MethodCall extends AbstractExpressionCompiler
 
         $context->notice(
             'undefined-variable.mcall',
-            sprintf('Variable $%s is not defined in this scope', $expr->var->name),
+            sprintf('Variable $%s is not defined in this scope', $methodNameCE->getValue()),
             $expr
         );
 
