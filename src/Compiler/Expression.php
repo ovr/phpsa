@@ -141,8 +141,12 @@ class Expression
             return new CompiledExpression(CompiledExpression::STRING, $expr);
         }
 
+        if (is_null($expr)) {
+            return new CompiledExpression(CompiledExpression::NULL);
+        }
+
         if (!is_object($expr)) {
-            throw new InvalidArgumentException('$expr must be string/object');
+            throw new InvalidArgumentException('$expr must be string/object/null');
         }
 
         $className = get_class($expr);
