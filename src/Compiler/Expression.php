@@ -255,17 +255,23 @@ class Expression
             return new CompiledExpression(CompiledExpression::NULL);
         }
 
+        if (in_array($expr, ['parent'])) {
+            /** @var ClassDefinition $scope */
+            $scope = $this->context->scope;
+            assert($scope instanceof ClassDefinition);
+
+            if ($scope->getExtendsClass()) {
+                $definition = $scope->getExtendsClassDefinition();
+                if ($definition) {
+                    return new CompiledExpression(CompiledExpression::OBJECT, $definition);
+                }
+            } else {
+
+            }
+        }
+
         if (in_array($expr, ['self', 'static'])) {
             return CompiledExpression::fromZvalValue($this->context->scope);
-//            $scopePointer = $this->context->scopePointer;
-//            if ($scopePointer) {
-//                if ($scopePointer->isClassMethod()) {
-//                    $classMethod = $scopePointer->getObject();
-//                    if ($classMethod && $classMethod->isStatic()) {
-//                        return CompiledExpression::fromZvalValue($this->context->scope);
-//                    }
-//                }
-//            }
         }
 
         $this->context->debug('[Unknown] How to get Node\Name for ' . $expr);
