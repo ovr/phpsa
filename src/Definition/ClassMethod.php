@@ -102,7 +102,7 @@ class ClassMethod extends AbstractDefinition
                 }
 
                 $context->addVariable(
-                    new Parameter($parameter->name, $type, null, $parameter->byRef)
+                    new Parameter($parameter->name, null, $type, $parameter->byRef)
                 );
             }
         }
