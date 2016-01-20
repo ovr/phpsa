@@ -28,5 +28,10 @@ class TryCatchSt extends AbstractCompiler
             $context->notice('not-implemented-body', 'Missing body', $statement);
         }
 
+        if (count($statement->finallyStmts) > 0) {
+            foreach ($statement->finallyStmts as $stmt) {
+                \PHPSA\nodeVisitorFactory($stmt, $context);
+            }
+        }
     }
 }
