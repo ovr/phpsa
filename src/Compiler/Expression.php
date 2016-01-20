@@ -251,7 +251,7 @@ class Expression
      */
     public function getNodeName(Node\Name $expr)
     {
-        if ($expr->parts[0] === 'null') {
+        if ($expr->toString() === 'null') {
             return new CompiledExpression(CompiledExpression::NULL);
         }
 
