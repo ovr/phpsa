@@ -73,6 +73,6 @@ class MethodCall extends AbstractExpressionCompiler
         }
 
         $context->debug('[Unknown] @todo MethodCall');
-        return new CompiledExpression();
+        return new CompiledExpression;
     }
 }
