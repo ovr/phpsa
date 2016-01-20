@@ -266,7 +266,11 @@ class Expression
                     return new CompiledExpression(CompiledExpression::OBJECT, $definition);
                 }
             } else {
-
+                $this->context->notice(
+                    'no-parent',
+                    'Cannot access parent:: when current class scope has no parent',
+                    $expr
+                );
             }
         }
 
