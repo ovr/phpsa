@@ -299,6 +299,8 @@ class Expression
                 return $compiledExpression;
             case CompiledExpression::DOUBLE:
             case CompiledExpression::INTEGER:
+            case CompiledExpression::NUMBER:
+            case CompiledExpression::STRING:
                 return new CompiledExpression(CompiledExpression::BOOLEAN, (bool) $compiledExpression->getValue());
         }
 
@@ -322,6 +324,7 @@ class Expression
                 return $compiledExpression;
             case CompiledExpression::BOOLEAN:
             case CompiledExpression::DOUBLE:
+            case CompiledExpression::NUMBER:
             case CompiledExpression::STRING:
                 return new CompiledExpression(CompiledExpression::INTEGER, (int) $compiledExpression->getValue());
         }
@@ -346,6 +349,7 @@ class Expression
                 return $compiledExpression;
             case CompiledExpression::BOOLEAN:
             case CompiledExpression::INTEGER:
+            case CompiledExpression::NUMBER:
             case CompiledExpression::STRING:
                 return new CompiledExpression(CompiledExpression::DOUBLE, (float) $compiledExpression->getValue());
         }
@@ -370,6 +374,7 @@ class Expression
                 return $compiledExpression;
             case CompiledExpression::BOOLEAN:
             case CompiledExpression::INTEGER:
+            case CompiledExpression::NUMBER:
             case CompiledExpression::DOUBLE:
                 return new CompiledExpression(CompiledExpression::DOUBLE, (string) $compiledExpression->getValue());
         }
