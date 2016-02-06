@@ -179,7 +179,7 @@ class CheckCommand extends Command
 
             $astTraverser->traverse($astTree);
 
-            $aliasManager = new AliasManager();
+            $context->aliasManager = new AliasManager();
             $namespace = null;
 
             /**
@@ -192,14 +192,14 @@ class CheckCommand extends Command
                      */
                     if ($topStatement->name) {
                         $namespace = $topStatement->name->toString();
-                        $aliasManager->setNamespace($namespace);
+                        $context->aliasManager->setNamespace($namespace);
                     }
 
                     if ($topStatement->stmts) {
-                        $this->parseTopDefinitions($topStatement->stmts, $aliasManager, $filepath);
+                        $this->parseTopDefinitions($topStatement->stmts, $context->aliasManager, $filepath);
                     }
                 } else {
-                    $this->parseTopDefinitions($topStatement, $aliasManager, $filepath);
+                    $this->parseTopDefinitions($topStatement, $context->aliasManager, $filepath);
                 }
             }
 
