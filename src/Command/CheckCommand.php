@@ -95,7 +95,7 @@ class CheckCommand extends Command
                 $count++;
             }
 
-            $output->writeln(sprintf('found <info>%d files</info>', $count));
+            $output->writeln("Found <info>{$count} files</info>");
 
             if ($count > 100) {
                 $output->writeln('<comment>Caution: You are trying to scan a lot of files; this might be slow. For bigger libraries, consider setting up a dedicated platform or using ci.lowl.io.</comment>');
