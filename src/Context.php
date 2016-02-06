@@ -149,7 +149,7 @@ class Context
     public function warning($type, $message)
     {
         $filepath = $this->filepath;
-        $this->output->writeln('<comment>Notice:  ' . $message . " in {$filepath}  [{$type}]</comment>");
+        $this->output->writeln('<comment>Warning:  ' . $message . " in {$filepath}  [{$type}]</comment>");
         $this->output->writeln('');
 
         return true;
