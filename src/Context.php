@@ -114,6 +114,9 @@ class Context
     {
         $this->symbols = array();
         $this->scope = null;
+        $this->scopePointer = null;
+        $this->currentBranch = null;
+        $this->aliasManager = null;
 
         $this->initGlobals();
     }
