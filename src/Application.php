@@ -15,6 +15,11 @@ class Application extends \Symfony\Component\Console\Application
     protected $configuration;
 
     /**
+     * @var IssuesCollector
+     */
+    protected $issuesCollector;
+
+    /**
      * @var Compiler
      */
     public $compiler;
@@ -27,6 +32,7 @@ class Application extends \Symfony\Component\Console\Application
 
         $this->add(new CheckCommand());
 
+        $this->issuesCollector = new IssuesCollector();
         $this->configuration = new Configuration();
     }
 
@@ -56,5 +62,13 @@ class Application extends \Symfony\Component\Console\Application
     public function getConfiguration()
     {
         return $this->configuration;
+    }
+
+    /**
+     * @return IssuesCollector
+     */
+    public function getIssuesCollector()
+    {
+        return $this->issuesCollector;
     }
 }

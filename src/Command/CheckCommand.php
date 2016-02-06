@@ -42,7 +42,10 @@ class CheckCommand extends Command
             ->setName('check')
             ->setDescription('SPA')
             ->addOption('blame', null, InputOption::VALUE_OPTIONAL, 'Git blame author for bad code ;)', false)
-            ->addArgument('path', InputArgument::OPTIONAL, 'Path to check file or directory', '.');
+            ->addArgument('path', InputArgument::OPTIONAL, 'Path to check file or directory', '.')
+            ->addOption(
+                'report-json', null, InputOption::VALUE_REQUIRED, 'Path to save detailed report in JSON format. Example: /tmp/report.json'
+            );
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
@@ -120,6 +123,16 @@ class CheckCommand extends Command
          * Step 2 Recursive check ...
          */
         $application->compiler->compile($context);
+
+        $jsonReport = $input->getOption('report-json');
+        if ($jsonReport) {
+            file_put_contents(
+                $jsonReport,
+                json_encode(
+                    $this->getApplication()->getIssuesCollector()->getIssues()
+                )
+            );
+        }
 
         $output->writeln('');
         $output->writeln('Memory usage: ' . $this->getMemoryUsage(false) . ' (peak: ' . $this->getMemoryUsage(true) . ') MB');

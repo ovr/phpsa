@@ -151,6 +151,7 @@ class Context
         $filepath = $this->filepath;
         $this->output->writeln('<comment>Notice:  ' . $message . " in {$filepath}  [{$type}]</comment>");
         $this->output->writeln('');
+
         return true;
     }
 
@@ -177,13 +178,15 @@ class Context
                 $this->output->writeln("<comment>\t {$result[0]}</comment>");
             }
         } else {
-            $code = trim($code[$expr->getLine()-1]);
+            $code = trim($code[$expr->getLine() - 1]);
             $this->output->writeln("<comment>\t {$code} </comment>");
         }
 
         $this->output->writeln('');
 
-        unset($code);
+        $this->application->getIssuesCollector()
+            ->addIssue($type, $message, $filepath, $expr->getLine() - 1);
+
         return true;
     }
 
@@ -198,6 +201,9 @@ class Context
 
         $this->output->writeln('<error>Syntax error:  ' . $exception->getMessage() . " in {$filepath} </error>");
         $this->output->writeln('');
+
+        $this->application->getIssuesCollector()
+            ->addIssue('syntax-error', 'syntax-error', $filepath, $exception->getStartLine() - 2);
 
         $code = trim($code[($exception->getStartLine()-2)]);
         $this->output->writeln("<comment>\t {$code} </comment>");
