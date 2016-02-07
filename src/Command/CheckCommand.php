@@ -44,7 +44,10 @@ class CheckCommand extends Command
             ->addOption('blame', null, InputOption::VALUE_OPTIONAL, 'Git blame author for bad code ;)', false)
             ->addArgument('path', InputArgument::OPTIONAL, 'Path to check file or directory', '.')
             ->addOption(
-                'report-json', null, InputOption::VALUE_REQUIRED, 'Path to save detailed report in JSON format. Example: /tmp/report.json'
+                'report-json',
+                null,
+                InputOption::VALUE_REQUIRED,
+                'Path to save detailed report in JSON format. Example: /tmp/report.json'
             );
     }
 
