@@ -15,8 +15,8 @@ cache:
     - $HOME/.composer/cache
 
 install:
-  - composer self-update
-  - composer --prefer-source install
+  - composer self-update --quiet
+  - composer --prefer-source install --no-interaction --no-progress
 
 script:
   - ./vendor/bin/phpcs --standard=PSR2 --report=emacs --extensions=php --warning-severity=0 src/ tests/PHPSA/
