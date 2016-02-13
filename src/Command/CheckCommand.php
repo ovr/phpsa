@@ -59,7 +59,7 @@ class CheckCommand extends Command
             $output->writeln('<error>It is highly recommended to disable the XDebug extension before invoking this command.</error>');
         }
 
-        $parser = (new ParserFactory())->create(ParserFactory::PREFER_PHP5, new \PhpParser\Lexer\Emulative(
+        $parser = (new ParserFactory())->create(ParserFactory::PREFER_PHP7, new \PhpParser\Lexer\Emulative(
             array(
                 'usedAttributes' => array(
                     'comments',
