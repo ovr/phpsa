@@ -5,6 +5,7 @@
 
 namespace PHPSA\Command;
 
+use PhpParser\NodeTraverser;
 use PhpParser\ParserFactory;
 use PHPSA\AliasManager;
 use PHPSA\Analyzer\AstTraverser;
@@ -82,6 +83,9 @@ class CheckCommand extends Command
          */
         $application->getConfiguration()->setValue('blame', $input->getOption('blame'));
 
+        $astTraverser = new \PhpParser\NodeTraverser();
+        $astTraverser->addVisitor(new \PhpParser\NodeVisitor\NameResolver);
+
         $path = $input->getArgument('path');
         if (is_dir($path)) {
             $directoryIterator = new RecursiveIteratorIterator(
@@ -115,10 +119,10 @@ class CheckCommand extends Command
                     continue;
                 }
 
-                $this->parserFile($file->getPathname(), $parser, $context);
+                $this->parserFile($file->getPathname(), $parser, $astTraverser, $context);
             }
         } elseif (is_file($path)) {
-            $this->parserFile($path, $parser, $context);
+            $this->parserFile($path, $parser, $astTraverser, $context);
         }
 
 
@@ -161,14 +165,12 @@ class CheckCommand extends Command
     /**
      * @param string $filepath
      * @param Parser $parser
+     * @param NodeTraverser $nodeTraverser
      * @param Context $context
      */
-    protected function parserFile($filepath, Parser $parser, Context $context)
+    protected function parserFile($filepath, Parser $parser, NodeTraverser $nodeTraverser, Context $context)
     {
         $context->setFilepath($filepath);
-
-        $astTraverser = new \PhpParser\NodeTraverser();
-        $astTraverser->addVisitor(new \PhpParser\NodeVisitor\NameResolver);
 
         try {
             if (!is_readable($filepath)) {
@@ -180,7 +182,7 @@ class CheckCommand extends Command
             $code = file_get_contents($filepath);
             $astTree = $parser->parse($code);
 
-            $astTraverser->traverse($astTree);
+            $nodeTraverser->traverse($astTree);
 
             $context->aliasManager = new AliasManager();
             $namespace = null;
