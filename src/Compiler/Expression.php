@@ -53,6 +53,14 @@ class Expression
                 return new Expression\Operators\NewOp();
             case 'PhpParser\Node\Expr\Instanceof_':
                 return new Expression\Operators\InstanceOfOp();
+            /**
+             * Assign
+             */
+            case 'PhpParser\Node\Expr\AssignOp\Pow':
+                return new Expression\AssignOp\Pow();
+            /**
+             * BinaryOp
+             */
             case 'PhpParser\Node\Expr\BinaryOp\Identical':
                 return new Expression\BinaryOp\Identical();
             case 'PhpParser\Node\Expr\BinaryOp\Concat':
