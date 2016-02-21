@@ -1,6 +1,6 @@
 <?php
 /**
- * PHP Static Analysis project 2015
+ * PHP Static Analysis project 2015-2016
  *
  * @author Patsura Dmitry https://github.com/ovr <talk@dmtry.me>
  */
