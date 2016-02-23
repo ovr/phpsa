@@ -30,7 +30,22 @@ class Pow extends AbstractExpressionCompiler
         $left = $expression->compile($expr->var);
 
         $expression = new Expression($context);
-        $expression->compile($expr->expr);
+        $expExpression = $expression->compile($expr->expr);
+
+
+        switch ($left->getType()) {
+            case CompiledExpression::INTEGER:
+            case CompiledExpression::DOUBLE:
+            case CompiledExpression::NUMBER:
+                switch ($expExpression->getType()) {
+                    case CompiledExpression::INTEGER:
+                    case CompiledExpression::DOUBLE:
+                    case CompiledExpression::NUMBER:
+                        return CompiledExpression::fromZvalValue(pow($left->getValue(), $expExpression->getValue()));
+                        break;
+                }
+                break;
+        }
 
         return $left;
     }
