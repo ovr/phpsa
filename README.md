@@ -8,7 +8,7 @@ PHPSA - Static Analysis for PHP
 [![Latest Stable Version](https://poser.pugx.org/ovr/phpsa/v/stable.svg)](https://packagist.org/packages/ovr/phpsa)
 [![License](https://poser.pugx.org/ovr/phpsa/license.svg)](https://packagist.org/packages/ovr/phpsa)
 
-> PHPSA is a development tool aimed at bringing full stack analysis for PHP applications and libraries.
+> PHPSA is a development tool aimed at bringing complex analysis for PHP applications and libraries.
 
 P.S This software is currently in early alpha state, any contributions/stars will be awesome.
 
