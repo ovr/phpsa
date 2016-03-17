@@ -62,6 +62,8 @@ class Expression
                 return new Expression\AssignOp\Plus();
             case 'PhpParser\Node\Expr\AssignOp\Minus':
                 return new Expression\AssignOp\Minus();
+            case 'PhpParser\Node\Expr\AssignOp\Mod':
+                return new Expression\AssignOp\Mod();
             /**
              * BinaryOp
              */

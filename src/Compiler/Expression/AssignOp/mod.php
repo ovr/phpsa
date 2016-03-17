@@ -12,15 +12,15 @@ use PHPSA\Compiler\Expression;
 use PHPSA\Compiler\Expression\AbstractExpressionCompiler;
 use PHPSA\Context;
 
-class Minus extends AbstractExpressionCompiler
+class Mod extends AbstractExpressionCompiler
 {
-    protected $name = 'PhpParser\Node\Expr\AssignOp\Minus';
+    protected $name = 'PhpParser\Node\Expr\AssignOp\Mod';
 
     /**
      * It's used in conditions
-     * {left-expr} -= {right-expr}
+     * {left-expr} %= {right-expr}
      *
-     * @param \PhpParser\Node\Expr\AssignOp\Minus $expr
+     * @param \PhpParser\Node\Expr\AssignOp\Mod $expr
      * @param Context $context
      * @return CompiledExpression
      */
@@ -31,7 +31,7 @@ class Minus extends AbstractExpressionCompiler
 
         $expression = new Expression($context);
         $expExpression = $expression->compile($expr->expr);
-        
+
         switch ($left->getType()) {
             case CompiledExpression::INTEGER:
             case CompiledExpression::DOUBLE:
@@ -41,7 +41,7 @@ class Minus extends AbstractExpressionCompiler
                     case CompiledExpression::DOUBLE:
                     case CompiledExpression::NUMBER:
                         return CompiledExpression::fromZvalValue(
-                            $left->getValue() + $expExpression->getValue()
+                            $left->getValue() % $expExpression->getValue()
                         );
                         break;
                 }

@@ -32,7 +32,6 @@ class Pow extends AbstractExpressionCompiler
         $expression = new Expression($context);
         $expExpression = $expression->compile($expr->expr);
 
-
         switch ($left->getType()) {
             case CompiledExpression::INTEGER:
             case CompiledExpression::DOUBLE:
