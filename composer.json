@@ -13,7 +13,7 @@
         }
     ],
     "require": {
-        "php": ">=5.4",
+        "php": ">=5.5",
         "ovr/phpreflection": "~0.2.6",
         "symfony/console": "~2.7.0",
         "symfony/event-dispatcher": "~2.7.5",
