@@ -40,107 +40,107 @@ class Expression
             /**
              * Call(s)
              */
-            case 'PhpParser\Node\Expr\MethodCall':
+            case Node\Expr\MethodCall::class:
                 return new Expression\MethodCall();
-            case 'PhpParser\Node\Expr\FuncCall':
+            case Node\Expr\FuncCall::class:
                 return new Expression\FunctionCall();
-            case 'PhpParser\Node\Expr\StaticCall':
+            case Node\Expr\StaticCall::class:
                 return new Expression\StaticCall();
             /**
              * Operators
              */
-            case 'PhpParser\Node\Expr\New_':
+            case Node\Expr\New_::class:
                 return new Expression\Operators\NewOp();
-            case 'PhpParser\Node\Expr\Instanceof_':
+            case Node\Expr\Instanceof_::class:
                 return new Expression\Operators\InstanceOfOp();
             /**
              * Assign
              */
-            case 'PhpParser\Node\Expr\AssignOp\Pow':
+            case Node\Expr\AssignOp\Pow::class:
                 return new Expression\AssignOp\Pow();
-            case 'PhpParser\Node\Expr\AssignOp\Plus':
+            case Node\Expr\AssignOp\Plus::class:
                 return new Expression\AssignOp\Plus();
-            case 'PhpParser\Node\Expr\AssignOp\Minus':
+            case Node\Expr\AssignOp\Minus::class:
                 return new Expression\AssignOp\Minus();
-            case 'PhpParser\Node\Expr\AssignOp\Mod':
+            case Node\Expr\AssignOp\Mod::class:
                 return new Expression\AssignOp\Mod();
-            case 'PhpParser\Node\Expr\AssignOp\BitwiseOr':
+            case Node\Expr\AssignOp\BitwiseOr::class:
                 return new Expression\AssignOp\BitwiseOr();
             /**
              * BinaryOp
              */
-            case 'PhpParser\Node\Expr\BinaryOp\Identical':
+            case Node\Expr\BinaryOp\Identical::class:
                 return new Expression\BinaryOp\Identical();
-            case 'PhpParser\Node\Expr\BinaryOp\Concat':
+            case Node\Expr\BinaryOp\Concat::class:
                 return new Expression\Operators\Contact();
-            case 'PhpParser\Node\Expr\BinaryOp\NotIdentical':
+            case Node\Expr\BinaryOp\NotIdentical::class:
                 return new Expression\BinaryOp\NotIdentical();
-            case 'PhpParser\Node\Expr\BinaryOp\Equal':
+            case Node\Expr\BinaryOp\Equal::class:
                 return new Expression\BinaryOp\Equal();
-            case 'PhpParser\Node\Expr\BinaryOp\NotEqual':
+            case Node\Expr\BinaryOp\NotEqual::class:
                 return new Expression\BinaryOp\NotEqual();
             /**
              * @link http://php.net/manual/en/language.operators.increment.php
              */
-            case 'PhpParser\Node\Expr\PostInc':
+            case Node\Expr\PostInc::class:
                 return new Expression\Operators\PostInc();
-            case 'PhpParser\Node\Expr\PostDec':
+            case Node\Expr\PostDec::class:
                 return new Expression\Operators\PostDec();
             /**
              * Arithmetical
              */
-            case 'PhpParser\Node\Expr\BinaryOp\Div':
+            case Node\Expr\BinaryOp\Div::class:
                 return new Expression\Operators\Arithmetical\Div();
-            case 'PhpParser\Node\Expr\BinaryOp\Plus':
+            case Node\Expr\BinaryOp\Plus::class:
                 return new Expression\Operators\Arithmetical\Plus();
-            case 'PhpParser\Node\Expr\BinaryOp\Minus':
+            case Node\Expr\BinaryOp\Minus::class:
                 return new Expression\Operators\Arithmetical\Minus();
-            case 'PhpParser\Node\Expr\BinaryOp\Mul':
+            case Node\Expr\BinaryOp\Mul::class:
                 return new Expression\Operators\Arithmetical\Mul();
-            case 'PhpParser\Node\Expr\BinaryOp\Mod':
+            case Node\Expr\BinaryOp\Mod::class:
                 return new Expression\Operators\Arithmetical\Mod();
             /**
              * Bitwise
              * @link http://php.net/manual/ru/language.operators.bitwise.php
              */
-            case 'PhpParser\Node\Expr\BinaryOp\BitwiseOr':
+            case Node\Expr\BinaryOp\BitwiseOr::class:
                 return new Expression\Operators\Bitwise\BitwiseOr();
-            case 'PhpParser\Node\Expr\BinaryOp\BitwiseXor':
+            case Node\Expr\BinaryOp\BitwiseXor::class:
                 return new Expression\Operators\Bitwise\BitwiseXor();
-            case 'PhpParser\Node\Expr\BinaryOp\BitwiseAnd':
+            case Node\Expr\BinaryOp\BitwiseAnd::class:
                 return new Expression\Operators\Bitwise\BitwiseAnd();
-            case 'PhpParser\Node\Expr\BinaryOp\ShiftRight':
+            case Node\Expr\BinaryOp\ShiftRight::class:
                 return new Expression\Operators\Bitwise\ShiftRight();
-            case 'PhpParser\Node\Expr\BinaryOp\ShiftLeft':
+            case Node\Expr\BinaryOp\ShiftLeft::class:
                 return new Expression\Operators\Bitwise\ShiftLeft();
-            case 'PhpParser\Node\Expr\BitwiseNot':
+            case Node\Expr\BitwiseNot::class:
                 return new Expression\Operators\Bitwise\BitwiseNot();
             /**
              * Logical
              */
-            case 'PhpParser\Node\Expr\BinaryOp\BooleanOr':
+            case Node\Expr\BinaryOp\BooleanOr::class:
                 return new Expression\Operators\Logical\BooleanOr();
-            case 'PhpParser\Node\Expr\BinaryOp\BooleanAnd':
+            case Node\Expr\BinaryOp\BooleanAnd::class:
                 return new Expression\Operators\Logical\BooleanAnd();
-            case 'PhpParser\Node\Expr\BooleanNot':
+            case Node\Expr\BooleanNot::class:
                 return new Expression\Operators\Logical\BooleanNot();
             /**
              * Comparison
              */
-            case 'PhpParser\Node\Expr\BinaryOp\Greater':
+            case Node\Expr\BinaryOp\Greater::class:
                 return new Expression\Operators\Comparison\Greater();
-            case 'PhpParser\Node\Expr\BinaryOp\GreaterOrEqual':
+            case Node\Expr\BinaryOp\GreaterOrEqual::class:
                 return new Expression\Operators\Comparison\GreaterOrEqual();
-            case 'PhpParser\Node\Expr\BinaryOp\Smaller':
+            case Node\Expr\BinaryOp\Smaller::class:
                 return new Expression\Operators\Comparison\Smaller();
-            case 'PhpParser\Node\Expr\BinaryOp\SmallerOrEqual':
+            case Node\Expr\BinaryOp\SmallerOrEqual::class:
                 return new Expression\Operators\Comparison\SmallerOrEqual();
             /**
              * Another
              */
-            case 'PhpParser\Node\Expr\UnaryMinus':
+            case Node\Expr\UnaryMinus::class:
                 return new Expression\Operators\UnaryMinus();
-            case 'PhpParser\Node\Expr\UnaryPlus':
+            case Node\Expr\UnaryPlus::class:
                 return new Expression\Operators\UnaryPlus();
         }
 
