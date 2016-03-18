@@ -66,6 +66,8 @@ class Expression
                 return new Expression\AssignOp\Mod();
             case Node\Expr\AssignOp\BitwiseOr::class:
                 return new Expression\AssignOp\BitwiseOr();
+            case Node\Expr\AssignOp\BitwiseAnd::class:
+                return new Expression\AssignOp\BitwiseAnd();
             /**
              * BinaryOp
              */
