@@ -39,7 +39,7 @@ What is needed or planned as future.
 - [X] Class method
 - [ ] Callback
 - [ ] Constant
-- [ ] Function
+- [X] Function
 - [ ] Namespace
 - [X] Variable
 - [ ] Callback
