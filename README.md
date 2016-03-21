@@ -38,7 +38,7 @@ What is needed or planned as future.
 - [X] Class property
 - [X] Class method
 - [ ] Callback
-- [ ] Constant
+- [X] Constant
 - [X] Function
 - [ ] Namespace
 - [X] Variable
@@ -67,7 +67,7 @@ What is needed or planned as future.
 - [X] Division by zero {expr}/0
 - [X] Division from zero 0/{expr}
 - [ ] Missing 'break' statement
-- [ ] Void function result used
+- [X] Void function result used
 
 #### General
 
