@@ -43,7 +43,7 @@ class StaticCall extends AbstractExpressionCompiler
                 return new CompiledExpression;
             }
 
-            $method = $classDefinition->getMethod($name);
+            $method = $classDefinition->getMethod($name, true);
             if (!$method->isStatic()) {
                 $context->notice(
                     'undefined-scall',
