@@ -64,6 +64,7 @@ class Types
     {
         switch ($typeName) {
             case 'integer':
+            case 'int':
                 return CompiledExpression::INTEGER;
             case 'double':
                 return CompiledExpression::DOUBLE;
