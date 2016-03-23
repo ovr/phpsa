@@ -296,6 +296,10 @@ class Expression
             return CompiledExpression::fromZvalValue($this->context->scope);
         }
 
+        if (defined($expr)) {
+            return CompiledExpression::fromZvalValue(constant($expr));
+        }
+
         $this->context->debug('[Unknown] How to get Node\Name for ' . $expr);
         return new CompiledExpression();
     }
