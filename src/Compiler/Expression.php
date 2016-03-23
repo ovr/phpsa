@@ -273,7 +273,7 @@ class Expression
             return new CompiledExpression(CompiledExpression::NULL);
         }
 
-        if (in_array($expr, ['parent'])) {
+        if (in_array($expr, ['parent'], true)) {
             /** @var ClassDefinition $scope */
             $scope = $this->context->scope;
             assert($scope instanceof ClassDefinition);
@@ -292,7 +292,7 @@ class Expression
             }
         }
 
-        if (in_array($expr, ['self', 'static'])) {
+        if (in_array($expr, ['self', 'static'], true)) {
             return CompiledExpression::fromZvalValue($this->context->scope);
         }
 
@@ -512,6 +512,9 @@ class Expression
             if ($expr->var->vars) {
                 foreach ($expr->var->vars as $key => $var) {
                     if ($var instanceof Node\Expr\Variable) {
+                        if (!isset($expr->var->name)) {
+                            var_dump($var);
+                        }
                         $name = $expr->var->name;
 
                         $symbol = $this->context->getSymbol($name);
