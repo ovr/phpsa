@@ -28,6 +28,13 @@ class UseCast implements PassFunctionCallInterface
         }
 
         if ($name && isset($this->map[$name])) {
+            /**
+             * Exclusion via intval with 2 args intval($number, int $base = 10);
+             */
+            if ($name == 'intval' && count($funcCall->args) > 1) {
+                return;
+            }
+
             $context->notice(
                 'fcall.cast',
                 sprintf('Please use (%s) cast instead of function call.', $this->map[$name]),
