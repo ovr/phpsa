@@ -23,7 +23,21 @@ class FunctionCall extends AbstractExpressionCompiler
      */
     protected function compile($expr, Context $context)
     {
-        $name = $expr->name->parts[0];
+        $expressionCompiler = new Expression($context);
+        $fNameExpression = $expressionCompiler->compile($expr->name);
+
+        switch ($fNameExpression->getType()) {
+            case CompiledExpression::STRING:
+                $name = $fNameExpression->getValue();
+                break;
+            default:
+                $context->debug(
+                    'Unexpected function name type ' . $fNameExpression->getType()
+                );
+
+                return new CompiledExpression;
+        }
+
         $compiler = $context->application->compiler;
 
         $exists = false;
