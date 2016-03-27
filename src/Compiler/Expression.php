@@ -300,8 +300,7 @@ class Expression
             return CompiledExpression::fromZvalValue(constant($expr));
         }
 
-        $this->context->debug('[Unknown] How to get Node\Name for ' . $expr);
-        return new CompiledExpression();
+        return new CompiledExpression(CompiledExpression::STRING, $expr->toString());
     }
 
     /**
