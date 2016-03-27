@@ -231,10 +231,17 @@ class Context
         $this->scope = $scope;
     }
 
-    public function debug($message)
+    public function debug($message, \PhpParser\Node $expr = null)
     {
         if ($this->output->isDebug()) {
-            $this->output->writeln($message);
+            $this->output->writeln('[DEBUG] ' . $message);
+            $this->output->write($this->filepath);
+
+            if ($expr) {
+                $this->output->write(':' . $expr->getLine());
+            }
+
+            $this->output->writeln('');
         }
     }
 
