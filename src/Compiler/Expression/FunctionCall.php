@@ -26,16 +26,14 @@ class FunctionCall extends AbstractExpressionCompiler
         $expressionCompiler = new Expression($context);
         $fNameExpression = $expressionCompiler->compile($expr->name);
 
-        switch ($fNameExpression->getType()) {
-            case CompiledExpression::STRING:
-                $name = $fNameExpression->getValue();
-                break;
-            default:
-                $context->debug(
-                    'Unexpected function name type ' . $fNameExpression->getType()
-                );
+        if ($fNameExpression->isString() && $fNameExpression->isCorrectValue()) {
+            $name = $fNameExpression->getValue();
+        } else {
+            $context->debug(
+                'Unexpected function name type ' . $fNameExpression->getType()
+            );
 
-                return new CompiledExpression;
+            return new CompiledExpression;
         }
 
         $compiler = $context->application->compiler;
