@@ -7,6 +7,7 @@ namespace PHPSA\Analyzer\Pass\FunctionCall;
 
 use PhpParser\Node\Expr\FuncCall;
 use PhpParser\Node\Name;
+use PHPSA\Compiler\Expression;
 use PHPSA\Context;
 
 class DebugCode implements PassFunctionCallInterface
@@ -19,13 +20,21 @@ class DebugCode implements PassFunctionCallInterface
 
     public function visitPhpFunctionCall(FuncCall $funcCall, Context $context)
     {
-        $name = false;
+        $compiler = new Expression($context);
+        $funcNameCompiledExpression = $compiler->compile($funcCall->name);
 
-        if ($funcCall->name instanceof Name && !$funcCall->name->isFullyQualified()) {
-            $name = $funcCall->name->getFirst();
+        if ($funcNameCompiledExpression->isString() && $funcNameCompiledExpression->isCorrectValue()) {
+            $name = $funcNameCompiledExpression->getValue();
+        } else {
+            $context->debug(
+                'Unexpected function name type ' . $funcNameCompiledExpression->getType(),
+                $funcCall->name
+            );
+
+            return false;
         }
 
-        if ($name && isset($this->map[$name])) {
+        if (isset($this->map[$name])) {
             if ($funcCall->getDocComment()) {
                 $phpdoc = new \phpDocumentor\Reflection\DocBlock($funcCall->getDocComment()->getText());
                 if ($phpdoc->hasTag('expected')) {
