@@ -29,8 +29,10 @@ class FunctionCall extends AbstractExpressionCompiler
         if ($fNameExpression->isString() && $fNameExpression->isCorrectValue()) {
             $name = $fNameExpression->getValue();
         } else {
+            var_dump($expr->name);
             $context->debug(
-                'Unexpected function name type ' . $fNameExpression->getType()
+                'Unexpected function name type ' . $fNameExpression->getTypeName(),
+                $expr->name
             );
 
             return new CompiledExpression;
