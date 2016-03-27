@@ -490,7 +490,7 @@ class Expression
             }
         }
 
-        $this->context->debug('Unknown const fetch');
+        $this->context->debug('Unknown const fetch', $expr);
         return new CompiledExpression();
     }
 
