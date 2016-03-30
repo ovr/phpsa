@@ -1,6 +1,6 @@
 ![Logo](http://dmtry.me/img/logos/phpsa.png?v1 "PHPSA")
 
-PHPSA - Static Analysis for PHP
+PHPSA - Smart Analysis for PHP
 ===============================
 [![Build Status](https://travis-ci.org/ovr/phpsa.svg?branch=master)](https://travis-ci.org/ovr/phpsa)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/ovr/phpsa/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/ovr/phpsa/?branch=master)
@@ -121,7 +121,7 @@ cd phpsa
 
 ```sh
 $ ./bin/phpsa
-PHP Static Analyzer version 0.1-dev #fbdf4d4
+PHP Smart Analyzer version 0.1-dev #fbdf4d4
 
 Usage:
   command [options] [arguments]
