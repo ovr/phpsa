@@ -203,6 +203,8 @@ class Expression
                 return $this->constFetch($expr);
             case 'PhpParser\Node\Name':
                 return $this->getNodeName($expr);
+            case 'PhpParser\Node\Name\FullyQualified':
+                return $this->getFullyQualifiedNodeName($expr);
             /**
              * Simple Scalar(s)
              */
@@ -260,6 +262,17 @@ class Expression
         $symbol = new Variable($expr->name, null, CompiledExpression::UNKNOWN, $this->context->getCurrentBranch());
         $this->context->addVariable($symbol);
 
+        return new CompiledExpression;
+    }
+
+    /**
+     * @param Node\Name\FullyQualified $expr
+     * @return CompiledExpression
+     */
+    public function getFullyQualifiedNodeName(Node\Name\FullyQualified $expr)
+    {
+        $this->context->debug('Unimplemented FullyQualified', $expr);
+        
         return new CompiledExpression;
     }
 
