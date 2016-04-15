@@ -9,10 +9,10 @@ php:
 sudo: false
 
 # Disabled via unexpected fail on TravisCI
-#cache:
-#  directories:
-#    - vendor
-#    - $HOME/.composer/cache
+cache:
+  directories:
+    - vendor
+    - $HOME/.composer/cache
 
 install:
   - composer self-update --quiet
