@@ -28,7 +28,7 @@ class ArrayShortDefinition implements PassFunctionCallInterface
             return false;
         }
 
-        if ($name && $name == 'array') {
+        if ($name == 'array') {
             $context->notice(
                 'array.short-syntax',
                 'Please use [] (short syntax) for array definition.',

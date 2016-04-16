@@ -33,8 +33,8 @@ class RandomApiMigration implements PassFunctionCallInterface
 
             return false;
         }
-        
-        if ($name && isset($this->map[$name])) {
+
+        if (isset($this->map[$name])) {
             $context->notice(
                 'rand.api.migration',
                 sprintf('Function %s() is not recommended, please use mt_%s analog instead of it.', $name, $name),

@@ -32,7 +32,7 @@ class AliasCheck implements PassFunctionCallInterface
             return false;
         }
 
-        if ($name && isset($this->map[$name])) {
+        if (isset($this->map[$name])) {
             $context->notice(
                 'fcall.alias',
                 sprintf('%s() is an alias of function. Use %s(...).', $name, $this->map[$name]),
