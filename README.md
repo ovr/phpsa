@@ -42,7 +42,6 @@ What is needed or planned as future.
 - [X] Function
 - [ ] Namespace
 - [X] Variable
-- [ ] Callback
 
 #### PHPDockblock
 
