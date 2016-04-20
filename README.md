@@ -121,7 +121,7 @@ cd phpsa
 
 ```sh
 $ ./bin/phpsa
-PHP Smart Analyzer version 0.1-dev #fbdf4d4
+PHP Smart Analyzer version 0.4.0 #10bb43b
 
 Usage:
   command [options] [arguments]
