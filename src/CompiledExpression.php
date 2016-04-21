@@ -29,11 +29,6 @@ class CompiledExpression
     const INTEGER = Types::INT_TYPE;
 
     /**
-     * @deprectated
-     */
-    const LNUMBER = self::INTEGER;
-
-    /**
      * Double/Float
      */
     const DOUBLE = Types::DOUBLE_TYPE;
@@ -42,12 +37,6 @@ class CompiledExpression
      * Double/Float
      */
     const NUMBER = Types::NUMBER;
-
-    /**
-     * Double/Float
-     * @deprectated
-     */
-    const DNUMBER = self::DOUBLE;
 
     /**
      * String
