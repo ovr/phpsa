@@ -30,7 +30,7 @@ class DivTest extends AbstractDivMod
 
     protected function getAssertType()
     {
-        return CompiledExpression::DNUMBER;
+        return CompiledExpression::DOUBLE;
     }
 
     /**
@@ -70,7 +70,7 @@ class DivTest extends AbstractDivMod
         );
 
         $this->assertInstanceOfCompiledExpression($compiledExpression);
-        $this->assertSame(CompiledExpression::LNUMBER, $compiledExpression->getType());
+        $this->assertSame(CompiledExpression::INTEGER, $compiledExpression->getType());
         $this->assertSame($this->process($a, $b), $compiledExpression->getValue());
     }
 
@@ -112,7 +112,7 @@ class DivTest extends AbstractDivMod
         );
 
         $this->assertInstanceOfCompiledExpression($compiledExpression);
-        $this->assertSame(CompiledExpression::DNUMBER, $compiledExpression->getType());
+        $this->assertSame(CompiledExpression::DOUBLE, $compiledExpression->getType());
         $this->assertSame($this->process($a, $b), $compiledExpression->getValue());
     }
 
@@ -153,7 +153,7 @@ class DivTest extends AbstractDivMod
             )
         );
         $this->assertInstanceOfCompiledExpression($compiledExpression);
-        $this->assertSame(CompiledExpression::DNUMBER, $compiledExpression->getType());
+        $this->assertSame(CompiledExpression::DOUBLE, $compiledExpression->getType());
         $this->assertSame($this->process($a, $b), $compiledExpression->getValue());
     }
 
@@ -177,7 +177,7 @@ class DivTest extends AbstractDivMod
             )
         );
         $this->assertInstanceOfCompiledExpression($compiledExpression);
-        $this->assertSame(CompiledExpression::DNUMBER, $compiledExpression->getType());
+        $this->assertSame(CompiledExpression::DOUBLE, $compiledExpression->getType());
         $this->assertSame($this->process($a, $b), $compiledExpression->getValue());
     }
 }

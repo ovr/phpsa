@@ -59,7 +59,7 @@ abstract class AbstractDivMod extends \Tests\PHPSA\TestCase
         );
 
         $this->assertInstanceOfCompiledExpression($compiledExpression);
-        $this->assertSame(CompiledExpression::LNUMBER, $compiledExpression->getType());
+        $this->assertSame(CompiledExpression::INTEGER, $compiledExpression->getType());
         $this->assertSame($this->process($a, $b), $compiledExpression->getValue());
     }
 

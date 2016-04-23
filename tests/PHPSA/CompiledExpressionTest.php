@@ -58,7 +58,7 @@ class CompiledExpressionTest extends TestCase
     {
         $result = CompiledExpression::fromZvalValue(1.0);
         $this->assertInstanceOfCompiledExpression($result);
-        $this->assertSame(CompiledExpression::DNUMBER, $result->getType());
+        $this->assertSame(CompiledExpression::DOUBLE, $result->getType());
         $this->assertSame(1.0, $result->getValue());
     }
 

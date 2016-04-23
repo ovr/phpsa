@@ -53,7 +53,7 @@ class MinusTest extends \Tests\PHPSA\TestCase
         $compiledExpression = $this->compileExpression($baseExpression);
 
         $this->assertInstanceOfCompiledExpression($compiledExpression);
-        $this->assertSame(CompiledExpression::LNUMBER, $compiledExpression->getType());
+        $this->assertSame(CompiledExpression::INTEGER, $compiledExpression->getType());
         $this->assertSame($c, $compiledExpression->getValue());
     }
 

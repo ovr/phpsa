@@ -48,7 +48,7 @@ class MulTest extends \Tests\PHPSA\TestCase
         $compiledExpression = $this->compileExpression($baseExpression);
 
         $this->assertInstanceOfCompiledExpression($compiledExpression);
-        $this->assertSame(CompiledExpression::LNUMBER, $compiledExpression->getType());
+        $this->assertSame(CompiledExpression::INTEGER, $compiledExpression->getType());
         $this->assertSame($c, $compiledExpression->getValue());
     }
 
@@ -89,7 +89,7 @@ class MulTest extends \Tests\PHPSA\TestCase
         $compiledExpression = $this->compileExpression($baseExpression);
 
         $this->assertInstanceOfCompiledExpression($compiledExpression);
-        $this->assertSame(CompiledExpression::DNUMBER, $compiledExpression->getType());
+        $this->assertSame(CompiledExpression::DOUBLE, $compiledExpression->getType());
         $this->assertSame($c, $compiledExpression->getValue());
     }
 
@@ -129,7 +129,7 @@ class MulTest extends \Tests\PHPSA\TestCase
         $compiledExpression = $this->compileExpression($baseExpression);
 
         $this->assertInstanceOfCompiledExpression($compiledExpression);
-        $this->assertSame(CompiledExpression::DNUMBER, $compiledExpression->getType());
+        $this->assertSame(CompiledExpression::DOUBLE, $compiledExpression->getType());
         $this->assertSame($c, $compiledExpression->getValue());
     }
 
@@ -153,7 +153,7 @@ class MulTest extends \Tests\PHPSA\TestCase
         $compiledExpression = $this->compileExpression($baseExpression);
 
         $this->assertInstanceOfCompiledExpression($compiledExpression);
-        $this->assertSame(CompiledExpression::DNUMBER, $compiledExpression->getType());
+        $this->assertSame(CompiledExpression::DOUBLE, $compiledExpression->getType());
         $this->assertSame((float) $c, $compiledExpression->getValue());
     }
 
