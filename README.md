@@ -65,7 +65,7 @@ What is needed or planned as future.
 
 - [X] Division by zero {expr}/0
 - [X] Division from zero 0/{expr}
-- [ ] Missing 'break' statement
+- [X] Missing 'break' statement
 - [X] Void function result used
 
 #### General
