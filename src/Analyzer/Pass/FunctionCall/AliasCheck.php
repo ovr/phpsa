@@ -13,7 +13,8 @@ use PHPSA\Context;
 class AliasCheck implements PassFunctionCallInterface
 {
     protected $map = array(
-        'join' => 'implode'
+        'join' => 'implode',
+        'sizeof' => 'count'
     );
 
     public function visitPhpFunctionCall(FuncCall $funcCall, Context $context)
