@@ -15,8 +15,8 @@
     "require": {
         "php": ">=5.5",
         "ovr/phpreflection": "~0.2.6",
-        "symfony/console": "~2.7.0",
-        "symfony/event-dispatcher": "~2.7.5",
+        "symfony/console": "~3.0.5",
+        "symfony/event-dispatcher": "~3.0.5",
         "nikic/php-parser": "~2.1.0",
         "phpdocumentor/reflection-docblock": "~2.0.4",
         "phpdocumentor/type-resolver": "^0.1.8"
