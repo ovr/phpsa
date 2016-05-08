@@ -68,10 +68,28 @@ class Compiler
         }
 
         foreach ($this->functions as $function) {
+            /**
+             * @todo Configuration
+             *
+             * Ignore functions compiling from vendor
+             */
+            if (strpos($function->getFilepath(), './vendor') < 3) {
+                continue;
+            }
+
             $function->compile($context);
         }
 
         foreach ($this->classes as $class) {
+            /**
+             * @todo Configuration
+             *
+             * Ignore Classes compiling from vendor
+             */
+            if (strpos($class->getFilepath(), './vendor') < 3) {
+                continue;
+            }
+
             $class->compile($context);
         }
     }
