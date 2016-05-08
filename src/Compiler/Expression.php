@@ -244,7 +244,16 @@ class Expression
      */
     public function passProperty(Node\Stmt\Property $st)
     {
-        $phpdoc = new \phpDocumentor\Reflection\DocBlock($st->getDocComment()->getText());
+        $docBlock = $st->getDocComment();
+        if (!$docBlock) {
+            $this->context->notice(
+                'missing-docblock',
+                'Missing docblock for %s() property',
+                $st
+            );
+        }
+
+        $phpdoc = new \phpDocumentor\Reflection\DocBlock($docBlock->getText());
 
         $varTags = $phpdoc->getTagsByName('var');
         if ($varTags) {
@@ -252,14 +261,23 @@ class Expression
             $varTag = current($varTags);
 
             $typeResolver = new \phpDocumentor\Reflection\TypeResolver();
-            $type = $typeResolver->resolve($varTag->getType());
+
+            try {
+                $type = $typeResolver->resolve($varTag->getType());
+            } catch (\InvalidArgumentException $e) {
+                return new CompiledExpression();
+            }
 
             if ($type) {
                 switch (get_class($type)) {
                     case \phpDocumentor\Reflection\Types\Object_::class:
-                        return new CompiledExpression(CompiledExpression::OBJECT);
+                        return new CompiledExpression(
+                            CompiledExpression::OBJECT
+                        );
                     case \phpDocumentor\Reflection\Types\Integer::class:
-                        return new CompiledExpression(CompiledExpression::INTEGER);
+                        return new CompiledExpression(
+                            CompiledExpression::INTEGER
+                        );
                 }
             }
         }
