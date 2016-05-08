@@ -251,6 +251,8 @@ class Expression
                 'Missing docblock for %s() property',
                 $st
             );
+            
+            return new CompiledExpression();
         }
 
         $phpdoc = new \phpDocumentor\Reflection\DocBlock($docBlock->getText());
