@@ -35,6 +35,8 @@ class Statement
                 return new Statement\ForeachSt();
             case 'PhpParser\Node\Stmt\TryCatch':
                 return new Statement\TryCatchSt();
+            case Node\Stmt\Catch_::class:
+                return new Statement\CatchSt();
         }
 
         throw new RuntimeException('Unknown statement: ' . get_class($stmt));
