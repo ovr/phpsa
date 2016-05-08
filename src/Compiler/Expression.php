@@ -244,6 +244,26 @@ class Expression
      */
     public function passProperty(Node\Stmt\Property $st)
     {
+        $phpdoc = new \phpDocumentor\Reflection\DocBlock($st->getDocComment()->getText());
+
+        $varTags = $phpdoc->getTagsByName('var');
+        if ($varTags) {
+            /** @var \phpDocumentor\Reflection\DocBlock\Tag\VarTag $varTag */
+            $varTag = current($varTags);
+
+            $typeResolver = new \phpDocumentor\Reflection\TypeResolver();
+            $type = $typeResolver->resolve($varTag->getType());
+
+            if ($type) {
+                switch (get_class($type)) {
+                    case \phpDocumentor\Reflection\Types\Object_::class:
+                        return new CompiledExpression(CompiledExpression::OBJECT);
+                    case \phpDocumentor\Reflection\Types\Integer::class:
+                        return new CompiledExpression(CompiledExpression::INTEGER);
+                }
+            }
+        }
+
         return new CompiledExpression();
     }
 
