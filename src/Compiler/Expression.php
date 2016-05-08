@@ -278,6 +278,22 @@ class Expression
                         return new CompiledExpression(
                             CompiledExpression::INTEGER
                         );
+                    case \phpDocumentor\Reflection\Types\String_::class:
+                        return new CompiledExpression(
+                            CompiledExpression::STRING
+                        );
+                    case \phpDocumentor\Reflection\Types\Float_::class:
+                        return new CompiledExpression(
+                            CompiledExpression::DOUBLE
+                        );
+                    case \phpDocumentor\Reflection\Types\Null_::class:
+                        return new CompiledExpression(
+                            CompiledExpression::NULL
+                        );
+                    case \phpDocumentor\Reflection\Types\Boolean::class:
+                        return new CompiledExpression(
+                            CompiledExpression::BOOLEAN
+                        );
                 }
             }
         }
