@@ -85,10 +85,12 @@ class CheckCommand extends Command
                     [
                         Node\Expr\FuncCall::class => [
                             new AnalyzerPass\FunctionCall\AliasCheck(),
-                            new AnalyzerPass\FunctionCall\ArrayShortDefinition(),
                             new AnalyzerPass\FunctionCall\DebugCode(),
                             new AnalyzerPass\FunctionCall\RandomApiMigration(),
                             new AnalyzerPass\FunctionCall\UseCast(),
+                        ],
+                        Node\Expr\Array_::class => [
+                            new AnalyzerPass\ArrayShortDefinition()
                         ]
                     ]
                 )
