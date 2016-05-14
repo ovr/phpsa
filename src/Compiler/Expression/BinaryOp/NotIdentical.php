@@ -21,11 +21,8 @@ class NotIdentical extends AbstractExpressionCompiler
      */
     protected function compile($expr, Context $context)
     {
-        $expression = new Expression($context);
-        $left = $expression->compile($expr->left);
-
-        $expression = new Expression($context);
-        $right = $expression->compile($expr->right);
+        $left = $context->getExpressionCompiler()->compile($expr->left);
+        $right = $context->getExpressionCompiler()->compile($expr->right);
 
         switch ($left->getType()) {
             case CompiledExpression::INTEGER:

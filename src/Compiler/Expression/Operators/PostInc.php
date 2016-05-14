@@ -61,8 +61,7 @@ class PostInc extends AbstractExpressionCompiler
             return new CompiledExpression(CompiledExpression::UNKNOWN);
         }
 
-        $expression = new Expression($context);
-        $compiledExpression = $expression->compile($expr->var);
+        $compiledExpression = $context->getExpressionCompiler()->compile($expr->var);
 
         switch ($compiledExpression->getType()) {
             case CompiledExpression::INTEGER:

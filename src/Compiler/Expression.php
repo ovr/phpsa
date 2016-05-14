@@ -229,7 +229,7 @@ class Expression
             case \PHPSA\Node\Scalar\Fake::class:
                 return new CompiledExpression($expr->type, $expr->value);
         }
-        
+
         $this->eventManager->fire(
             ExpressionBeforeCompile::EVENT_NAME,
             new ExpressionBeforeCompile(
@@ -393,8 +393,7 @@ class Expression
      */
     protected function passCastBoolean(Node\Expr\Cast\Bool_ $expr)
     {
-        $expression = new Expression($this->context);
-        $compiledExpression = $expression->compile($expr->expr);
+        $compiledExpression = $this->compile($expr->expr);
 
         switch ($compiledExpression->getType()) {
             case CompiledExpression::BOOLEAN:
@@ -418,8 +417,7 @@ class Expression
      */
     protected function passCastInt(Node\Expr\Cast\Int_ $expr)
     {
-        $expression = new Expression($this->context);
-        $compiledExpression = $expression->compile($expr->expr);
+        $compiledExpression = $this->compile($expr->expr);
 
         switch ($compiledExpression->getType()) {
             case CompiledExpression::INTEGER:
@@ -443,8 +441,7 @@ class Expression
      */
     protected function passCastFloat(Node\Expr\Cast\Double $expr)
     {
-        $expression = new Expression($this->context);
-        $compiledExpression = $expression->compile($expr->expr);
+        $compiledExpression = $this->compile($expr->expr);
 
         switch ($compiledExpression->getType()) {
             case CompiledExpression::DOUBLE:
@@ -468,8 +465,7 @@ class Expression
      */
     protected function passCastString(Node\Expr\Cast\String_ $expr)
     {
-        $expression = new Expression($this->context);
-        $compiledExpression = $expression->compile($expr->expr);
+        $compiledExpression = $this->compile($expr->expr);
 
         switch ($compiledExpression->getType()) {
             case CompiledExpression::STRING:
@@ -493,8 +489,7 @@ class Expression
      */
     protected function passCastUnset(Node\Expr\Cast\Unset_ $expr)
     {
-        $expression = new Expression($this->context);
-        $compiledExpression = $expression->compile($expr->expr);
+        $compiledExpression = $this->compile($expr->expr);
 
         switch ($compiledExpression->getType()) {
             case CompiledExpression::NULL:
@@ -582,8 +577,7 @@ class Expression
      */
     protected function passSymbol(Node\Expr\Assign $expr)
     {
-        $expression = new Expression($this->context);
-        $compiledExpression = $expression->compile($expr->expr);
+        $compiledExpression = $this->compile($expr->expr);
 
         if ($expr->var instanceof Node\Expr\List_) {
             $isCorrectType = false;
@@ -676,8 +670,7 @@ class Expression
         if ($expr->var instanceof Node\Expr\Variable) {
             $name = $expr->var->name;
 
-            $expression = new Expression($this->context);
-            $compiledExpression = $expression->compile($expr->expr);
+            $compiledExpression = $this->compile($expr->expr);
 
             $symbol = $this->context->getSymbol($name);
             if ($symbol) {
@@ -795,10 +788,6 @@ class Expression
         /**
          * @todo Implement check
          */
-
-        $expression = new Expression($this->context);
-        $compiledExpr = $expression->compile($expr->name);
-
-        return $compiledExpr;
+        return $this->compile($expr->name);
     }
 }

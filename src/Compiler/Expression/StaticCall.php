@@ -25,7 +25,7 @@ class StaticCall extends AbstractExpressionCompiler
      */
     protected function compile($expr, Context $context)
     {
-        $expressionCompiler = new Expression($context);
+        $expressionCompiler = $context->getExpressionCompiler();
         $leftCE = $expressionCompiler->compile($expr->class);
 
         if ($leftCE->isObject()) {

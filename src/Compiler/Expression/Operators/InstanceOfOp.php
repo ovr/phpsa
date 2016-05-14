@@ -27,11 +27,8 @@ class InstanceOfOp extends AbstractExpressionCompiler
      */
     protected function compile($expr, Context $context)
     {
-        $expression = new Expression($context);
-        $leftCompiledExpression = $expression->compile($expr->expr);
-
-        $expression = new Expression($context);
-        $rightCompiledExpression = $expression->compile($expr->class);
+        $leftCompiledExpression = $context->getExpressionCompiler()->compile($expr->expr);
+        $rightCompiledExpression = $context->getExpressionCompiler()->compile($expr->class);
 
         if ($leftCompiledExpression->isObject() && $rightCompiledExpression->isObject()) {
             $leftVariable = $leftCompiledExpression->getVariable();

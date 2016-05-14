@@ -23,15 +23,13 @@ class ForSt extends AbstractCompiler
     {
         if (count($stmt->init) > 0) {
             foreach ($stmt->init as $cond) {
-                $expression = new Expression($context);
-                $expression->compile($cond);
+                $context->getExpressionCompiler()->compile($cond);
             }
         }
 
         if (count($stmt->cond) > 0) {
             foreach ($stmt->cond as $cond) {
-                $expression = new Expression($context);
-                $expression->compile($cond);
+                $context->getExpressionCompiler()->compile($cond);
             }
         }
 

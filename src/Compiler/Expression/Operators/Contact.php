@@ -24,10 +24,8 @@ class Contact extends AbstractExpressionCompiler
      */
     protected function compile($expr, Context $context)
     {
-        $compiler = new Expression($context);
-
-        $leftExpression = $compiler->compile($expr->left);
-        $rightExpression = $compiler->compile($expr->right);
+        $leftExpression = $context->getExpressionCompiler()->compile($expr->left);
+        $rightExpression = $context->getExpressionCompiler()->compile($expr->right);
 
         switch ($leftExpression->getType()) {
             case CompiledExpression::ARR:

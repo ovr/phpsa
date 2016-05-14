@@ -20,17 +20,14 @@ class ForeachSt extends AbstractCompiler
      */
     public function compile($stmt, Context $context)
     {
-        $expression = new Expression($context);
-        $expression->compile($stmt->expr);
+        $context->getExpressionCompiler()->compile($stmt->expr);
 
         if ($stmt->keyVar) {
-            $keyExpression = new Expression($context);
-            $keyExpression->declareVariable($stmt->keyVar);
+            $context->getExpressionCompiler()->declareVariable($stmt->keyVar);
         }
 
         if ($stmt->valueVar) {
-            $valueExpression = new Expression($context);
-            $valueExpression->declareVariable($stmt->valueVar);
+            $context->getExpressionCompiler()->declareVariable($stmt->valueVar);
         }
 
         if (count($stmt->stmts) > 0) {

@@ -23,8 +23,7 @@ class IfSt extends AbstractCompiler
     {
         $context->setCurrentBranch(Variable::BRANCH_CONDITIONAL_TRUE);
 
-        $expression = new Expression($context);
-        $expression->compile($ifStatement->cond);
+        $context->getExpressionCompiler()->compile($ifStatement->cond);
 
         if (count($ifStatement->stmts) > 0) {
             foreach ($ifStatement->stmts as $stmt) {
@@ -38,8 +37,7 @@ class IfSt extends AbstractCompiler
 
         if (count($ifStatement->elseifs) > 0) {
             foreach ($ifStatement->elseifs as $elseIfStatement) {
-                $expression = new Expression($context);
-                $expression->compile($elseIfStatement->cond);
+                $context->getExpressionCompiler()->compile($elseIfStatement->cond);
 
                 if (count($elseIfStatement->stmts) > 0) {
                     foreach ($elseIfStatement->stmts as $stmt) {

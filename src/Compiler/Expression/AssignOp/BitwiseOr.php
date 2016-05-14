@@ -26,11 +26,8 @@ class BitwiseOr extends AbstractExpressionCompiler
      */
     protected function compile($expr, Context $context)
     {
-        $expression = new Expression($context);
-        $left = $expression->compile($expr->var);
-
-        $expression = new Expression($context);
-        $expExpression = $expression->compile($expr->expr);
+        $left = $context->getExpressionCompiler()->compile($expr->var);
+        $expExpression = $context->getExpressionCompiler()->compile($expr->expr);
 
         switch ($left->getType()) {
             case CompiledExpression::INTEGER:

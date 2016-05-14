@@ -23,7 +23,7 @@ class FunctionCall extends AbstractExpressionCompiler
      */
     protected function compile($expr, Context $context)
     {
-        $expressionCompiler = new Expression($context);
+        $expressionCompiler = $context->getExpressionCompiler();
         $fNameExpression = $expressionCompiler->compile($expr->name);
 
         if ($fNameExpression->isString() && $fNameExpression->isCorrectValue()) {
@@ -224,8 +224,7 @@ class FunctionCall extends AbstractExpressionCompiler
         $arguments = array();
 
         foreach ($expr->args as $argument) {
-            $expression = new Expression($context);
-            $arguments[] = $expression->compile($argument->value);
+            $arguments[] = $context->getExpressionCompiler()->compile($argument->value);
         }
 
         return $arguments;

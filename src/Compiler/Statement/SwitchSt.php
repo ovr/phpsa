@@ -20,14 +20,12 @@ class SwitchSt extends AbstractCompiler
      */
     public function compile($stmt, Context $context)
     {
-        $expression = new Expression($context);
-        $expression->compile($stmt->cond);
+        $context->getExpressionCompiler()->compile($stmt->cond);
 
         if (count($stmt->cases)) {
             foreach ($stmt->cases as $case) {
                 if ($case->cond) {
-                    $expression = new Expression($context);
-                    $expression->compile($case->cond);
+                    $context->getExpressionCompiler()->compile($case->cond);
                 }
 
                 if (count($case->stmts) > 0) {

@@ -21,8 +21,7 @@ class ReturnSt extends AbstractCompiler
      */
     public function compile($stmt, Context $context)
     {
-        $expression = new Expression($context);
-        $compiledExpression = $expression->compile($stmt->expr);
+        $compiledExpression = $context->getExpressionCompiler()->compile($stmt->expr);
 
         switch ($compiledExpression->getType()) {
             case CompiledExpression::VOID:

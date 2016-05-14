@@ -21,8 +21,7 @@ class DoSt extends AbstractCompiler
      */
     public function compile($stmt, Context $context)
     {
-        $expression = new Expression($context);
-        $expression->compile($stmt->cond);
+        $context->getExpressionCompiler()->compile($stmt->cond);
 
         if (count($stmt->stmts) > 0) {
             foreach ($stmt->stmts as $statement) {

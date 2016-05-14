@@ -31,8 +31,7 @@ class NewOp extends AbstractExpressionCompiler
 
             if (count($expr->args) > 0) {
                 foreach ($expr->args as $argument) {
-                    $expression = new Expression($context);
-                    $arguments[] = $expression->compile($argument->value);
+                    $arguments[] = $context->getExpressionCompiler()->compile($argument->value);
                 }
             } else {
                 if (class_exists($name, true)) {

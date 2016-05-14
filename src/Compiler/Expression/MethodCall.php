@@ -23,7 +23,7 @@ class MethodCall extends AbstractExpressionCompiler
      */
     protected function compile($expr, Context $context)
     {
-        $expressionCompiler = new Expression($context);
+        $expressionCompiler = $context->getExpressionCompiler();
         $methodNameCE = $expressionCompiler->compile($expr->name);
 
         $leftCE = $expressionCompiler->compile($expr->var);

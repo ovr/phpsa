@@ -20,8 +20,7 @@ class BooleanNot extends AbstractExpressionCompiler
      */
     protected function compile($expr, Context $context)
     {
-        $expression = new Expression($context);
-        $compiledExpression = $expression->compile($expr->expr);
+        $compiledExpression = $context->getExpressionCompiler()->compile($expr->expr);
 
         switch ($compiledExpression->getType()) {
             case CompiledExpression::DOUBLE:
