@@ -21,7 +21,7 @@ class ExpressionBeforeCompile extends \Webiny\Component\EventManager\Event
      */
     private $expression;
 
-    public function __construct(\PhpParser\Node\Expr $expression, Context $context)
+    public function __construct(\PhpParser\NodeAbstract $expression, Context $context)
     {
         parent::__construct();
 
