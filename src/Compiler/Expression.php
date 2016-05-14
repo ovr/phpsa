@@ -251,7 +251,7 @@ class Expression
                 'Missing docblock for %s() property',
                 $st
             );
-            
+
             return new CompiledExpression();
         }
 
@@ -310,15 +310,12 @@ class Expression
     public function declareVariable(Node\Expr\Variable $expr)
     {
         $variable = $this->context->getSymbol($expr->name);
-        if ($variable) {
-            $variable->incGets();
-            return new CompiledExpression($variable->getType(), $variable->getValue(), $variable);
+        if (!$variable) {
+            $variable = new Variable($expr->name, null, CompiledExpression::UNKNOWN, $this->context->getCurrentBranch());
+            $this->context->addVariable($variable);
         }
 
-        $symbol = new Variable($expr->name, null, CompiledExpression::UNKNOWN, $this->context->getCurrentBranch());
-        $this->context->addVariable($symbol);
-
-        return new CompiledExpression;
+        return new CompiledExpression($variable->getType(), $variable->getValue(), $variable);
     }
 
     /**
