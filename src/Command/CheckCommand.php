@@ -207,18 +207,7 @@ class CheckCommand extends Command
                     $this->parseTopDefinitions($topStatement, $context->aliasManager, $filepath);
                 }
             }
-
-            /**
-             * Another Traverser to handler Analyzer Passe(s)
-             */
-            $analyzeTraverser = new AstTraverser(
-                [
-                    new \PHPSA\Node\Visitor\FunctionCall
-                ],
-                $context
-            );
-            $analyzeTraverser->traverse($astTree);
-
+            
             $context->clear();
         } catch (\PhpParser\Error $e) {
             $context->sytaxError($e, $filepath);
