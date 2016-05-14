@@ -122,8 +122,7 @@ class ClassMethod extends AbstractDefinition
     {
         if ($args) {
             foreach ($args as $argument) {
-                $expression = new Expression($context);
-                $arguments[] = $expression->compile($argument->value);
+                $arguments[] = $context->getExpressionCompiler()->compile($argument->value);
             }
         }
 
