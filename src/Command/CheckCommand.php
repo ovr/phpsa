@@ -8,7 +8,6 @@ namespace PHPSA\Command;
 use PhpParser\NodeTraverser;
 use PhpParser\ParserFactory;
 use PHPSA\AliasManager;
-use PHPSA\Analyzer\AstTraverser;
 use PHPSA\Application;
 use PHPSA\Compiler;
 use PHPSA\Context;
