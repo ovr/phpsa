@@ -19,7 +19,8 @@
         "symfony/event-dispatcher": "~3.0.5",
         "nikic/php-parser": "~2.1.0",
         "phpdocumentor/reflection-docblock": "~2.0.4",
-        "phpdocumentor/type-resolver": "^0.1.8"
+        "phpdocumentor/type-resolver": "^0.1.8",
+        "webiny/event-manager": "~1.4.1"
     },
     "require-dev": {
         "phpunit/phpunit": "~4.8",
