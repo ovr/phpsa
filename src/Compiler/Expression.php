@@ -169,56 +169,56 @@ class Expression
 
         $className = get_class($expr);
         switch ($className) {
-            case 'PhpParser\Node\Expr\PropertyFetch':
+            case Node\Expr\PropertyFetch::class:
                 return $this->passPropertyFetch($expr);
-            case 'PhpParser\Node\Stmt\Property':
+            case Node\Stmt\Property::class:
                 return $this->passProperty($expr);
-            case 'PhpParser\Node\Expr\ClassConstFetch':
+            case Node\Expr\ClassConstFetch::class:
                 return $this->passConstFetch($expr);
-            case 'PhpParser\Node\Expr\Assign':
+            case Node\Expr\Assign::class:
                 return $this->passSymbol($expr);
-            case 'PhpParser\Node\Expr\AssignRef':
+            case Node\Expr\AssignRef::class:
                 return $this->passSymbolByRef($expr);
-            case 'PhpParser\Node\Expr\Variable':
+            case Node\Expr\Variable::class:
                 return $this->passExprVariable($expr);
             /**
              * Cast operators
              */
-            case 'PhpParser\Node\Expr\Cast\Bool_':
+            case Node\Expr\Cast\Bool_::class:
                 return $this->passCastBoolean($expr);
-            case 'PhpParser\Node\Expr\Cast\Int_':
+            case Node\Expr\Cast\Int_::class:
                 return $this->passCastInt($expr);
-            case 'PhpParser\Node\Expr\Cast\Double':
+            case Node\Expr\Cast\Double::class:
                 return $this->passCastFloat($expr);
-            case 'PhpParser\Node\Expr\Cast\String_':
+            case Node\Expr\Cast\String_::class:
                 return $this->passCastString($expr);
-            case 'PhpParser\Node\Expr\Cast\Unset_':
+            case Node\Expr\Cast\Unset_::class:
                 return $this->passCastUnset($expr);
             /**
              * Expressions
              */
-            case 'PhpParser\Node\Expr\Array_':
+            case Node\Expr\Array_::class:
                 return $this->getArray($expr);
-            case 'PhpParser\Node\Expr\ConstFetch':
+            case Node\Expr\ConstFetch::class:
                 return $this->constFetch($expr);
-            case 'PhpParser\Node\Name':
+            case Node\Name::class:
                 return $this->getNodeName($expr);
-            case 'PhpParser\Node\Name\FullyQualified':
+            case Node\Name\FullyQualified::class:
                 return $this->getFullyQualifiedNodeName($expr);
             /**
              * Simple Scalar(s)
              */
-            case 'PHPSA\Node\Scalar\Nil':
+            case \PHPSA\Node\Scalar\Nil::class:
                 return new CompiledExpression(CompiledExpression::NULL);
-            case 'PhpParser\Node\Scalar\LNumber':
+            case Node\Scalar\LNumber::class:
                 return new CompiledExpression(CompiledExpression::INTEGER, $expr->value);
-            case 'PhpParser\Node\Scalar\DNumber':
+            case Node\Scalar\DNumber::class:
                 return new CompiledExpression(CompiledExpression::DOUBLE, $expr->value);
-            case 'PhpParser\Node\Scalar\String_':
+            case Node\Scalar\String_::class:
                 return new CompiledExpression(CompiledExpression::STRING, $expr->value);
-            case 'PHPSA\Node\Scalar\Boolean':
+            case \PHPSA\Node\Scalar\Boolean::class:
                 return new CompiledExpression(CompiledExpression::BOOLEAN, $expr->value);
-            case 'PHPSA\Node\Scalar\Fake':
+            case \PHPSA\Node\Scalar\Fake::class:
                 return new CompiledExpression($expr->type, $expr->value);
         }
 
