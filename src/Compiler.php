@@ -73,7 +73,8 @@ class Compiler
              *
              * Ignore functions compiling from vendor
              */
-            if (strpos($function->getFilepath(), './vendor') < 3) {
+            $checkVendor = strpos($function->getFilepath(), './vendor');
+            if ($checkVendor !== false && $checkVendor < 3) {
                 continue;
             }
 
@@ -86,7 +87,8 @@ class Compiler
              *
              * Ignore Classes compiling from vendor
              */
-            if (strpos($class->getFilepath(), './vendor') < 3) {
+            $checkVendor = strpos($class->getFilepath(), './vendor');
+            if ($checkVendor !== false && $checkVendor < 3) {
                 continue;
             }
 
