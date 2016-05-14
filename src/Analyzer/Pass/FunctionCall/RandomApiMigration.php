@@ -18,7 +18,7 @@ class RandomApiMigration implements PassFunctionCallInterface
         'getrandmax' => 'mt_getrandmax'
     );
 
-    public function visitPhpFunctionCall(FuncCall $funcCall, Context $context)
+    public function pass(FuncCall $funcCall, Context $context)
     {
         $compiler = $context->getExpressionCompiler();
         $funcNameCompiledExpression = $compiler->compile($funcCall->name);

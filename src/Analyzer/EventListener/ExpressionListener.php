@@ -26,13 +26,12 @@ class ExpressionListener extends EventListener
         $expression = $event->getExpression();
         $expressionClass = get_class($expression);
 
-        if ($expressionClass != Node\Expr\FuncCall::class) {
+        if (!isset($this->analyzers[$expressionClass])) {
             return;
         }
 
-        /** @var PassFunctionCallInterface $analyzer */
-        foreach ($this->analyzers as $analyzer) {
-            $analyzer->visitPhpFunctionCall($expression, $event->getContext());
+        foreach ($this->analyzers[$expressionClass] as $analyzer) {
+            $analyzer->pass($expression, $event->getContext());
         }
     }
 }

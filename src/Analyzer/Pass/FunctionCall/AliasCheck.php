@@ -17,7 +17,7 @@ class AliasCheck implements PassFunctionCallInterface
         'sizeof' => 'count'
     );
 
-    public function visitPhpFunctionCall(FuncCall $funcCall, Context $context)
+    public function pass(FuncCall $funcCall, Context $context)
     {
         $funcNameCompiledExpression = $context->getExpressionCompiler()->compile($funcCall->name);
 

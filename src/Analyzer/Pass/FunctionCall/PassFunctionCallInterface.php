@@ -15,5 +15,5 @@ interface PassFunctionCallInterface
      * @param Context $context
      * @return mixed
      */
-    public function visitPhpFunctionCall(FuncCall $funcCall, Context $context);
+    public function pass(FuncCall $funcCall, Context $context);
 }

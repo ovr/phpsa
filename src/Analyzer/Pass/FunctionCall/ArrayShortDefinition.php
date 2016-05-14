@@ -12,7 +12,7 @@ use PHPSA\Context;
 
 class ArrayShortDefinition implements PassFunctionCallInterface
 {
-    public function visitPhpFunctionCall(FuncCall $funcCall, Context $context)
+    public function pass(FuncCall $funcCall, Context $context)
     {
         $compiler = $context->getExpressionCompiler();
         $funcNameCompiledExpression = $compiler->compile($funcCall->name);

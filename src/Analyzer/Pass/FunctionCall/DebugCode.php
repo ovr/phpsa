@@ -18,7 +18,7 @@ class DebugCode implements PassFunctionCallInterface
         'debug_zval_dump' => 'debug_zval_dump'
     );
 
-    public function visitPhpFunctionCall(FuncCall $funcCall, Context $context)
+    public function pass(FuncCall $funcCall, Context $context)
     {
         $compiler = $context->getExpressionCompiler();
         $funcNameCompiledExpression = $compiler->compile($funcCall->name);

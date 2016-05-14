@@ -20,7 +20,7 @@ class UseCast implements PassFunctionCallInterface
         'strval' => 'string'
     );
 
-    public function visitPhpFunctionCall(FuncCall $funcCall, Context $context)
+    public function pass(FuncCall $funcCall, Context $context)
     {
         $compiler = $context->getExpressionCompiler();
         $funcNameCompiledExpression = $compiler->compile($funcCall->name);
