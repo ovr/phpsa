@@ -28,4 +28,20 @@ class ExpressionBeforeCompile extends \Webiny\Component\EventManager\Event
         $this->context = $context;
         $this->expression = $expression;
     }
+
+    /**
+     * @return \PhpParser\Node\Expr
+     */
+    public function getExpression()
+    {
+        return $this->expression;
+    }
+
+    /**
+     * @return Context
+     */
+    public function getContext()
+    {
+        return $this->context;
+    }
 }

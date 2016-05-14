@@ -29,6 +29,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Webiny\Component\EventManager\EventManager;
+use PHPSA\Analyzer\Pass as AnalyzerPass;
 
 /**
  * Class CheckCommand
@@ -78,9 +79,19 @@ class CheckCommand extends Command
         $application->compiler = new Compiler();
 
         $em = EventManager::getInstance();
-        $em->listen(
-            Compiler\Event\ExpressionBeforeCompile::EVENT_NAME
-        )->handler(new ExpressionListener())->method('beforeCompile');
+        $em->listen(Compiler\Event\ExpressionBeforeCompile::EVENT_NAME)
+            ->handler(
+                new ExpressionListener(
+                    [
+                        new AnalyzerPass\FunctionCall\AliasCheck(),
+                        new AnalyzerPass\FunctionCall\ArrayShortDefinition(),
+                        new AnalyzerPass\FunctionCall\DebugCode(),
+                        new AnalyzerPass\FunctionCall\RandomApiMigration(),
+                        new AnalyzerPass\FunctionCall\UseCast(),
+                    ]
+                )
+            )
+            ->method('beforeCompile');
 
         $context = new Context($output, $application, $em);
 
