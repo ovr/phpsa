@@ -20,6 +20,5 @@ function nodeVisitorFactory($stmt, Context $context)
         return $visitor;
     }
 
-    $visitor = new Expression($context);
-    return $visitor->compile($stmt);
+    return $context->getExpressionCompiler()->compile($stmt);
 }
