@@ -16,7 +16,7 @@ class ScalarCompilerTest extends \Tests\PHPSA\TestCase
     public function testPassInteger()
     {
         $scalar = $this->newScalarExpr(1);
-        $compiledExpression = $this->compileExpression($scalar);
+        $compiledExpression = $this->compileExpression($scalar, $this->getContext());
         $this->assertInstanceOfCompiledExpression($compiledExpression);
 
         $this->assertSame(CompiledExpression::INTEGER, $compiledExpression->getType());
@@ -26,7 +26,7 @@ class ScalarCompilerTest extends \Tests\PHPSA\TestCase
     public function testPassDouble()
     {
         $scalar = $this->newScalarExpr(1.0);
-        $compiledExpression = $this->compileExpression($scalar);
+        $compiledExpression = $this->compileExpression($scalar, $this->getContext());
         $this->assertInstanceOfCompiledExpression($compiledExpression);
 
         $this->assertSame(CompiledExpression::DOUBLE, $compiledExpression->getType());
@@ -36,7 +36,7 @@ class ScalarCompilerTest extends \Tests\PHPSA\TestCase
     public function testPassBooleanTrue()
     {
         $scalar = $this->newScalarExpr(true);
-        $compiledExpression = $this->compileExpression($scalar);
+        $compiledExpression = $this->compileExpression($scalar, $this->getContext());
         $this->assertInstanceOfCompiledExpression($compiledExpression);
 
         $this->assertSame(CompiledExpression::BOOLEAN, $compiledExpression->getType());
@@ -46,7 +46,7 @@ class ScalarCompilerTest extends \Tests\PHPSA\TestCase
     public function testPassBooleanFalse()
     {
         $scalar = $this->newScalarExpr(false);
-        $compiledExpression = $this->compileExpression($scalar);
+        $compiledExpression = $this->compileExpression($scalar, $this->getContext());
         $this->assertInstanceOfCompiledExpression($compiledExpression);
 
         $this->assertSame(CompiledExpression::BOOLEAN, $compiledExpression->getType());
@@ -56,7 +56,7 @@ class ScalarCompilerTest extends \Tests\PHPSA\TestCase
     public function testPassString()
     {
         $scalar = $this->newScalarExpr("test string");
-        $compiledExpression = $this->compileExpression($scalar);
+        $compiledExpression = $this->compileExpression($scalar, $this->getContext());
         $this->assertInstanceOfCompiledExpression($compiledExpression);
 
         $this->assertSame(CompiledExpression::STRING, $compiledExpression->getType());
@@ -66,7 +66,7 @@ class ScalarCompilerTest extends \Tests\PHPSA\TestCase
     public function testPassNull()
     {
         $scalar = $this->newScalarExpr(null);
-        $compiledExpression = $this->compileExpression($scalar);
+        $compiledExpression = $this->compileExpression($scalar, $this->getContext());
         $this->assertInstanceOfCompiledExpression($compiledExpression);
 
         $this->assertSame(CompiledExpression::NULL, $compiledExpression->getType());

@@ -13,6 +13,7 @@ use Symfony\Component\Console\Output\ConsoleOutput;
 use PHPSA\Definition\ClassDefinition;
 use PHPSA\Application;
 use PhpParser\Node;
+use Webiny\Component\EventManager\EventManager;
 
 class TestCase extends \PHPUnit_Framework_TestCase
 {
@@ -28,7 +29,7 @@ class TestCase extends \PHPUnit_Framework_TestCase
                 'notice'
             ),
             array(
-                new ConsoleOutput(), new Application()
+                new ConsoleOutput(), new Application(), EventManager::getInstance()
             )
         );
         $context->setScope(new ClassDefinition('MathTest', 0));
@@ -52,8 +53,11 @@ class TestCase extends \PHPUnit_Framework_TestCase
      */
     protected function compileExpression($expr, Context $context = null)
     {
-        $visitor = new Expression(is_null($context) ? $this->getContext() : $context);
-        return $visitor->compile($expr);
+        if (!$context) {
+            $context = $this->getContext();
+        }
+
+        return $context->getExpressionCompiler()->compile($expr);
     }
 
     /**

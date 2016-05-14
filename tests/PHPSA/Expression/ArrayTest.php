@@ -18,7 +18,7 @@ class ArrayTest extends \Tests\PHPSA\TestCase
     public function testEmptyArray()
     {
         $baseExpression = new Node\Expr\Array_();
-        $compiledExpression = $this->compileExpression($baseExpression);
+        $compiledExpression = $this->compileExpression($baseExpression, $this->getContext());
 
         $this->assertInstanceOfCompiledExpression($compiledExpression);
         $this->assertSame(CompiledExpression::ARR, $compiledExpression->getType());
@@ -52,7 +52,8 @@ class ArrayTest extends \Tests\PHPSA\TestCase
                         $this->newScalarExpr(6)
                     )
                 )
-            )
+            ),
+            $this->getContext()
         );
 
         $this->assertInstanceOfCompiledExpression($compiledExpression);
@@ -75,7 +76,8 @@ class ArrayTest extends \Tests\PHPSA\TestCase
                         $this->newScalarExpr(2)
                     )
                 )
-            )
+            ),
+            $this->getContext()
         );
 
         $this->assertInstanceOfCompiledExpression($compiledExpression);
@@ -100,7 +102,8 @@ class ArrayTest extends \Tests\PHPSA\TestCase
                         $this->newScalarExpr('key2')
                     )
                 )
-            )
+            ),
+            $this->getContext()
         );
 
         $this->assertInstanceOfCompiledExpression($compiledExpression);

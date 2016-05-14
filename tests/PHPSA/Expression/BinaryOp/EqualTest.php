@@ -59,7 +59,7 @@ class EqualTest extends \Tests\PHPSA\TestCase
             $this->newScalarExpr($a),
             $this->newScalarExpr($b)
         );
-        $compiledExpression = $this->compileExpression($baseExpression);
+        $compiledExpression = $this->compileExpression($baseExpression, $this->getContext());
 
         $this->assertInstanceOfCompiledExpression($compiledExpression);
         $this->assertSame(CompiledExpression::BOOLEAN, $compiledExpression->getType());
@@ -100,7 +100,7 @@ class EqualTest extends \Tests\PHPSA\TestCase
             $this->newScalarExpr($a),
             $this->newScalarExpr($b)
         );
-        $compiledExpression = $this->compileExpression($baseExpression);
+        $compiledExpression = $this->compileExpression($baseExpression, $this->getContext());
 
         $this->assertInstanceOfCompiledExpression($compiledExpression);
         $this->assertSame(CompiledExpression::BOOLEAN, $compiledExpression->getType());
@@ -116,7 +116,7 @@ class EqualTest extends \Tests\PHPSA\TestCase
             $this->newFakeScalarExpr(),
             $this->newScalarExpr(1)
         );
-        $compiledExpression = $this->compileExpression($baseExpression);
+        $compiledExpression = $this->compileExpression($baseExpression, $this->getContext());
 
         $this->assertInstanceOfCompiledExpression($compiledExpression);
         $this->assertSame(CompiledExpression::BOOLEAN, $compiledExpression->getType());
@@ -132,7 +132,7 @@ class EqualTest extends \Tests\PHPSA\TestCase
             $this->newScalarExpr(1),
             $this->newFakeScalarExpr()
         );
-        $compiledExpression = $this->compileExpression($baseExpression);
+        $compiledExpression = $this->compileExpression($baseExpression, $this->getContext());
 
         $this->assertInstanceOfCompiledExpression($compiledExpression);
         $this->assertSame(CompiledExpression::BOOLEAN, $compiledExpression->getType());

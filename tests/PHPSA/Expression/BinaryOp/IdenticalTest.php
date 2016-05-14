@@ -43,7 +43,7 @@ class IndenticalTest extends \Tests\PHPSA\TestCase
             new Node\Scalar\LNumber($a),
             new Node\Scalar\LNumber($b)
         );
-        $compiledExpression = $this->compileExpression($baseExpression);
+        $compiledExpression = $this->compileExpression($baseExpression, $this->getContext());
 
         $this->assertInstanceOfCompiledExpression($compiledExpression);
         $this->assertSame(CompiledExpression::BOOLEAN, $compiledExpression->getType());
@@ -73,7 +73,7 @@ class IndenticalTest extends \Tests\PHPSA\TestCase
             new Node\Scalar\DNumber($a),
             new Node\Scalar\DNumber($b)
         );
-        $compiledExpression = $this->compileExpression($baseExpression);
+        $compiledExpression = $this->compileExpression($baseExpression, $this->getContext());
 
         $this->assertInstanceOfCompiledExpression($compiledExpression);
         $this->assertSame(CompiledExpression::BOOLEAN, $compiledExpression->getType());
@@ -110,7 +110,7 @@ class IndenticalTest extends \Tests\PHPSA\TestCase
             new Node\Scalar\LNumber($a),
             new Node\Scalar\DNumber($b)
         );
-        $compiledExpression = $this->compileExpression($baseExpression);
+        $compiledExpression = $this->compileExpression($baseExpression, $this->getContext());
 
         $this->assertInstanceOfCompiledExpression($compiledExpression);
         $this->assertSame(CompiledExpression::BOOLEAN, $compiledExpression->getType());
@@ -136,7 +136,7 @@ class IndenticalTest extends \Tests\PHPSA\TestCase
             new Node\Scalar\DNumber($a),
             new Node\Scalar\LNumber($b)
         );
-        $compiledExpression = $this->compileExpression($baseExpression);
+        $compiledExpression = $this->compileExpression($baseExpression, $this->getContext());
 
         $this->assertInstanceOfCompiledExpression($compiledExpression);
         $this->assertSame(CompiledExpression::BOOLEAN, $compiledExpression->getType());
@@ -152,7 +152,7 @@ class IndenticalTest extends \Tests\PHPSA\TestCase
             $this->newFakeScalarExpr(),
             $this->newScalarExpr(1)
         );
-        $compiledExpression = $this->compileExpression($baseExpression);
+        $compiledExpression = $this->compileExpression($baseExpression, $this->getContext());
 
         $this->assertInstanceOfCompiledExpression($compiledExpression);
         $this->assertSame(CompiledExpression::BOOLEAN, $compiledExpression->getType());
@@ -168,7 +168,7 @@ class IndenticalTest extends \Tests\PHPSA\TestCase
             $this->newScalarExpr(1),
             $this->newFakeScalarExpr()
         );
-        $compiledExpression = $this->compileExpression($baseExpression);
+        $compiledExpression = $this->compileExpression($baseExpression, $this->getContext());
 
         $this->assertInstanceOfCompiledExpression($compiledExpression);
         $this->assertSame(CompiledExpression::BOOLEAN, $compiledExpression->getType());
