@@ -175,6 +175,14 @@ class Expression
             throw new InvalidArgumentException('$expr must be string/object/null');
         }
 
+        $this->eventManager->fire(
+            ExpressionBeforeCompile::EVENT_NAME,
+            new ExpressionBeforeCompile(
+                $expr,
+                $this->context
+            )
+        );
+        
         $className = get_class($expr);
         switch ($className) {
             case Node\Expr\PropertyFetch::class:
@@ -229,14 +237,6 @@ class Expression
             case \PHPSA\Node\Scalar\Fake::class:
                 return new CompiledExpression($expr->type, $expr->value);
         }
-
-        $this->eventManager->fire(
-            ExpressionBeforeCompile::EVENT_NAME,
-            new ExpressionBeforeCompile(
-                $expr,
-                $this->context
-            )
-        );
 
         $expressionCompiler = $this->factory($expr);
         if (!$expressionCompiler) {
