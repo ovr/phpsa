@@ -8,6 +8,7 @@ namespace PHPSA\Command;
 use PhpParser\NodeTraverser;
 use PhpParser\ParserFactory;
 use PHPSA\AliasManager;
+use PHPSA\Analyzer\EventListener\ExpressionListener;
 use PHPSA\Application;
 use PHPSA\Compiler;
 use PHPSA\Context;
@@ -77,6 +78,10 @@ class CheckCommand extends Command
         $application->compiler = new Compiler();
 
         $em = EventManager::getInstance();
+        $em->listen(
+            Compiler\Event\ExpressionBeforeCompile::EVENT_NAME
+        )->handler(new ExpressionListener())->method('beforeCompile');
+
         $context = new Context($output, $application, $em);
 
         /**
