@@ -9,6 +9,7 @@ use PHPSA\Compiler\GlobalVariable;
 use PHPSA\Definition\AbstractDefinition;
 use PHPSA\Definition\ParentDefinition;
 use Symfony\Component\Console\Output\OutputInterface;
+use Webiny\Component\EventManager\EventManager;
 
 class Context
 {
@@ -53,19 +54,26 @@ class Context
      * @var string
      */
     protected $filepath;
+    
+    /**
+     * @var EventManager
+     */
+    protected $eventManager;
 
     /**
      * Construct our Context with all needed information
      *
      * @param OutputInterface $output
      * @param Application $application
+     * @param EventManager $eventManager
      */
-    public function __construct(OutputInterface $output, Application $application)
+    public function __construct(OutputInterface $output, Application $application, EventManager $eventManager)
     {
         $this->output = $output;
         $this->application = $application;
 
         $this->initGlobals();
+        $this->eventManager = $eventManager;
     }
 
     public function initGlobals()

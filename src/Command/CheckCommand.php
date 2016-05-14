@@ -27,6 +27,7 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
+use Webiny\Component\EventManager\EventManager;
 
 /**
  * Class CheckCommand
@@ -75,7 +76,8 @@ class CheckCommand extends Command
         $application = $this->getApplication();
         $application->compiler = new Compiler();
 
-        $context = new Context($output, $application);
+        $em = EventManager::getInstance();
+        $context = new Context($output, $application, $em);
 
         /**
          * Store option's in application's configuration
