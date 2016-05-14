@@ -20,7 +20,7 @@ class DebugCode implements PassFunctionCallInterface
 
     public function visitPhpFunctionCall(FuncCall $funcCall, Context $context)
     {
-        $compiler = new Expression($context);
+        $compiler = $context->getExpressionCompiler();
         $funcNameCompiledExpression = $compiler->compile($funcCall->name);
 
         if ($funcNameCompiledExpression->isString() && $funcNameCompiledExpression->isCorrectValue()) {

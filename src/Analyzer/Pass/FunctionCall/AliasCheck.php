@@ -19,8 +19,7 @@ class AliasCheck implements PassFunctionCallInterface
 
     public function visitPhpFunctionCall(FuncCall $funcCall, Context $context)
     {
-        $compiler = new Expression($context);
-        $funcNameCompiledExpression = $compiler->compile($funcCall->name);
+        $funcNameCompiledExpression = $context->getExpressionCompiler()->compile($funcCall->name);
 
         if ($funcNameCompiledExpression->isString() && $funcNameCompiledExpression->isCorrectValue()) {
             $name = $funcNameCompiledExpression->getValue();
