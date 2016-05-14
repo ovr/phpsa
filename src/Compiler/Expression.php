@@ -8,12 +8,14 @@ namespace PHPSA\Compiler;
 use InvalidArgumentException;
 use PHPSA\Check;
 use PHPSA\CompiledExpression;
+use PHPSA\Compiler\Event\ExpressionBeforeCompile;
 use PHPSA\Context;
 use PhpParser\Node;
 use PHPSA\Definition\ClassDefinition;
 use PHPSA\Exception\RuntimeException;
 use PHPSA\Variable;
 use PHPSA\Compiler\Expression\AbstractExpressionCompiler;
+use Webiny\Component\EventManager\EventManager;
 
 class Expression
 {
@@ -23,11 +25,17 @@ class Expression
     protected $context;
 
     /**
+     * @var EventManager
+     */
+    protected $eventManager;
+
+    /**
      * @param Context $context
      */
-    public function __construct(Context $context)
+    public function __construct(Context $context, EventManager $eventManager)
     {
         $this->context = $context;
+        $this->eventManager = $eventManager;
     }
 
     /**
@@ -221,6 +229,14 @@ class Expression
             case \PHPSA\Node\Scalar\Fake::class:
                 return new CompiledExpression($expr->type, $expr->value);
         }
+        
+        $this->eventManager->fire(
+            ExpressionBeforeCompile::EVENT_NAME,
+            new ExpressionBeforeCompile(
+                $expr,
+                $this->context
+            )
+        );
 
         $expressionCompiler = $this->factory($expr);
         if (!$expressionCompiler) {

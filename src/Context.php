@@ -5,6 +5,7 @@
 
 namespace PHPSA;
 
+use PHPSA\Compiler\Expression;
 use PHPSA\Compiler\GlobalVariable;
 use PHPSA\Definition\AbstractDefinition;
 use PHPSA\Definition\ParentDefinition;
@@ -54,7 +55,7 @@ class Context
      * @var string
      */
     protected $filepath;
-    
+
     /**
      * @var EventManager
      */
@@ -74,6 +75,14 @@ class Context
 
         $this->initGlobals();
         $this->eventManager = $eventManager;
+    }
+
+    /**
+     * @return Expression
+     */
+    public function getExpressionCompiler()
+    {
+        return new Expression($this, $this->eventManager);
     }
 
     public function initGlobals()
