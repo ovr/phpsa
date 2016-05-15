@@ -225,7 +225,11 @@ class CheckCommand extends Command
                         $this->parseTopDefinitions($topStatement->stmts, $context->aliasManager, $filepath);
                     }
                 } else {
-                    $this->parseTopDefinitions($topStatement, $context->aliasManager, $filepath);
+                    if (is_array($topStatement)) {
+                        $this->parseTopDefinitions($topStatement, $context->aliasManager, $filepath);
+                    } else {
+                        $this->parseTopDefinitions($astTree, $context->aliasManager, $filepath);
+                    }
                 }
             }
             
