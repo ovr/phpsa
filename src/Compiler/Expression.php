@@ -630,6 +630,11 @@ class Expression
             $symbol = $this->context->getSymbol($name);
             if ($symbol) {
                 $symbol->modify($compiledExpression->getType(), $compiledExpression->getValue());
+                $this->context->modifyReferencedVariables(
+                    $symbol,
+                    $compiledExpression->getType(),
+                    $compiledExpression->getValue()
+                );
             } else {
                 $symbol = new Variable(
                     $name,
