@@ -13,15 +13,15 @@ use PHPSA\Compiler\Expression\Operators\UnaryMinus;
  */
 class ExpressionCompilerTest extends \Tests\PHPSA\TestCase
 {
+    /**
+     * @expectedException \InvalidArgumentException
+     * @expectedExceptionMessage Passed $expression must be instance of PhpParser\Node\Expr\UnaryMinus
+     */
     public function testPassUnexpectedExpression()
     {
         $expr = new UnaryMinus();
-        $this->assertSame('PhpParser\Node\Expr\UnaryMinus', $expr->getName());
+        self::assertSame('PhpParser\Node\Expr\UnaryMinus', $expr->getName());
 
-        $this->setExpectedException(
-            'InvalidArgumentException',
-            'Passed $expression must be instance of PhpParser\Node\Expr\UnaryMinus'
-        );
         $expr->pass($this->newFakeScalarExpr(), $this->getContext());
     }
 }
