@@ -185,6 +185,11 @@ class Expression
         
         $className = get_class($expr);
         switch ($className) {
+            case Node\Arg::class:
+                /**
+                 * @todo Better compile
+                 */
+                return $this->compile($expr->value);    
             case Node\Expr\PropertyFetch::class:
                 return $this->passPropertyFetch($expr);
             case Node\Stmt\Property::class:
