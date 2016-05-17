@@ -189,7 +189,7 @@ class Expression
                 /**
                  * @todo Better compile
                  */
-                return $this->compile($expr->value);    
+                return $this->compile($expr->value);
             case Node\Expr\PropertyFetch::class:
                 return $this->passPropertyFetch($expr);
             case Node\Stmt\Property::class:
@@ -668,10 +668,6 @@ class Expression
      */
     protected function passSymbolByRef(Node\Expr\AssignRef $expr)
     {
-        if ($expr->var instanceof \PhpParser\Node\Expr\List_) {
-            return new CompiledExpression();
-        }
-
         if ($expr->var instanceof Node\Expr\Variable) {
             $name = $expr->var->name;
 
@@ -680,20 +676,6 @@ class Expression
             $symbol = $this->context->getSymbol($name);
             if ($symbol) {
                 $symbol->modify($compiledExpression->getType(), $compiledExpression->getValue());
-
-                if ($expr->expr instanceof Node\Expr\Variable) {
-                    $rightVarName = $expr->expr->name;
-
-                    $rightSymbol = $this->context->getSymbol($rightVarName);
-                    if ($rightSymbol) {
-                        $rightSymbol->incUse();
-                        $symbol->setReferencedTo($rightSymbol);
-                    } else {
-                        $this->context->debug('Cannot fetch variable by name: ' . $rightVarName);
-                    }
-                }
-
-                $this->context->debug('Unknown how to pass referenced to symbol: ' . get_class($expr->expr));
             } else {
                 $symbol = new Variable(
                     $name,
@@ -702,6 +684,18 @@ class Expression
                     $this->context->getCurrentBranch()
                 );
                 $this->context->addVariable($symbol);
+            }
+
+            if ($expr->expr instanceof Node\Expr\Variable) {
+                $rightVarName = $expr->expr->name;
+
+                $rightSymbol = $this->context->getSymbol($rightVarName);
+                if ($rightSymbol) {
+                    $rightSymbol->incUse();
+                    $symbol->setReferencedTo($rightSymbol);
+                } else {
+                    $this->context->debug('Cannot fetch variable by name: ' . $rightVarName);
+                }
             }
 
             $symbol->incSets();
