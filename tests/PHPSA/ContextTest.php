@@ -14,8 +14,10 @@ class ContextTest extends TestCase
         /**
          * This variable is not needed for change
          */
+        $variableAValue = 1;
+        $variableAType = CompiledExpression::INTEGER;
         $context->addVariable(
-            new Variable('a', null, CompiledExpression::INTEGER, 1)
+            $variableA = new Variable('a', $variableAValue, $variableAType)
         );
 
         /**
@@ -46,5 +48,11 @@ class ContextTest extends TestCase
 
         self::assertSame($newValue, $variableC->getValue());
         self::assertSame($newType, $variableC->getType());
+
+        /**
+         * Assert that variable $a was not changed
+         */
+        self::assertSame($variableAValue, $variableA->getValue());
+        self::assertSame($variableAType, $variableA->getType());
     }
 }
