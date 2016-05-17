@@ -293,4 +293,21 @@ class Context
     {
         $this->currentBranch = $currentBranch;
     }
+
+    /**
+     * @param Variable $variable
+     * @param $type
+     * @param $value
+     */
+    public function modifyReferencedVariables(Variable $variable, $type, $value)
+    {
+        foreach ($this->symbols as $symbol) {
+            $referencedTo = $symbol->getReferencedTo();
+            if ($referencedTo) {
+                if ($referencedTo === $variable) {
+                    $symbol->modify($type, $value);
+                }
+            }
+        }
+    }
 }
