@@ -3,27 +3,23 @@
  * @author Patsura Dmitry https://github.com/ovr <talk@dmtry.me>
  */
 
-namespace PHPSA\Analyzer\Pass\FunctionCall;
+namespace PHPSA\Analyzer\Pass\Expression\FunctionCall;
 
 use PhpParser\Node\Expr\FuncCall;
 use PhpParser\Node\Name;
 use PHPSA\Compiler\Expression;
 use PHPSA\Context;
 
-class UseCast implements PassFunctionCallInterface
+class AliasCheck implements PassFunctionCallInterface
 {
     protected $map = array(
-        'boolval' => 'bool',
-        'intval' => 'int',
-        'floatval' => 'double',
-        'doubleval' => 'double',
-        'strval' => 'string'
+        'join' => 'implode',
+        'sizeof' => 'count'
     );
 
     public function pass(FuncCall $funcCall, Context $context)
     {
-        $compiler = $context->getExpressionCompiler();
-        $funcNameCompiledExpression = $compiler->compile($funcCall->name);
+        $funcNameCompiledExpression = $context->getExpressionCompiler()->compile($funcCall->name);
 
         if ($funcNameCompiledExpression->isString() && $funcNameCompiledExpression->isCorrectValue()) {
             $name = $funcNameCompiledExpression->getValue();
@@ -37,16 +33,9 @@ class UseCast implements PassFunctionCallInterface
         }
 
         if (isset($this->map[$name])) {
-            /**
-             * Exclusion via intval with 2 args intval($number, int $base = 10);
-             */
-            if ($name == 'intval' && count($funcCall->args) > 1) {
-                return;
-            }
-
             $context->notice(
-                'fcall.cast',
-                sprintf('Please use (%s) cast instead of function call.', $this->map[$name]),
+                'fcall.alias',
+                sprintf('%s() is an alias of function. Use %s(...).', $name, $this->map[$name]),
                 $funcCall
             );
         }

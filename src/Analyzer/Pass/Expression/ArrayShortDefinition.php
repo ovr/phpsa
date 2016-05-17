@@ -3,7 +3,7 @@
  * @author Patsura Dmitry https://github.com/ovr <talk@dmtry.me>
  */
 
-namespace PHPSA\Analyzer\Pass;
+namespace PHPSA\Analyzer\Pass\Expression;
 
 use PhpParser\Node\Expr;
 use PHPSA\Compiler\Expression;

@@ -84,13 +84,13 @@ class CheckCommand extends Command
                 new ExpressionListener(
                     [
                         Node\Expr\FuncCall::class => [
-                            new AnalyzerPass\FunctionCall\AliasCheck(),
-                            new AnalyzerPass\FunctionCall\DebugCode(),
-                            new AnalyzerPass\FunctionCall\RandomApiMigration(),
-                            new AnalyzerPass\FunctionCall\UseCast(),
+                            new AnalyzerPass\Expression\FunctionCall\AliasCheck(),
+                            new AnalyzerPass\Expression\FunctionCall\DebugCode(),
+                            new AnalyzerPass\Expression\FunctionCall\RandomApiMigration(),
+                            new AnalyzerPass\Expression\FunctionCall\UseCast(),
                         ],
                         Node\Expr\Array_::class => [
-                            new AnalyzerPass\ArrayShortDefinition()
+                            new AnalyzerPass\Expression\ArrayShortDefinition()
                         ]
                     ]
                 )
