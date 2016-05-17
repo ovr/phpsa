@@ -240,11 +240,25 @@ class Variable
      */
     public function __debugInfo()
     {
+        if ($this->value) {
+            $value = 'Exists!';
+        } else {
+            $value = 'Doest not exist';
+        }
+
+        switch (gettype($this->value)) {
+            case 'integer':
+            case 'double':
+                $value = $this->value;
+                break;
+        }
+
         return [
             'name' => $this->name,
             'type' => $this->type,
             'value' => [
-                'type' => gettype($this->value)
+                'type' => gettype($this->value),
+                'value' => $value
             ],
             'branch' => $this->branch,
             'symbol-type' => $this->getSymbolType()
