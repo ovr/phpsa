@@ -88,6 +88,7 @@ class CheckCommand extends Command
                             new AnalyzerPass\Expression\FunctionCall\DebugCode(),
                             new AnalyzerPass\Expression\FunctionCall\RandomApiMigration(),
                             new AnalyzerPass\Expression\FunctionCall\UseCast(),
+                            new AnalyzerPass\Expression\FunctionCall\DeprecatedIniOptions(),
                         ],
                         Node\Expr\Array_::class => [
                             new AnalyzerPass\Expression\ArrayShortDefinition()
