@@ -40,7 +40,7 @@ class SpaceShip extends AbstractExpressionCompiler
                     case CompiledExpression::NULL:
                         return new CompiledExpression(
                             CompiledExpression::INTEGER,
-                            $left->getValue() <=> $right->getValue()
+                            null //@todo implement
                         );
                 }
         }
