@@ -73,6 +73,15 @@ What is needed or planned as future.
 - [ ] Language level
 - [X] Syntax error
 
+#### Analyzer(s)
+
+- Alias Check
+- Debug Code
+- Deperecated Ini Options
+- Random Api Migration
+- Use Cast
+- Array short definition
+
 ## Installation
 
 ### Via `.phar`
