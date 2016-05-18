@@ -7,11 +7,14 @@ namespace PHPSA\Analyzer\Pass\Expression\FunctionCall;
 
 use PhpParser\Node\Expr\FuncCall;
 use PhpParser\Node\Name;
+use PHPSA\Analyzer\Helper\ResolveExpressionTrait;
 use PHPSA\Compiler\Expression;
 use PHPSA\Context;
 
 class UseCast implements PassFunctionCallInterface
 {
+    use ResolveExpressionTrait;
+
     protected $map = array(
         'boolval' => 'bool',
         'intval' => 'int',
@@ -22,31 +25,18 @@ class UseCast implements PassFunctionCallInterface
 
     public function pass(FuncCall $funcCall, Context $context)
     {
-        $compiler = $context->getExpressionCompiler();
-        $funcNameCompiledExpression = $compiler->compile($funcCall->name);
-
-        if ($funcNameCompiledExpression->isString() && $funcNameCompiledExpression->isCorrectValue()) {
-            $name = $funcNameCompiledExpression->getValue();
-        } else {
-            $context->debug(
-                'Unexpected function name type ' . $funcNameCompiledExpression->getType(),
-                $funcCall->name
-            );
-
-            return false;
-        }
-
-        if (isset($this->map[$name])) {
+        $functionName = $this->resolveFunctionName($funcCall, $context);
+        if ($functionName && isset($this->map[$functionName])) {
             /**
              * Exclusion via intval with 2 args intval($number, int $base = 10);
              */
-            if ($name == 'intval' && count($funcCall->args) > 1) {
+            if ($functionName == 'intval' && count($funcCall->args) > 1) {
                 return;
             }
 
             $context->notice(
                 'fcall.cast',
-                sprintf('Please use (%s) cast instead of function call.', $this->map[$name]),
+                sprintf('Please use (%s) cast instead of function call.', $this->map[$functionName]),
                 $funcCall
             );
         }

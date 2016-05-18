@@ -7,11 +7,14 @@ namespace PHPSA\Analyzer\Pass\Expression\FunctionCall;
 
 use PhpParser\Node\Expr\FuncCall;
 use PhpParser\Node\Name;
+use PHPSA\Analyzer\Helper\ResolveExpressionTrait;
 use PHPSA\Compiler\Expression;
 use PHPSA\Context;
 
 class AliasCheck implements PassFunctionCallInterface
 {
+    use ResolveExpressionTrait;
+
     protected $map = array(
         'join' => 'implode',
         'sizeof' => 'count'
@@ -19,23 +22,11 @@ class AliasCheck implements PassFunctionCallInterface
 
     public function pass(FuncCall $funcCall, Context $context)
     {
-        $funcNameCompiledExpression = $context->getExpressionCompiler()->compile($funcCall->name);
-
-        if ($funcNameCompiledExpression->isString() && $funcNameCompiledExpression->isCorrectValue()) {
-            $name = $funcNameCompiledExpression->getValue();
-        } else {
-            $context->debug(
-                'Unexpected function name type ' . $funcNameCompiledExpression->getType(),
-                $funcCall->name
-            );
-
-            return false;
-        }
-
-        if (isset($this->map[$name])) {
+        $functionName = $this->resolveFunctionName($funcCall, $context);
+        if ($functionName && isset($this->map[$functionName])) {
             $context->notice(
                 'fcall.alias',
-                sprintf('%s() is an alias of function. Use %s(...).', $name, $this->map[$name]),
+                sprintf('%s() is an alias of function. Use %s(...).', $functionName, $this->map[$functionName]),
                 $funcCall
             );
         }

@@ -7,11 +7,14 @@ namespace PHPSA\Analyzer\Pass\Expression\FunctionCall;
 
 use PhpParser\Node\Expr\FuncCall;
 use PhpParser\Node\Name;
+use PHPSA\Analyzer\Helper\ResolveExpressionTrait;
 use PHPSA\Compiler\Expression;
 use PHPSA\Context;
 
 class DeprecatedIniOptions implements PassFunctionCallInterface
 {
+    use ResolveExpressionTrait;
+
     static protected $functions = array(
         'ini_set' => 'ini_set',
         'ini_get' => 'ini_get',
@@ -55,21 +58,8 @@ class DeprecatedIniOptions implements PassFunctionCallInterface
 
     public function pass(FuncCall $funcCall, Context $context)
     {
-        $compiler = $context->getExpressionCompiler();
-        $funcNameCompiledExpression = $compiler->compile($funcCall->name);
-
-        if ($funcNameCompiledExpression->isString() && $funcNameCompiledExpression->isCorrectValue()) {
-            $name = $funcNameCompiledExpression->getValue();
-        } else {
-            $context->debug(
-                'Unexpected function name type ' . $funcNameCompiledExpression->getType(),
-                $funcCall->name
-            );
-
-            return false;
-        }
-
-        if (isset(self::$functions[$name])) {
+        $functionName = $this->resolveFunctionName($funcCall, $context);
+        if ($functionName && isset(self::$functions[$functionName])) {
             if ($funcCall->args) {
                 $compiledOptionName = $context->getExpressionCompiler()->compile($funcCall->args[0]);
                 if ($compiledOptionName->isString() && $compiledOptionName->isCorrectValue()) {
@@ -78,7 +68,7 @@ class DeprecatedIniOptions implements PassFunctionCallInterface
                             'deprecated.option',
                             sprintf(
                                 'Ini option %s() %s.',
-                                $name,
+                                $functionName,
                                 self::$deprecatedOptions[$compiledOptionName->getValue()]
                             ),
                             $funcCall

@@ -7,11 +7,14 @@ namespace PHPSA\Analyzer\Pass\Expression\FunctionCall;
 
 use PhpParser\Node\Expr\FuncCall;
 use PhpParser\Node\Name;
+use PHPSA\Analyzer\Helper\ResolveExpressionTrait;
 use PHPSA\Compiler\Expression;
 use PHPSA\Context;
 
 class DebugCode implements PassFunctionCallInterface
 {
+    use ResolveExpressionTrait;
+
     protected $map = array(
         'var_dump' => 'var_dump',
         'var_export' => 'var_export',
@@ -20,21 +23,8 @@ class DebugCode implements PassFunctionCallInterface
 
     public function pass(FuncCall $funcCall, Context $context)
     {
-        $compiler = $context->getExpressionCompiler();
-        $funcNameCompiledExpression = $compiler->compile($funcCall->name);
-
-        if ($funcNameCompiledExpression->isString() && $funcNameCompiledExpression->isCorrectValue()) {
-            $name = $funcNameCompiledExpression->getValue();
-        } else {
-            $context->debug(
-                'Unexpected function name type ' . $funcNameCompiledExpression->getType(),
-                $funcCall->name
-            );
-
-            return false;
-        }
-
-        if (isset($this->map[$name])) {
+        $functionName = $this->resolveFunctionName($funcCall, $context);
+        if ($functionName && isset($this->map[$functionName])) {
             if ($funcCall->getDocComment()) {
                 $phpdoc = new \phpDocumentor\Reflection\DocBlock($funcCall->getDocComment()->getText());
                 if ($phpdoc->hasTag('expected')) {
@@ -44,7 +34,7 @@ class DebugCode implements PassFunctionCallInterface
 
             $context->notice(
                 'debug.code',
-                sprintf('Function %s() is a debug code, please don`t use it in production.', $name),
+                sprintf('Function %s() is a debug code, please don`t use it in production.', $functionName),
                 $funcCall
             );
         }
