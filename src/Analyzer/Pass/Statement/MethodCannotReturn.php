@@ -12,20 +12,20 @@ use PHPSA\Context;
 class MethodCannotReturn
 {
     /**
-     * @param ClassMethod $st
+     * @param ClassMethod $methodStmt
      * @param Context $context
      * @return bool
      */
-    public function pass(ClassMethod $st, Context $context)
+    public function pass(ClassMethod $methodStmt, Context $context)
     {
-        if (count($st->stmts) == 0) {
+        if (count($methodStmt->stmts) == 0) {
             return false;
         }
 
         $result = false;
 
-        if ($st->name == '__construct' || $st->name == '__destruct') {
-            foreach ($st->stmts as $stmt) {
+        if ($methodStmt->name == '__construct' || $methodStmt->name == '__destruct') {
+            foreach ($methodStmt->stmts as $stmt) {
                 if ($stmt instanceof Return_) {
                     if (!$stmt->expr) {
                         continue;
@@ -33,7 +33,7 @@ class MethodCannotReturn
 
                     $context->notice(
                         'return.construct',
-                        sprintf('Method %s cannot return a value.', $st->name),
+                        sprintf('Method %s cannot return a value.', $methodStmt->name),
                         $stmt
                     );
 
