@@ -9,6 +9,7 @@ use PhpParser\NodeTraverser;
 use PhpParser\ParserFactory;
 use PHPSA\AliasManager;
 use PHPSA\Analyzer\EventListener\ExpressionListener;
+use PHPSA\Analyzer\EventListener\StatementListener;
 use PHPSA\Application;
 use PHPSA\Compiler;
 use PHPSA\Context;
@@ -92,6 +93,18 @@ class CheckCommand extends Command
                         ],
                         Node\Expr\Array_::class => [
                             new AnalyzerPass\Expression\ArrayShortDefinition()
+                        ]
+                    ]
+                )
+            )
+            ->method('beforeCompile');
+        
+        $em->listen(Compiler\Event\StatementBeforeCompile::EVENT_NAME)
+            ->handler(
+                new StatementListener(
+                    [
+                        Node\Stmt\ClassMethod::class => [
+                            new AnalyzerPass\Statement\MethodCannotReturn()
                         ]
                     ]
                 )
