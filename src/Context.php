@@ -310,4 +310,12 @@ class Context
             }
         }
     }
+
+    /**
+     * @return EventManager
+     */
+    public function getEventManager()
+    {
+        return $this->eventManager;
+    }
 }
