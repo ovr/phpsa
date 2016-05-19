@@ -57,6 +57,14 @@ class Statement
                 return;
             }
 
+            $context->getEventManager()->fire(
+                Event\StatementBeforeCompile::EVENT_NAME,
+                new Event\StatementBeforeCompile(
+                    $stmt,
+                    $context
+                )
+            );
+            
             $compiler = $this->factory($stmt);
         } catch (\Exception $e) {
             $context->debug('StatementCompiler is not implemented for ' . get_class($stmt));
