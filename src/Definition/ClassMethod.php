@@ -10,6 +10,7 @@ use PHPSA\CompiledExpression;
 use PHPSA\Compiler\Expression;
 use PHPSA\Compiler\Parameter;
 use PHPSA\Compiler\Types;
+use PHPSA\Compiler\Event;
 use PHPSA\Context;
 
 class ClassMethod extends AbstractDefinition
@@ -53,6 +54,14 @@ class ClassMethod extends AbstractDefinition
      */
     public function compile(Context $context)
     {
+        $context->getEventManager()->fire(
+            Event\StatementBeforeCompile::EVENT_NAME,
+            new Event\StatementBeforeCompile(
+                $this->statement,
+                $context
+            )
+        );
+
         $this->compiled = true;
         $context->scopePointer = $this->getPointer();
 
