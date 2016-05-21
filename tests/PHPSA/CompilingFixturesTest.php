@@ -6,7 +6,7 @@ use PhpParser\ParserFactory;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
 
-class CompilingFixturesTes extends TestCase
+class CompilingFixturesTest extends TestCase
 {
     public function provideTestParseAndDump()
     {
