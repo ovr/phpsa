@@ -55,7 +55,7 @@ class AnalyzeFixturesTest extends TestCase
             (new ParserFactory())->create(
                 ParserFactory::PREFER_PHP7,
                 new \PhpParser\Lexer\Emulative(
-                array(
+                    array(
                         'usedAttributes' => array(
                             'comments',
                             'startLine',
