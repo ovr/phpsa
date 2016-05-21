@@ -202,6 +202,14 @@ class CompiledExpression
         return $this->type == self::OBJECT;
     }
 
+    public function __debugInfo()
+    {
+        return [
+            'type' => \PHPSA\Compiler\Types::getTypeName($this->type),
+            'value' => $this->value,
+        ];
+    }
+
     //@codeCoverageIgnoreStart
     /**
      * Check that $this->value is correct for $this->type
