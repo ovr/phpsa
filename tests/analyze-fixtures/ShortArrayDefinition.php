@@ -22,24 +22,11 @@ class ShortArrayDefinition
 }
 ?>
 ----------------------------
-[{
-"type": "array.short-syntax",
-"message": "Please use [] (short syntax) for array definition.",
-"file": "ShortArrayDefinition.php",
-"line": 11
-}, {
-"type": "array.short-syntax",
-"message": "Please use [] (short syntax) for array definition.",
-"file": "ShortArrayDefinition.php",
-"line": 11
-}, {
-"type": "array.short-syntax",
-"message": "Please use [] (short syntax) for array definition.",
-"file": "ShortArrayDefinition.php",
-"line": 11
-}, {
-"type": "array.short-syntax",
-"message": "Please use [] (short syntax) for array definition.",
-"file": "ShortArrayDefinition.php",
-"line": 11
-}]
+[
+    {
+        "type":"array.short-syntax",
+        "message":"Please use [] (short syntax) for array definition.",
+        "file":"ShortArrayDefinition.php",
+        "line":11
+    }
+]

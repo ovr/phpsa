@@ -17,6 +17,11 @@ use PHPSA\Analyzer\Pass as AnalyzerPass;
 
 class AnalyzeFixturesTest extends TestCase
 {
+    /**
+     * @var EventManager
+     */
+    static protected $em;
+
     public function provideTestParseAndDump()
     {
         $iter = new RecursiveIteratorIterator(
@@ -69,19 +74,35 @@ class AnalyzeFixturesTest extends TestCase
             $compiler
         );
 
-        $em = EventManager::getInstance();
-
-        $bufferOutput = new \Symfony\Component\Console\Output\BufferedOutput();
         $context = new Context(
-            $bufferOutput,
+            new \Symfony\Component\Console\Output\NullOutput(),
             $application = new Application(),
-            $em
+            $this->getEventManager()
         );
         $application->compiler = $compiler;
 
         $fileParser->parserFile($file, $context);
 
-        $em->listen(Compiler\Event\ExpressionBeforeCompile::EVENT_NAME)
+        $compiler->compile($context);
+
+        self::assertEquals(
+            $application->getIssuesCollector()->getIssues(),
+            json_decode(trim($expectedDump), true)
+        );
+    }
+
+    /**
+     * @return EventManager
+     * @throws \Webiny\Component\EventManager\EventManagerException
+     */
+    protected function getEventManager()
+    {
+        if (self::$em) {
+            return self::$em;
+        }
+
+        self::$em = EventManager::getInstance();
+        self::$em->listen(Compiler\Event\ExpressionBeforeCompile::EVENT_NAME)
             ->handler(
                 new ExpressionListener(
                     [
@@ -100,7 +121,7 @@ class AnalyzeFixturesTest extends TestCase
             )
             ->method('beforeCompile');
 
-        $em->listen(Compiler\Event\StatementBeforeCompile::EVENT_NAME)
+        self::$em->listen(Compiler\Event\StatementBeforeCompile::EVENT_NAME)
             ->handler(
                 new StatementListener(
                     [
@@ -112,11 +133,6 @@ class AnalyzeFixturesTest extends TestCase
             )
             ->method('beforeCompile');
 
-        $compiler->compile($context);
-
-        self::assertSame(
-            json_encode($application->getIssuesCollector()->getIssues()),
-            json_encode(json_decode(trim($expectedDump)))
-        );
+        return self::$em;
     }
 }
