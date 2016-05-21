@@ -116,7 +116,7 @@ class AnalyzeFixturesTest extends TestCase
 
         self::assertSame(
             json_encode($application->getIssuesCollector()->getIssues()),
-            trim($expectedDump)
+            json_encode(json_decode(trim($expectedDump)))
         );
     }
 }

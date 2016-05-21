@@ -12,6 +12,12 @@ class AliasCheck
         return join('-', [1, 2]);
     }
 }
+
 ?>
 ----------------------------
-[{"type":"fcall.alias","message":"join() is an alias of function. Use implode(...).","file":"AliasCheck.php","line":11}]
+[{
+"type": "fcall.alias",
+"message": "join() is an alias of function. Use implode(...).",
+"file": "AliasCheck.php",
+"line": 11
+}]
