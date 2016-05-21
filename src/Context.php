@@ -206,7 +206,7 @@ class Context
         $this->output->writeln('');
 
         $this->application->getIssuesCollector()
-            ->addIssue($type, $message, $filepath, $expr->getLine() - 1);
+            ->addIssue($type, $message, basename($this->filepath), $expr->getLine() - 1);
 
         return true;
     }
