@@ -12,7 +12,7 @@ class Application extends \Symfony\Component\Console\Application
     /**
      * @var Configuration
      */
-    protected $configuration;
+    public $configuration;
 
     /**
      * @var IssuesCollector

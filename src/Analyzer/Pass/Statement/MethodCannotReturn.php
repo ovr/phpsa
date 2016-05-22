@@ -7,9 +7,11 @@ namespace PHPSA\Analyzer\Pass\Statement;
 
 use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\Return_;
+use PHPSA\Analyzer\Pass\ConfigurablePassInterface;
 use PHPSA\Context;
+use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 
-class MethodCannotReturn
+class MethodCannotReturn implements ConfigurablePassInterface
 {
     /**
      * @param ClassMethod $methodStmt
@@ -43,5 +45,18 @@ class MethodCannotReturn
         }
 
         return $result;
+    }
+
+    /**
+     * @return TreeBuilder
+     */
+    public function getConfiguration()
+    {
+        $treeBuilder = new TreeBuilder();
+        $treeBuilder->root('method_cannot_return')
+            ->canBeDisabled()
+        ;
+
+        return $treeBuilder;
     }
 }

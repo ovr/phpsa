@@ -6,10 +6,13 @@
 namespace PHPSA\Command;
 
 use PhpParser\ParserFactory;
+use PHPSA\Analyzer;
 use PHPSA\Analyzer\EventListener\ExpressionListener;
 use PHPSA\Analyzer\EventListener\StatementListener;
 use PHPSA\Application;
 use PHPSA\Compiler;
+use PHPSA\Configuration;
+use PHPSA\ConfigurationLoader;
 use PHPSA\Context;
 use PHPSA\Definition\FileParser;
 use RecursiveDirectoryIterator;
@@ -18,6 +21,9 @@ use SplFileInfo;
 use FilesystemIterator;
 use PhpParser\Node;
 use PhpParser\Parser;
+use Symfony\Component\Config\Definition\Processor;
+use Symfony\Component\Config\FileLocator;
+use Symfony\Component\Config\Loader\LoaderResolver;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -39,7 +45,7 @@ class CheckCommand extends Command
         $this
             ->setName('check')
             ->setDescription('SPA')
-            ->addOption('blame', null, InputOption::VALUE_OPTIONAL, 'Git blame author for bad code ;)', false)
+            ->addOption('blame', null, InputOption::VALUE_OPTIONAL, 'Git blame author for bad code ;)', -1)
             ->addArgument('path', InputArgument::OPTIONAL, 'Path to check file or directory', '.')
             ->addOption(
                 'report-json',
@@ -73,7 +79,20 @@ class CheckCommand extends Command
         $application = $this->getApplication();
         $application->compiler = new Compiler();
 
+        $loader = new ConfigurationLoader(
+            new FileLocator(
+                [
+                    realpath($input->getArgument('path')) . DIRECTORY_SEPARATOR
+                ]
+            )
+        );
+
+        $application->configuration = new Configuration(
+            $loader->load('.phpsa.yml')
+        );
+
         $em = EventManager::getInstance();
+
         $em->listen(Compiler\Event\ExpressionBeforeCompile::EVENT_NAME)
             ->handler(
                 new ExpressionListener(
@@ -110,7 +129,10 @@ class CheckCommand extends Command
         /**
          * Store option's in application's configuration
          */
-        $application->getConfiguration()->setValue('blame', $input->getOption('blame'));
+        $blame = $input->getOption('blame');
+        if ($blame === -1) {
+            $application->configuration->setValue('blame', $blame);
+        }
 
         $fileParser = new FileParser(
             $parser,

@@ -5,41 +5,73 @@
 
 namespace PHPSA;
 
-class Configuration
+use PhpParser\ParserFactory;
+use Symfony\Component\Config\Definition\Builder\NodeBuilder;
+use Symfony\Component\Config\Definition\Builder\TreeBuilder;
+use Symfony\Component\Config\Definition\ConfigurationInterface;
+use Symfony\Component\Config\Definition\Processor;
+
+class Configuration implements ConfigurationInterface
 {
-    protected $config = array(
-        'unused' => array(
-            'variable' => true,
-        ),
-        'undefined' => array(
-            'mcall' => true,
-            'fcall' => true,
-            'scall' => true,
-            'property' => true,
-            'class-const' => true,
-            'const' => true,
-            'variable' => true,
-        ),
-        'bugs' => array(
-            'division-zero' => true
-        )
-    );
+    /**
+     * @var array
+     */
+    protected $configuration;
 
-    protected $values = array(
-        'blame' => false
-    );
-
-    public function setValue($name, $value)
+    public function __construct(array $configuration = [])
     {
-        $this->values[$name] = $value;
+        $processor = new Processor();
+        $treeBuilder = $this->getConfigTreeBuilder();
+
+        $this->configuration = $processor->process(
+            $treeBuilder->buildTree(),
+            $configuration
+        );
     }
 
-    public function valueIsTrue($name)
+    /**
+     * Generates the configuration tree builder.
+     *
+     * @return \Symfony\Component\Config\Definition\Builder\TreeBuilder The tree builder
+     */
+    public function getConfigTreeBuilder()
     {
-        if (isset($this->values[$name])) {
-            return $this->values[$name] == true;
-        }
+        $treeBuilder = new TreeBuilder();
 
-        return false;
+        $treeBuilder->root('common', 'array', new NodeBuilder())
+            ->children()
+                ->booleanNode('blame')
+                ->defaultFalse()
+                ->end()
+            ->end()
+            ->children()
+                ->enumNode('parser')
+                    ->defaultValue('prefer-7')
+                    ->attribute('label', 'Check types of Arguments.')
+                    ->values(
+                        array(
+                            ParserFactory::PREFER_PHP7 => 'prefer-7',
+                            ParserFactory::PREFER_PHP5 => 'prefer-5',
+                            ParserFactory::ONLY_PHP7 => 'only-7',
+                            ParserFactory::ONLY_PHP5 => 'only-5'
+                        )
+                    );
+
+
+        return $treeBuilder;
+    }
+
+    public function setValue($key, $value)
+    {
+        $this->configuration[$key] = $value;
+    }
+
+    /**
+     * @param string $key
+     * @return bool
+     */
+    public function valueIsTrue($key)
+    {
+        return (bool) $this->configuration[$key];
     }
 }

@@ -267,6 +267,9 @@ class Expression
     {
         $docBlock = $st->getDocComment();
         if (!$docBlock) {
+            var_dump($st->getAttributes());
+            die();
+
             $this->context->notice(
                 'missing-docblock',
                 'Missing docblock for %s() property',
@@ -535,6 +538,8 @@ class Expression
                     }
                 }
             }
+
+            return new CompiledExpression(CompiledExpression::UNKNOWN);
         } elseif (!$scopeExpression->canBeObject()) {
             return new CompiledExpression(CompiledExpression::UNKNOWN);
         }
