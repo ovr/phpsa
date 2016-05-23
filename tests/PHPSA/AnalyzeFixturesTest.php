@@ -112,6 +112,7 @@ class AnalyzeFixturesTest extends TestCase
                             new AnalyzerPass\Expression\FunctionCall\RandomApiMigration(),
                             new AnalyzerPass\Expression\FunctionCall\UseCast(),
                             new AnalyzerPass\Expression\FunctionCall\DeprecatedIniOptions(),
+                            new AnalyzerPass\Expression\FunctionCall\RegularExpressions(),
                         ],
                         Node\Expr\Array_::class => [
                             new AnalyzerPass\Expression\ArrayShortDefinition()
