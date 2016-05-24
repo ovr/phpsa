@@ -60,6 +60,13 @@ class CheckCommand extends Command
         $output->writeln('');
 
         if (extension_loaded('xdebug')) {
+            /**
+             * This will disable only showing stack traces on error conditions.
+             */
+            if (function_exists('xdebug_disable')) {
+                xdebug_disable();
+            }
+
             $output->writeln('<error>It is highly recommended to disable the XDebug extension before invoking this command.</error>');
         }
 

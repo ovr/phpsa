@@ -119,10 +119,18 @@ $ curl -sS https://getcomposer.org/installer | php
 
 ### Via source
 
-```
+```sh
 git clone https://github.com/ovr/phpsa
 cd phpsa
 ./bin/phpsa
+```
+
+### It is highly recommended to disable xdebug
+
+You can run `php` with parameters to disable it:
+
+```sh
+php -n -d xdebug.enable=0 -f ./bin/phpsa
 ```
 
 ## How to use

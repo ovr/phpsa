@@ -15,7 +15,7 @@ class Factory
      * @param EventManager $eventManager
      * @return Analyzer
      */
-    static public function factory(EventManager $eventManager)
+    public static function factory(EventManager $eventManager)
     {
         $analyzer = new Analyzer($eventManager);
         $analyzer->registerExpressionPasses(
