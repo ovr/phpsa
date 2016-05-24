@@ -6,10 +6,12 @@
 namespace PHPSA\Analyzer\Pass\Expression;
 
 use PhpParser\Node\Expr;
+use PHPSA\Analyzer\Pass\AnalyzerPassInterface;
 use PHPSA\Compiler\Expression;
 use PHPSA\Context;
+use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 
-class ArrayShortDefinition
+class ArrayShortDefinition implements AnalyzerPassInterface
 {
     /**
      * @param Expr\Array_ $expr
@@ -29,5 +31,15 @@ class ArrayShortDefinition
         }
 
         return false;
+    }
+
+    /**
+     * @return TreeBuilder
+     */
+    public function getRegister()
+    {
+        return [
+            Expr\Array_::class
+        ];
     }
 }

@@ -7,11 +7,12 @@ namespace PHPSA\Analyzer\Pass\Statement;
 
 use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\Return_;
+use PHPSA\Analyzer\Pass\AnalyzerPassInterface;
 use PHPSA\Analyzer\Pass\ConfigurablePassInterface;
 use PHPSA\Context;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 
-class MethodCannotReturn implements ConfigurablePassInterface
+class MethodCannotReturn implements ConfigurablePassInterface, AnalyzerPassInterface
 {
     /**
      * @param ClassMethod $methodStmt
@@ -58,5 +59,15 @@ class MethodCannotReturn implements ConfigurablePassInterface
         ;
 
         return $treeBuilder;
+    }
+
+    /**
+     * @return array
+     */
+    public function getRegister()
+    {
+        return [
+            \PhpParser\Node\Stmt\ClassMethod::class
+        ];
     }
 }

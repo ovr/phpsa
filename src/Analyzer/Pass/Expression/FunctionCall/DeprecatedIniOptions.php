@@ -7,14 +7,11 @@ namespace PHPSA\Analyzer\Pass\Expression\FunctionCall;
 
 use PhpParser\Node\Expr\FuncCall;
 use PhpParser\Node\Name;
-use PHPSA\Analyzer\Helper\ResolveExpressionTrait;
 use PHPSA\Compiler\Expression;
 use PHPSA\Context;
 
-class DeprecatedIniOptions implements PassFunctionCallInterface
+class DeprecatedIniOptions extends AbstractFunctionCallAnalyzer
 {
-    use ResolveExpressionTrait;
-
     static protected $functions = array(
         'ini_set' => 'ini_set',
         'ini_get' => 'ini_get',

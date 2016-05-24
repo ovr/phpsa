@@ -7,14 +7,11 @@
 namespace PHPSA\Analyzer\Pass\Expression\FunctionCall;
 
 use PhpParser\Node\Expr\FuncCall;
-use PHPSA\Analyzer\Helper\ResolveExpressionTrait;
 use PHPSA\Check;
 use PHPSA\Context;
 
-class RegularExpressions implements PassFunctionCallInterface
+class RegularExpressions extends AbstractFunctionCallAnalyzer
 {
-    use ResolveExpressionTrait;
-
     static public $map = [
         'preg_filter' => 0,
         'preg_grep' => 0,

@@ -7,14 +7,11 @@ namespace PHPSA\Analyzer\Pass\Expression\FunctionCall;
 
 use PhpParser\Node\Expr\FuncCall;
 use PhpParser\Node\Name;
-use PHPSA\Analyzer\Helper\ResolveExpressionTrait;
 use PHPSA\Compiler\Expression;
 use PHPSA\Context;
 
-class RandomApiMigration implements PassFunctionCallInterface
+class RandomApiMigration extends AbstractFunctionCallAnalyzer
 {
-    use ResolveExpressionTrait;
-
     protected $map = array(
         'rand' => 'mt_rand',
         'srand' => 'mt_srand',

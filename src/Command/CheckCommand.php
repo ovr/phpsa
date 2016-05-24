@@ -92,39 +92,8 @@ class CheckCommand extends Command
         );
 
         $em = EventManager::getInstance();
-
-        $em->listen(Compiler\Event\ExpressionBeforeCompile::EVENT_NAME)
-            ->handler(
-                new ExpressionListener(
-                    [
-                        Node\Expr\FuncCall::class => [
-                            new AnalyzerPass\Expression\FunctionCall\AliasCheck(),
-                            new AnalyzerPass\Expression\FunctionCall\DebugCode(),
-                            new AnalyzerPass\Expression\FunctionCall\RandomApiMigration(),
-                            new AnalyzerPass\Expression\FunctionCall\UseCast(),
-                            new AnalyzerPass\Expression\FunctionCall\DeprecatedIniOptions(),
-                            new AnalyzerPass\Expression\FunctionCall\RegularExpressions(),
-                        ],
-                        Node\Expr\Array_::class => [
-                            new AnalyzerPass\Expression\ArrayShortDefinition()
-                        ]
-                    ]
-                )
-            )
-            ->method('beforeCompile');
+        Analyzer\Factory::factory($em);
         
-        $em->listen(Compiler\Event\StatementBeforeCompile::EVENT_NAME)
-            ->handler(
-                new StatementListener(
-                    [
-                        Node\Stmt\ClassMethod::class => [
-                            new AnalyzerPass\Statement\MethodCannotReturn()
-                        ]
-                    ]
-                )
-            )
-            ->method('beforeCompile');
-
         $context = new Context($output, $application, $em);
 
         /**

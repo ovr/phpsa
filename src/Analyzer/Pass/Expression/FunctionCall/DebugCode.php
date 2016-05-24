@@ -7,14 +7,11 @@ namespace PHPSA\Analyzer\Pass\Expression\FunctionCall;
 
 use PhpParser\Node\Expr\FuncCall;
 use PhpParser\Node\Name;
-use PHPSA\Analyzer\Helper\ResolveExpressionTrait;
 use PHPSA\Compiler\Expression;
 use PHPSA\Context;
 
-class DebugCode implements PassFunctionCallInterface
+class DebugCode extends AbstractFunctionCallAnalyzer
 {
-    use ResolveExpressionTrait;
-
     protected $map = array(
         'var_dump' => 'var_dump',
         'var_export' => 'var_export',

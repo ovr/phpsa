@@ -7,14 +7,11 @@ namespace PHPSA\Analyzer\Pass\Expression\FunctionCall;
 
 use PhpParser\Node\Expr\FuncCall;
 use PhpParser\Node\Name;
-use PHPSA\Analyzer\Helper\ResolveExpressionTrait;
 use PHPSA\Compiler\Expression;
 use PHPSA\Context;
 
-class UseCast implements PassFunctionCallInterface
+class UseCast extends AbstractFunctionCallAnalyzer
 {
-    use ResolveExpressionTrait;
-
     protected $map = array(
         'boolval' => 'bool',
         'intval' => 'int',
