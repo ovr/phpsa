@@ -89,7 +89,7 @@ What is needed or planned as future.
 The easiest way to get it working is to download a tagged phpsa.phar release, and put this on your path. For example:
 
 ```
-wget https://github.com/ovr/phpsa/releases/download/0.3.0/phpsa.phar
+wget https://github.com/ovr/phpsa/releases/download/0.5.0/phpsa.phar
 chmod +x phpsa.phar
 sudo mv phpsa.phar /usr/local/bin/phpsa
 ```
@@ -137,7 +137,7 @@ php -n -d xdebug.enable=0 -f ./bin/phpsa
 
 ```sh
 $ ./bin/phpsa
-PHP Smart Analyzer version 0.4.0 #10bb43b
+PHP Smart Analyzer version 0.5.0
 
 Usage:
   command [options] [arguments]

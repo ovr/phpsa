@@ -6,6 +6,6 @@ include:
 exclude:
   - /[Tt]ests?/
   - Test\.php$
-  - example
+  - sandbox
   - .*\.(xml|md|json|lock|ini)$
   - LICENSE

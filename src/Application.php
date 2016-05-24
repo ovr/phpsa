@@ -24,7 +24,7 @@ class Application extends \Symfony\Component\Console\Application
      */
     public $compiler;
 
-    const VERSION = '0.4.1-dev';
+    const VERSION = '0.5.0';
 
     public function __construct()
     {
