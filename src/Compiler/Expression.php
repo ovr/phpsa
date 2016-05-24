@@ -267,9 +267,6 @@ class Expression
     {
         $docBlock = $st->getDocComment();
         if (!$docBlock) {
-            var_dump($st->getAttributes());
-            die();
-
             $this->context->notice(
                 'missing-docblock',
                 'Missing docblock for %s() property',
