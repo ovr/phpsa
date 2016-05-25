@@ -7,5 +7,5 @@ exclude:
   - /[Tt]ests?/
   - Test\.php$
   - sandbox
-  - .*\.(xml|md|json|lock|ini)$
+  - .*\.(xml|md|json|lock|ini|yml)$
   - LICENSE
