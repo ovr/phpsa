@@ -25,7 +25,7 @@ class RandomApiMigration extends AbstractFunctionCallAnalyzer
             $context->notice(
                 'rand.api.migration',
                 sprintf(
-                    'Function %s() is not recommended, please use mt_%s analog instead of it.',
+                    'Function %s() is not recommended, please use random_int/random_bytes (PHP 7) or mt_%s (not cryptographically secure) instead.',
                     $functionName,
                     $functionName
                 ),
