@@ -31,20 +31,20 @@ class SwitchSt extends AbstractCompiler
                 if (count($case->stmts) > 0) {
                     $beforeStatement = false;
 
-                    foreach ($case->stmts as $stmt) {
-                        \PHPSA\nodeVisitorFactory($stmt, $context);
+                    foreach ($case->stmts as $caseStatements) {
+                        \PHPSA\nodeVisitorFactory($caseStatements, $context);
 
                         if ($beforeStatement) {
                             if ($beforeStatement instanceof \PhpParser\Node\Stmt\Return_
-                                && $stmt instanceof \PhpParser\Node\Stmt\Break_) {
+                                && $caseStatements instanceof \PhpParser\Node\Stmt\Break_) {
                                 $context->notice(
                                     'switch.unneeded-break',
                                     'Break after return statement is not needed',
-                                    $stmt
+                                    $caseStatements
                                 );
                             }
                         }
-                        $beforeStatement = $stmt;
+                        $beforeStatement = $caseStatements;
                     }
                 }
             }
