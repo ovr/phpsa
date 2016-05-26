@@ -23,7 +23,7 @@ class ClosureDefinition extends ParentDefinition
     protected $filepath;
 
     /**
-     * @var Node\Stmt\Function_
+     * @var Node\Expr\Closure
      */
     protected $statement;
 
@@ -38,7 +38,7 @@ class ClosureDefinition extends ParentDefinition
     protected $possibleReturnTypes = array();
 
     /**
-     * @param $name
+     * @param Node\Expr\Closure $statement
      */
     public function __construct(Node\Expr\Closure $statement)
     {
@@ -57,16 +57,18 @@ class ClosureDefinition extends ParentDefinition
             return true;
         }
 
+
         $context->setFilepath($this->filepath);
         $this->compiled = true;
 
+        $context->clearSymbols();
         $context->scopePointer = $this->getPointer();
         $context->setScope(null);
 
         if (count($this->statement->stmts) == 0) {
             return $context->notice(
                 'not-implemented-function',
-                sprintf('Function %s() is not implemented', $this->name),
+                sprintf('Closure %s() is not implemented', $this->name),
                 $this->statement
             );
         }
