@@ -148,6 +148,8 @@ class Expression
             /**
              * Another
              */
+            case Node\Expr\Closure::class:
+                return new Expression\Closure();
             case Node\Expr\UnaryMinus::class:
                 return new Expression\Operators\UnaryMinus();
             case Node\Expr\UnaryPlus::class:
