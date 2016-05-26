@@ -9,6 +9,7 @@ use PHPSA\Context;
 use PhpParser\Node;
 use PHPSA\Compiler\Statement\AbstractCompiler;
 use RuntimeException;
+use PhpParser\Node\Stmt;
 
 class Statement
 {
@@ -19,23 +20,23 @@ class Statement
     protected function factory($stmt)
     {
         switch (get_class($stmt)) {
-            case 'PhpParser\Node\Stmt\Return_':
+            case Stmt\Return_::class:
                 return new Statement\ReturnSt();
-            case 'PhpParser\Node\Stmt\While_':
+            case Stmt\While_::class:
                 return new Statement\WhileSt();
-            case 'PhpParser\Node\Stmt\Switch_':
+            case Stmt\Switch_::class:
                 return new Statement\SwitchSt();
-            case 'PhpParser\Node\Stmt\If_':
+            case Stmt\If_::class:
                 return new Statement\IfSt();
-            case 'PhpParser\Node\Stmt\Do_':
+            case Stmt\Do_::class:
                 return new Statement\DoSt();
-            case 'PhpParser\Node\Stmt\For_':
+            case Stmt\For_::class:
                 return new Statement\ForSt();
-            case 'PhpParser\Node\Stmt\Foreach_':
+            case Stmt\Foreach_::class:
                 return new Statement\ForeachSt();
-            case 'PhpParser\Node\Stmt\TryCatch':
+            case Stmt\TryCatch::class:
                 return new Statement\TryCatchSt();
-            case Node\Stmt\Catch_::class:
+            case Stmt\Catch_::class:
                 return new Statement\CatchSt();
         }
 
@@ -50,10 +51,9 @@ class Statement
     {
         try {
             /**
-             * Dont show an error
-             * @todo This a little bit more about own statement for break;
+             * @todo Think a little bit more about own statement for break;
              */
-            if (get_class($stmt) == 'PhpParser\Node\Stmt\Break_') {
+            if ($stmt instanceof Stmt\Break_) {
                 return;
             }
 
