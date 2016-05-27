@@ -36,7 +36,7 @@ class Analyzer
     public function registerExpressionPasses(array $expressionPasses)
     {
         foreach ($expressionPasses as $pass) {
-            if (!$pass instanceof  AnalyzerPassInterface) {
+            if (!$pass instanceof AnalyzerPassInterface) {
                 throw new \RuntimeException('Analyzer pass must implement AnalyzerPassInterface');
             }
 
@@ -57,7 +57,7 @@ class Analyzer
     public function registerStatementPasses(array $statementPasses)
     {
         foreach ($statementPasses as $pass) {
-            if (!$pass instanceof  AnalyzerPassInterface) {
+            if (!$pass instanceof AnalyzerPassInterface) {
                 throw new \RuntimeException('Analyzer pass must implement AnalyzerPassInterface');
             }
 
