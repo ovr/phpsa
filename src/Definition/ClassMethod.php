@@ -213,4 +213,12 @@ class ClassMethod extends AbstractDefinition
     {
         return $this->possibleReturnValues;
     }
+
+    /**
+    * @return array
+    */
+    public function getParams()
+    {
+        return $this->statement->params;
+    }
 }
