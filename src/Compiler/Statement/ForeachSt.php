@@ -7,7 +7,6 @@ namespace PHPSA\Compiler\Statement;
 
 use PHPSA\CompiledExpression;
 use PHPSA\Context;
-use PHPSA\Compiler\Expression;
 
 class ForeachSt extends AbstractCompiler
 {
@@ -16,7 +15,7 @@ class ForeachSt extends AbstractCompiler
     /**
      * @param \PhpParser\Node\Stmt\Foreach_ $stmt
      * @param Context $context
-     * @return CompiledExpression
+     * @return null|boolean
      */
     public function compile($stmt, Context $context)
     {

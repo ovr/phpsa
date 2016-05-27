@@ -37,9 +37,9 @@ class ClassMethod extends AbstractDefinition
     protected $possibleReturnValues = array();
 
     /**
-     * @param $name
+     * @param string $name
      * @param Node\Stmt\ClassMethod $statement
-     * @param $type
+     * @param integer $type
      */
     public function __construct($name, Node\Stmt\ClassMethod $statement, $type)
     {
@@ -123,7 +123,7 @@ class ClassMethod extends AbstractDefinition
 
     /**
      * @param Context $context
-     * @param array|null $args
+     * @param Node\Arg[] $args
      * @return CompiledExpression
      * @throws \PHPSA\Exception\RuntimeException
      */
@@ -179,7 +179,7 @@ class ClassMethod extends AbstractDefinition
     }
 
     /**
-     * @param $newType
+     * @param integer $newType
      */
     public function addNewType($newType)
     {

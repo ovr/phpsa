@@ -279,7 +279,7 @@ class Context
     }
 
     /**
-     * @return int|string
+     * @return integer
      */
     public function getCurrentBranch()
     {
