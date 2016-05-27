@@ -6,6 +6,7 @@
 namespace PHPSA\Analyzer\Helper;
 
 use PhpParser\Node\Expr\FuncCall;
+use PhpParser\Node\Stmt\Return_;
 use PHPSA\Context;
 
 trait ResolveExpressionTrait
@@ -30,5 +31,18 @@ trait ResolveExpressionTrait
         }
 
         return false;
+    }
+
+    /**
+     * @param \PhpParser\Node[] $nodes
+     * @return \PhpParser\Node\Stmt\Return_
+     */
+    private function findReturnStatement(array $nodes)
+    {
+        foreach ($nodes as $node) {
+            if ($node instanceof Return_) {
+                yield $node;
+            }
+        }
     }
 }
