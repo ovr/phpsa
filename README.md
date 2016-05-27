@@ -55,7 +55,7 @@ What is needed or planned as future.
 - [ ] Ternary operator simplification
 - [ ] Elvis operator can be used
 - [ ] Not optimal if conditions
-- [ ] Infinity loop
+- [ ] Infinite loop
 - [ ] Unreachable statement
 - [X] Stupid cast
 - [X] Not implemented class methods
@@ -77,7 +77,7 @@ What is needed or planned as future.
 
 - Alias Check
 - Debug Code
-- Deperecated Ini Options
+- Deprecated Ini Options
 - Random Api Migration
 - Use Cast
 - Array short definition
