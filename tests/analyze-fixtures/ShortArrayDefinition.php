@@ -7,7 +7,7 @@ class ShortArrayDefinition
     /**
      * @return array
      */
-    public function testAnalyze()
+    public function testLongDefinition()
     {
         return array(1);
     }
@@ -15,7 +15,7 @@ class ShortArrayDefinition
     /**
      * @return array
      */
-    public function testShort()
+    public function testShortDefinition()
     {
         return [1];
     }

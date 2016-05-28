@@ -7,7 +7,7 @@ class RandomApi
     /**
      * @return integer
      */
-    public function test1()
+    public function testRand()
     {
         return rand(0, 100);
     }
@@ -15,15 +15,16 @@ class RandomApi
     /**
      * @return integer
      */
-    public function test2()
+    public function testSrand()
     {
         srand();
+        return 1;
     }
 
     /**
      * @return integer
      */
-    public function test3()
+    public function testGetRandMax()
     {
         return getrandmax();
     }
@@ -48,6 +49,6 @@ class RandomApi
         "type":"rand.api.migration",
         "message":"Function getrandmax() is not recommended, please use random_int/random_bytes (PHP 7) or mt_getrandmax (not cryptographically secure) instead.",
         "file":"RandomApi.php",
-        "line":27
+        "line":28
     }
 ]

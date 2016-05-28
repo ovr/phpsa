@@ -37,19 +37,19 @@ class VarExportUnexpected
 [
     {
         "type":"debug.code",
-        "message":"Function var_export() is a debug code, please don`t use it in production.",
+        "message":"Function var_export() is a debug function, please don`t use it in production.",
         "file":"VarExportUnexpected.php",
         "line":11
     },
     {
         "type":"debug.code",
-        "message":"Function var_export() is a debug code, please don`t use it in production.",
+        "message":"Function var_export() is a debug function, please don`t use it in production.",
         "file":"VarExportUnexpected.php",
         "line":22
     },
     {
         "type":"debug.code",
-        "message":"Function var_export() is a debug code, please don`t use it in production.",
+        "message":"Function var_export() is a debug function, please don`t use it in production.",
         "file":"VarExportUnexpected.php",
         "line":31
     }

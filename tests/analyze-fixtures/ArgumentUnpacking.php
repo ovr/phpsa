@@ -11,6 +11,14 @@ class ArgumentUnpacking
     {
         return func_get_args();
     }
+
+    /**
+    * @return array
+    */
+    public function testFuncGetArgsNotEmpty($a)
+    {
+        return func_get_args();
+    }
 }
 ?>
 ----------------------------

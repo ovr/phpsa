@@ -23,7 +23,7 @@ class AliasCheck extends AbstractFunctionCallAnalyzer
         if ($functionName && isset($this->map[$functionName])) {
             $context->notice(
                 'fcall.alias',
-                sprintf('%s() is an alias of function. Use %s(...).', $functionName, $this->map[$functionName]),
+                sprintf('%s() is an alias of another function. Use %s() instead.', $functionName, $this->map[$functionName]),
                 $funcCall
             );
         }

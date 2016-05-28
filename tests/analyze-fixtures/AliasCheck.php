@@ -7,9 +7,17 @@ class AliasCheck
     /**
      * @return bool
      */
-    public function testJoing()
+    public function testJoin()
     {
         return join('-', [1, 2]);
+    }
+
+    /**
+    * @return integer
+    */
+    public function testSizeOf()
+    {
+        return sizeof([1, 2]);
     }
 }
 
@@ -17,7 +25,14 @@ class AliasCheck
 ----------------------------
 [{
 "type": "fcall.alias",
-"message": "join() is an alias of function. Use implode(...).",
+"message": "join() is an alias of another function. Use implode() instead.",
 "file": "AliasCheck.php",
 "line": 11
-}]
+},
+{
+"type": "fcall.alias",
+"message": "sizeof() is an alias of another function. Use count() instead.",
+"file": "AliasCheck.php",
+"line": 19
+}
+]

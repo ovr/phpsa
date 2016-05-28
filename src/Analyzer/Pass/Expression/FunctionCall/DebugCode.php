@@ -31,7 +31,7 @@ class DebugCode extends AbstractFunctionCallAnalyzer
 
             $context->notice(
                 'debug.code',
-                sprintf('Function %s() is a debug code, please don`t use it in production.', $functionName),
+                sprintf('Function %s() is a debug function, please don`t use it in production.', $functionName),
                 $funcCall
             );
         }
