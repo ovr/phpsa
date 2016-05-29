@@ -151,6 +151,15 @@ class FunctionCall extends AbstractExpressionCompiler
                                         break;
                                 }
                                 break;
+                            case CompiledExpression::BOOLEAN:
+                                switch ($argument->getType()) {
+                                    case CompiledExpression::OBJECT:
+                                        break;
+                                    default:
+                                        $argumentsSuccessPass = false;
+                                        break;
+                                }
+                                break;
                             case CompiledExpression::CALLABLE_TYPE:
                                 switch ($argument->getType()) {
                                     case CompiledExpression::CALLABLE_TYPE:
