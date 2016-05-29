@@ -82,7 +82,7 @@ class Expression
             case Node\Expr\BinaryOp\Identical::class:
                 return new Expression\BinaryOp\Identical();
             case Node\Expr\BinaryOp\Concat::class:
-                return new Expression\Operators\Contact();
+                return new Expression\Operators\Concat();
             case Node\Expr\BinaryOp\NotIdentical::class:
                 return new Expression\BinaryOp\NotIdentical();
             case Node\Expr\BinaryOp\Equal::class:

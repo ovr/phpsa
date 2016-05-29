@@ -13,7 +13,7 @@ use PHPSA\Compiler\Expression\AbstractExpressionCompiler;
 use PHPSA\Context;
 use PHPSA\Compiler\Expression;
 
-class Contact extends AbstractExpressionCompiler
+class Concat extends AbstractExpressionCompiler
 {
     protected $name = 'PhpParser\Node\Expr\BinaryOp\Concat';
 
