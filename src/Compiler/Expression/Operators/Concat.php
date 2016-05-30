@@ -24,8 +24,9 @@ class Concat extends AbstractExpressionCompiler
      */
     protected function compile($expr, Context $context)
     {
-        $leftExpression = $context->getExpressionCompiler()->compile($expr->left);
-        $rightExpression = $context->getExpressionCompiler()->compile($expr->right);
+        $expressionCompiler = $context->getExpressionCompiler();
+        $leftExpression = $expressionCompiler->compile($expr->left);
+        $rightExpression = $expressionCompiler->compile($expr->right);
 
         switch ($leftExpression->getType()) {
             case CompiledExpression::ARR:
@@ -52,11 +53,13 @@ class Concat extends AbstractExpressionCompiler
             case CompiledExpression::NUMBER:
             case CompiledExpression::INTEGER:
             case CompiledExpression::DOUBLE:
+            case CompiledExpression::BOOLEAN:
                 switch ($rightExpression->getType()) {
                     case CompiledExpression::STRING:
                     case CompiledExpression::NUMBER:
                     case CompiledExpression::INTEGER:
                     case CompiledExpression::DOUBLE:
+                    case CompiledExpression::BOOLEAN:
                         return new CompiledExpression(
                             CompiledExpression::STRING,
                             $leftExpression->getValue() . $rightExpression->getValue()
@@ -66,6 +69,6 @@ class Concat extends AbstractExpressionCompiler
                 break;
         }
 
-        return new CompiledExpression(CompiledExpression::NULL);
+        return new CompiledExpression(CompiledExpression::STRING);
     }
 }
