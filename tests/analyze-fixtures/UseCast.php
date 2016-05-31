@@ -2,7 +2,7 @@
 
 namespace Tests\Compiling\Statements;
 
-class DebugCode
+class UseCast
 {
     /**
      * @return bool
