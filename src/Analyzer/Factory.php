@@ -30,6 +30,7 @@ class Factory
                 new AnalyzerPass\Expression\FunctionCall\DeprecatedIniOptions(),
                 new AnalyzerPass\Expression\FunctionCall\RegularExpressions(),
                 new AnalyzerPass\Expression\FunctionCall\ArgumentUnpacking(),
+                new AnalyzerPass\Expression\FunctionCall\DeprecatedFunctions(),
             ]
         );
         $analyzer->registerStatementPasses(
