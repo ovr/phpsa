@@ -45,6 +45,6 @@ class BitwiseOr extends AbstractExpressionCompiler
                 break;
         }
 
-        return $left;
+        return new CompiledExpression(CompiledExpression::UNKNOWN);
     }
 }
