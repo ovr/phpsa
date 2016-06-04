@@ -76,6 +76,8 @@ class FunctionCall extends AbstractExpressionCompiler
                     foreach ($arguments as $key => $argument) {
                         $parameter = $functionReflection->getParameter($key);
                         if (!$parameter) {
+                            $argumentsSuccessPass = false;
+
                             /**
                              * @todo Think a little bit more about it
                              */
