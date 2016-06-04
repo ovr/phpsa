@@ -76,11 +76,14 @@ What is needed or planned as future.
 #### Analyzer(s)
 
 - Alias Check
+- Argument Unpacking
 - Debug Code
+- Deprecated Functions
 - Deprecated Ini Options
 - Random Api Migration
 - Use Cast
 - Array short definition
+- Regular Expressions
 
 ## Installation
 

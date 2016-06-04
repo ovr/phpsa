@@ -85,10 +85,9 @@ class AnalyzeFixturesTest extends TestCase
 
         $compiler->compile($context);
 
-        self::assertEquals(
-            $application->getIssuesCollector()->getIssues(),
-            json_decode(trim($expectedDump), true)
-        );
+        foreach (json_decode(trim($expectedDump), true) as $check) {
+            self::assertEquals(in_array($check, $application->getIssuesCollector()->getIssues()), true);
+        }
     }
 
     /**
