@@ -41,7 +41,7 @@ class UnaryMinusTest extends \Tests\PHPSA\TestCase
 
         $this->assertInstanceOfCompiledExpression($compiledExpression);
         $this->assertSame(CompiledExpression::INTEGER, $compiledExpression->getType());
-        $this->assertSame(-$value, $compiledExpression->getValue());
+        $this->assertSame(- (int) $value, $compiledExpression->getValue());
     }
 
     /**
