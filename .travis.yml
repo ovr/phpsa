@@ -6,7 +6,7 @@ php:
   - 7.0
   - nightly
   - hhvm
-  - hhvm-nightly
+#  - hhvm-nightly - not supported now
 
 sudo: false
 
