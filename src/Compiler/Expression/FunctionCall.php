@@ -11,6 +11,7 @@ use Ovr\PHPReflection\Reflector;
 use PHPSA\CompiledExpression;
 use PHPSA\Context;
 use PHPSA\Compiler\Expression;
+use PHPSA\Definition\ClosureDefinition;
 
 class FunctionCall extends AbstractExpressionCompiler
 {
@@ -25,6 +26,13 @@ class FunctionCall extends AbstractExpressionCompiler
     {
         $expressionCompiler = $context->getExpressionCompiler();
         $fNameExpression = $expressionCompiler->compile($expr->name);
+
+        if ($fNameExpression->isCallable()) {
+            $value = $fNameExpression->getValue();
+            if ($value && $value instanceof ClosureDefinition) {
+                return $value->run($this->parseArgs($expr, clone $context), $context);
+            }
+        }
 
         if ($fNameExpression->isString() && $fNameExpression->isCorrectValue()) {
             $name = $fNameExpression->getValue();

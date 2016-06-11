@@ -107,6 +107,16 @@ class ClosureDefinition extends ParentDefinition
     }
 
     /**
+     * @param CompiledExpression[] $arguments
+     * @param Context $context
+     * @return CompiledExpression
+     */
+    public function run(array $arguments, Context $context)
+    {
+        return new CompiledExpression();
+    }
+
+    /**
      * @return string
      */
     public function getFilepath()

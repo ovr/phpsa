@@ -245,4 +245,12 @@ class CompiledExpression
     {
         return $this->variable;
     }
+
+    /**
+     * @return int
+     */
+    public function isCallable()
+    {
+        return $this->type = self::CALLABLE_TYPE;
+    }
 }
