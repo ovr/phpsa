@@ -24,7 +24,7 @@ trait ResolveExpressionTrait
 
         if ($funcNameCompiledExpression->isString() && $funcNameCompiledExpression->isCorrectValue()) {
             return $funcNameCompiledExpression->getValue();
-        } else {
+        } else if (!g$funcNameCompiledExpression->isCallable()) {
             $context->debug(
                 'Unexpected function name type ' . $funcNameCompiledExpression->getType(),
                 $funcCall->name
