@@ -22,11 +22,7 @@ class Closure extends AbstractExpressionCompiler
     {
         $closure = new ClosureDefinition($expr);
         $closure->setFilepath($context->getFilepath());
-
-        /**
-         * Force compile to save use context
-         */
-        $closure->compile(clone $context);
+        $closure->preCompile(clone $context);
 
         return new CompiledExpression(
             CompiledExpression::CALLABLE_TYPE,

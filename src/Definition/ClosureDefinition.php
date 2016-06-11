@@ -37,12 +37,32 @@ class ClosureDefinition extends ParentDefinition
      */
     protected $possibleReturnTypes = array();
 
+    protected $symbolTable = [];
+
     /**
      * @param Node\Expr\Closure $statement
      */
     public function __construct(Node\Expr\Closure $statement)
     {
         $this->statement = $statement;
+    }
+
+    /**
+     * @param Context $context
+     */
+    public function preCompile(Context $context)
+    {
+        if ($this->statement->uses) {
+            /**
+             * Store variables from User to next restore Context
+             */
+            foreach ($this->statement->uses as $variable) {
+                $variable = $context->getSymbol($variable->var);
+                if ($variable) {
+                    $this->symbolTable[$variable->getName()] = clone $variable;
+                }
+            }
+        }
     }
 
     /**
@@ -56,7 +76,6 @@ class ClosureDefinition extends ParentDefinition
         if ($this->compiled) {
             return true;
         }
-
 
         $context->setFilepath($this->filepath);
         $this->compiled = true;
