@@ -59,6 +59,8 @@ class ClosureDefinition extends ParentDefinition
             foreach ($this->statement->uses as $variable) {
                 $variable = $context->getSymbol($variable->var);
                 if ($variable) {
+                    $variable->incGets();
+
                     $this->symbolTable[$variable->getName()] = clone $variable;
                 }
             }
