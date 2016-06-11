@@ -21,6 +21,8 @@ class Closure extends AbstractExpressionCompiler
     protected function compile($expr, Context $context)
     {
         $closure = new ClosureDefinition($expr);
+        $closure->setFilepath($context->getFilepath());
+
         /**
          * Force compile to save use context
          */
