@@ -7,8 +7,6 @@ namespace PHPSA\Command;
 
 use PhpParser\ParserFactory;
 use PHPSA\Analyzer;
-use PHPSA\Analyzer\EventListener\ExpressionListener;
-use PHPSA\Analyzer\EventListener\StatementListener;
 use PHPSA\Application;
 use PHPSA\Compiler;
 use PHPSA\Configuration;
@@ -21,9 +19,7 @@ use SplFileInfo;
 use FilesystemIterator;
 use PhpParser\Node;
 use PhpParser\Parser;
-use Symfony\Component\Config\Definition\Processor;
 use Symfony\Component\Config\FileLocator;
-use Symfony\Component\Config\Loader\LoaderResolver;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
