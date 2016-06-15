@@ -6,6 +6,7 @@
 namespace PHPSA\Definition;
 
 use PHPSA\CompiledExpression;
+use PHPSA\Compiler\SymbolTable;
 use PHPSA\Context;
 use PhpParser\Node;
 
@@ -37,13 +38,17 @@ class ClosureDefinition extends ParentDefinition
      */
     protected $possibleReturnTypes = array();
 
-    protected $symbolTable = [];
+    /**
+     * @var SymbolTable
+     */
+    protected $symbolTable;
 
     /**
      * @param Node\Expr\Closure $statement
      */
     public function __construct(Node\Expr\Closure $statement)
     {
+        $this->symbolTable = new SymbolTable();
         $this->statement = $statement;
     }
 
@@ -61,7 +66,7 @@ class ClosureDefinition extends ParentDefinition
                 if ($variable) {
                     $variable->incGets();
 
-                    $this->symbolTable[$variable->getName()] = clone $variable;
+                    $this->symbolTable->add(clone $variable);
                 }
             }
         }
