@@ -7,7 +7,7 @@ class UseCast
     /**
      * @return bool
      */
-    public function testIntVal()
+    public function testIntval()
     {
         intval(1);
 
@@ -17,7 +17,7 @@ class UseCast
     /**
      * @return bool
      */
-    public function testBoolVal()
+    public function testBoolval()
     {
         boolval(1);
 
@@ -27,7 +27,7 @@ class UseCast
     /**
      * @return bool
      */
-    public function testFloatVal()
+    public function testFloatval()
     {
         floatval(1);
 
@@ -37,7 +37,7 @@ class UseCast
     /**
      * @return bool
      */
-    public function testDoubleVal()
+    public function testDoubleval()
     {
         doubleval(1);
 
@@ -47,9 +47,19 @@ class UseCast
     /**
      * @return bool
      */
-    public function testStrVal()
+    public function testStrval()
     {
         strval(1);
+
+        return true;
+    }
+
+    /**
+     * @return bool
+     */
+    public function testIntvalTwoArguments()
+    {
+        intval(7,2);
 
         return true;
     }

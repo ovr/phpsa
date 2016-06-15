@@ -85,8 +85,18 @@ class AnalyzeFixturesTest extends TestCase
 
         $compiler->compile($context);
 
-        foreach (json_decode(trim($expectedDump), true) as $check) {
-            self::assertEquals(in_array($check, $application->getIssuesCollector()->getIssues()), true);
+        $expectedArray = json_decode(trim($expectedDump), true);
+        $expectedType = $expectedArray[0]["type"];
+        $issues = $application->getIssuesCollector()->getIssues();
+        
+        foreach ($expectedArray as $check) {
+                self::assertEquals(in_array($check, $issues), true); // every expected Issue is in the collector
+        }
+
+        foreach ($issues as $check) {
+            if ($check["type"] == $expectedType) {
+                self::assertEquals(in_array($check, $expectedArray), true); // there is no other issue in the collector with the same type
+            }
         }
     }
 
