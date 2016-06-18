@@ -26,6 +26,8 @@ class MethodCall extends AbstractExpressionCompiler
         $expressionCompiler = $context->getExpressionCompiler();
         $methodNameCE = $expressionCompiler->compile($expr->name);
 
+        $compiledArguments = $this->parseArgs($expr->args, $context);
+
         $leftCE = $expressionCompiler->compile($expr->var);
         if ($leftCE->isObject()) {
             /** @var ClassDefinition $calledObject */
@@ -58,7 +60,7 @@ class MethodCall extends AbstractExpressionCompiler
                         );
                     }
 
-                    return $method->run($context, $expr->args);
+                    return $method->run(clone $context, $compiledArguments);
                 }
 
                 return new CompiledExpression;
@@ -74,5 +76,22 @@ class MethodCall extends AbstractExpressionCompiler
 
         $context->debug('[Unknown] @todo MethodCall');
         return new CompiledExpression;
+    }
+
+    /**
+     * @param \PhpParser\Node\Arg[] $arguments
+     * @return CompiledExpression[]
+     */
+    protected function parseArgs(array $arguments = null, Context $context)
+    {
+        $compiled = array();
+
+        if ($arguments) {
+            foreach ($arguments as $argument) {
+                $compiled[] = $context->getExpressionCompiler()->compile($argument->value);
+            }
+        }
+
+        return $compiled;
     }
 }

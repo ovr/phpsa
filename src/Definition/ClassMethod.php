@@ -123,18 +123,12 @@ class ClassMethod extends AbstractDefinition
 
     /**
      * @param Context $context
-     * @param Node\Arg[] $args
+     * @param CompiledExpression[] $args
      * @return CompiledExpression
      * @throws \PHPSA\Exception\RuntimeException
      */
     public function run(Context $context, array $args = null)
     {
-        if ($args) {
-            foreach ($args as $argument) {
-                $arguments[] = $context->getExpressionCompiler()->compile($argument->value);
-            }
-        }
-
         return new CompiledExpression();
     }
 
