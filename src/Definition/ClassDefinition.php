@@ -154,8 +154,8 @@ class ClassDefinition extends ParentDefinition
             return true;
         }
 
-        if ($inherit && $this->extendsClassDefinition && $this->extendsClassDefinition->hasMethod($name, true)) {
-            $method = $this->extendsClassDefinition->getMethod($name);
+        if ($inherit && $this->extendsClassDefinition && $this->extendsClassDefinition->hasMethod($name, $inherit)) {
+            $method = $this->extendsClassDefinition->getMethod($name, $inherit);
             return $method && ($method->isPublic() || $method->isProtected());
         }
 
@@ -183,7 +183,7 @@ class ClassDefinition extends ParentDefinition
         }
 
         if ($inherit && $this->extendsClassDefinition) {
-            return $this->extendsClassDefinition->getMethod($name, true);
+            return $this->extendsClassDefinition->getMethod($name, $inherit);
         }
 
         return null;
