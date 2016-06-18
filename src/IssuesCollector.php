@@ -17,6 +17,12 @@ class IssuesCollector
      */
     protected $issues = [];
 
+    /**
+     * @param int $type
+     * @param string $message
+     * @param string $file
+     * @param int $line
+     */
     public function addIssue($type, $message, $file, $line)
     {
         $this->issues[] = [

@@ -40,7 +40,6 @@ class Minus extends AbstractExpressionCompiler
                         return CompiledExpression::fromZvalValue(
                             $left->getValue() + $expExpression->getValue()
                         );
-                        break;
                 }
                 break;
         }

@@ -8,8 +8,6 @@ class Nil extends \PhpParser\Node\Scalar
     public $value;
 
     /**
-     * Constructs a boolean node.
-     *
      * @param null $value
      * @param array $attributes Additional attributes
      */
@@ -20,9 +18,12 @@ class Nil extends \PhpParser\Node\Scalar
     }
 
     //@codeCoverageIgnoreStart
+    /**
+     * @return array
+     */
     public function getSubNodeNames()
     {
-        return array('value');
+        return ['value'];
     }
     //@codeCoverageIgnoreEnd
 }

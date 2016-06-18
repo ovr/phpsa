@@ -144,14 +144,6 @@ class Context
         $this->symbols = array();
     }
 
-    public function dump()
-    {
-        /**
-         * @expected
-         */
-        var_dump($this->symbols);
-    }
-
     /**
      * @param $name
      * @return Variable|null

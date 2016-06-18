@@ -26,9 +26,12 @@ class Fake extends \PhpParser\Node\Scalar
     }
 
     //@codeCoverageIgnoreStart
+    /**
+     * @return array
+     */
     public function getSubNodeNames()
     {
-        return array('value', 'type');
+        return ['value', 'type'];
     }
     //@codeCoverageIgnoreEnd
 }

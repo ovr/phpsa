@@ -20,9 +20,12 @@ class Boolean extends \PhpParser\Node\Scalar
     }
 
     //@codeCoverageIgnoreStart
+    /**
+     * @return array
+     */
     public function getSubNodeNames()
     {
-        return array('value');
+        return ['value'];
     }
     //@codeCoverageIgnoreEnd
 }

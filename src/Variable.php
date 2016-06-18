@@ -164,17 +164,26 @@ class Variable
         }
     }
 
+    /**
+     * Increment uses for gets and sets
+     */
     public function incUse()
     {
         $this->incGets();
         $this->incSets();
     }
 
+    /**
+     * Increment value of the variable
+     */
     public function inc()
     {
         $this->value++;
     }
 
+    /**
+     * Decrement value of the variable
+     */
     public function dec()
     {
         $this->value--;

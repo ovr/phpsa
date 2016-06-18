@@ -15,6 +15,9 @@ class ScopePointer
      */
     protected $object;
 
+    /**
+     * @param $object
+     */
     public function __construct($object)
     {
         $this->object = $object;
