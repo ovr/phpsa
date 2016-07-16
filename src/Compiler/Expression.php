@@ -358,11 +358,12 @@ class Expression
      */
     public function getNodeName(Node\Name $expr)
     {
-        if ($expr->toString() === 'null') {
+        $nodeString = $expr->toString();
+        if ($nodeString === 'null') {
             return new CompiledExpression(CompiledExpression::NULL);
         }
 
-        if (in_array($expr, ['parent'], true)) {
+        if (in_array($nodeString, ['parent'], true)) {
             /** @var ClassDefinition $scope */
             $scope = $this->context->scope;
             assert($scope instanceof ClassDefinition);
@@ -381,11 +382,11 @@ class Expression
             }
         }
 
-        if (in_array($expr, ['self', 'static'], true)) {
+        if (in_array($nodeString, ['self', 'static'], true)) {
             return CompiledExpression::fromZvalValue($this->context->scope);
         }
 
-        if (defined($expr)) {
+        if (defined($nodeString)) {
             return CompiledExpression::fromZvalValue(constant($expr));
         }
 
