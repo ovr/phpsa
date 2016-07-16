@@ -251,6 +251,6 @@ class CompiledExpression
      */
     public function isCallable()
     {
-        return $this->type = self::CALLABLE_TYPE;
+        return $this->type == self::CALLABLE_TYPE;
     }
 }
