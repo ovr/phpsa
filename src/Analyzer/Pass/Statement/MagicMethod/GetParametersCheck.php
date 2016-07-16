@@ -14,11 +14,6 @@ use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 
 class GetParametersCheck implements ConfigurablePassInterface, AnalyzerPassInterface
 {
-    public function __clone($name, $value)
-    {
-
-    }
-
     /**
      * @param ClassMethod $methodStmt
      * @param Context $context
