@@ -26,7 +26,7 @@ trait ResolveExpressionTrait
             return $funcNameCompiledExpression->getValue();
         } else if (!$funcNameCompiledExpression->isCallable()) {
             $context->debug(
-                'Unexpected function name type ' . $funcNameCompiledExpression->getType(),
+                'Unexpected function name type ' . $funcNameCompiledExpression->getTypeName(),
                 $funcCall->name
             );
         }
