@@ -38,6 +38,8 @@ class Statement
                 return new Statement\TryCatchSt();
             case Stmt\Catch_::class:
                 return new Statement\CatchSt();
+            case Stmt\Throw_::class:
+                return new Statement\ThrowSt();
         }
 
         throw new RuntimeException('Unknown statement: ' . get_class($stmt));
