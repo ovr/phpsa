@@ -30,6 +30,10 @@ class UnexpectedUseOfThis implements Pass\ConfigurablePassInterface, Pass\Analyz
             $result = $result || $this->inspectTryCatch($stmt, $context);
         }
 
+        if ($stmt instanceof Stmt\Foreach_) {
+            $result = $result || $this->inspectForeach($stmt, $context);
+        }
+
         return $result;
     }
 
@@ -54,6 +58,7 @@ class UnexpectedUseOfThis implements Pass\ConfigurablePassInterface, Pass\Analyz
         return [
             Stmt\ClassMethod::class,
             Stmt\TryCatch::class,
+            Stmt\Foreach_::class,
         ];
     }
 
@@ -102,5 +107,25 @@ class UnexpectedUseOfThis implements Pass\ConfigurablePassInterface, Pass\Analyz
         }
 
         return $result;
+    }
+
+    /**
+     * @param Stmt\Foreach_ $foreachStmt
+     * @param Context $context
+     * @return bool
+     */
+    private function inspectForeach(Stmt\Foreach_ $foreachStmt, Context $context)
+    {
+        if ($foreachStmt->valueVar->name === 'this') {
+            $context->notice(
+                'this.foreach_variable',
+                'Foreach loop can not use a value variable named "this".',
+                $foreachStmt->valueVar
+            );
+
+            return true;
+        }
+
+        return false;
     }
 }
