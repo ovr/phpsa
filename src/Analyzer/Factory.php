@@ -37,7 +37,8 @@ class Factory
         $analyzer->registerStatementPasses(
             [
                 new AnalyzerPass\Statement\MissingBreakStatement(),
-                new AnalyzerPass\Statement\MethodCannotReturn()
+                new AnalyzerPass\Statement\MethodCannotReturn(),
+                new AnalyzerPass\Statement\UnexpectedUseOfThis(),
             ]
         );
         $analyzer->bind();

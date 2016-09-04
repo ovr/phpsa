@@ -1,22 +1,17 @@
 <?php
 /**
- * @author Patsura Dmitry https://github.com/ovr <talk@dmtry.me>
+ * @author Kévin Gomez https://github.com/K-Phoen <contact@kevingomez.fr>
  */
 
 namespace PHPSA\Analyzer\Pass\Statement;
 
 use PhpParser\Node\Stmt\ClassMethod;
-use PhpParser\Node\Stmt\Return_;
-use PHPSA\Analyzer\Helper\ResolveExpressionTrait;
-use PHPSA\Analyzer\Pass\AnalyzerPassInterface;
-use PHPSA\Analyzer\Pass\ConfigurablePassInterface;
+use PHPSA\Analyzer\Pass;
 use PHPSA\Context;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 
-class MethodCannotReturn implements ConfigurablePassInterface, AnalyzerPassInterface
+class UnexpectedUseOfThis implements Pass\ConfigurablePassInterface, Pass\AnalyzerPassInterface
 {
-    use ResolveExpressionTrait;
-
     /**
      * @param ClassMethod $methodStmt
      * @param Context $context
@@ -24,27 +19,7 @@ class MethodCannotReturn implements ConfigurablePassInterface, AnalyzerPassInter
      */
     public function pass(ClassMethod $methodStmt, Context $context)
     {
-        if (count($methodStmt->stmts) == 0) {
-            return false;
-        }
-
-        $result = false;
-
-        if ($methodStmt->name == '__construct' || $methodStmt->name == '__destruct') {
-            foreach ($this->findReturnStatement($methodStmt->stmts) as $returnStmt) {
-                if (!$returnStmt->expr) {
-                    continue;
-                }
-
-                $context->notice(
-                    'return.construct',
-                    sprintf('Method %s cannot return a value.', $methodStmt->name),
-                    $returnStmt
-                );
-
-                $result = true;
-            }
-        }
+        $result = $this->inspectClassMethodArguments($methodStmt, $context);
 
         return $result;
     }
@@ -55,7 +30,7 @@ class MethodCannotReturn implements ConfigurablePassInterface, AnalyzerPassInter
     public function getConfiguration()
     {
         $treeBuilder = new TreeBuilder();
-        $treeBuilder->root('method_cannot_return')
+        $treeBuilder->root('unexpected_use_of_this')
             ->canBeDisabled()
         ;
 
@@ -68,7 +43,30 @@ class MethodCannotReturn implements ConfigurablePassInterface, AnalyzerPassInter
     public function getRegister()
     {
         return [
-            \PhpParser\Node\Stmt\ClassMethod::class
+            ClassMethod::class
         ];
+    }
+
+    /**
+     * @param ClassMethod $methodStmt
+     * @param Context $context
+     * @return bool
+     */
+    private function inspectClassMethodArguments(ClassMethod $methodStmt, Context $context)
+    {
+        /** @var \PhpParser\Node\Param $param */
+        foreach ($methodStmt->getParams() as $param) {
+            if ($param->name === 'this') {
+                $context->notice(
+                    'this.method_parameter',
+                    sprintf('Method %s can not have a parameter named "this".', $methodStmt->name),
+                    $param
+                );
+
+                return true;
+            }
+        }
+
+        return false;
     }
 }
