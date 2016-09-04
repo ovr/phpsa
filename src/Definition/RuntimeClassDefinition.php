@@ -59,6 +59,9 @@ class RuntimeClassDefinition extends ClassDefinition
         }
 
         $parent = $this->reflection->getParentClass();
+        if (!$parent) {
+            return true;
+        }
 
         return !$parent->hasConstant($name);
     }
@@ -104,7 +107,13 @@ class RuntimeClassDefinition extends ClassDefinition
      */
     public function getExtendsClassDefinition()
     {
-        throw new NotImplementedException(__FUNCTION__);
+        $parentReflection = $this->reflection->getParentClass();
+
+        if (!$parentReflection) {
+            return null;
+        }
+
+        return new static($parentReflection);
     }
 
     /**
@@ -112,6 +121,12 @@ class RuntimeClassDefinition extends ClassDefinition
      */
     public function getExtendsClass()
     {
-        throw new NotImplementedException(__FUNCTION__);
+        $parentReflection = $this->reflection->getParentClass();
+
+        if (!$parentReflection) {
+            return null;
+        }
+
+        return $parentReflection->getName();
     }
 }

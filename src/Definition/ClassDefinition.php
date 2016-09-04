@@ -169,7 +169,7 @@ class ClassDefinition extends ParentDefinition
      */
     public function hasConst($name, $inherit = false)
     {
-        if ($inherit && $this->extendsClassDefinition && $this->extendsClassDefinition->hasConst($name)) {
+        if ($inherit && $this->extendsClassDefinition && $this->extendsClassDefinition->hasConst($name, $inherit)) {
             return true;
         }
 
