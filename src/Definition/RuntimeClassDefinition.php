@@ -44,12 +44,23 @@ class RuntimeClassDefinition extends ClassDefinition
     }
 
     /**
-     * @param $name
+     * @param string $name
+     * @param bool $inherit
      * @return bool
      */
-    public function hasConst($name)
+    public function hasConst($name, $inherit = false)
     {
-        return $this->reflection->hasConstant($name);
+        if (!$this->reflection->hasConstant($name)) {
+            return false;
+        }
+
+        if ($inherit) {
+            return true;
+        }
+
+        $parent = $this->reflection->getParentClass();
+
+        return !$parent->hasConstant($name);
     }
 
     /**

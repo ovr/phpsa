@@ -184,7 +184,7 @@ class Expression
                 $this->context
             )
         );
-        
+
         $className = get_class($expr);
         switch ($className) {
             case Node\Arg::class:
@@ -348,7 +348,7 @@ class Expression
     public function getFullyQualifiedNodeName(Node\Name\FullyQualified $expr)
     {
         $this->context->debug('Unimplemented FullyQualified', $expr);
-        
+
         return new CompiledExpression;
     }
 
@@ -564,7 +564,7 @@ class Expression
         if ($leftCE->isObject()) {
             $leftCEValue = $leftCE->getValue();
             if ($leftCEValue instanceof ClassDefinition) {
-                if (!$leftCEValue->hasConst($expr->name)) {
+                if (!$leftCEValue->hasConst($expr->name, true)) {
                     $this->context->notice(
                         'undefined-const',
                         sprintf('Constant %s does not exist in %s scope', $expr->name, $expr->class),

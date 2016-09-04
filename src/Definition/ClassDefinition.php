@@ -163,11 +163,16 @@ class ClassDefinition extends ParentDefinition
     }
 
     /**
-     * @param $name
+     * @param string $name
+     * @param bool $inherit
      * @return bool
      */
-    public function hasConst($name)
+    public function hasConst($name, $inherit = false)
     {
+        if ($inherit && $this->extendsClassDefinition && $this->extendsClassDefinition->hasConst($name)) {
+            return true;
+        }
+
         return isset($this->constants[$name]);
     }
 
