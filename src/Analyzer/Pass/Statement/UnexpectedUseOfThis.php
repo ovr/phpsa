@@ -5,7 +5,8 @@
 
 namespace PHPSA\Analyzer\Pass\Statement;
 
-use PhpParser\Node\Stmt\ClassMethod;
+use PhpParser\Node\Stmt;
+use PhpParser\Node;
 use PHPSA\Analyzer\Pass;
 use PHPSA\Context;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
@@ -13,13 +14,21 @@ use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 class UnexpectedUseOfThis implements Pass\ConfigurablePassInterface, Pass\AnalyzerPassInterface
 {
     /**
-     * @param ClassMethod $methodStmt
+     * @param Node\Stmt $stmt
      * @param Context $context
      * @return bool
      */
-    public function pass(ClassMethod $methodStmt, Context $context)
+    public function pass(Node\Stmt $stmt, Context $context)
     {
-        $result = $this->inspectClassMethodArguments($methodStmt, $context);
+        $result = false;
+
+        if ($stmt instanceof Stmt\ClassMethod) {
+            $result = $result || $this->inspectClassMethodArguments($stmt, $context);
+        }
+
+        if ($stmt instanceof Stmt\TryCatch) {
+            $result = $result || $this->inspectTryCatch($stmt, $context);
+        }
 
         return $result;
     }
@@ -43,16 +52,17 @@ class UnexpectedUseOfThis implements Pass\ConfigurablePassInterface, Pass\Analyz
     public function getRegister()
     {
         return [
-            ClassMethod::class
+            Stmt\ClassMethod::class,
+            Stmt\TryCatch::class,
         ];
     }
 
     /**
-     * @param ClassMethod $methodStmt
+     * @param Stmt\ClassMethod $methodStmt
      * @param Context $context
      * @return bool
      */
-    private function inspectClassMethodArguments(ClassMethod $methodStmt, Context $context)
+    private function inspectClassMethodArguments(Stmt\ClassMethod $methodStmt, Context $context)
     {
         /** @var \PhpParser\Node\Param $param */
         foreach ($methodStmt->getParams() as $param) {
@@ -68,5 +78,29 @@ class UnexpectedUseOfThis implements Pass\ConfigurablePassInterface, Pass\Analyz
         }
 
         return false;
+    }
+
+    /**
+     * @param Stmt\TryCatch $tryCatchStmt
+     * @param Context $context
+     * @return bool
+     */
+    private function inspectTryCatch(Stmt\TryCatch $tryCatchStmt, Context $context)
+    {
+        $result = false;
+
+        /** @var Stmt\Catch_ $catch */
+        foreach ($tryCatchStmt->catches as $catch) {
+            if ($catch->var === 'this') {
+                $result = true;
+                $context->notice(
+                    'this.catch_variable',
+                    'Catch block can not have a catch variable named "this".',
+                    $catch
+                );
+            }
+        }
+
+        return $result;
     }
 }
