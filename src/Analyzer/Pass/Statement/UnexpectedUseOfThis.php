@@ -34,6 +34,10 @@ class UnexpectedUseOfThis implements Pass\ConfigurablePassInterface, Pass\Analyz
             $result = $result || $this->inspectForeach($stmt, $context);
         }
 
+        if ($stmt instanceof Stmt\Static_) {
+            $result = $result || $this->inspectStaticVar($stmt, $context);
+        }
+
         return $result;
     }
 
@@ -59,6 +63,8 @@ class UnexpectedUseOfThis implements Pass\ConfigurablePassInterface, Pass\Analyz
             Stmt\ClassMethod::class,
             Stmt\TryCatch::class,
             Stmt\Foreach_::class,
+            Stmt\StaticVar::class,
+            Stmt\Static_::class,
         ];
     }
 
@@ -127,5 +133,30 @@ class UnexpectedUseOfThis implements Pass\ConfigurablePassInterface, Pass\Analyz
         }
 
         return false;
+    }
+
+    /**
+     * @param Stmt\Static_ $staticStmt
+     * @param Context $context
+     * @return bool
+     */
+    private function inspectStaticVar(Stmt\Static_ $staticStmt, Context $context)
+    {
+        $result = false;
+
+        /** @var Stmt\StaticVar $var */
+        foreach ($staticStmt->vars as $var) {
+            if ($var->name === 'this') {
+                $result = true;
+
+                $context->notice(
+                    'this.static_variable',
+                    'Can not declare a static variable named "this".',
+                    $var
+                );
+            }
+        }
+
+        return $result;
     }
 }

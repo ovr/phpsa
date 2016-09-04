@@ -49,7 +49,7 @@ class UnexpectedUseOfThis
      */
     public function thisAsGlobalVariable()
     {
-        static $this;
+        global $this;
 
         return 'Fatal error: Cannot use $this as global variable';
     }
