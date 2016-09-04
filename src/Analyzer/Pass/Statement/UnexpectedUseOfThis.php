@@ -38,6 +38,10 @@ class UnexpectedUseOfThis implements Pass\ConfigurablePassInterface, Pass\Analyz
             $result = $result || $this->inspectStaticVar($stmt, $context);
         }
 
+        if ($stmt instanceof Stmt\Global_) {
+            $result = $result || $this->inspectGlobalVar($stmt, $context);
+        }
+
         return $result;
     }
 
@@ -63,8 +67,8 @@ class UnexpectedUseOfThis implements Pass\ConfigurablePassInterface, Pass\Analyz
             Stmt\ClassMethod::class,
             Stmt\TryCatch::class,
             Stmt\Foreach_::class,
-            Stmt\StaticVar::class,
             Stmt\Static_::class,
+            Stmt\Global_::class,
         ];
     }
 
@@ -152,6 +156,30 @@ class UnexpectedUseOfThis implements Pass\ConfigurablePassInterface, Pass\Analyz
                 $context->notice(
                     'this.static_variable',
                     'Can not declare a static variable named "this".',
+                    $var
+                );
+            }
+        }
+
+        return $result;
+    }
+
+    /**
+     * @param Stmt\Global_ $globalStmt
+     * @param Context $context
+     * @return bool
+     */
+    private function inspectGlobalVar(Stmt\Global_ $globalStmt, Context $context)
+    {
+        $result = false;
+
+        foreach ($globalStmt->vars as $var) {
+            if ($var->name === 'this') {
+                $result = true;
+
+                $context->notice(
+                    'this.global_variable',
+                    'Can not declare a global variable named "this".',
                     $var
                 );
             }
