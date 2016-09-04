@@ -55,7 +55,7 @@ class UnexpectedUseOfThis implements Pass\ConfigurablePassInterface, Pass\Analyz
     public function getConfiguration()
     {
         $treeBuilder = new TreeBuilder();
-        $treeBuilder->root('unexpected_use_of_this')
+        $treeBuilder->root('unexpected_use.this')
             ->canBeDisabled()
         ;
 
@@ -88,7 +88,7 @@ class UnexpectedUseOfThis implements Pass\ConfigurablePassInterface, Pass\Analyz
         foreach ($methodStmt->getParams() as $param) {
             if ($param->name === 'this') {
                 $context->notice(
-                    'this.method_parameter',
+                    'unexpected_use.this',
                     sprintf('Method %s can not have a parameter named "this".', $methodStmt->name),
                     $param
                 );
@@ -114,7 +114,7 @@ class UnexpectedUseOfThis implements Pass\ConfigurablePassInterface, Pass\Analyz
             if ($catch->var === 'this') {
                 $result = true;
                 $context->notice(
-                    'this.catch_variable',
+                    'unexpected_use.this',
                     'Catch block can not have a catch variable named "this".',
                     $catch
                 );
@@ -133,7 +133,7 @@ class UnexpectedUseOfThis implements Pass\ConfigurablePassInterface, Pass\Analyz
     {
         if ($foreachStmt->valueVar->name === 'this') {
             $context->notice(
-                'this.foreach_variable',
+                'unexpected_use.this',
                 'Foreach loop can not use a value variable named "this".',
                 $foreachStmt->valueVar
             );
@@ -159,7 +159,7 @@ class UnexpectedUseOfThis implements Pass\ConfigurablePassInterface, Pass\Analyz
                 $result = true;
 
                 $context->notice(
-                    'this.static_variable',
+                    'unexpected_use.this',
                     'Can not declare a static variable named "this".',
                     $var
                 );
@@ -183,7 +183,7 @@ class UnexpectedUseOfThis implements Pass\ConfigurablePassInterface, Pass\Analyz
                 $result = true;
 
                 $context->notice(
-                    'this.global_variable',
+                    'unexpected_use.this',
                     'Can not declare a global variable named "this".',
                     $var
                 );
@@ -207,7 +207,7 @@ class UnexpectedUseOfThis implements Pass\ConfigurablePassInterface, Pass\Analyz
                 $result = true;
 
                 $context->notice(
-                    'this.unset',
+                    'unexpected_use.this',
                     'Can not unset $this.',
                     $var
                 );
