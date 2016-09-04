@@ -42,6 +42,10 @@ class UnexpectedUseOfThis implements Pass\ConfigurablePassInterface, Pass\Analyz
             $result = $result || $this->inspectGlobalVar($stmt, $context);
         }
 
+        if ($stmt instanceof Stmt\Unset_) {
+            $result = $result || $this->inspectUnset($stmt, $context);
+        }
+
         return $result;
     }
 
@@ -69,6 +73,7 @@ class UnexpectedUseOfThis implements Pass\ConfigurablePassInterface, Pass\Analyz
             Stmt\Foreach_::class,
             Stmt\Static_::class,
             Stmt\Global_::class,
+            Stmt\Unset_::class,
         ];
     }
 
@@ -180,6 +185,30 @@ class UnexpectedUseOfThis implements Pass\ConfigurablePassInterface, Pass\Analyz
                 $context->notice(
                     'this.global_variable',
                     'Can not declare a global variable named "this".',
+                    $var
+                );
+            }
+        }
+
+        return $result;
+    }
+
+    /**
+     * @param Stmt\Unset_ $unsetStmt
+     * @param Context $context
+     * @return bool
+     */
+    private function inspectUnset(Stmt\Unset_ $unsetStmt, Context $context)
+    {
+        $result = false;
+
+        foreach ($unsetStmt->vars as $var) {
+            if ($var->name === 'this') {
+                $result = true;
+
+                $context->notice(
+                    'this.unset',
+                    'Can not unset $this.',
                     $var
                 );
             }
