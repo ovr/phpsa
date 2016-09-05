@@ -109,4 +109,12 @@ class FunctionDefinition extends ParentDefinition
     {
         return $this->namespace;
     }
+
+    /**
+    * @return array
+    */
+    public function getParams()
+    {
+        return $this->statement->params;
+    }
 }
