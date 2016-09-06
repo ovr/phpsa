@@ -28,7 +28,7 @@ class AliasManager
 
     /**
      * Checks whether a namespace was imported via use statement.
-     * 
+     *
      * @param string $classNS
      * @return bool
      */

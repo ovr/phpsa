@@ -55,7 +55,7 @@ class Application extends \Symfony\Component\Console\Application
     }
 
     /**
-     * Returns 
+     * Returns CV Version.
      *
      * @return string
      */
