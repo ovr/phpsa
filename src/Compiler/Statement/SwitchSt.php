@@ -7,7 +7,6 @@ namespace PHPSA\Compiler\Statement;
 
 use PHPSA\CompiledExpression;
 use PHPSA\Context;
-use PHPSA\Compiler\Expression;
 
 class SwitchSt extends AbstractCompiler
 {
@@ -28,23 +27,9 @@ class SwitchSt extends AbstractCompiler
                     $context->getExpressionCompiler()->compile($case->cond);
                 }
 
-                if (count($case->stmts) > 0) {
-                    $beforeStatement = false;
-
+                if (count($case->stmts)) {
                     foreach ($case->stmts as $caseStatements) {
                         \PHPSA\nodeVisitorFactory($caseStatements, $context);
-
-                        if ($beforeStatement) {
-                            if ($beforeStatement instanceof \PhpParser\Node\Stmt\Return_
-                                && $caseStatements instanceof \PhpParser\Node\Stmt\Break_) {
-                                $context->notice(
-                                    'switch.unneeded-break',
-                                    'Break after return statement is not needed',
-                                    $caseStatements
-                                );
-                            }
-                        }
-                        $beforeStatement = $caseStatements;
                     }
                 }
             }
