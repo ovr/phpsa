@@ -59,6 +59,18 @@ class MissingBreakStatement implements Pass\ConfigurablePassInterface, Pass\Anal
      */
     private function checkCaseStatement(Stmt\Case_ $case, Context $context)
     {
+        /*
+         * switch(…) {
+         *     case 41:
+         *     case 42:
+         *     case 43:
+         *         return 'the truth, or almost.';
+         * }
+         */
+        if (!$case->stmts) {
+            return false;
+        }
+
         foreach ($case->stmts as $node) {
             // look for a break statement
             if ($node instanceof Stmt\Break_) {
