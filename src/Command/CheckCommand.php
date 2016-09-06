@@ -64,29 +64,23 @@ class CheckCommand extends Command
             $output->writeln('<error>It is highly recommended to disable the XDebug extension before invoking this command.</error>');
         }
 
-        $parser = (new ParserFactory())->create(ParserFactory::PREFER_PHP7, new \PhpParser\Lexer\Emulative(
-            array(
-                'usedAttributes' => array(
-                    'comments',
-                    'startLine',
-                    'endLine',
-                    'startTokenPos',
-                    'endTokenPos'
-                )
-            )
-        ));
+        $parser = (new ParserFactory())->create(ParserFactory::PREFER_PHP7, new \PhpParser\Lexer\Emulative([
+            'usedAttributes' => [
+                'comments',
+                'startLine',
+                'endLine',
+                'startTokenPos',
+                'endTokenPos'
+            ]
+        ]));
 
         /** @var Application $application */
         $application = $this->getApplication();
         $application->compiler = new Compiler();
 
-        $loader = new ConfigurationLoader(
-            new FileLocator(
-                [
-                    realpath($input->getArgument('path')) . DIRECTORY_SEPARATOR
-                ]
-            )
-        );
+        $loader = new ConfigurationLoader(new FileLocator([
+            realpath($input->getArgument('path')) . DIRECTORY_SEPARATOR
+        ]));
 
         $application->configuration = new Configuration(
             $loader->load('.phpsa.yml')
@@ -121,7 +115,7 @@ class CheckCommand extends Command
 
             /** @var SplFileInfo $file */
             foreach ($directoryIterator as $file) {
-                if ($file->getExtension() != 'php') {
+                if ($file->getExtension() !== 'php') {
                     continue;
                 }
 
@@ -139,7 +133,7 @@ class CheckCommand extends Command
 
             /** @var SplFileInfo $file */
             foreach ($directoryIterator as $file) {
-                if ($file->getExtension() != 'php') {
+                if ($file->getExtension() !== 'php') {
                     continue;
                 }
 

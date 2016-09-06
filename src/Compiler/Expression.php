@@ -745,11 +745,11 @@ class Expression
      */
     protected function getArray(Node\Expr\Array_ $expr)
     {
-        if ($expr->items === array()) {
-            return new CompiledExpression(CompiledExpression::ARR, array());
+        if ($expr->items === []) {
+            return new CompiledExpression(CompiledExpression::ARR, []);
         }
 
-        $resultArray = array();
+        $resultArray = [];
 
         foreach ($expr->items as $item) {
             $compiledValueResult = $this->compile($item->value);

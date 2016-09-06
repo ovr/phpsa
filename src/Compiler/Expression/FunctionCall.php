@@ -238,7 +238,7 @@ class FunctionCall extends AbstractExpressionCompiler
      */
     protected function parseArgs($expr, Context $context)
     {
-        $arguments = array();
+        $arguments = [];
 
         foreach ($expr->args as $argument) {
             $arguments[] = $context->getExpressionCompiler()->compile($argument->value);

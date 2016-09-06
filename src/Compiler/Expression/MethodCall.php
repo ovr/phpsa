@@ -78,11 +78,12 @@ class MethodCall extends AbstractExpressionCompiler
 
     /**
      * @param \PhpParser\Node\Arg[] $arguments
+     * @param Context $context
      * @return CompiledExpression[]
      */
     protected function parseArgs(array $arguments, Context $context)
     {
-        $compiled = array();
+        $compiled = [];
 
         if ($arguments) {
             foreach ($arguments as $argument) {
