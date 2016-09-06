@@ -34,7 +34,11 @@ class ArrayDuplicateKeys implements Pass\AnalyzerPassInterface, Pass\Configurabl
             if (isset($keys[$key])) {
                 $context->notice(
                     'array.duplicate_keys',
-                    sprintf('Duplicate array key "%s" in array definition (previously declared in line %d).', $key, $keys[$key]->getLine()),
+                    sprintf(
+                        'Duplicate array key "%s" in array definition (previously declared in line %d).',
+                        $key,
+                        $keys[$key]->getLine()
+                    ),
                     $item
                 );
 
