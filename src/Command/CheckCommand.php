@@ -17,8 +17,6 @@ use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
 use SplFileInfo;
 use FilesystemIterator;
-use PhpParser\Node;
-use PhpParser\Parser;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
@@ -96,7 +94,7 @@ class CheckCommand extends Command
 
         $em = EventManager::getInstance();
         Analyzer\Factory::factory($em);
-        
+
         $context = new Context($output, $application, $em);
 
         /**

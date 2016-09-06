@@ -7,7 +7,6 @@ namespace PHPSA\Compiler\Statement;
 
 use PHPSA\CompiledExpression;
 use PHPSA\Context;
-use PHPSA\Compiler\Expression;
 
 class CatchSt extends AbstractCompiler
 {

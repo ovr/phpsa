@@ -10,7 +10,6 @@ namespace PHPSA\Compiler\Expression;
 use Ovr\PHPReflection\Reflector;
 use PHPSA\CompiledExpression;
 use PHPSA\Context;
-use PHPSA\Compiler\Expression;
 use PHPSA\Definition\ClosureDefinition;
 
 class FunctionCall extends AbstractExpressionCompiler

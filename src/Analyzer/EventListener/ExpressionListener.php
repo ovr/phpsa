@@ -5,7 +5,6 @@
 
 namespace PHPSA\Analyzer\EventListener;
 
-use PhpParser\Node;
 use PHPSA\Analyzer\Pass\FunctionCall\PassFunctionCallInterface;
 use Webiny\Component\EventManager\EventListener;
 

@@ -5,11 +5,8 @@
 
 namespace PHPSA\Definition;
 
-use PhpParser\Node;
-use PHPSA\CompiledExpression;
 use PHPSA\Context;
 use PHPSA\ScopePointer;
-use PHPSA\Variable;
 
 abstract class AbstractDefinition
 {

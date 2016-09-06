@@ -5,12 +5,10 @@
 
 namespace PHPSA\Compiler\Expression;
 
-use PhpParser\Node\Expr\Variable;
 use PHPSA\Check;
 use PHPSA\CompiledExpression;
 use PHPSA\Context;
 use PHPSA\Definition\ClassDefinition;
-use PHPSA\Compiler\Expression;
 
 class MethodCall extends AbstractExpressionCompiler
 {
