@@ -38,7 +38,7 @@ class DeprecatedIniOptions extends AbstractFunctionCallAnalyzer
         'session.bug_compat_warn' => 'is a deprecated option since PHP 5.4.0',
         'y2k_compliance' => 'is a deprecated option since PHP 5.4.0',
         //
-        'define_syslog_variables' => 'is a deprecated option since PHP 5.3.0 (removed in PHP 5.4.0',
+        'define_syslog_variables' => 'is a deprecated option since PHP 5.3.0 (removed in PHP 5.4.0)',
         'magic_quotes_gpc' => 'is a deprecated option since PHP 5.3.0 (removed in PHP 5.4.0)',
         'magic_quotes_runtime' => 'is a deprecated option since PHP 5.3.0 (removed in PHP 5.4.0)',
         'magic_quotes_sybase' => 'is a deprecated option since PHP 5.3.0 (removed in PHP 5.4.0)',
@@ -63,8 +63,8 @@ class DeprecatedIniOptions extends AbstractFunctionCallAnalyzer
                         $context->notice(
                             'deprecated.option',
                             sprintf(
-                                'Ini option %s() %s.',
-                                $functionName,
+                                'Ini option %s %s.',
+                                $compiledOptionName->getValue(),
                                 self::$deprecatedOptions[$compiledOptionName->getValue()]
                             ),
                             $funcCall
