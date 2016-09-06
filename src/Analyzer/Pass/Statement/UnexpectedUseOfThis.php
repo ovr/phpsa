@@ -23,27 +23,27 @@ class UnexpectedUseOfThis implements Pass\ConfigurablePassInterface, Pass\Analyz
         $result = false;
 
         if ($stmt instanceof Stmt\ClassMethod) {
-            $result = $result || $this->inspectClassMethodArguments($stmt, $context);
+            $result = $this->inspectClassMethodArguments($stmt, $context) || $result;
         }
 
         if ($stmt instanceof Stmt\TryCatch) {
-            $result = $result || $this->inspectTryCatch($stmt, $context);
+            $result = $this->inspectTryCatch($stmt, $context) || $result;
         }
 
         if ($stmt instanceof Stmt\Foreach_) {
-            $result = $result || $this->inspectForeach($stmt, $context);
+            $result = $this->inspectForeach($stmt, $context) || $result;
         }
 
         if ($stmt instanceof Stmt\Static_) {
-            $result = $result || $this->inspectStaticVar($stmt, $context);
+            $result = $this->inspectStaticVar($stmt, $context) || $result;
         }
 
         if ($stmt instanceof Stmt\Global_) {
-            $result = $result || $this->inspectGlobalVar($stmt, $context);
+            $result = $this->inspectGlobalVar($stmt, $context) || $result;
         }
 
         if ($stmt instanceof Stmt\Unset_) {
-            $result = $result || $this->inspectUnset($stmt, $context);
+            $result = $this->inspectUnset($stmt, $context) || $result;
         }
 
         return $result;
