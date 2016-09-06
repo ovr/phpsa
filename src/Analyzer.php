@@ -28,11 +28,18 @@ class Analyzer
      */
     protected $bindOnStatements = [];
 
+    /**
+     * @param EventManager $eventManager
+     */
     public function __construct(EventManager $eventManager)
     {
         $this->eventManager = $eventManager;
     }
 
+    /**
+     * @param array $expressionPasses all the expression analyzers
+     * @throws \RuntimeException if the analyzer does not implement the required interface
+     */
     public function registerExpressionPasses(array $expressionPasses)
     {
         foreach ($expressionPasses as $pass) {
@@ -52,7 +59,8 @@ class Analyzer
     }
 
     /**
-     * @param array $statementPasses
+     * @param array $statementPasses all the statement analyzers
+     * @throws \RuntimeException if the analyzer does not implement the required interface
      */
     public function registerStatementPasses(array $statementPasses)
     {
@@ -72,6 +80,9 @@ class Analyzer
         }
     }
 
+    /**
+     * binds the listeners
+     */
     public function bind()
     {
         $this->eventManager->listen(Compiler\Event\ExpressionBeforeCompile::EVENT_NAME)

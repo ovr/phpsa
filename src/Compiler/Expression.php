@@ -62,7 +62,7 @@ class Expression
             case Node\Expr\Instanceof_::class:
                 return new Expression\Operators\InstanceOfOp();
             /**
-             * Assign
+             * AssignOp
              */
             case Node\Expr\AssignOp\Pow::class:
                 return new Expression\AssignOp\Pow();
@@ -146,7 +146,7 @@ class Expression
             case Node\Expr\BinaryOp\SmallerOrEqual::class:
                 return new Expression\Operators\Comparison\SmallerOrEqual();
             /**
-             * Another
+             * Other
              */
             case Node\Expr\Closure::class:
                 return new Expression\Closure();

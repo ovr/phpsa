@@ -20,12 +20,12 @@ class Variable
     const BRANCH_UNKNOWN = 4;
 
     /**
-     * @var string
+     * @var string variable name
      */
     protected $name;
 
     /**
-     * @var mixed
+     * @var mixed variable value
      */
     protected $value;
 
@@ -35,31 +35,33 @@ class Variable
     protected $branch;
 
     /**
-     * @var int
+     * @var int how many times was read from the var
      */
     protected $gets = 0;
 
     /**
-     * @var int
+     * @var int how many times was written to the var
      */
     protected $sets = 0;
 
     /**
-     * @var bool
+     * @var bool is it referenced to another var?
      */
     protected $referenced = false;
 
     /**
-     * @var Variable|null
+     * @var Variable|null to which variable referenced?
      */
     protected $referencedTo;
 
     /**
-     * @var int
+     * @var int variable type
      */
     protected $type;
 
     /**
+     * Creates a variable.
+     *
      * @param string $name
      * @param mixed $defaultValue
      * @param int $type
@@ -79,6 +81,8 @@ class Variable
     }
 
     /**
+     * Increases the read counter.
+     *
      * @return int
      */
     public function incGets()
@@ -87,6 +91,8 @@ class Variable
     }
 
     /**
+     * Increases the write counter.
+     *
      * @return int
      */
     public function incSets()
@@ -95,6 +101,8 @@ class Variable
     }
 
     /**
+     * Gets the read counter.
+     *
      * @return int
      */
     public function getGets()
@@ -103,6 +111,8 @@ class Variable
     }
 
     /**
+     * Gets the write counter.
+     *
      * @return int
      */
     public function getSets()
@@ -111,7 +121,7 @@ class Variable
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getName()
     {
@@ -135,7 +145,7 @@ class Variable
     }
 
     /**
-     * @return null
+     * @return mixed
      */
     public function getValue()
     {
@@ -143,6 +153,8 @@ class Variable
     }
 
     /**
+     * Changes variable type.
+     *
      * @param int $type
      */
     public function modifyType($type)
@@ -151,6 +163,8 @@ class Variable
     }
 
     /**
+     * Changes variable type and value.
+     *
      * @param int $type
      * @param mixed $value
      */
@@ -198,6 +212,8 @@ class Variable
     }
 
     /**
+     * Is it an integer,double or number.
+     *
      * @return bool
      */
     public function isNumeric()
@@ -210,7 +226,7 @@ class Variable
     }
 
     /**
-     * Check if you are setting values to variable but didn't use it (mean get)
+     * Check if you are setting values to variable but didn't use it (means get)
      *
      * @return bool
      */

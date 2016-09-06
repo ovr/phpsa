@@ -36,6 +36,10 @@ use PHPSA\Analyzer\Pass as AnalyzerPass;
  */
 class CheckCommand extends Command
 {
+
+    /**
+     * Configures the command.
+     */
     protected function configure()
     {
         $this
@@ -51,6 +55,9 @@ class CheckCommand extends Command
             );
     }
 
+    /**
+     * Executes the command.
+     */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $output->writeln('');

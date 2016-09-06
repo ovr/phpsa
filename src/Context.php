@@ -85,6 +85,9 @@ class Context
         return new Expression($this, $this->eventManager);
     }
 
+    /**
+     * Adds all global variables to the context.
+     */
     public function initGlobals()
     {
         /**
@@ -102,6 +105,8 @@ class Context
     }
 
     /**
+     * Creates a variable from a symbol and adds it to the context.
+     *
      * @param string $name
      * @return Variable
      */
@@ -114,6 +119,8 @@ class Context
     }
 
     /**
+     * Adds a variable to the context.
+     *
      * @param Variable $variable
      * @return bool
      */
@@ -125,7 +132,7 @@ class Context
     }
 
     /**
-     * Clear prevent context
+     * Resets context to beginning stage.
      */
     public function clear()
     {
@@ -138,6 +145,9 @@ class Context
         $this->initGlobals();
     }
 
+    /**
+     * Clears only all symbols.
+     */
     public function clearSymbols()
     {
         unset($this->symbols);
@@ -145,6 +155,8 @@ class Context
     }
 
     /**
+     * Returns a variable if it exists.
+     *
      * @param $name
      * @return Variable|null
      */
@@ -154,6 +166,8 @@ class Context
     }
 
     /**
+     * Creates a warning message.
+     *
      * @param string $type
      * @param string $message
      * @return bool
@@ -169,6 +183,8 @@ class Context
     }
 
     /**
+     * Creates a notice message.
+     *
      * @param string $type
      * @param string $message
      * @param \PhpParser\NodeAbstract $expr
@@ -204,6 +220,8 @@ class Context
     }
 
     /**
+     * Creates a syntax error message.
+     *
      * @param \PhpParser\Error $exception
      * @param string $filepath
      * @return bool
@@ -225,6 +243,8 @@ class Context
     }
 
     /**
+     * Returns an array of all variables.
+     *
      * @return Variable[]
      */
     public function getSymbols()
@@ -240,6 +260,9 @@ class Context
         $this->scope = $scope;
     }
 
+    /**
+     * Creates a debug message.
+     */
     public function debug($message, \PhpParser\Node $expr = null)
     {
         if ($this->output->isDebug()) {
@@ -287,6 +310,8 @@ class Context
     }
 
     /**
+     * Updates all references on the given variable.
+     *
      * @param Variable $variable
      * @param $type
      * @param $value

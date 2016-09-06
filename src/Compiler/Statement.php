@@ -15,6 +15,7 @@ class Statement
 {
     /**
      * @param Node\Stmt $stmt
+     * @throws RuntimeException
      * @return AbstractCompiler
      */
     protected function factory($stmt)

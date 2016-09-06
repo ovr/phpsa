@@ -26,41 +26,44 @@ class CompiledExpression
      */
     const VOID = Types::VOID_TYPE;
 
+    /**
+     * Integer type
+     */
     const INTEGER = Types::INT_TYPE;
 
     /**
-     * Double/Float
+     * Double/Float type
      */
     const DOUBLE = Types::DOUBLE_TYPE;
 
     /**
-     * Double/Float
+     * Double/Float type
      */
     const NUMBER = Types::NUMBER;
 
     /**
-     * String
+     * String type
      */
     const STRING = Types::STRING_TYPE;
 
     /**
-     * Boolean
+     * Boolean type
      * true or false
      */
     const BOOLEAN = Types::BOOLEAN_TYPE;
 
     /**
-     * Array
+     * Array type
      */
     const ARR = Types::ARRAY_TYPE;
 
     /**
-     * Object
+     * Object type
      */
     const OBJECT = Types::OBJECT_TYPE;
 
     /**
-     * Resource handler
+     * Resource handler type
      */
     const RESOURCE = Types::RESOURCE_TYPE;
 
@@ -75,7 +78,7 @@ class CompiledExpression
     const VARIABLE = 512;
 
     /**
-     * Resource handler
+     * NULL type
      */
     const NULL = Types::NULL_TYPE;
 
@@ -123,6 +126,8 @@ class CompiledExpression
     }
 
     /**
+     * Returns the value of the expression.
+     *
      * @return mixed
      */
     public function getValue()
@@ -131,6 +136,8 @@ class CompiledExpression
     }
 
     /**
+     * Checks whether the expressions value equals the given value.
+     *
      * @param integer $value
      * @return boolean
      */
@@ -140,6 +147,8 @@ class CompiledExpression
     }
 
     /**
+     * Returns the type of the expression.
+     *
      * @return int
      */
     public function getType()
@@ -148,6 +157,8 @@ class CompiledExpression
     }
 
     /**
+     * Returns the type of the expression as a string.
+     *
      * @return string
      */
     public function getTypeName()
@@ -156,6 +167,8 @@ class CompiledExpression
     }
 
     /**
+     * Creates a variable from the expression.
+     *
      * @param string $name Name of the Variable
      * @return Variable
      */
@@ -187,21 +200,10 @@ class CompiledExpression
     }
 
     /**
-     * @return bool
+     * Returns debug info.
+     *
+     * @return array
      */
-    public function isString()
-    {
-        return $this->type == self::STRING;
-    }
-
-    /**
-     * @return bool
-     */
-    public function isObject()
-    {
-        return $this->type == self::OBJECT;
-    }
-
     public function __debugInfo()
     {
         return [
@@ -247,7 +249,23 @@ class CompiledExpression
     }
 
     /**
-     * @return int
+     * @return bool
+     */
+    public function isString()
+    {
+        return $this->type == self::STRING;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isObject()
+    {
+        return $this->type == self::OBJECT;
+    }
+
+    /**
+     * @return bool
      */
     public function isCallable()
     {
