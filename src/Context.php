@@ -218,7 +218,7 @@ class Context
         $this->application->getIssuesCollector()
             ->addIssue('syntax-error', 'syntax-error', $filepath, $exception->getStartLine() - 2);
 
-        $code = trim($code[($exception->getStartLine()-2)]);
+        $code = trim($code[$exception->getStartLine()-2]);
         $this->output->writeln("<comment>\t {$code} </comment>");
 
         return true;
