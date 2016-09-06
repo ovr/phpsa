@@ -88,7 +88,7 @@ class FileParser
 
             $context->clear();
         } catch (\PhpParser\Error $e) {
-            $context->sytaxError($e, $filepath);
+            $context->syntaxError($e, $filepath);
         } catch (Exception $e) {
             $context->output->writeln("<error>{$e->getMessage()}</error>");
         }

@@ -208,7 +208,7 @@ class Context
      * @param string $filepath
      * @return bool
      */
-    public function sytaxError(\PhpParser\Error $exception, $filepath)
+    public function syntaxError(\PhpParser\Error $exception, $filepath)
     {
         $code = file($filepath);
 
