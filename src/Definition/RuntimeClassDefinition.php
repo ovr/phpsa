@@ -54,10 +54,13 @@ class RuntimeClassDefinition extends ClassDefinition
             return false;
         }
 
+        // NOTE: ReflectionClass::hasConstant also checks parent classes, so if $inherit is true, the job is already done.
         if ($inherit) {
             return true;
         }
 
+        // but if it's not, we need to make sure that the constant is defined only in the current class. It means that
+        // we have to check that it has no parent or that the parent does not define the constant.
         $parent = $this->reflection->getParentClass();
         if (!$parent) {
             return true;
