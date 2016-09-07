@@ -31,6 +31,44 @@ class MissingBreakStatement
 
         return $value;
     }
+
+    /**
+     * @return string
+     */
+    public function testValidSwitch()
+    {
+        switch ('hello') {
+            case 'hello':
+                return 'world';
+            case 'bar':
+                $value = 'baz';
+                break;
+            default:
+                return 'what?';
+        }
+
+        return $value;
+    }
+
+    /**
+     * @return string
+     */
+    public function testValidSwitchWithSeveralJoinedCases()
+    {
+        switch ('hello') {
+            case 'hello':
+            case 'bar':
+                $value = 'baz';
+                break;
+            case 'foo':
+                $value = 'yay!';
+                break;
+            default:
+                return 'what?';
+        }
+
+        return $value;
+    }
 }
 ?>
 ----------------------------
