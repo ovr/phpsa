@@ -87,7 +87,9 @@ class ClassDefinition extends ParentDefinition
      */
     public function addProperty(Node\Stmt\Property $property)
     {
-        $this->properties[$property->props[0]->name] = $property;
+        foreach ($property->props as $propertyDefinition) {
+            $this->properties[$propertyDefinition->name] = $propertyDefinition;
+        }
     }
 
     /**
