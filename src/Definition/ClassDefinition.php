@@ -9,6 +9,7 @@ use PHPSA\CompiledExpression;
 use PHPSA\Context;
 use PhpParser\Node;
 use PHPSA\Variable;
+use PHPSA\Compiler\Event;
 
 /**
  * Class ClassDefinition
@@ -50,6 +51,11 @@ class ClassDefinition extends ParentDefinition
     protected $filepath;
 
     /**
+     * @var Node\Stmt\Class_|null
+     */
+    protected $statement;
+
+    /**
      * @var string|null
      */
     protected $extendsClass;
@@ -68,9 +74,10 @@ class ClassDefinition extends ParentDefinition
      * @param string $name
      * @param integer $type
      */
-    public function __construct($name, $type)
+    public function __construct($name, Node\Stmt\Class_ $statement=null, $type)
     {
         $this->name = $name;
+        $this->statement = $statement;
         $this->type = $type;
     }
 
@@ -109,6 +116,14 @@ class ClassDefinition extends ParentDefinition
         if ($this->compiled) {
             return true;
         }
+
+        $context->getEventManager()->fire(
+            Event\StatementBeforeCompile::EVENT_NAME,
+            new Event\StatementBeforeCompile(
+                $this->statement,
+                $context
+            )
+        );
 
         $this->compiled = true;
         $context->setFilepath($this->filepath);

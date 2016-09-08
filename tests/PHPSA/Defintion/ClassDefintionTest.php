@@ -12,7 +12,7 @@ class ClassDefintionTest extends TestCase
      */
     protected function getSimpleInstance()
     {
-        return new ClassDefinition('MyTestClass', 0);
+        return new ClassDefinition('MyTestClass', null, 0);
     }
 
     public function testSimpleInstance()
