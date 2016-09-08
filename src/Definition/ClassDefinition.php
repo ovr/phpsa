@@ -72,9 +72,10 @@ class ClassDefinition extends ParentDefinition
 
     /**
      * @param string $name
+     * @param Node\Stmt\Class_ $statement
      * @param integer $type
      */
-    public function __construct($name, Node\Stmt\Class_ $statement = null, $type)
+    public function __construct($name, Node\Stmt\Class_ $statement = null, $type = 0)
     {
         $this->name = $name;
         $this->statement = $statement;
