@@ -13,16 +13,14 @@ class OldConstructor implements ConfigurablePassInterface, AnalyzerPassInterface
 {
 
     /**
-     * @param Class_ $methodStmt
+     * @param Class_ $classStmt
      * @param Context $context
      * @return bool
      */
     public function pass(Class_ $classStmt, Context $context)
     {
-        
-        foreach($classStmt->stmts as $statement){
-
-            if(!($statement instanceof ClassMethod) || $statement->name !== $classStmt->name) {
+        foreach ($classStmt->stmts as $statement) {
+            if (!($statement instanceof ClassMethod) || $statement->name !== $classStmt->name) {
                 continue;
             }
             $context->notice(
