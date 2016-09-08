@@ -26,6 +26,9 @@ class Application extends \Symfony\Component\Console\Application
 
     const VERSION = '0.5.0';
 
+    /**
+     * Starts the application.
+     */
     public function __construct()
     {
         parent::__construct('PHP Smart Analyzer', $this->getStringVersion());
@@ -37,6 +40,8 @@ class Application extends \Symfony\Component\Console\Application
     }
 
     /**
+     * Returns the version as a string.
+     *
      * @return string
      */
     protected function getStringVersion()
@@ -49,6 +54,11 @@ class Application extends \Symfony\Component\Console\Application
         return self::VERSION;
     }
 
+    /**
+     * Returns CV Version.
+     *
+     * @return string
+     */
     protected function getCVVersion()
     {
         exec('git describe --always', $version_mini_hash);
@@ -57,6 +67,8 @@ class Application extends \Symfony\Component\Console\Application
     }
 
     /**
+     * Get the configuration object.
+     *
      * @return Configuration
      */
     public function getConfiguration()
@@ -65,6 +77,8 @@ class Application extends \Symfony\Component\Console\Application
     }
 
     /**
+     * Get the IssuesCollector object.
+     *
      * @return IssuesCollector
      */
     public function getIssuesCollector()

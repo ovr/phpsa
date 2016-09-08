@@ -38,7 +38,7 @@ class Types
             case CompiledExpression::NULL:
                 return 'null';
             default:
-                return 'uknown';
+                return 'unknown';
         }
     }
 

@@ -16,6 +16,8 @@ class ScopePointer
     protected $object;
 
     /**
+     * Initializes the scopePointer with an object
+     *
      * @param $object
      */
     public function __construct($object)
@@ -24,7 +26,7 @@ class ScopePointer
     }
 
     /**
-     * Is class Method?
+     * Is the object a class method?
      *
      * @return bool
      */
@@ -34,7 +36,7 @@ class ScopePointer
     }
 
     /**
-     * Is class Method?
+     * Is the object a function?
      *
      * @return bool
      */
@@ -44,6 +46,8 @@ class ScopePointer
     }
 
     /**
+     * Returns the object.
+     *
      * @return ClassMethod|FunctionDefinition
      */
     public function getObject()

@@ -14,7 +14,7 @@ class AliasManager
     protected $namespace;
 
     /**
-     * @var string[]
+     * @var string[] a list of imported namespaces
      */
     protected $aliases = array();
 
@@ -26,6 +26,12 @@ class AliasManager
         $this->namespace = $namespace;
     }
 
+    /**
+     * Checks whether a namespace was imported via use statement.
+     *
+     * @param string $classNS
+     * @return bool
+     */
     public function isClassImported($classNS)
     {
         if (isset($this->aliases[$classNS])) {
@@ -36,7 +42,9 @@ class AliasManager
     }
 
     /**
-     * @param $namespace
+     * Imports a namespace as an alias via use statement.
+     *
+     * @param string $namespace
      */
     public function add($namespace)
     {
@@ -44,6 +52,8 @@ class AliasManager
     }
 
     /**
+     * Gets the current namespace.
+     *
      * @return null|string
      */
     public function getNamespace()
@@ -52,6 +62,8 @@ class AliasManager
     }
 
     /**
+     * Sets the current namespace.
+     *
      * @param null|string $namespace
      */
     public function setNamespace($namespace)

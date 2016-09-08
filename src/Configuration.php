@@ -18,6 +18,11 @@ class Configuration implements ConfigurationInterface
      */
     protected $configuration;
 
+    /**
+     * Create a configuration from array.
+     *
+     * @param array $configuration
+     */
     public function __construct(array $configuration = [])
     {
         $processor = new Processor();
@@ -59,12 +64,20 @@ class Configuration implements ConfigurationInterface
         return $treeBuilder;
     }
 
+    /**
+     * Sets a configuration setting.
+     *
+     * @param string $key
+     * @param string $value
+     */
     public function setValue($key, $value)
     {
         $this->configuration[$key] = $value;
     }
 
     /**
+     * Checks if a configuration setting is set.
+     *
      * @param string $key
      * @return bool
      */
