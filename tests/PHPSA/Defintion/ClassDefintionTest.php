@@ -68,6 +68,21 @@ class ClassDefintionTest extends TestCase
 
         $this->assertTrue($classDefinition->hasProperty('test1'));
         $this->assertTrue($classDefinition->hasProperty('test2'));
+
+        $property = new \PhpParser\Node\Stmt\Property(0, [
+            new \PhpParser\Node\Stmt\PropertyProperty(
+                'foo',
+                new \PhpParser\Node\Scalar\String_('test string')
+            ),
+            new \PhpParser\Node\Stmt\PropertyProperty(
+                'bar',
+                new \PhpParser\Node\Scalar\String_('test string')
+            )
+        ]);
+        $classDefinition->addProperty($property);
+
+        $this->assertTrue($classDefinition->hasProperty('foo'));
+        $this->assertTrue($classDefinition->hasProperty('bar'));
     }
 
     public function testMethodSetGet()
