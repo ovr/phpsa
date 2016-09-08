@@ -6,7 +6,6 @@
 namespace PHPSA\Analyzer\Pass\Statement;
 
 use PhpParser\Node\Stmt\ClassMethod;
-use PhpParser\Node\Stmt\Return_;
 use PHPSA\Analyzer\Helper\ResolveExpressionTrait;
 use PHPSA\Analyzer\Pass\AnalyzerPassInterface;
 use PHPSA\Analyzer\Pass\ConfigurablePassInterface;

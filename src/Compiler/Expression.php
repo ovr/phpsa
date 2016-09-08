@@ -184,7 +184,7 @@ class Expression
                 $this->context
             )
         );
-        
+
         $className = get_class($expr);
         switch ($className) {
             case Node\Arg::class:
@@ -271,7 +271,7 @@ class Expression
         if (!$docBlock) {
             $this->context->notice(
                 'missing-docblock',
-                'Missing docblock for %s() property',
+                sprintf('Missing docblock for $%s property', $st->props[0]->name),
                 $st
             );
 
@@ -348,7 +348,7 @@ class Expression
     public function getFullyQualifiedNodeName(Node\Name\FullyQualified $expr)
     {
         $this->context->debug('Unimplemented FullyQualified', $expr);
-        
+
         return new CompiledExpression;
     }
 
@@ -745,11 +745,11 @@ class Expression
      */
     protected function getArray(Node\Expr\Array_ $expr)
     {
-        if ($expr->items === array()) {
-            return new CompiledExpression(CompiledExpression::ARR, array());
+        if ($expr->items === []) {
+            return new CompiledExpression(CompiledExpression::ARR, []);
         }
 
-        $resultArray = array();
+        $resultArray = [];
 
         foreach ($expr->items as $item) {
             $compiledValueResult = $this->compile($item->value);

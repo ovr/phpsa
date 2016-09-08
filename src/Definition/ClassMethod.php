@@ -7,7 +7,6 @@ namespace PHPSA\Definition;
 
 use PhpParser\Node;
 use PHPSA\CompiledExpression;
-use PHPSA\Compiler\Expression;
 use PHPSA\Compiler\Parameter;
 use PHPSA\Compiler\Types;
 use PHPSA\Compiler\Event;

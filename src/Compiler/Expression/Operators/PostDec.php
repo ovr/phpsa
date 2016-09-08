@@ -9,7 +9,6 @@ namespace PHPSA\Compiler\Expression\Operators;
 
 use PhpParser\Node\Name;
 use PHPSA\CompiledExpression;
-use PHPSA\Compiler\Types;
 use PHPSA\Context;
 use PHPSA\Compiler\Expression;
 use PHPSA\Compiler\Expression\AbstractExpressionCompiler;

@@ -5,11 +5,6 @@
 
 namespace PHPSA;
 
-use PHPSA\Compiler\GlobalVariable;
-use PHPSA\Definition\AbstractDefinition;
-use PHPSA\Definition\ParentDefinition;
-use Symfony\Component\Console\Output\OutputInterface;
-
 class IssuesCollector
 {
     /**

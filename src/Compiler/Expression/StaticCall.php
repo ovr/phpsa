@@ -9,7 +9,6 @@ namespace PHPSA\Compiler\Expression;
 
 use PHPSA\CompiledExpression;
 use PHPSA\Context;
-use PHPSA\Compiler\Expression;
 use PHPSA\Definition\ClassDefinition;
 
 class StaticCall extends AbstractExpressionCompiler

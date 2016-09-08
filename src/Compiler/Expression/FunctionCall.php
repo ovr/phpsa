@@ -10,7 +10,6 @@ namespace PHPSA\Compiler\Expression;
 use Ovr\PHPReflection\Reflector;
 use PHPSA\CompiledExpression;
 use PHPSA\Context;
-use PHPSA\Compiler\Expression;
 use PHPSA\Definition\ClosureDefinition;
 
 class FunctionCall extends AbstractExpressionCompiler
@@ -239,7 +238,7 @@ class FunctionCall extends AbstractExpressionCompiler
      */
     protected function parseArgs($expr, Context $context)
     {
-        $arguments = array();
+        $arguments = [];
 
         foreach ($expr->args as $argument) {
             $arguments[] = $context->getExpressionCompiler()->compile($argument->value);

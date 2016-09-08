@@ -8,7 +8,6 @@ namespace PHPSA\Compiler\Statement;
 use PHPSA\CompiledExpression;
 use PHPSA\Context;
 use PHPSA\Definition\ClassMethod;
-use PHPSA\Compiler\Expression;
 
 class ReturnSt extends AbstractCompiler
 {

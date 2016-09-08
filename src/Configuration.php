@@ -48,14 +48,12 @@ class Configuration implements ConfigurationInterface
                 ->enumNode('parser')
                     ->defaultValue('prefer-7')
                     ->attribute('label', 'Check types of Arguments.')
-                    ->values(
-                        array(
-                            ParserFactory::PREFER_PHP7 => 'prefer-7',
-                            ParserFactory::PREFER_PHP5 => 'prefer-5',
-                            ParserFactory::ONLY_PHP7 => 'only-7',
-                            ParserFactory::ONLY_PHP5 => 'only-5'
-                        )
-                    );
+                    ->values([
+                        ParserFactory::PREFER_PHP7 => 'prefer-7',
+                        ParserFactory::PREFER_PHP5 => 'prefer-5',
+                        ParserFactory::ONLY_PHP7 => 'only-7',
+                        ParserFactory::ONLY_PHP5 => 'only-5'
+                    ]);
 
 
         return $treeBuilder;

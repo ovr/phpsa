@@ -5,7 +5,6 @@
 
 namespace PHPSA\Compiler\Statement;
 
-use PHPSA\CompiledExpression;
 use PHPSA\Context;
 
 class ForeachSt extends AbstractCompiler

@@ -7,7 +7,6 @@
 
 namespace PHPSA\Compiler\Expression\Operators;
 
-use PhpParser\Node;
 use PHPSA\CompiledExpression;
 use PHPSA\Compiler\Expression\AbstractExpressionCompiler;
 use PHPSA\Context;

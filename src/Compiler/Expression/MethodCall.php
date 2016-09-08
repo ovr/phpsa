@@ -5,12 +5,10 @@
 
 namespace PHPSA\Compiler\Expression;
 
-use PhpParser\Node\Expr\Variable;
 use PHPSA\Check;
 use PHPSA\CompiledExpression;
 use PHPSA\Context;
 use PHPSA\Definition\ClassDefinition;
-use PHPSA\Compiler\Expression;
 
 class MethodCall extends AbstractExpressionCompiler
 {
@@ -80,11 +78,12 @@ class MethodCall extends AbstractExpressionCompiler
 
     /**
      * @param \PhpParser\Node\Arg[] $arguments
+     * @param Context $context
      * @return CompiledExpression[]
      */
     protected function parseArgs(array $arguments, Context $context)
     {
-        $compiled = array();
+        $compiled = [];
 
         if ($arguments) {
             foreach ($arguments as $argument) {

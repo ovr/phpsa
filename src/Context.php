@@ -44,7 +44,7 @@ class Context
     /**
      * @var Variable[]
      */
-    protected $symbols = array();
+    protected $symbols = [];
 
     /**
      * @var ScopePointer|null
@@ -90,15 +90,15 @@ class Context
         /**
          * http://php.net/manual/language.variables.superglobals.php
          */
-        $this->addVariable(new GlobalVariable('GLOBALS', array(), CompiledExpression::ARR));
-        $this->addVariable(new GlobalVariable('_SERVER', array(), CompiledExpression::ARR));
-        $this->addVariable(new GlobalVariable('_GET', array(), CompiledExpression::ARR));
-        $this->addVariable(new GlobalVariable('_POST', array(), CompiledExpression::ARR));
-        $this->addVariable(new GlobalVariable('_FILES', array(), CompiledExpression::ARR));
-        $this->addVariable(new GlobalVariable('_COOKIE', array(), CompiledExpression::ARR));
-        $this->addVariable(new GlobalVariable('_SESSION', array(), CompiledExpression::ARR));
-        $this->addVariable(new GlobalVariable('_REQUEST', array(), CompiledExpression::ARR));
-        $this->addVariable(new GlobalVariable('_ENV', array(), CompiledExpression::ARR));
+        $this->addVariable(new GlobalVariable('GLOBALS', [], CompiledExpression::ARR));
+        $this->addVariable(new GlobalVariable('_SERVER', [], CompiledExpression::ARR));
+        $this->addVariable(new GlobalVariable('_GET', [], CompiledExpression::ARR));
+        $this->addVariable(new GlobalVariable('_POST', [], CompiledExpression::ARR));
+        $this->addVariable(new GlobalVariable('_FILES', [], CompiledExpression::ARR));
+        $this->addVariable(new GlobalVariable('_COOKIE', [], CompiledExpression::ARR));
+        $this->addVariable(new GlobalVariable('_SESSION', [], CompiledExpression::ARR));
+        $this->addVariable(new GlobalVariable('_REQUEST', [], CompiledExpression::ARR));
+        $this->addVariable(new GlobalVariable('_ENV', [], CompiledExpression::ARR));
     }
 
     /**
@@ -129,7 +129,7 @@ class Context
      */
     public function clear()
     {
-        $this->symbols = array();
+        $this->symbols = [];
         $this->scope = null;
         $this->scopePointer = null;
         $this->currentBranch = null;
@@ -141,7 +141,7 @@ class Context
     public function clearSymbols()
     {
         unset($this->symbols);
-        $this->symbols = array();
+        $this->symbols = [];
     }
 
     /**
@@ -208,7 +208,7 @@ class Context
      * @param string $filepath
      * @return bool
      */
-    public function sytaxError(\PhpParser\Error $exception, $filepath)
+    public function syntaxError(\PhpParser\Error $exception, $filepath)
     {
         $code = file($filepath);
 
@@ -218,7 +218,7 @@ class Context
         $this->application->getIssuesCollector()
             ->addIssue('syntax-error', 'syntax-error', $filepath, $exception->getStartLine() - 2);
 
-        $code = trim($code[($exception->getStartLine()-2)]);
+        $code = trim($code[$exception->getStartLine()-2]);
         $this->output->writeln("<comment>\t {$code} </comment>");
 
         return true;

@@ -6,8 +6,6 @@
 namespace PHPSA\Analyzer\Pass\Expression\FunctionCall;
 
 use PhpParser\Node\Expr\FuncCall;
-use PhpParser\Node\Name;
-use PHPSA\Compiler\Expression;
 use PHPSA\Context;
 
 class DebugCode extends AbstractFunctionCallAnalyzer

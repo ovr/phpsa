@@ -5,11 +5,7 @@
 
 namespace PHPSA\Definition;
 
-use PhpParser\Node;
-use PHPSA\CompiledExpression;
-use PHPSA\Context;
 use PHPSA\ScopePointer;
-use PHPSA\Variable;
 
 abstract class ParentDefinition extends AbstractDefinition
 {
@@ -17,7 +13,7 @@ abstract class ParentDefinition extends AbstractDefinition
      * @var string
      */
     protected $namespace;
-    
+
     /**
      * @return string
      */
