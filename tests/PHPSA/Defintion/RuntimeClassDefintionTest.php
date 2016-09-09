@@ -2,7 +2,9 @@
 
 namespace Tests\PHPSA\Defintion;
 
+use PHPSA\Compiler\Parameter;
 use PHPSA\Definition\RuntimeClassDefinition;
+use PHPSA\Variable;
 use ReflectionClass;
 use Tests\PHPSA\TestCase;
 
@@ -38,6 +40,15 @@ class RuntimeClassDefintionTest extends TestCase
         }
 
         static::assertFalse($definition->hasConst('XXXXXXXXX'));
+    }
+
+    public function testHasConstWithParent()
+    {
+        $reflection = new ReflectionClass(Parameter::class);
+        $definition = new RuntimeClassDefinition($reflection);
+
+        static::assertFalse($definition->hasConst('BRANCH_ROOT'));
+        static::assertTrue($definition->hasConst('BRANCH_ROOT', true));
     }
 
     public function testHasProperty()

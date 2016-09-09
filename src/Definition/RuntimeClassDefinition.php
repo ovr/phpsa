@@ -44,12 +44,29 @@ class RuntimeClassDefinition extends ClassDefinition
     }
 
     /**
-     * @param $name
+     * @param string $name
+     * @param bool $inherit
      * @return bool
      */
-    public function hasConst($name)
+    public function hasConst($name, $inherit = false)
     {
-        return $this->reflection->hasConstant($name);
+        if (!$this->reflection->hasConstant($name)) {
+            return false;
+        }
+
+        // NOTE: ReflectionClass::hasConstant also checks parent classes, so if $inherit is true, the job is already done.
+        if ($inherit) {
+            return true;
+        }
+
+        // but if it's not, we need to make sure that the constant is defined only in the current class. It means that
+        // we have to check that it has no parent or that the parent does not define the constant.
+        $parent = $this->reflection->getParentClass();
+        if (!$parent) {
+            return true;
+        }
+
+        return !$parent->hasConstant($name);
     }
 
     /**
@@ -93,7 +110,13 @@ class RuntimeClassDefinition extends ClassDefinition
      */
     public function getExtendsClassDefinition()
     {
-        throw new NotImplementedException(__FUNCTION__);
+        $parentReflection = $this->reflection->getParentClass();
+
+        if (!$parentReflection) {
+            return null;
+        }
+
+        return new static($parentReflection);
     }
 
     /**
@@ -101,6 +124,12 @@ class RuntimeClassDefinition extends ClassDefinition
      */
     public function getExtendsClass()
     {
-        throw new NotImplementedException(__FUNCTION__);
+        $parentReflection = $this->reflection->getParentClass();
+
+        if (!$parentReflection) {
+            return null;
+        }
+
+        return $parentReflection->getName();
     }
 }
