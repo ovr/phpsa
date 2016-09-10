@@ -21,6 +21,8 @@ class Statement
     protected function factory($stmt)
     {
         switch (get_class($stmt)) {
+            case Stmt\Echo_::class:
+                return new Statement\EchoSt();
             case Stmt\Return_::class:
                 return new Statement\ReturnSt();
             case Stmt\While_::class:
