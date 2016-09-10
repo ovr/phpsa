@@ -32,4 +32,5 @@ tools:
         enabled: true
         filter:
             paths: ["src/*", "tests/*"]
+            excluded_paths: ["tests/analyze-fixtures/*"]
     sensiolabs_security_checker: true
