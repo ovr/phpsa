@@ -260,6 +260,7 @@ class Variable
         return 'variable';
     }
 
+    //@codeCoverageIgnoreStart
     /**
      * @return array
      */
@@ -289,4 +290,5 @@ class Variable
             'symbol-type' => $this->getSymbolType()
         ];
     }
+    //@codeCoverageIgnoreEnd
 }
