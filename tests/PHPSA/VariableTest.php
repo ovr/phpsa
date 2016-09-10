@@ -176,33 +176,33 @@ class VariableTest extends TestCase
     public function testGetTypeName()
     {
         $int = new Variable('a', 1, CompiledExpression::INTEGER);
-        static::assertSame("integer", $int->getTypeName());
+        parent::assertSame("integer", $int->getTypeName());
 
         $double = new Variable('b', 1, CompiledExpression::DOUBLE);
-        static::assertSame("double", $double->getTypeName());
+        parent::assertSame("double", $double->getTypeName());
 
         $number = new Variable('c', 1, CompiledExpression::NUMBER);
-        static::assertSame("number", $number->getTypeName());
+        parent::assertSame("number", $number->getTypeName());
 
         $arr = new Variable('d', [1,2], CompiledExpression::ARR);
-        static::assertSame("array", $arr->getTypeName());
+        parent::assertSame("array", $arr->getTypeName());
 
         $object = new Variable('e', 1, CompiledExpression::OBJECT);
-        static::assertSame("object", $object->getTypeName());
+        parent::assertSame("object", $object->getTypeName());
 
         $resource = new Variable('f', 1, CompiledExpression::RESOURCE);
-        static::assertSame("resource", $resource->getTypeName());
+        parent::assertSame("resource", $resource->getTypeName());
 
         $callable = new Variable('g', 1, CompiledExpression::CALLABLE_TYPE);
-        static::assertSame("callable", $callable->getTypeName());
+        parent::assertSame("callable", $callable->getTypeName());
 
         $boolean = new Variable('h', 1, CompiledExpression::BOOLEAN);
-        static::assertSame("boolean", $boolean->getTypeName());
+        parent::assertSame("boolean", $boolean->getTypeName());
 
         $null = new Variable('i', 1, CompiledExpression::NULL);
-        static::assertSame("null", $null->getTypeName());
+        parent::assertSame("null", $null->getTypeName());
 
         $unknown = new Variable('j', 1, CompiledExpression::UNKNOWN);
-        static::assertSame("unknown", $unknown->getTypeName());
+        parent::assertSame("unknown", $unknown->getTypeName());
     }
 }
