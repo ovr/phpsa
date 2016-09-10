@@ -18,6 +18,16 @@ class BooleanAndTest extends \Tests\PHPSA\TestCase
             array(false, true, false),
             array(true, false, false),
             array(false, false, false),
+            array(null, null, false),
+            array(true, null, false),
+            array(null, true, false),
+            array(1, true, true),
+            array(1.4, true, true),
+            array(1, false, false),
+            array(-1, true, true),
+            array("a", true, true),
+            array(array(), array(), false),
+            array(array(), "a", false),
         );
     }
 

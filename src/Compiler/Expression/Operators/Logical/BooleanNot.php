@@ -25,8 +25,13 @@ class BooleanNot extends AbstractExpressionCompiler
         switch ($compiledExpression->getType()) {
             case CompiledExpression::DOUBLE:
             case CompiledExpression::INTEGER:
+            case CompiledExpression::NUMBER:
             case CompiledExpression::STRING:
             case CompiledExpression::BOOLEAN:
+            case CompiledExpression::STRING:
+            case CompiledExpression::NULL:
+            case CompiledExpression::ARR:
+            case CompiledExpression::OBJECT:
                 return new CompiledExpression(CompiledExpression::BOOLEAN, !$compiledExpression->getValue());
         }
 

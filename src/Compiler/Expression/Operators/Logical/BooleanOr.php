@@ -29,12 +29,16 @@ class BooleanOr extends AbstractExpressionCompiler
             case CompiledExpression::STRING:
             case CompiledExpression::BOOLEAN:
             case CompiledExpression::NULL:
+            case CompiledExpression::ARR:
+            case CompiledExpression::OBJECT:
                 switch ($right->getType()) {
                     case CompiledExpression::INTEGER:
                     case CompiledExpression::DOUBLE:
                     case CompiledExpression::STRING:
                     case CompiledExpression::BOOLEAN:
                     case CompiledExpression::NULL:
+                    case CompiledExpression::ARR:
+                    case CompiledExpression::OBJECT:
                         return CompiledExpression::fromZvalValue($left->getValue() || $right->getValue());
                 }
                 break;

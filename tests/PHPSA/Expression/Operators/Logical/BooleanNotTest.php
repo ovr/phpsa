@@ -22,6 +22,10 @@ class BooleanNotTest extends \Tests\PHPSA\TestCase
             array(false, true),
             array(1, false),
             array(-1, false),
+            array(1.4, false),
+            array(null, true),
+            array("a", false),
+            array(array(), true),
         );
     }
 
