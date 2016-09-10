@@ -629,10 +629,18 @@ class Expression
             return new CompiledExpression();
         }
 
-        if ($expr->var instanceof Node\Expr\Variable) {
-            $name = $expr->var->name;
 
-            $symbol = $this->context->getSymbol($name);
+        if ($expr->var instanceof Node\Expr\Variable) {
+            $compiledExpressionName = $this->compile($expr->var->name);
+            switch ($compiledExpressionName->getType()) {
+                case CompiledExpression::STRING:
+                    break;
+                default:
+                    $this->context->debug('Unexpected type of Variable name after compile');
+                    return new CompiledExpression();
+            }
+
+            $symbol = $this->context->getSymbol($compiledExpressionName->getValue());
             if ($symbol) {
                 $symbol->modify($compiledExpression->getType(), $compiledExpression->getValue());
                 $this->context->modifyReferencedVariables(
@@ -642,7 +650,7 @@ class Expression
                 );
             } else {
                 $symbol = new Variable(
-                    $name,
+                    $compiledExpressionName->getValue(),
                     $compiledExpression->getValue(),
                     $compiledExpression->getType(),
                     $this->context->getCurrentBranch()
