@@ -20,23 +20,23 @@ class Casts implements AnalyzerPassInterface
 
         $castType = CompiledExpression::UNKNOWN;
 
-        switch (true) {
-            case ($expr instanceof Expr\Cast\Array_):
+        switch (get_class($expr)) {
+            case Expr\Cast\Array_::class:
                 $castType = CompiledExpression::ARR;
                 break;
-            case ($expr instanceof Expr\Cast\Bool_):
+            case Expr\Cast\Bool_::class:
                 $castType = CompiledExpression::BOOLEAN;
                 break;
-            case ($expr instanceof Expr\Cast\Int_):
+            case Expr\Cast\Int_::class:
                 $castType = CompiledExpression::INTEGER;
                 break;
-            case ($expr instanceof Expr\Cast\Double):
+            case Expr\Cast\Double::class:
                 $castType = CompiledExpression::DOUBLE;
                 break;
-            case ($expr instanceof Expr\Cast\Object_):
+            case Expr\Cast\Object_::class:
                 $castType = CompiledExpression::OBJECT;
                 break;
-            case ($expr instanceof Expr\Cast\String_):
+            case Expr\Cast\String_::class:
                 $castType = CompiledExpression::STRING;
                 break;
         }
@@ -48,14 +48,14 @@ class Casts implements AnalyzerPassInterface
         if ($castType === $ExprType) {
             $context->notice(
                 'stupid.cast',
-                'You are trying to cast \''.$typeName.'\' to \''.$typeName.'\'.',
+                sprintf("You are trying to cast '%s' to '%s'.", $typeName, $typeName),
                 $expr
             );
             return true;
-        } elseif ($expr instanceof Expr\Cast\Unset_ && $ExprType === CompiledExpression::NULL) {
+        } elseif (get_class($expr) == Expr\Cast\Unset_::class && $ExprType === CompiledExpression::NULL) {
             $context->notice(
                 'stupid.cast',
-                'You are trying to cast \'unset\' to \'null\'.',
+                "You are trying to cast 'unset' to 'null'.",
                 $expr
             );
             return true;
