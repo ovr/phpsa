@@ -7,14 +7,14 @@ use PHPSA\Context;
 use PHPSA\Compiler\Expression;
 use PHPSA\Compiler\Expression\AbstractExpressionCompiler;
 
-class Bool_ extends AbstractExpressionCompiler
+class ArrayCast extends AbstractExpressionCompiler
 {
-    protected $name = 'PhpParser\Node\Expr\Cast\Bool_';
+    protected $name = 'PhpParser\Node\Expr\Cast\Array_';
 
     /**
-     * (bool) {$expr}
+     * (array) {$expr}
      *
-     * @param \PhpParser\Node\Expr\Cast\Bool_ $expr
+     * @param \PhpParser\Node\Expr\Cast\Array_ $expr
      * @param Context $context
      * @return CompiledExpression
      */
@@ -30,7 +30,7 @@ class Bool_ extends AbstractExpressionCompiler
             case CompiledExpression::STRING:
             case CompiledExpression::ARR:
             case CompiledExpression::OBJECT:
-                return new CompiledExpression(CompiledExpression::BOOLEAN, (bool) $compiledExpression->getValue());
+                return new CompiledExpression(CompiledExpression::ARR, (array) $compiledExpression->getValue());
         }
 
         return new CompiledExpression();

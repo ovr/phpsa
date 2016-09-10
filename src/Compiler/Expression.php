@@ -150,19 +150,19 @@ class Expression
              * Casts
              */
             case Node\Expr\Cast\Array_::class:
-                return new Expression\Casts\Array_();
+                return new Expression\Casts\ArrayCast();
             case Node\Expr\Cast\Bool_::class:
-                return new Expression\Casts\Bool_();
+                return new Expression\Casts\BoolCast();
             case Node\Expr\Cast\Int_::class:
-                return new Expression\Casts\Int_();
+                return new Expression\Casts\IntCast();
             case Node\Expr\Cast\Double::class:
-                return new Expression\Casts\Double();
+                return new Expression\Casts\DoubleCast();
             case Node\Expr\Cast\Object_::class:
-                return new Expression\Casts\Object_();
+                return new Expression\Casts\ObjectCast();
             case Node\Expr\Cast\String_::class:
-                return new Expression\Casts\String_();
+                return new Expression\Casts\StringCast();
             case Node\Expr\Cast\Unset_::class:
-                return new Expression\Casts\Unset_();
+                return new Expression\Casts\UnsetCast();
 
 
             /**

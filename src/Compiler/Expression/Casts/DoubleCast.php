@@ -7,14 +7,14 @@ use PHPSA\Context;
 use PHPSA\Compiler\Expression;
 use PHPSA\Compiler\Expression\AbstractExpressionCompiler;
 
-class Array_ extends AbstractExpressionCompiler
+class DoubleCast extends AbstractExpressionCompiler
 {
-    protected $name = 'PhpParser\Node\Expr\Cast\Array_';
+    protected $name = 'PhpParser\Node\Expr\Cast\Double';
 
     /**
-     * (array) {$expr}
+     * (double) {$expr}
      *
-     * @param \PhpParser\Node\Expr\Cast\Array_ $expr
+     * @param \PhpParser\Node\Expr\Cast\Double $expr
      * @param Context $context
      * @return CompiledExpression
      */
@@ -30,7 +30,7 @@ class Array_ extends AbstractExpressionCompiler
             case CompiledExpression::STRING:
             case CompiledExpression::ARR:
             case CompiledExpression::OBJECT:
-                return new CompiledExpression(CompiledExpression::ARR, (array) $compiledExpression->getValue());
+                return new CompiledExpression(CompiledExpression::DOUBLE, (double) $compiledExpression->getValue());
         }
 
         return new CompiledExpression();

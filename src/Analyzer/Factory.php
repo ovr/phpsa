@@ -24,6 +24,7 @@ class Factory
                 new AnalyzerPass\Expression\ArrayShortDefinition(),
                 new AnalyzerPass\Expression\ErrorSuppression(),
                 new AnalyzerPass\Expression\VariableVariableUsage(),
+                new AnalyzerPass\Expression\Casts(),
                 // Function call
                 new AnalyzerPass\Expression\FunctionCall\AliasCheck(),
                 new AnalyzerPass\Expression\FunctionCall\DebugCode(),

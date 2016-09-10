@@ -7,7 +7,7 @@ use PHPSA\Context;
 use PHPSA\Compiler\Expression;
 use PHPSA\Compiler\Expression\AbstractExpressionCompiler;
 
-class Unset_ extends AbstractExpressionCompiler
+class UnsetCast extends AbstractExpressionCompiler
 {
     protected $name = 'PhpParser\Node\Expr\Cast\Unset_';
 
@@ -22,11 +22,6 @@ class Unset_ extends AbstractExpressionCompiler
     {
         $compiledExpression = $context->getExpressionCompiler()->compile($expr->expr);
 
-        switch ($compiledExpression->getType()) {
-            case CompiledExpression::NULL:
-                $context->notice('stupid-cast', "You are trying to cast 'unset' to 'null'", $expr);
-                return $compiledExpression;
-        }
-
         return new CompiledExpression(CompiledExpression::NULL, null);
     }
+}

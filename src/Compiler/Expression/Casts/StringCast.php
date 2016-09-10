@@ -7,7 +7,7 @@ use PHPSA\Context;
 use PHPSA\Compiler\Expression;
 use PHPSA\Compiler\Expression\AbstractExpressionCompiler;
 
-class String_ extends AbstractExpressionCompiler
+class StringCast extends AbstractExpressionCompiler
 {
     protected $name = 'PhpParser\Node\Expr\Cast\String_';
 

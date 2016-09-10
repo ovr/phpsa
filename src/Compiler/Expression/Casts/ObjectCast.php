@@ -7,14 +7,14 @@ use PHPSA\Context;
 use PHPSA\Compiler\Expression;
 use PHPSA\Compiler\Expression\AbstractExpressionCompiler;
 
-class Int_ extends AbstractExpressionCompiler
+class ObjectCast extends AbstractExpressionCompiler
 {
-    protected $name = 'PhpParser\Node\Expr\Cast\Int_';
+    protected $name = 'PhpParser\Node\Expr\Cast\Object_';
 
     /**
-     * (int) {$expr}
+     * (object) {$expr}
      *
-     * @param \PhpParser\Node\Expr\Cast\Int_ $expr
+     * @param \PhpParser\Node\Expr\Cast\Object_ $expr
      * @param Context $context
      * @return CompiledExpression
      */
@@ -30,7 +30,7 @@ class Int_ extends AbstractExpressionCompiler
             case CompiledExpression::STRING:
             case CompiledExpression::ARR:
             case CompiledExpression::OBJECT:
-                return new CompiledExpression(CompiledExpression::INTEGER, (int) $compiledExpression->getValue());
+                return new CompiledExpression(CompiledExpression::OBJECT, (object) $compiledExpression->getValue());
         }
 
         return new CompiledExpression();
