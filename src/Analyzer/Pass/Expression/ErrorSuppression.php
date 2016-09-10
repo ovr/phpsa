@@ -26,7 +26,7 @@ class ErrorSuppression implements AnalyzerPassInterface
     }
 
     /**
-     * @return TreeBuilder
+     * @return array
      */
     public function getRegister()
     {
