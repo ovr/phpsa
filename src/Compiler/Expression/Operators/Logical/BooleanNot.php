@@ -28,7 +28,6 @@ class BooleanNot extends AbstractExpressionCompiler
             case CompiledExpression::NUMBER:
             case CompiledExpression::STRING:
             case CompiledExpression::BOOLEAN:
-            case CompiledExpression::STRING:
             case CompiledExpression::NULL:
             case CompiledExpression::ARR:
             case CompiledExpression::OBJECT:
