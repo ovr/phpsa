@@ -142,4 +142,26 @@ class CompiledExpressionTest extends TestCase
         $compiledExpression = new CompiledExpression(CompiledExpression::NULL);
         $this->assertTrue($compiledExpression->hasValue());
     }
+
+    public function testCanBeObject()
+    {
+        // Mixed type can be object
+        $expr = new CompiledExpression(CompiledExpression::MIXED, null);
+        $this->assertSame(true, $expr->canBeObject());
+
+        // Integer type can't be object
+        $expr2 = new CompiledExpression(CompiledExpression::INTEGER, 1);
+        $this->assertSame(false, $expr2->canBeObject());
+    }
+
+    public function testIsObject()
+    {
+        // Mixed type could be object but it's unclear
+        $expr = new CompiledExpression(CompiledExpression::MIXED, null);
+        $this->assertSame(false, $expr->isObject());
+
+        // Object type is object
+        $expr2 = new CompiledExpression(CompiledExpression::OBJECT, null);
+        $this->assertSame(true, $expr2->isObject());
+    }
 }

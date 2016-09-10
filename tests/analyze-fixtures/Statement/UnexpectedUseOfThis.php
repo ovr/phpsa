@@ -63,6 +63,67 @@ class UnexpectedUseOfThis
 
         return 'Fatal error: Cannot unset $this';
     }
+
+    /**
+     * @return string
+     */
+    public function OtherAsArgument($a)
+    {
+        return 'Ok';
+    }
+
+    /**
+     * @return string
+     */
+    public function OtherInCatch()
+    {
+        try {
+            throw new \LogicException();
+        } catch (\Exception $a) {
+            return 'Ok';
+        }
+    }
+
+    /**
+     * @return string
+     */
+    public function OtherAsLoopVariable()
+    {
+        foreach (['foo'] as $a) {
+            return 'Ok';
+        }
+    }
+
+    /**
+     * @return string
+     */
+    public function OtherAsStaticVariable()
+    {
+        static $a;
+
+        return 'Ok';
+    }
+
+    /**
+     * @return string
+     */
+    public function OtherAsGlobalVariable()
+    {
+        global $a;
+
+        return 'Ok';
+    }
+
+    /**
+     * @return string
+     */
+    public function unsetOther()
+    {
+        $a = 1;
+        unset($a);
+
+        return 'Ok';
+    }
 }
 ?>
 ----------------------------
