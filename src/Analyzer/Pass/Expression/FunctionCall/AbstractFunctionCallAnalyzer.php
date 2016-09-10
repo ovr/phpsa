@@ -3,7 +3,6 @@
  * @author Patsura Dmitry https://github.com/ovr <talk@dmtry.me>
  */
 
-
 namespace PHPSA\Analyzer\Pass\Expression\FunctionCall;
 
 use PHPSA\Analyzer\Helper\ResolveExpressionTrait;

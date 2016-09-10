@@ -1,6 +1,6 @@
 <?php
 /**
- * @author Patsura Dmitry https://github.com/ovr <talk@dmtry.me>
+ * @author Kévin Gomez https://github.com/K-Phoen <contact@kevingomez.fr>
  */
 
 namespace PHPSA\Analyzer\Pass\Expression;
