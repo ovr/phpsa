@@ -37,6 +37,7 @@ class Factory
         );
         $analyzer->registerStatementPasses(
             [
+                new AnalyzerPass\Statement\DoNotUseGoto(),
                 new AnalyzerPass\Statement\MissingBreakStatement(),
                 new AnalyzerPass\Statement\MethodCannotReturn(),
                 new AnalyzerPass\Statement\UnexpectedUseOfThis(),
