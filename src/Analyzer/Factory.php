@@ -41,6 +41,7 @@ class Factory
                 new AnalyzerPass\Statement\MissingBreakStatement(),
                 new AnalyzerPass\Statement\MethodCannotReturn(),
                 new AnalyzerPass\Statement\UnexpectedUseOfThis(),
+                new AnalyzerPass\Statement\OldConstructor(),
             ]
         );
         $analyzer->bind();

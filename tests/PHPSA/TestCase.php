@@ -32,7 +32,7 @@ class TestCase extends \PHPUnit_Framework_TestCase
                 new ConsoleOutput(), new Application(), EventManager::getInstance()
             )
         );
-        $context->setScope(new ClassDefinition('MathTest', 0));
+        $context->setScope(new ClassDefinition('MathTest', null, 0));
 
         return $context;
     }

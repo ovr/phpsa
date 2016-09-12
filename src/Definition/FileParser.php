@@ -109,7 +109,7 @@ class FileParser
                     }
                 }
             } elseif ($statement instanceof Node\Stmt\Class_) {
-                $definition = new ClassDefinition($statement->name, $statement->type);
+                $definition = new ClassDefinition($statement->name, $statement, $statement->type);
                 $definition->setFilepath($filepath);
                 $definition->setNamespace($aliasManager->getNamespace());
 
