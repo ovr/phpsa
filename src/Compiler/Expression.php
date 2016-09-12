@@ -134,6 +134,13 @@ class Expression
                 return new Expression\Operators\Logical\BooleanAnd();
             case Node\Expr\BooleanNot::class:
                 return new Expression\Operators\Logical\BooleanNot();
+            case Node\Expr\BinaryOp\LogicalAnd::class:
+                return new Expression\Operators\Logical\LogicalAnd();
+            case Node\Expr\BinaryOp\LogicalOr::class:
+                return new Expression\Operators\Logical\LogicalOr();
+            case Node\Expr\BinaryOp\LogicalXor::class:
+                return new Expression\Operators\Logical\LogicalXor();
+
             /**
              * Comparison
              */
