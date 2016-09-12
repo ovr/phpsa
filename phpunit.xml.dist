@@ -7,7 +7,7 @@
          processIsolation="false"
          stopOnFailure="true"
          syntaxCheck="true"
-         bootstrap="./tests/PHPSA/Bootstrap.php"
+         bootstrap="./vendor/autoload.php"
         >
 
     <testsuites>

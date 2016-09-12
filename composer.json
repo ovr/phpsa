@@ -35,5 +35,10 @@
         "psr-4": {
             "PHPSA\\": "src/"
         }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\PHPSA\\": "tests/PHPSA"
+        }
     }
 }
