@@ -47,4 +47,40 @@ class PostIncTest extends \Tests\PHPSA\TestCase
         $this->assertSame(CompiledExpression::INTEGER, $compiledExpression->getType());
         $this->assertSame(++$value, $compiledExpression->getValue());
     }
+
+    /**
+     * @return array
+     */
+    public function getDataProviderForSuccessDouble()
+    {
+        return array(
+            array(-1.4),
+            array(1.4),
+            array(99.4),
+            array(0.4),
+        );
+    }
+
+    /**
+     * @dataProvider getDataProviderForSuccessDouble
+     */
+    public function testSuccessDoubleFromDataProvider($value)
+    {
+        $testVariableName = 'myTestVariable';
+
+        $context = $this->getContext();
+        $context->addVariable(new Variable($testVariableName, $value, CompiledExpression::DOUBLE));
+
+        $baseExpression = new Node\Expr\PostInc(
+            new Node\Expr\Variable(
+                new Node\Name($testVariableName)
+            )
+        );
+        $compiledExpression = $this->compileExpression($baseExpression, $context);
+
+        $this->assertInstanceOfCompiledExpression($compiledExpression);
+        $this->assertSame(CompiledExpression::DOUBLE, $compiledExpression->getType());
+        $this->assertSame(++$value, $compiledExpression->getValue());
+    }
+
 }
