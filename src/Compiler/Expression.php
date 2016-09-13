@@ -72,6 +72,8 @@ class Expression
                 return new Expression\AssignOp\Minus();
             case Node\Expr\AssignOp\Mul::class:
                 return new Expression\AssignOp\Mul();
+            case Node\Expr\AssignOp\Div::class:
+                return new Expression\AssignOp\Div();
             case Node\Expr\AssignOp\Mod::class:
                 return new Expression\AssignOp\Mod();
             case Node\Expr\AssignOp\BitwiseOr::class:
