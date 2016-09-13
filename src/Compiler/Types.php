@@ -23,6 +23,8 @@ class Types
                 return 'integer';
             case CompiledExpression::DOUBLE:
                 return 'double';
+            case CompiledExpression::STRING:
+                return 'string';
             case CompiledExpression::NUMBER:
                 return 'number';
             case CompiledExpression::ARR:

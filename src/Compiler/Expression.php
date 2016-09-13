@@ -145,6 +145,26 @@ class Expression
                 return new Expression\Operators\Comparison\Smaller();
             case Node\Expr\BinaryOp\SmallerOrEqual::class:
                 return new Expression\Operators\Comparison\SmallerOrEqual();
+
+            /**
+             * Casts
+             */
+            case Node\Expr\Cast\Array_::class:
+                return new Expression\Casts\ArrayCast();
+            case Node\Expr\Cast\Bool_::class:
+                return new Expression\Casts\BoolCast();
+            case Node\Expr\Cast\Int_::class:
+                return new Expression\Casts\IntCast();
+            case Node\Expr\Cast\Double::class:
+                return new Expression\Casts\DoubleCast();
+            case Node\Expr\Cast\Object_::class:
+                return new Expression\Casts\ObjectCast();
+            case Node\Expr\Cast\String_::class:
+                return new Expression\Casts\StringCast();
+            case Node\Expr\Cast\Unset_::class:
+                return new Expression\Casts\UnsetCast();
+
+
             /**
              * Other
              */
@@ -204,19 +224,7 @@ class Expression
                 return $this->passSymbolByRef($expr);
             case Node\Expr\Variable::class:
                 return $this->passExprVariable($expr);
-            /**
-             * Cast operators
-             */
-            case Node\Expr\Cast\Bool_::class:
-                return $this->passCastBoolean($expr);
-            case Node\Expr\Cast\Int_::class:
-                return $this->passCastInt($expr);
-            case Node\Expr\Cast\Double::class:
-                return $this->passCastFloat($expr);
-            case Node\Expr\Cast\String_::class:
-                return $this->passCastString($expr);
-            case Node\Expr\Cast\Unset_::class:
-                return $this->passCastUnset($expr);
+
             /**
              * Expressions
              */
@@ -228,6 +236,7 @@ class Expression
                 return $this->getNodeName($expr);
             case Node\Name\FullyQualified::class:
                 return $this->getFullyQualifiedNodeName($expr);
+
             /**
              * Simple Scalar(s)
              */
@@ -391,121 +400,6 @@ class Expression
         }
 
         return new CompiledExpression(CompiledExpression::STRING, $expr->toString());
-    }
-
-    /**
-     * (bool) {$expr}
-     *
-     * @param Node\Expr\Cast\Bool_ $expr
-     * @return CompiledExpression
-     */
-    protected function passCastBoolean(Node\Expr\Cast\Bool_ $expr)
-    {
-        $compiledExpression = $this->compile($expr->expr);
-
-        switch ($compiledExpression->getType()) {
-            case CompiledExpression::BOOLEAN:
-                $this->context->notice('stupid-cast', "You are trying to cast 'boolean' to 'boolean'", $expr);
-                return $compiledExpression;
-            case CompiledExpression::DOUBLE:
-            case CompiledExpression::INTEGER:
-            case CompiledExpression::NUMBER:
-            case CompiledExpression::STRING:
-                return new CompiledExpression(CompiledExpression::BOOLEAN, (bool) $compiledExpression->getValue());
-        }
-
-        return new CompiledExpression();
-    }
-
-    /**
-     * (int) {$expr}
-     *
-     * @param Node\Expr\Cast\Int_ $expr
-     * @return CompiledExpression
-     */
-    protected function passCastInt(Node\Expr\Cast\Int_ $expr)
-    {
-        $compiledExpression = $this->compile($expr->expr);
-
-        switch ($compiledExpression->getType()) {
-            case CompiledExpression::INTEGER:
-                $this->context->notice('stupid-cast', "You are trying to cast 'int' to 'int'", $expr);
-                return $compiledExpression;
-            case CompiledExpression::BOOLEAN:
-            case CompiledExpression::DOUBLE:
-            case CompiledExpression::NUMBER:
-            case CompiledExpression::STRING:
-                return new CompiledExpression(CompiledExpression::INTEGER, (int) $compiledExpression->getValue());
-        }
-
-        return new CompiledExpression();
-    }
-
-    /**
-     * (float) {$expr}
-     *
-     * @param Node\Expr\Cast\Double $expr
-     * @return CompiledExpression
-     */
-    protected function passCastFloat(Node\Expr\Cast\Double $expr)
-    {
-        $compiledExpression = $this->compile($expr->expr);
-
-        switch ($compiledExpression->getType()) {
-            case CompiledExpression::DOUBLE:
-                $this->context->notice('stupid-cast', "You are trying to cast 'float' to 'float'", $expr);
-                return $compiledExpression;
-            case CompiledExpression::BOOLEAN:
-            case CompiledExpression::INTEGER:
-            case CompiledExpression::NUMBER:
-            case CompiledExpression::STRING:
-                return new CompiledExpression(CompiledExpression::DOUBLE, (float) $compiledExpression->getValue());
-        }
-
-        return new CompiledExpression();
-    }
-
-    /**
-     * (string) {$expr}
-     *
-     * @param Node\Expr\Cast\String_ $expr
-     * @return CompiledExpression
-     */
-    protected function passCastString(Node\Expr\Cast\String_ $expr)
-    {
-        $compiledExpression = $this->compile($expr->expr);
-
-        switch ($compiledExpression->getType()) {
-            case CompiledExpression::STRING:
-                $this->context->notice('stupid-cast', "You are trying to cast 'string' to 'string'", $expr);
-                return $compiledExpression;
-            case CompiledExpression::BOOLEAN:
-            case CompiledExpression::INTEGER:
-            case CompiledExpression::NUMBER:
-            case CompiledExpression::DOUBLE:
-                return new CompiledExpression(CompiledExpression::DOUBLE, (string) $compiledExpression->getValue());
-        }
-
-        return new CompiledExpression();
-    }
-
-    /**
-     * (unset) {$expr}
-     *
-     * @param Node\Expr\Cast\Unset_ $expr
-     * @return CompiledExpression
-     */
-    protected function passCastUnset(Node\Expr\Cast\Unset_ $expr)
-    {
-        $compiledExpression = $this->compile($expr->expr);
-
-        switch ($compiledExpression->getType()) {
-            case CompiledExpression::NULL:
-                $this->context->notice('stupid-cast', "You are trying to cast 'unset' to 'null'", $expr);
-                return $compiledExpression;
-        }
-
-        return new CompiledExpression(CompiledExpression::NULL, null);
     }
 
     /**
