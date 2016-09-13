@@ -109,6 +109,9 @@ class Expression
                 return new Expression\Operators\Arithmetical\Mul();
             case Node\Expr\BinaryOp\Mod::class:
                 return new Expression\Operators\Arithmetical\Mod();
+            case Node\Expr\BinaryOp\Pow::class:
+                return new Expression\Operators\Arithmetical\Pow();
+
             /**
              * Bitwise
              * @link http://php.net/manual/ru/language.operators.bitwise.php
