@@ -99,7 +99,7 @@ class Casts
     },
     {
         "type":"stupid.cast",
-        "message":"You are trying to cast 'unset' to 'null'.",
+        "message":"You are trying to cast 'null' to 'unset' (null).",
         "file":"Casts.php",
         "line":21
     },

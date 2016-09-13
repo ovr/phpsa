@@ -17,7 +17,6 @@ class Casts implements AnalyzerPassInterface
      */
     public function pass(Expr $expr, Context $context)
     {
-
         $castType = CompiledExpression::UNKNOWN;
 
         switch (get_class($expr)) {
@@ -42,7 +41,7 @@ class Casts implements AnalyzerPassInterface
         }
 
         $compiledExpression = $context->getExpressionCompiler()->compile($expr->expr);
-        $ExprType = $compiledExpression->getType();
+        $exprType = $compiledExpression->getType();
         $typeName = $compiledExpression->getTypeName();
         
         if ($castType === $ExprType) {
@@ -52,16 +51,15 @@ class Casts implements AnalyzerPassInterface
                 $expr
             );
             return true;
-        } elseif (get_class($expr) == Expr\Cast\Unset_::class && $ExprType === CompiledExpression::NULL) {
+        } elseif (get_class($expr) == Expr\Cast\Unset_::class && $exprType === CompiledExpression::NULL) {
             $context->notice(
                 'stupid.cast',
-                "You are trying to cast 'unset' to 'null'.",
+                "You are trying to cast 'null' to 'unset' (null).",
                 $expr
             );
             return true;
         }
         
-
         return false;
     }
 
