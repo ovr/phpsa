@@ -86,6 +86,8 @@ class Expression
                 return new Expression\AssignOp\Concat();
             case Node\Expr\AssignOp\ShiftLeft::class:
                 return new Expression\AssignOp\ShiftLeft();
+            case Node\Expr\AssignOp\ShiftRight::class:
+                return new Expression\AssignOp\ShiftRight();
 
             /**
              * BinaryOp
