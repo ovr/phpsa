@@ -111,6 +111,8 @@ class Expression
                 return new Expression\Operators\PostDec();
             case Node\Expr\PreInc::class:
                 return new Expression\Operators\PreInc();
+            case Node\Expr\PreDec::class:
+                return new Expression\Operators\PreDec();
             /**
              * Arithmetical
              */
