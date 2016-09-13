@@ -109,6 +109,8 @@ class Expression
                 return new Expression\Operators\PostInc();
             case Node\Expr\PostDec::class:
                 return new Expression\Operators\PostDec();
+            case Node\Expr\PreInc::class:
+                return new Expression\Operators\PreInc();
             /**
              * Arithmetical
              */
