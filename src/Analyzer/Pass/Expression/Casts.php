@@ -44,7 +44,7 @@ class Casts implements AnalyzerPassInterface
         $exprType = $compiledExpression->getType();
         $typeName = $compiledExpression->getTypeName();
         
-        if ($castType === $ExprType) {
+        if ($castType === $exprType) {
             $context->notice(
                 'stupid.cast',
                 sprintf("You are trying to cast '%s' to '%s'.", $typeName, $typeName),
