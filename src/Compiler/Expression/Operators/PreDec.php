@@ -41,14 +41,14 @@ class PreDec extends AbstractExpressionCompiler
 
                 $context->notice(
                     'predec.variable.wrong-type',
-                    'You are trying to use pre derement operator on variable $' . $variableName .
+                    'You are trying to use pre decrement operator on variable $' . $variableName .
                     ' with type: ' . $variable->getTypeName(),
                     $expr
                 );
             } else {
                 $context->notice(
                     'predec.undefined-variable',
-                    'You are trying to use pre derement operator on undefined variable: ' . $variableName,
+                    'You are trying to use pre decrement operator on undefined variable: ' . $variableName,
                     $expr
                 );
             }
