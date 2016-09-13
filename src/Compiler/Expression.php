@@ -80,6 +80,9 @@ class Expression
                 return new Expression\AssignOp\BitwiseOr();
             case Node\Expr\AssignOp\BitwiseAnd::class:
                 return new Expression\AssignOp\BitwiseAnd();
+            case Node\Expr\AssignOp\BitwiseXor::class:
+                return new Expression\AssignOp\BitwiseXor();
+
             /**
              * BinaryOp
              */
