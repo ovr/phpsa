@@ -82,5 +82,4 @@ class PreIncTest extends \Tests\PHPSA\TestCase
         $this->assertSame(CompiledExpression::DOUBLE, $compiledExpression->getType());
         $this->assertSame(++$value, $compiledExpression->getValue());
     }
-
 }
