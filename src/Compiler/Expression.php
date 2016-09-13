@@ -82,6 +82,8 @@ class Expression
                 return new Expression\AssignOp\BitwiseAnd();
             case Node\Expr\AssignOp\BitwiseXor::class:
                 return new Expression\AssignOp\BitwiseXor();
+            case Node\Expr\AssignOp\Concat::class:
+                return new Expression\AssignOp\Concat();
 
             /**
              * BinaryOp
