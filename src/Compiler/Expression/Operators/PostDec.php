@@ -18,7 +18,7 @@ class PostDec extends AbstractExpressionCompiler
     protected $name = 'PhpParser\Node\Expr\PostDec';
 
     /**
-     * {expr}++
+     * {expr}--
      *
      * @param \PhpParser\Node\Expr\PostDec $expr
      * @param Context $context
@@ -68,7 +68,7 @@ class PostDec extends AbstractExpressionCompiler
             case CompiledExpression::DOUBLE:
             case CompiledExpression::NUMBER:
                 $value = $compiledExpression->getValue();
-                return CompiledExpression::fromZvalValue($value++);
+                return CompiledExpression::fromZvalValue($value--);
         }
 
         return new CompiledExpression(CompiledExpression::UNKNOWN);
