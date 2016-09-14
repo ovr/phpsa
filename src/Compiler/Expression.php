@@ -525,9 +525,6 @@ class Expression
             if ($expr->var->vars) {
                 foreach ($expr->var->vars as $key => $var) {
                     if ($var instanceof Node\Expr\Variable) {
-                        if (!isset($expr->var->name)) {
-                            var_dump($var);
-                        }
                         $name = $expr->var->name;
 
                         $symbol = $this->context->getSymbol($name);
