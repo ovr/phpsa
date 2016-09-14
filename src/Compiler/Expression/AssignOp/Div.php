@@ -27,10 +27,12 @@ class Div extends AbstractExpressionCompiler
             case CompiledExpression::INTEGER:
             case CompiledExpression::DOUBLE:
             case CompiledExpression::NUMBER:
+            case CompiledExpression::BOOLEAN:
                 switch ($expExpression->getType()) {
                     case CompiledExpression::INTEGER:
                     case CompiledExpression::DOUBLE:
                     case CompiledExpression::NUMBER:
+                    case CompiledExpression::BOOLEAN:
                         return CompiledExpression::fromZvalValue($left->getValue() / $expExpression->getValue());
                         break;
                 }

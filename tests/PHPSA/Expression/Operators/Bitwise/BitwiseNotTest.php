@@ -6,7 +6,6 @@ use PhpParser\Node;
 use PHPSA\CompiledExpression;
 use PHPSA\Compiler\Expression;
 
-
 class BitwiseNotTest extends \Tests\PHPSA\TestCase
 {
     /**

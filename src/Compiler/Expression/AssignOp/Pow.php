@@ -33,10 +33,12 @@ class Pow extends AbstractExpressionCompiler
             case CompiledExpression::INTEGER:
             case CompiledExpression::DOUBLE:
             case CompiledExpression::NUMBER:
+            case CompiledExpression::BOOLEAN:
                 switch ($expExpression->getType()) {
                     case CompiledExpression::INTEGER:
                     case CompiledExpression::DOUBLE:
                     case CompiledExpression::NUMBER:
+                    case CompiledExpression::BOOLEAN:
                         return CompiledExpression::fromZvalValue(pow($left->getValue(), $expExpression->getValue()));
                         break;
                 }
