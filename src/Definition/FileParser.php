@@ -95,7 +95,7 @@ class FileParser
     }
 
     /**
-     * @param Node\Stmt $topStatement
+     * @param Node\Stmt|Node\Stmt[] $topStatement
      * @param AliasManager $aliasManager
      * @param string $filepath
      */
