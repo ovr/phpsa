@@ -53,7 +53,7 @@ class MethodCall extends AbstractExpressionCompiler
                     if ($method->isStatic()) {
                         $context->notice(
                             'mcall.static',
-                            "Method {$methodName}() is a static function but called like class method",
+                            "Method {$methodName}() is static but called like a class method",
                             $expr
                         );
                     }
@@ -65,8 +65,8 @@ class MethodCall extends AbstractExpressionCompiler
             }
         } elseif (!$leftCE->canBeObject()) {
             $context->notice(
-                'mcall.not-object',
-                'Is not object cannot be called like this',
+                'mcall.non-object',
+                sprintf('%s is not an object and cannot be called like this', $expr->var),
                 $expr->var,
                 Check::CHECK_ALPHA
             );

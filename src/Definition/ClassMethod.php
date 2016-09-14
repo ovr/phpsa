@@ -81,7 +81,7 @@ class ClassMethod extends AbstractDefinition
             if (!$scope->isAbstract()) {
                 $context->notice(
                     'not-abstract-class-with-abstract-method',
-                    'Class must be an abstract',
+                    'Class must be abstract',
                     $this->statement
                 );
             }
