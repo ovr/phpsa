@@ -34,7 +34,7 @@ class Concat extends AbstractExpressionCompiler
                     'Unsupported operand types -{array}',
                     $expr
                 );
-                break;
+                return new CompiledExpression(CompiledExpression::UNKNOWN);
         }
 
         switch ($rightExpression->getType()) {
@@ -44,7 +44,7 @@ class Concat extends AbstractExpressionCompiler
                     'Unsupported operand types -{array}',
                     $expr
                 );
-                break;
+                return new CompiledExpression(CompiledExpression::UNKNOWN);
         }
 
         switch ($leftExpression->getType()) {
