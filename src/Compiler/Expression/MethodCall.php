@@ -66,7 +66,7 @@ class MethodCall extends AbstractExpressionCompiler
         } elseif (!$leftCE->canBeObject()) {
             $context->notice(
                 'mcall.non-object',
-                sprintf('%s is not an object and cannot be called like this', $expr->var),
+                sprintf('$%s is not an object and cannot be called like this', $expr->var->name),
                 $expr->var,
                 Check::CHECK_ALPHA
             );
