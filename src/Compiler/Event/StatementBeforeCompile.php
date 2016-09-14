@@ -17,7 +17,7 @@ class StatementBeforeCompile extends \Webiny\Component\EventManager\Event
     private $context;
 
     /**
-     * @var \PhpParser\Node\Expr
+     * @var \PhpParser\Node\Stmt
      */
     private $statement;
 
