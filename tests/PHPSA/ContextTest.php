@@ -24,7 +24,7 @@ class ContextTest extends TestCase
          * $b = true;
          */
         $context->addVariable(
-            $variableB = new Variable('b', null, CompiledExpression::BOOLEAN, true)
+            $variableB = new Variable('b', true, CompiledExpression::BOOLEAN)
         );
 
         /**
