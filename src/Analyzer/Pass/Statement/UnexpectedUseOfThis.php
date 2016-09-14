@@ -20,33 +20,21 @@ class UnexpectedUseOfThis implements Pass\ConfigurablePassInterface, Pass\Analyz
      */
     public function pass(Node\Stmt $stmt, Context $context)
     {
-        $result = false;
-
         if ($stmt instanceof Stmt\ClassMethod) {
-            $result = $this->inspectClassMethodArguments($stmt, $context) || $result;
+            return $this->inspectClassMethodArguments($stmt, $context);
+        } elseif ($stmt instanceof Stmt\TryCatch) {
+            return $this->inspectTryCatch($stmt, $context);
+        } elseif ($stmt instanceof Stmt\Foreach_) {
+            return $this->inspectForeach($stmt, $context);
+        } elseif ($stmt instanceof Stmt\Static_) {
+            return $this->inspectStaticVar($stmt, $context);
+        } elseif ($stmt instanceof Stmt\Global_) {
+            return $this->inspectGlobalVar($stmt, $context);
+        } elseif ($stmt instanceof Stmt\Unset_) {
+            return $this->inspectUnset($stmt, $context);
         }
 
-        if ($stmt instanceof Stmt\TryCatch) {
-            $result = $this->inspectTryCatch($stmt, $context) || $result;
-        }
-
-        if ($stmt instanceof Stmt\Foreach_) {
-            $result = $this->inspectForeach($stmt, $context) || $result;
-        }
-
-        if ($stmt instanceof Stmt\Static_) {
-            $result = $this->inspectStaticVar($stmt, $context) || $result;
-        }
-
-        if ($stmt instanceof Stmt\Global_) {
-            $result = $this->inspectGlobalVar($stmt, $context) || $result;
-        }
-
-        if ($stmt instanceof Stmt\Unset_) {
-            $result = $this->inspectUnset($stmt, $context) || $result;
-        }
-
-        return $result;
+        return false;
     }
 
     /**
