@@ -31,7 +31,7 @@ class BitwiseXor extends AbstractExpressionCompiler
                     case CompiledExpression::INTEGER:
                     case CompiledExpression::DOUBLE:
                     case CompiledExpression::BOOLEAN:
-                        return new CompiledExpression(CompiledExpression::DOUBLE, $left->getValue() ^ $right->getValue());
+                        return new CompiledExpression(CompiledExpression::INTEGER, $left->getValue() ^ $right->getValue());
                 }
                 break;
         }
