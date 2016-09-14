@@ -14,6 +14,11 @@ use PHPSA\Context;
 
 class ClassMethod extends AbstractDefinition
 {
+    /**
+     * Contains a number representing all modifiers (public, static, ...)
+     *
+     * @var int
+     */
     protected $type;
 
     /**
@@ -208,7 +213,7 @@ class ClassMethod extends AbstractDefinition
     }
 
     /**
-    * @return array
+    * @return Node\Param[]
     */
     public function getParams()
     {

@@ -211,6 +211,8 @@ class Expression
 
     /**
      * @param object|string $expr
+     * @throws InvalidArgumentException when $expr is not string/object/null
+     * @throws RuntimeException when compiler class does not return a CompiledExpression
      * @return CompiledExpression
      */
     public function compile($expr)

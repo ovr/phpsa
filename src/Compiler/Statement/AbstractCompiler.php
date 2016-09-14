@@ -14,10 +14,14 @@ abstract class AbstractCompiler implements StatementCompilerInterface
 {
     /**
      * @abstract
-     * @var string
+     * @var string $name
      */
     protected $name = 'unknown';
 
+    /**
+     * @param $expression
+     * @throws RuntimeException when param does not match $this->name
+     */
     protected function assertExpression($expression)
     {
         if (!$expression instanceof $this->name) {

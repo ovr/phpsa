@@ -71,7 +71,7 @@ class RuntimeClassDefinition extends ClassDefinition
 
     /**
      * @param $name
-     * @param boolean|false $inherit
+     * @param bool $inherit
      * @return ReflectionClassMethod
      */
     public function getMethod($name, $inherit = false)
@@ -106,7 +106,7 @@ class RuntimeClassDefinition extends ClassDefinition
     }
 
     /**
-     * @return null|ClassDefinition
+     * @return null|RuntimeClassDefinition|ClassDefinition
      */
     public function getExtendsClassDefinition()
     {
