@@ -68,6 +68,6 @@ class Concat extends AbstractExpressionCompiler
                 break;
         }
 
-        return new CompiledExpression(CompiledExpression::STRING);
+        return new CompiledExpression(CompiledExpression::UNKNOWN);
     }
 }
