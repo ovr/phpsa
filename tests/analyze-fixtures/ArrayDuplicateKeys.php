@@ -31,6 +31,20 @@ class ArrayDuplicateKeys
     /**
      * @return array
      */
+    public function arrayWithDuplicateVariableKey()
+    {
+        $zero = 0;
+
+        return [
+            0 => 42,
+            1 => 43,
+            $zero => 'lala',
+        ];
+    }
+
+    /**
+     * @return array
+     */
     public function validArray()
     {
         return [
@@ -55,5 +69,11 @@ class ArrayDuplicateKeys
         "message":"Duplicate array key \"0\" in array definition (previously declared in line 25).",
         "file":"ArrayDuplicateKeys.php",
         "line":26
+    },
+    {
+        "type":"array.duplicate_keys",
+        "message":"Duplicate array key \"0\" in array definition (previously declared in line 39).",
+        "file":"ArrayDuplicateKeys.php",
+        "line":40
     }
 ]

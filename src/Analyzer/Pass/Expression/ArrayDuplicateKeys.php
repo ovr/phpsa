@@ -25,11 +25,13 @@ class ArrayDuplicateKeys implements Pass\AnalyzerPassInterface, Pass\Configurabl
 
         /** @var Expr\ArrayItem $item */
         foreach ($expr->items as $item) {
-            if (!$item->key instanceof Scalar) {
+            $compiledKey = $context->getExpressionCompiler()->compile($item->key);
+
+            if (!$compiledKey->isTypeKnown() || !$compiledKey->isScalar() || !$compiledKey->hasValue()) {
                 continue;
             }
 
-            $key = $item->key->value;
+            $key = $compiledKey->getValue();
 
             if (isset($keys[$key])) {
                 $context->notice(

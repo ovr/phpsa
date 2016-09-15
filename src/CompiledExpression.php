@@ -259,6 +259,22 @@ class CompiledExpression
     /**
      * @return bool
      */
+    public function isTypeKnown()
+    {
+        return $this->type !== self::UNKNOWN;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isScalar()
+    {
+        return in_array($this->type, [self::STRING, self::BOOLEAN, self::DOUBLE, self::INTEGER, self::NUMBER], true);
+    }
+
+    /**
+     * @return bool
+     */
     public function isObject()
     {
         return $this->type == self::OBJECT;
@@ -270,5 +286,13 @@ class CompiledExpression
     public function isCallable()
     {
         return $this->type == self::CALLABLE_TYPE;
+    }
+
+    /**
+     * @return bool
+     */
+    public function hasValue()
+    {
+        return $this->value !== null;
     }
 }
