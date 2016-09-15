@@ -293,6 +293,6 @@ class CompiledExpression
      */
     public function hasValue()
     {
-        return $this->value !== null;
+        return $this->value !== null || $this->type === self::NULL;
     }
 }
