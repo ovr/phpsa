@@ -21,7 +21,7 @@
         "symfony/yaml": "~3.0.5",
         "nikic/php-parser": "~2.1.0",
         "phpdocumentor/reflection-docblock": "~2.0.4",
-        "phpdocumentor/type-resolver": "^0.1.8",
+        "phpdocumentor/type-resolver": "^0.2.0",
         "webiny/event-manager": "~1.4.1",
         "regex-guard/regex-guard": "~1.1.0"
     },
