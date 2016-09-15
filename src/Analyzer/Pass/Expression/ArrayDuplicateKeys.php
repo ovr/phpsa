@@ -38,7 +38,7 @@ class ArrayDuplicateKeys implements Pass\AnalyzerPassInterface, Pass\Configurabl
                     'array.duplicate_keys',
                     sprintf(
                         'Duplicate array key "%s" in array definition (previously declared in line %d).',
-                        $key,
+                        $item->key instanceof Expr\Variable ? sprintf('$%s (resolved value: "%s")', $item->key->name, $key) : $key,
                         $keys[$key]->getLine()
                     ),
                     $item

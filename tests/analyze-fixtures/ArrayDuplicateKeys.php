@@ -72,7 +72,7 @@ class ArrayDuplicateKeys
     },
     {
         "type":"array.duplicate_keys",
-        "message":"Duplicate array key \"0\" in array definition (previously declared in line 39).",
+        "message":"Duplicate array key \"$zero (resolved value: \"0\")\" in array definition (previously declared in line 39).",
         "file":"ArrayDuplicateKeys.php",
         "line":40
     }
