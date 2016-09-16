@@ -7,6 +7,7 @@ namespace PHPSA\Compiler\Statement;
 
 use PHPSA\CompiledExpression;
 use PHPSA\Context;
+use PHPSA\Variable;
 
 class CatchSt extends AbstractCompiler
 {
@@ -15,16 +16,17 @@ class CatchSt extends AbstractCompiler
     /**
      * @param \PhpParser\Node\Stmt\Catch_ $statement
      * @param Context $context
-     * @return CompiledExpression
      */
     public function compile($statement, Context $context)
     {
-        if (count($statement->stmts) > 0) {
-            foreach ($statement->stmts as $stmt) {
-                \PHPSA\nodeVisitorFactory($stmt, $context);
-            }
-        } else {
+        $context->addVariable(new Variable($statement->var, null, CompiledExpression::OBJECT));
+
+        if (count($statement->stmts) === 0) {
             $context->notice('not-implemented-body', 'Missing body', $statement);
+        }
+
+        foreach ($statement->stmts as $stmt) {
+            \PHPSA\nodeVisitorFactory($stmt, $context);
         }
     }
 }
