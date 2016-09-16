@@ -34,6 +34,12 @@ class ArrayIllegalOffsetType implements Pass\AnalyzerPassInterface, Pass\Configu
      */
     private function analyzeDimensionFetch(Expr\ArrayDimFetch $expr, Context $context)
     {
+        // $array[]
+        if ($expr->dim === null) {
+            return false;
+        }
+
+        // $array[…]
         return $this->analyzeExpression($expr->dim, $context);
     }
 

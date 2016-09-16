@@ -34,7 +34,9 @@ class ArrayIllegalOffsetType
     public function arrayAssignationWithObject()
     {
         $array = [];
+
         $array[new \DateTime()] = 'foo';
+        $array[] = 'bar';
 
         return $array;
     }
@@ -81,12 +83,12 @@ class ArrayIllegalOffsetType
         "type":"array.illegal_offset_type",
         "message":"Illegal array offset type DateTime.",
         "file":"ArrayIllegalOffsetType.php",
-        "line":36
+        "line":37
     },
     {
         "type":"array.illegal_offset_type",
         "message":"Illegal array offset type DateTime for key $variable.",
         "file":"ArrayIllegalOffsetType.php",
-        "line":49
+        "line":51
     }
 ]
