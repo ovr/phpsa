@@ -27,6 +27,7 @@ class Factory
                 // Arrays
                 new AnalyzerPass\Expression\ArrayShortDefinition(),
                 new AnalyzerPass\Expression\ArrayDuplicateKeys(),
+                new AnalyzerPass\Expression\ArrayIllegalOffsetType(),
                 // Function call
                 new AnalyzerPass\Expression\FunctionCall\AliasCheck(),
                 new AnalyzerPass\Expression\FunctionCall\DebugCode(),

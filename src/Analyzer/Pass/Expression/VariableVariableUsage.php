@@ -19,7 +19,7 @@ class VariableVariableUsage implements Pass\AnalyzerPassInterface, Pass\Configur
      */
     public function pass(Expr\Assign $expr, Context $context)
     {
-        if ($expr->var->name instanceof Expr\Variable) {
+        if ($expr->var instanceof Expr\Variable && $expr->var->name instanceof Expr\Variable) {
             $context->notice(
                 'variable.dynamic_assignment',
                 'Dynamic assignment is greatly discouraged.',
