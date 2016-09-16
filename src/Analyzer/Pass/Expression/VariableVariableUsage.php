@@ -19,17 +19,48 @@ class VariableVariableUsage implements Pass\AnalyzerPassInterface, Pass\Configur
      */
     public function pass(Expr\Assign $expr, Context $context)
     {
-        if ($expr->var instanceof Expr\Variable && $expr->var->name instanceof Expr\Variable) {
-            $context->notice(
-                'variable.dynamic_assignment',
-                'Dynamic assignment is greatly discouraged.',
-                $expr
-            );
-
-            return true;
+        if ($expr->var instanceof Expr\ArrayDimFetch) {
+            return $this->analyzeArrayDimFetch($expr->var, $context);
         }
 
-        return false;
+        return $this->analyzeAssign($expr, $context);
+    }
+
+    private function analyzeAssign(Expr\Assign $expr, Context $context)
+    {
+        // list($a, $b) = …
+        if ($expr->var instanceof Expr\List_) {
+            return $this->analyzeList($expr->var, $context);
+        }
+
+        return $this->analyzeVar($expr->var, $context);
+    }
+
+    private function analyzeList(Expr\List_ $expr, Context $context)
+    {
+        $result = false;
+
+        foreach ($expr->vars as $var) {
+            $result = $this->analyzeVar($var, $context) || $result;
+        }
+
+        return $result;
+    }
+
+    private function analyzeArrayDimFetch(Expr\ArrayDimFetch $expr, Context $context)
+    {
+        return $this->analyzeVar($expr->var, $context);
+    }
+
+    private function analyzeVar(Expr\Variable $var, Context $context)
+    {
+        if (!$var->name instanceof Expr\Variable) {
+            return false;
+        }
+
+        $context->notice('variable.dynamic_assignment', 'Dynamic assignment is greatly discouraged.', $var);
+
+        return true;
     }
 
     /**

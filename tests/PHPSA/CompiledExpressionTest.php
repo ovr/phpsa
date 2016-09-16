@@ -147,21 +147,33 @@ class CompiledExpressionTest extends TestCase
     {
         // Mixed type can be object
         $expr = new CompiledExpression(CompiledExpression::MIXED, null);
-        parent::assertTrue($expr->canBeObject());
+        self::assertTrue($expr->canBeObject());
 
         // Integer type can't be object
         $expr2 = new CompiledExpression(CompiledExpression::INTEGER, 1);
-        parent::assertFalse($expr2->canBeObject());
+        self::assertFalse($expr2->canBeObject());
     }
 
     public function testIsObject()
     {
         // Mixed type could be object but it's unclear
         $expr = new CompiledExpression(CompiledExpression::MIXED, null);
-        parent::assertFalse($expr->isObject());
+        self::assertFalse($expr->isObject());
 
         // Object type is object
         $expr2 = new CompiledExpression(CompiledExpression::OBJECT, null);
-        parent::assertTrue($expr2->isObject());
+        self::assertTrue($expr2->isObject());
+    }
+
+    public function testIsArray()
+    {
+        $compiledExpression = new CompiledExpression(CompiledExpression::ARR);
+        $this->assertTrue($compiledExpression->isArray());
+    }
+
+    public function testIsArrayWhenFalse()
+    {
+        $compiledExpression = new CompiledExpression(CompiledExpression::BOOLEAN);
+        $this->assertFalse($compiledExpression->isArray());
     }
 }

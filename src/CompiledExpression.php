@@ -275,6 +275,14 @@ class CompiledExpression
     /**
      * @return bool
      */
+    public function isArray()
+    {
+        return $this->type === self::ARR;
+    }
+
+    /**
+     * @return bool
+     */
     public function isObject()
     {
         return $this->type == self::OBJECT;

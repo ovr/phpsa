@@ -104,7 +104,7 @@ class Expression
                 return new Expression\BinaryOp\NotEqual();
             case Node\Expr\BinaryOp\Spaceship::class:
                 return new Expression\BinaryOp\SpaceShip();
-                
+
             /**
              * @link http://php.net/manual/en/language.operators.increment.php
              */
@@ -514,42 +514,39 @@ class Expression
         $compiledExpression = $this->compile($expr->expr);
 
         if ($expr->var instanceof Node\Expr\List_) {
-            $isCorrectType = false;
+            $isCorrectType = $compiledExpression->isArray();
 
-            switch ($compiledExpression->getType()) {
-                case CompiledExpression::ARR:
-                    $isCorrectType = true;
-                    break;
-            }
-
-            if ($expr->var->vars) {
-                foreach ($expr->var->vars as $key => $var) {
-                    if ($var instanceof Node\Expr\Variable) {
-                        $name = $expr->var->name;
-
-                        $symbol = $this->context->getSymbol($name);
-                        if (!$symbol) {
-                            $symbol = new Variable(
-                                $name,
-                                null,
-                                CompiledExpression::UNKNOWN,
-                                $this->context->getCurrentBranch()
-                            );
-                            $this->context->addVariable($symbol);
-                        }
-
-                        if (!$isCorrectType) {
-                            $symbol->modify(CompiledExpression::NULL, null);
-                        }
-
-                        $symbol->incSets();
-                    }
+            foreach ($expr->var->vars as $key => $var) {
+                if (!$var instanceof Node\Expr\Variable) {
+                    continue;
                 }
+
+                if ($var->name instanceof Node\Expr\Variable) {
+                    // TODO what should we do here?
+                    // ex: list(${$foo}, $bar) = [1, 2];
+                    continue;
+                }
+
+                $symbol = $this->context->getSymbol($var->name);
+                if (!$symbol) {
+                    $symbol = new Variable(
+                        $var->name,
+                        null,
+                        CompiledExpression::UNKNOWN,
+                        $this->context->getCurrentBranch()
+                    );
+                    $this->context->addVariable($symbol);
+                }
+
+                if (!$isCorrectType) {
+                    $symbol->modify(CompiledExpression::NULL, null);
+                }
+
+                $symbol->incSets();
             }
 
             return new CompiledExpression();
         }
-
 
         if ($expr->var instanceof Node\Expr\Variable) {
             $compiledExpressionName = $this->compile($expr->var->name);
