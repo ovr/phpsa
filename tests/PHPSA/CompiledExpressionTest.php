@@ -69,4 +69,77 @@ class CompiledExpressionTest extends TestCase
         $this->assertSame(CompiledExpression::NULL, $result->getType());
         $this->assertSame(null, $result->getValue());
     }
+
+    /**
+     * @dataProvider scalarTypeProvider
+     */
+    public function testIsScalarWithScalarTypes($expressionType)
+    {
+        $compiledExpression = new CompiledExpression($expressionType);
+        $this->assertTrue($compiledExpression->isScalar());
+    }
+
+    public function scalarTypeProvider()
+    {
+        return [
+            [ CompiledExpression::BOOLEAN ],
+            [ CompiledExpression::STRING ],
+            [ CompiledExpression::DOUBLE ],
+            [ CompiledExpression::NUMBER ],
+            [ CompiledExpression::INTEGER ],
+        ];
+    }
+
+    /**
+     * @dataProvider nonScalarTypeProvider
+     */
+    public function testIsScalarWithNonScalarTypes($expressionType)
+    {
+        $compiledExpression = new CompiledExpression($expressionType);
+        $this->assertFalse($compiledExpression->isScalar());
+    }
+
+    public function nonScalarTypeProvider()
+    {
+        return [
+            [ CompiledExpression::UNKNOWN ],
+            [ CompiledExpression::NULL ],
+            [ CompiledExpression::ARR ],
+            [ CompiledExpression::RESOURCE ],
+            [ CompiledExpression::OBJECT ],
+            [ CompiledExpression::VOID ],
+            [ CompiledExpression::CALLABLE_TYPE ],
+            [ CompiledExpression::VARIABLE ],
+        ];
+    }
+
+    public function testIsTypeKnownWithUnknownType()
+    {
+        $compiledExpression = new CompiledExpression(CompiledExpression::UNKNOWN);
+        $this->assertFalse($compiledExpression->isTypeKnown());
+    }
+
+    public function testIsTypeKnownWithKnownType()
+    {
+        $compiledExpression = new CompiledExpression(CompiledExpression::BOOLEAN);
+        $this->assertTrue($compiledExpression->isTypeKnown());
+    }
+
+    public function testHasValueWithAValue()
+    {
+        $compiledExpression = new CompiledExpression(CompiledExpression::BOOLEAN, false);
+        $this->assertTrue($compiledExpression->hasValue());
+    }
+
+    public function testHasValueWithAScalarTypeAndNoValue()
+    {
+        $compiledExpression = new CompiledExpression(CompiledExpression::BOOLEAN, /* just to be explicit */ null);
+        $this->assertFalse($compiledExpression->hasValue());
+    }
+
+    public function testHasValueWithANullType()
+    {
+        $compiledExpression = new CompiledExpression(CompiledExpression::NULL);
+        $this->assertTrue($compiledExpression->hasValue());
+    }
 }
