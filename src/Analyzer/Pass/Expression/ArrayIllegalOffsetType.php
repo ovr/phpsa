@@ -20,9 +20,9 @@ class ArrayIllegalOffsetType implements Pass\AnalyzerPassInterface, Pass\Configu
     public function pass(Expr $expr, Context $context)
     {
         if ($expr instanceof Expr\Array_) {
-            return $this->analyseArray($expr, $context);
+            return $this->analyzeArray($expr, $context);
         } else if ($expr instanceof Expr\Assign && $expr->var instanceof Expr\ArrayDimFetch) {
-            return $this->analyseDimensionFetch($expr->var, $context);
+            return $this->analyzeDimensionFetch($expr->var, $context);
         }
     }
 
@@ -32,9 +32,9 @@ class ArrayIllegalOffsetType implements Pass\AnalyzerPassInterface, Pass\Configu
      *
      * @return bool
      */
-    private function analyseDimensionFetch(Expr\ArrayDimFetch $expr, Context $context)
+    private function analyzeDimensionFetch(Expr\ArrayDimFetch $expr, Context $context)
     {
-        return $this->analyseExpression($expr->dim, $context);
+        return $this->analyzeExpression($expr->dim, $context);
     }
 
     /**
@@ -43,7 +43,7 @@ class ArrayIllegalOffsetType implements Pass\AnalyzerPassInterface, Pass\Configu
      *
      * @return bool
      */
-    private function analyseArray(Expr\Array_ $expr, Context $context)
+    private function analyzeArray(Expr\Array_ $expr, Context $context)
     {
         $result = false;
 
@@ -53,13 +53,13 @@ class ArrayIllegalOffsetType implements Pass\AnalyzerPassInterface, Pass\Configu
                 continue;
             }
 
-            $result = $this->analyseExpression($item->key, $context) || $result;
+            $result = $this->analyzeExpression($item->key, $context) || $result;
         }
 
         return $result;
     }
 
-    private function analyseExpression(Expr $expr, Context $context)
+    private function analyzeExpression(Expr $expr, Context $context)
     {
         $compiledKey = $context->getExpressionCompiler()->compile($expr);
         if (!$compiledKey->isTypeKnown() || $compiledKey->isScalar()) {
