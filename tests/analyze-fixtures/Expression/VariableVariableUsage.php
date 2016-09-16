@@ -40,6 +40,30 @@ class VariableVariableUsage
 
         return $foo;
     }
+
+    /**
+     * @return string
+     */
+    public function propertyAccessVariable()
+    {
+        $varName = 'name';
+
+        $this->{$varName} = 'foo';
+
+        return $name;
+    }
+
+    /**
+     * @return string
+     */
+    public function arrayPropertyAccessVariable()
+    {
+        $varName = 'name';
+
+        $this->{$varName}[] = 'foo';
+
+        return $name;
+    }
 }
 ?>
 ----------------------------
@@ -61,5 +85,17 @@ class VariableVariableUsage
         "message": "Dynamic assignment is greatly discouraged.",
         "file": "VariableVariableUsage.php",
         "line": 38
+    },
+    {
+        "type": "variable.dynamic_assignment",
+        "message": "Dynamic assignment is greatly discouraged.",
+        "file": "VariableVariableUsage.php",
+        "line": 50
+    },
+    {
+        "type": "variable.dynamic_assignment",
+        "message": "Dynamic assignment is greatly discouraged.",
+        "file": "VariableVariableUsage.php",
+        "line": 62
     }
 ]

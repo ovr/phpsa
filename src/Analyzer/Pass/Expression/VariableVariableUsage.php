@@ -19,10 +19,17 @@ class VariableVariableUsage implements Pass\AnalyzerPassInterface, Pass\Configur
      */
     public function pass(Expr\Assign $expr, Context $context)
     {
+        // $(this->)something[] = …
         if ($expr->var instanceof Expr\ArrayDimFetch) {
             return $this->analyzeArrayDimFetch($expr->var, $context);
         }
 
+        // $this->something = …
+        if ($expr->var instanceof Expr\PropertyFetch) {
+            return $this->analyzePropertyFetch($expr->var, $context);
+        }
+
+        // $something = …
         return $this->analyzeAssign($expr, $context);
     }
 
@@ -49,7 +56,31 @@ class VariableVariableUsage implements Pass\AnalyzerPassInterface, Pass\Configur
 
     private function analyzeArrayDimFetch(Expr\ArrayDimFetch $expr, Context $context)
     {
-        return $this->analyzeVar($expr->var, $context);
+        $result = false;
+
+        // $array[] = …
+        if ($expr->var instanceof Expr\Variable) {
+            $result = $this->analyzeVar($expr->var, $context);
+        } else if ($expr->var instanceof Expr\PropertyFetch) {
+            // $this->array[] = …
+            $result = $this->analyzePropertyFetch($expr->var, $context);
+        }
+
+        if ($expr->dim instanceof Expr\Variable) {
+            $result = $this->analyzeVar($expr->dim, $context) || $result;
+        }
+
+        return $result;
+    }
+
+    private function analyzePropertyFetch(Expr\PropertyFetch $expr, Context $context)
+    {
+        if ($expr->name instanceof Expr\Variable) {
+            $this->notice($context, $expr->name);
+            return true;
+        }
+
+        return false;
     }
 
     private function analyzeVar(Expr\Variable $var, Context $context)
@@ -58,9 +89,14 @@ class VariableVariableUsage implements Pass\AnalyzerPassInterface, Pass\Configur
             return false;
         }
 
-        $context->notice('variable.dynamic_assignment', 'Dynamic assignment is greatly discouraged.', $var);
+        $this->notice($context, $var);
 
         return true;
+    }
+
+    private function notice(Context $context, Expr $expr)
+    {
+        $context->notice('variable.dynamic_assignment', 'Dynamic assignment is greatly discouraged.', $expr);
     }
 
     /**
