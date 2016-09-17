@@ -46,7 +46,7 @@ class Factory
      */
     public static function factory(EventManager $eventManager, Configuration $config)
     {
-        $filterEnabled = function($passClass) use ($config) {
+        $filterEnabled = function ($passClass) use ($config) {
             if (!self::isPassConfigurable($passClass)) {
                 return true;
             }
@@ -60,7 +60,7 @@ class Factory
             return $config['analyzers'][$passName]['enabled'];
         };
 
-        $instanciate = function($passClass) use ($config) {
+        $instanciate = function ($passClass) use ($config) {
             if (!self::isPassConfigurable($passClass)) {
                 return new $passClass();
             }
