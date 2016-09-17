@@ -20,9 +20,16 @@ class MissingBreakStatement implements Pass\ConfigurablePassInterface, Pass\Anal
     public function pass(Stmt\Switch_ $switchStmt, Context $context)
     {
         $result = false;
+        $caseStmts = $switchStmt->cases;
+
+        if (count($caseStmts) < 2) {
+            return $result;
+        }
+
+        array_pop($caseStmts); // the last case statement CAN have no "break" or "return"
 
         /** @var Stmt\Case_ $case */
-        foreach ($switchStmt->cases as $case) {
+        foreach ($caseStmts as $case) {
             $result = $this->checkCaseStatement($case, $context) || $result;
         }
 
@@ -79,16 +86,6 @@ class MissingBreakStatement implements Pass\ConfigurablePassInterface, Pass\Anal
 
             // or for a return
             if ($node instanceof Stmt\Return_) {
-                // but emit a notice if it's empty.
-                if (!$node->expr) {
-                    $context->notice(
-                        'missing_break_statement',
-                        'Empty return in "case" statement',
-                        $node
-                    );
-                    return true;
-                }
-
                 return false;
             }
         }
