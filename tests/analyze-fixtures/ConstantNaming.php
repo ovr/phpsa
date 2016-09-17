@@ -4,8 +4,8 @@ namespace Tests\Compiling\Statements;
 
 class ConstantNaming
 {
-    const Lowercase = 1;
     const UPPERCASE = 2;
+    const Lowercase = 1;
 }
 ?>
 ----------------------------
@@ -14,6 +14,6 @@ class ConstantNaming
         "type":"constant.naming",
         "message":"Constant names should be all uppercase.",
         "file":"ConstantNaming.php",
-        "line":6
+        "line":7
     }
 ]

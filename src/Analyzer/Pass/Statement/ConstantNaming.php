@@ -18,15 +18,18 @@ class ConstantNaming implements ConfigurablePassInterface, AnalyzerPassInterface
      */
     public function pass(ClassConst $stmt, Context $context)
     {
-        if ($stmt->consts[0]->name != strtoupper($stmt->consts[0]->name)) {
-            $context->notice(
-                'constant.naming',
-                'Constant names should be all uppercase.',
-                $stmt
-            );
+        foreach ($stmt->consts as $const) {
+            if ($const->name != strtoupper($const->name)) {
+                $context->notice(
+                    'constant.naming',
+                    'Constant names should be all uppercase.',
+                    $stmt
+                );
 
-            return true;
+                return true;
+            }
         }
+        
         return false;
     }
 
