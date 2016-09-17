@@ -55,7 +55,6 @@ class Types
         return self::getType(gettype($value));
     }
 
-
     /**
      * Get type (integer) by $type
      *
@@ -81,6 +80,7 @@ class Types
             case 'array':
                 return CompiledExpression::ARR;
             case 'boolean':
+            case 'bool':
                 return CompiledExpression::BOOLEAN;
             case 'NULL':
                 return CompiledExpression::NULL;
