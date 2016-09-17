@@ -131,7 +131,7 @@ class ClassDefinition extends ParentDefinition
         $context->setScope($this);
 
         foreach ($this->properties as $property) {
-            if ($property->default == null){
+            if ($property->default == null) {
                 continue;
             }
             // fire expression event for property default
