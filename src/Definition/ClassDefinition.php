@@ -130,6 +130,20 @@ class ClassDefinition extends ParentDefinition
         $context->setFilepath($this->filepath);
         $context->setScope($this);
 
+        foreach ($this->properties as $property) {
+            if ($property->default == null){
+                continue;
+            }
+            // fire expression event for property default
+            $context->getEventManager()->fire(
+                Event\ExpressionBeforeCompile::EVENT_NAME,
+                new Event\ExpressionBeforeCompile(
+                    $property->default,
+                    $context
+                )
+            );
+        }
+
         foreach ($this->methods as $method) {
             $context->clearSymbols();
 
