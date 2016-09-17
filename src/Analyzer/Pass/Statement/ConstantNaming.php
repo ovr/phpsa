@@ -10,7 +10,6 @@ use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 
 class ConstantNaming implements ConfigurablePassInterface, AnalyzerPassInterface
 {
-
     /**
      * @param ClassConst $stmt
      * @param Context $context
@@ -18,19 +17,20 @@ class ConstantNaming implements ConfigurablePassInterface, AnalyzerPassInterface
      */
     public function pass(ClassConst $stmt, Context $context)
     {
+        $result = false;
         foreach ($stmt->consts as $const) {
-            if ($const->name != strtoupper($const->name)) {
+            if ($const->name !== strtoupper($const->name)) {
                 $context->notice(
                     'constant.naming',
                     'Constant names should be all uppercase.',
                     $stmt
                 );
 
-                return true;
+                $result = true;
             }
         }
         
-        return false;
+        return $result;
     }
 
     /**
@@ -52,7 +52,7 @@ class ConstantNaming implements ConfigurablePassInterface, AnalyzerPassInterface
     public function getRegister()
     {
         return [
-            \PhpParser\Node\Stmt\ClassConst::class
+            ClassConst::class
         ];
     }
 }

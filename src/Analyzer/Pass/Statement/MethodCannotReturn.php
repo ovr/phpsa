@@ -67,7 +67,7 @@ class MethodCannotReturn implements ConfigurablePassInterface, AnalyzerPassInter
     public function getRegister()
     {
         return [
-            \PhpParser\Node\Stmt\ClassMethod::class
+            ClassMethod::class
         ];
     }
 }
