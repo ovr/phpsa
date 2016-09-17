@@ -43,7 +43,7 @@ class StaticCall extends AbstractExpressionCompiler
             }
 
             $method = $classDefinition->getMethod($name, true);
-            if (!$method->isStatic()) {
+            if ($expr->class->parts[0] !== 'parent' && !$method->isStatic()) {
                 $context->notice(
                     'undefined-scall',
                     sprintf('Method %s() is not static but it was called as static way', $name),
