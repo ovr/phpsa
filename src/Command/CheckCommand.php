@@ -92,13 +92,14 @@ class CheckCommand extends Command
             realpath($input->getArgument('path')) . DIRECTORY_SEPARATOR
         ]));
 
+        $em = EventManager::getInstance();
+
         $application->configuration = new Configuration(
-            $loader->load('.phpsa.yml')
+            $loader->load('.phpsa.yml'),
+            Analyzer\Factory::getPassesConfigurations()
         );
 
-        $em = EventManager::getInstance();
-        Analyzer\Factory::factory($em);
-
+        Analyzer\Factory::factory($em, $application->configuration);
         $context = new Context($output, $application, $em);
 
         /**

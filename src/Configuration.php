@@ -6,12 +6,11 @@
 namespace PHPSA;
 
 use PhpParser\ParserFactory;
-use Symfony\Component\Config\Definition\Builder\NodeBuilder;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 use Symfony\Component\Config\Definition\Processor;
 
-class Configuration implements ConfigurationInterface
+class Configuration implements ConfigurationInterface, \ArrayAccess
 {
     /**
      * @var array
@@ -22,32 +21,35 @@ class Configuration implements ConfigurationInterface
      * Create a configuration from array.
      *
      * @param array $configuration
+     * @param array $analyzersConfiguration
      */
-    public function __construct(array $configuration = [])
+    public function __construct(array $configuration = [], $analyzersConfiguration = [])
     {
         $processor = new Processor();
-        $treeBuilder = $this->getConfigTreeBuilder();
+
+        $configTree = $this->getConfigTreeBuilder($analyzersConfiguration);
 
         $this->configuration = $processor->process(
-            $treeBuilder->buildTree(),
+            $configTree->buildTree(),
             $configuration
         );
     }
 
     /**
-     * Generates the configuration tree builder.
+     * Generates the configuration tree.
      *
-     * @return \Symfony\Component\Config\Definition\Builder\TreeBuilder The tree builder
+     * @param array $analyzersConfiguration
+     *
+     * @return TreeBuilder
      */
-    public function getConfigTreeBuilder()
+    public function getConfigTreeBuilder($analyzersConfiguration = [])
     {
         $treeBuilder = new TreeBuilder();
+        $root = $treeBuilder->root('phpsa');
 
-        $treeBuilder->root('common', 'array', new NodeBuilder())
+        $root
             ->children()
-                ->booleanNode('blame')
-                ->defaultFalse()
-                ->end()
+                ->booleanNode('blame')->defaultFalse()->end()
             ->end()
             ->children()
                 ->enumNode('parser')
@@ -58,8 +60,19 @@ class Configuration implements ConfigurationInterface
                         ParserFactory::PREFER_PHP5 => 'prefer-5',
                         ParserFactory::ONLY_PHP7 => 'only-7',
                         ParserFactory::ONLY_PHP5 => 'only-5'
-                    ]);
+                    ])
+                ->end()
+            ->end()
+        ;
 
+        $passes = $root
+            ->children()
+                ->arrayNode('analyzers')
+                ->addDefaultsIfNotSet();
+
+        foreach ($analyzersConfiguration as $config) {
+            $passes->append($config);
+        }
 
         return $treeBuilder;
     }
@@ -84,5 +97,37 @@ class Configuration implements ConfigurationInterface
     public function valueIsTrue($key)
     {
         return (bool) $this->configuration[$key];
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function offsetExists($offset)
+    {
+        return array_key_exists($offset, $this->configuration);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function offsetGet($offset)
+    {
+        return $this->configuration[$offset];
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function offsetSet($offset, $value)
+    {
+        $this->setValue($offset, $value);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function offsetUnset($offset)
+    {
+        unset($this->configuration[$offset]);
     }
 }

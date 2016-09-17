@@ -3,9 +3,11 @@
 namespace Tests\PHPSA;
 
 use PhpParser\ParserFactory;
+use PHPSA\Analyzer;
 use PHPSA\Analyzer\EventListener\ExpressionListener;
 use PHPSA\Analyzer\EventListener\StatementListener;
 use PHPSA\Application;
+use PHPSA\Configuration;
 use PHPSA\Context;
 use PHPSA\Definition\FileParser;
 use PHPSA\Issue;
@@ -125,7 +127,8 @@ class AnalyzeFixturesTest extends TestCase
         }
 
         self::$em = EventManager::getInstance();
-        \PHPSA\Analyzer\Factory::factory(self::$em);
+        $configuration = new Configuration([], Analyzer\Factory::getPassesConfigurations());
+        \PHPSA\Analyzer\Factory::factory(self::$em, $configuration);
 
         return self::$em;
     }

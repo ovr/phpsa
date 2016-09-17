@@ -1,1 +1,2 @@
-blame: true
+phpsa:
+    blame: true

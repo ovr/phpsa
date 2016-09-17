@@ -2,23 +2,24 @@
 
 namespace PHPSA\Analyzer\Pass\Statement;
 
-use PhpParser\Node\Stmt\ClassMethod;
-use PhpParser\Node\Stmt\Class_;
+use PhpParser\Node\Stmt;
+use PHPSA\Analyzer\Helper\ConfigurablePassTrait;
 use PHPSA\Analyzer\Pass\AnalyzerPassInterface;
 use PHPSA\Context;
 
 class OldConstructor implements AnalyzerPassInterface
 {
+    use ConfigurablePassTrait;
 
     /**
-     * @param Class_ $classStmt
+     * @param Stmt\Class_ $classStmt
      * @param Context $context
      * @return bool
      */
-    public function pass(Class_ $classStmt, Context $context)
+    public function pass(Stmt\Class_ $classStmt, Context $context)
     {
         foreach ($classStmt->stmts as $statement) {
-            if (!($statement instanceof ClassMethod) || $statement->name !== $classStmt->name) {
+            if (!($statement instanceof Stmt\ClassMethod) || $statement->name !== $classStmt->name) {
                 continue;
             }
             $context->notice(
@@ -38,7 +39,7 @@ class OldConstructor implements AnalyzerPassInterface
     public function getRegister()
     {
         return [
-            Class_::class
+            Stmt\Class_::class
         ];
     }
 }

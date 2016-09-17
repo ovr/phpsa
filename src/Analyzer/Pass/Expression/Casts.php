@@ -42,7 +42,7 @@ class Casts implements AnalyzerPassInterface
         $compiledExpression = $context->getExpressionCompiler()->compile($expr->expr);
         $exprType = $compiledExpression->getType();
         $typeName = $compiledExpression->getTypeName();
-        
+
         if ($castType === $exprType) {
             $context->notice(
                 'stupid.cast',
@@ -58,7 +58,7 @@ class Casts implements AnalyzerPassInterface
             );
             return true;
         }
-        
+
         return false;
     }
 

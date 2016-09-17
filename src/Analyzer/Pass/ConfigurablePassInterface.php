@@ -5,12 +5,15 @@
 
 namespace PHPSA\Analyzer\Pass;
 
-use Symfony\Component\Config\Definition\Builder\TreeBuilder;
-
 interface ConfigurablePassInterface
 {
     /**
-     * @return TreeBuilder
+     * @return \Symfony\Component\Config\Definition\Builder\NodeDefinition
      */
-    public function getConfiguration();
+    public static function getConfiguration();
+
+    /**
+     * @return string
+     */
+    public static function getName();
 }

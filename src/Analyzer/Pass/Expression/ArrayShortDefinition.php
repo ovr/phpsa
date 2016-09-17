@@ -8,7 +8,6 @@ namespace PHPSA\Analyzer\Pass\Expression;
 use PhpParser\Node\Expr;
 use PHPSA\Analyzer\Pass\AnalyzerPassInterface;
 use PHPSA\Context;
-use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 
 class ArrayShortDefinition implements AnalyzerPassInterface
 {

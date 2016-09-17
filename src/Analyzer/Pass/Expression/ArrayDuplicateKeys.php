@@ -6,12 +6,14 @@
 namespace PHPSA\Analyzer\Pass\Expression;
 
 use PhpParser\Node\Expr;
-use PhpParser\Node\Scalar;
+use PHPSA\Analyzer\Helper\ConfigurablePassTrait;
 use PHPSA\Analyzer\Pass;
 use PHPSA\Context;
 
 class ArrayDuplicateKeys implements Pass\AnalyzerPassInterface
 {
+    use ConfigurablePassTrait;
+
     /**
      * @param Expr\Array_ $expr
      * @param Context $context

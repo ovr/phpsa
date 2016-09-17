@@ -6,11 +6,14 @@
 namespace PHPSA\Analyzer\Pass\Statement;
 
 use PhpParser\Node\Stmt;
+use PHPSA\Analyzer\Helper\ConfigurablePassTrait;
 use PHPSA\Analyzer\Pass;
 use PHPSA\Context;
 
 class MissingBreakStatement implements Pass\AnalyzerPassInterface
 {
+    use ConfigurablePassTrait;
+
     /**
      * @param Stmt\Switch_ $switchStmt
      * @param Context $context

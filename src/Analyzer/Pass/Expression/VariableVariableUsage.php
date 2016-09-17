@@ -6,11 +6,14 @@
 namespace PHPSA\Analyzer\Pass\Expression;
 
 use PhpParser\Node\Expr;
+use PHPSA\Analyzer\Helper\ConfigurablePassTrait;
 use PHPSA\Analyzer\Pass;
 use PHPSA\Context;
 
 class VariableVariableUsage implements Pass\AnalyzerPassInterface
 {
+    use ConfigurablePassTrait;
+
     /**
      * @param Expr\Assign $expr
      * @param Context $context

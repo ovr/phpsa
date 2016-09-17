@@ -7,11 +7,14 @@ namespace PHPSA\Analyzer\Pass\Statement;
 
 use PhpParser\Node\Stmt;
 use PhpParser\Node;
+use PHPSA\Analyzer\Helper\ConfigurablePassTrait;
 use PHPSA\Analyzer\Pass;
 use PHPSA\Context;
 
 class UnexpectedUseOfThis implements Pass\AnalyzerPassInterface
 {
+    use ConfigurablePassTrait;
+
     /**
      * @param Node\Stmt $stmt
      * @param Context $context
@@ -33,7 +36,11 @@ class UnexpectedUseOfThis implements Pass\AnalyzerPassInterface
             return $this->inspectUnset($stmt, $context);
         }
 
-        return false;
+        if ($stmt instanceof Stmt\Unset_) {
+            $result = $this->inspectUnset($stmt, $context) || $result;
+        }
+
+        return $result;
     }
 
     /**
