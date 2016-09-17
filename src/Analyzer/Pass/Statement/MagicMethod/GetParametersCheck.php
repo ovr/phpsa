@@ -33,10 +33,10 @@ class GetParametersCheck implements ConfigurablePassInterface, AnalyzerPassInter
         }
 
         if ($methodStmt->name == '__set') {
-            if (count($methodStmt->params) == 0) {
+            if (count($methodStmt->params) < 2) {
                 $context->notice(
                     'magic.get.wrong-parameters',
-                    'Magic method __set must take 1 parameter at least',
+                    'Magic method __set must take 2 parameters at least',
                     $methodStmt,
                     Check::CHECK_SAFE
                 );

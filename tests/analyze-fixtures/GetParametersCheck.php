@@ -4,7 +4,7 @@ namespace Tests\Compiling\Statements;
 
 class CorrectMagicMethods
 {
-    public function __set($a)
+    public function __set($a, $b)
     {
         return 1;
     }
@@ -27,7 +27,7 @@ class WrongMagicMethods
 		return 1;
 	}
 
-    public function __set()
+    public function __set($a)
     {
         return 1;
     }
@@ -48,7 +48,7 @@ class WrongMagicMethods
     },
     {
         "type":"magic.get.wrong-parameters",
-        "message":"Magic method __set must take 1 parameter at least",
+        "message":"Magic method __set must take 2 parameters at least",
         "file":"GetParametersCheck.php",
         "line":29
     },
