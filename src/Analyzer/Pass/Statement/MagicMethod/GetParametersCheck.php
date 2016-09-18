@@ -3,7 +3,7 @@
  * @author Patsura Dmitry https://github.com/ovr <talk@dmtry.me>
  */
 
-namespace PHPSA\Analyzer\Pass\Statement;
+namespace PHPSA\Analyzer\Pass\Statement\MagicMethod;
 
 use PhpParser\Node\Stmt\ClassMethod;
 use PHPSA\Analyzer\Pass\AnalyzerPassInterface;
@@ -25,7 +25,7 @@ class GetParametersCheck implements ConfigurablePassInterface, AnalyzerPassInter
             if (count($methodStmt->params) == 0) {
                 $context->notice(
                     'magic.get.wrong-parameters',
-                    'Magic method __get must take 1 paramter at least',
+                    'Magic method __get must take 1 parameter at least',
                     $methodStmt,
                     Check::CHECK_SAFE
                 );
@@ -33,10 +33,10 @@ class GetParametersCheck implements ConfigurablePassInterface, AnalyzerPassInter
         }
 
         if ($methodStmt->name == '__set') {
-            if (count($methodStmt->params) == 0) {
+            if (count($methodStmt->params) < 2) {
                 $context->notice(
                     'magic.get.wrong-parameters',
-                    'Magic method __set must take 1 paramter at least',
+                    'Magic method __set must take 2 parameters at least',
                     $methodStmt,
                     Check::CHECK_SAFE
                 );

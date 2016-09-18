@@ -40,6 +40,7 @@ class Factory
         );
         $analyzer->registerStatementPasses(
             [
+                new AnalyzerPass\Statement\MagicMethod\GetParametersCheck(),
                 new AnalyzerPass\Statement\DoNotUseGoto(),
                 new AnalyzerPass\Statement\MissingBreakStatement(),
                 new AnalyzerPass\Statement\MethodCannotReturn(),
