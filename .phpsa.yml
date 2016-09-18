@@ -1,2 +1,18 @@
 phpsa:
-    blame: true
+    blame:                false
+    parser:               prefer-7 # One of "prefer-7"; "prefer-5"; "only-7"; "only-5"
+    analyzers:
+        variable_variable_usage:
+            enabled:              true
+        array_duplicate_keys:
+            enabled:              true
+        do_not_use_goto:
+            enabled:              true
+        missing_break_statement:
+            enabled:              true
+        method_cannot_return:
+            enabled:              true
+        unexpected_use_of_this:
+            enabled:              true
+        old_constructor:
+            enabled:              true
