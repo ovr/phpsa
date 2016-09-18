@@ -65,13 +65,13 @@ class Configuration implements ConfigurationInterface, \ArrayAccess
             ->end()
         ;
 
-        $passes = $root
+        $analyzersConfigRoot = $root
             ->children()
                 ->arrayNode('analyzers')
                 ->addDefaultsIfNotSet();
 
         foreach ($analyzersConfiguration as $config) {
-            $passes->append($config);
+            $analyzersConfigRoot->append($config);
         }
 
         return $treeBuilder;

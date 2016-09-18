@@ -21,7 +21,7 @@ class Factory
         $configs = [];
 
         foreach (self::getExpressionPasses() as $passClass) {
-            if (!self::isPassConfigurable($passClass)) {
+            if (!self::isAnalyzerConfigurable($passClass)) {
                 continue;
             }
 
@@ -29,7 +29,7 @@ class Factory
         }
 
         foreach (self::getStatementPasses() as $passClass) {
-            if (!self::isPassConfigurable($passClass)) {
+            if (!self::isAnalyzerConfigurable($passClass)) {
                 continue;
             }
 
@@ -47,7 +47,7 @@ class Factory
     public static function factory(EventManager $eventManager, Configuration $config)
     {
         $filterEnabled = function ($passClass) use ($config) {
-            if (!self::isPassConfigurable($passClass)) {
+            if (!self::isAnalyzerConfigurable($passClass)) {
                 return true;
             }
 
@@ -61,7 +61,7 @@ class Factory
         };
 
         $instanciate = function ($passClass) use ($config) {
-            if (!self::isPassConfigurable($passClass)) {
+            if (!self::isAnalyzerConfigurable($passClass)) {
                 return new $passClass();
             }
 
@@ -145,7 +145,7 @@ class Factory
         ];
     }
 
-    private static function isPassConfigurable($passName)
+    private static function isAnalyzerConfigurable($passName)
     {
         return in_array(AnalyzerPass\ConfigurablePassInterface::class, class_implements($passName), true);
     }
