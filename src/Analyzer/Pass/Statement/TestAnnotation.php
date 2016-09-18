@@ -23,7 +23,7 @@ class TestAnnotation implements ConfigurablePassInterface, AnalyzerPassInterface
             return false;
         }
 
-        if (substr($functionName, 0, 4) !== "test") {
+        if (substr($functionName, 0, 4) !== 'test') {
             return false;
         }
 
