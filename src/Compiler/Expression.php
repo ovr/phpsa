@@ -102,6 +102,9 @@ class Expression
                 return new Expression\BinaryOp\Equal();
             case Node\Expr\BinaryOp\NotEqual::class:
                 return new Expression\BinaryOp\NotEqual();
+            case Node\Expr\BinaryOp\Spaceship::class:
+                return new Expression\BinaryOp\SpaceShip();
+                
             /**
              * @link http://php.net/manual/en/language.operators.increment.php
              */

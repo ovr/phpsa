@@ -32,19 +32,28 @@ class SpaceShip extends AbstractExpressionCompiler
             case CompiledExpression::BOOLEAN:
             case CompiledExpression::NUMBER:
             case CompiledExpression::NULL:
+            case CompiledExpression::ARR:
+            case CompiledExpression::OBJECT:
+            case CompiledExpression::STRING:
                 switch ($right->getType()) {
                     case CompiledExpression::INTEGER:
                     case CompiledExpression::DOUBLE:
                     case CompiledExpression::BOOLEAN:
                     case CompiledExpression::NUMBER:
                     case CompiledExpression::NULL:
-                        return new CompiledExpression(
-                            CompiledExpression::INTEGER,
-                            null //@todo implement
-                        );
+                    case CompiledExpression::ARR:
+                    case CompiledExpression::OBJECT:
+                    case CompiledExpression::STRING:
+                        if ($left->getValue() == $right->getValue()) {
+                            return new CompiledExpression(CompiledExpression::INTEGER, 0);
+                        } elseif ($left->getValue() < $right->getValue()) {
+                            return new CompiledExpression(CompiledExpression::INTEGER, -1);
+                        } elseif ($left->getValue() > $right->getValue()) {
+                            return new CompiledExpression(CompiledExpression::INTEGER, 1);
+                        }
                 }
         }
 
-        return new CompiledExpression(CompiledExpression::BOOLEAN);
+        return new CompiledExpression();
     }
 }
