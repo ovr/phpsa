@@ -37,15 +37,17 @@ trait ConfigurablePassTrait
      */
     private static function convertToSnakeCase($string)
     {
-        $snakeCasedName = '';
+        $result = '';
         $len = strlen($string);
+
         for ($i = 0; $i < $len; ++$i) {
             if ($i !== 0 && ctype_upper($string[$i])) {
-                $snakeCasedName .= '_'.strtolower($string[$i]);
+                $result .= '_'.strtolower($string[$i]);
             } else {
-                $snakeCasedName .= strtolower($string[$i]);
+                $result .= strtolower($string[$i]);
             }
         }
-        return $snakeCasedName;
+
+        return $result;
     }
 }

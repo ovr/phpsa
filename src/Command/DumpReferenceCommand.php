@@ -32,8 +32,9 @@ class DumpReferenceCommand extends Command
     {
         $analyzerConfiguration = Analyzer\Factory::getPassesConfigurations();
         $configuration = new Configuration([], $analyzerConfiguration);
+        $configTree = $configuration->getConfigTreeBuilder($analyzerConfiguration)->buildTree();
 
         $dumper = new YamlReferenceDumper();
-        $output->writeln($dumper->dumpNode($configuration->getConfigTreeBuilder($analyzerConfiguration)->buildTree()));
+        $output->writeln($dumper->dumpNode($configTree));
     }
 }
