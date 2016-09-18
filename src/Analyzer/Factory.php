@@ -52,12 +52,13 @@ class Factory
             }
 
             $passName = $passClass::getName();
+            $analyzersConfig = $config->getValue('analyzers');
 
-            if (!isset($config['analyzers'][$passName], $config['analyzers'][$passName]['enabled'])) {
+            if (!isset($analyzersConfig[$passName], $analyzersConfig[$passName]['enabled'])) {
                 return true;
             }
 
-            return $config['analyzers'][$passName]['enabled'];
+            return $analyzersConfig[$passName]['enabled'];
         };
 
         $instanciate = function ($passClass) use ($config) {
@@ -66,12 +67,13 @@ class Factory
             }
 
             $passName = $passClass::getName();
+            $analyzersConfig = $config->getValue('analyzers');
 
-            if (!isset($config['analyzers'][$passName])) {
+            if (!isset($analyzersConfig[$passName])) {
                 return new $passClass();
             }
 
-            return new $passClass($config['analyzers'][$passName]);
+            return new $passClass($analyzersConfig[$passName]);
         };
 
         $analyzer = new Analyzer($eventManager);

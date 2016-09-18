@@ -10,7 +10,7 @@ use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 use Symfony\Component\Config\Definition\Processor;
 
-class Configuration implements ConfigurationInterface, \ArrayAccess
+class Configuration implements ConfigurationInterface
 {
     /**
      * @var array
@@ -23,7 +23,7 @@ class Configuration implements ConfigurationInterface, \ArrayAccess
      * @param array $configuration
      * @param array $analyzersConfiguration
      */
-    public function __construct(array $configuration = [], $analyzersConfiguration = [])
+    public function __construct(array $configuration = [], array $analyzersConfiguration = [])
     {
         $processor = new Processor();
 
@@ -42,7 +42,7 @@ class Configuration implements ConfigurationInterface, \ArrayAccess
      *
      * @return TreeBuilder
      */
-    public function getConfigTreeBuilder($analyzersConfiguration = [])
+    public function getConfigTreeBuilder(array $analyzersConfiguration = [])
     {
         $treeBuilder = new TreeBuilder();
         $root = $treeBuilder->root('phpsa');
@@ -89,6 +89,23 @@ class Configuration implements ConfigurationInterface, \ArrayAccess
     }
 
     /**
+     * Gets a configuration setting.
+     *
+     * @param string $key
+     * @param mixed $default
+     *
+     * @return mixed
+     */
+    public function getValue($key, $default = null)
+    {
+        if (array_key_exists($key, $this->configuration)) {
+            return $this->configuration[$key];
+        }
+
+        return $default;
+    }
+
+    /**
      * Checks if a configuration setting is set.
      *
      * @param string $key
@@ -97,37 +114,5 @@ class Configuration implements ConfigurationInterface, \ArrayAccess
     public function valueIsTrue($key)
     {
         return (bool) $this->configuration[$key];
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function offsetExists($offset)
-    {
-        return array_key_exists($offset, $this->configuration);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function offsetGet($offset)
-    {
-        return $this->configuration[$offset];
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function offsetSet($offset, $value)
-    {
-        $this->setValue($offset, $value);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function offsetUnset($offset)
-    {
-        unset($this->configuration[$offset]);
     }
 }
