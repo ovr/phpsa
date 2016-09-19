@@ -6,14 +6,14 @@
 namespace PHPSA\Analyzer\Pass\Statement;
 
 use PhpParser\Node\Stmt\ClassMethod;
-use PHPSA\Analyzer\Helper\ConfigurablePassTrait;
+use PHPSA\Analyzer\Helper\DefaultMetadataPassTrait;
 use PHPSA\Analyzer\Pass\AnalyzerPassInterface;
 use PHPSA\Check;
 use PHPSA\Context;
 
 class MagicMethodParameters implements AnalyzerPassInterface
 {
-    use ConfigurablePassTrait;
+    use DefaultMetadataPassTrait;
 
     /**
      * @param ClassMethod $methodStmt

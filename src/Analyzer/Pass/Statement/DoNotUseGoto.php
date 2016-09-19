@@ -3,13 +3,13 @@
 namespace PHPSA\Analyzer\Pass\Statement;
 
 use PhpParser\Node\Stmt;
-use PHPSA\Analyzer\Helper\ConfigurablePassTrait;
+use PHPSA\Analyzer\Helper\DefaultMetadataPassTrait;
 use PHPSA\Analyzer\Pass;
 use PHPSA\Context;
 
-class DoNotUseGoto implements Pass\ConfigurablePassInterface, Pass\AnalyzerPassInterface
+class DoNotUseGoto implements Pass\AnalyzerPassInterface
 {
-    use ConfigurablePassTrait;
+    use DefaultMetadataPassTrait;
 
     /**
      * @param Stmt\Goto_ $stmt

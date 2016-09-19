@@ -21,19 +21,11 @@ class Factory
         $configs = [];
 
         foreach (self::getExpressionPasses() as $passClass) {
-            if (!self::isAnalyzerConfigurable($passClass)) {
-                continue;
-            }
-
-            $configs[] = $passClass::getConfiguration();
+            $configs[] = $passClass::getMetadata()->getConfiguration();
         }
 
         foreach (self::getStatementPasses() as $passClass) {
-            if (!self::isAnalyzerConfigurable($passClass)) {
-                continue;
-            }
-
-            $configs[] = $passClass::getConfiguration();
+            $configs[] = $passClass::getMetadata()->getConfiguration();
         }
 
         return $configs;
@@ -46,32 +38,16 @@ class Factory
      */
     public static function factory(EventManager $eventManager, Configuration $config)
     {
-        $filterEnabled = function ($passClass) use ($config) {
-            if (!self::isAnalyzerConfigurable($passClass)) {
-                return true;
-            }
+        $analyzersConfig = $config->getValue('analyzers');
 
-            $passName = $passClass::getName();
-            $analyzersConfig = $config->getValue('analyzers');
-
-            if (!isset($analyzersConfig[$passName], $analyzersConfig[$passName]['enabled'])) {
-                return true;
-            }
+        $filterEnabled = function ($passClass) use ($analyzersConfig) {
+            $passName = $passClass::getMetadata()->getName();
 
             return $analyzersConfig[$passName]['enabled'];
         };
 
-        $instanciate = function ($passClass) use ($config) {
-            if (!self::isAnalyzerConfigurable($passClass)) {
-                return new $passClass();
-            }
-
-            $passName = $passClass::getName();
-            $analyzersConfig = $config->getValue('analyzers');
-
-            if (!isset($analyzersConfig[$passName])) {
-                return new $passClass();
-            }
+        $instanciate = function ($passClass) use ($analyzersConfig) {
+            $passName = $passClass::getMetadata()->getName();
 
             return new $passClass($analyzersConfig[$passName]);
         };
@@ -145,10 +121,5 @@ class Factory
             AnalyzerPass\Expression\FunctionCall\ArgumentUnpacking::class,
             AnalyzerPass\Expression\FunctionCall\DeprecatedFunctions::class,
         ];
-    }
-
-    private static function isAnalyzerConfigurable($passName)
-    {
-        return in_array(AnalyzerPass\ConfigurablePassInterface::class, class_implements($passName), true);
     }
 }

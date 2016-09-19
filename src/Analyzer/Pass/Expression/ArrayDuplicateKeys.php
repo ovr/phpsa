@@ -6,13 +6,15 @@
 namespace PHPSA\Analyzer\Pass\Expression;
 
 use PhpParser\Node\Expr;
-use PHPSA\Analyzer\Helper\ConfigurablePassTrait;
+use PHPSA\Analyzer\Helper\DefaultMetadataPassTrait;
 use PHPSA\Analyzer\Pass;
 use PHPSA\Context;
 
 class ArrayDuplicateKeys implements Pass\AnalyzerPassInterface
 {
-    use ConfigurablePassTrait;
+    use DefaultMetadataPassTrait;
+
+    const DESCRIPTION = 'Short syntax can be used in array literals.';
 
     /**
      * @param Expr\Array_ $expr
