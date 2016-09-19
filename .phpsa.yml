@@ -1,10 +1,43 @@
 phpsa:
     blame:                false
+
+    # Will be used to automatically disable the analyzers that require a greater version of PHP.
+    language_level:       '7.0' # Example: 5.3
     parser:               prefer-7 # One of "prefer-7"; "prefer-5"; "only-7"; "only-5"
     analyzers:
+        error_suppression:
+            enabled:              true
         variable_variable_usage:
             enabled:              true
+        casts:
+            enabled:              true
+
+        # Short syntax can be used in array literals.
+        array_short_definition:
+            enabled:              true
+
+        # This inspection reports any duplicated keys on array creation expression.
+        # If multiple elements in the array declaration use the same key, only the last
+        # one will be used as all others are overwritten.
         array_duplicate_keys:
+            enabled:              true
+        alias_check:
+            enabled:              true
+        debug_code:
+            enabled:              true
+        random_api_migration:
+            enabled:              true
+        use_cast:
+            enabled:              true
+        deprecated_ini_options:
+            enabled:              true
+        regular_expressions:
+            enabled:              true
+        argument_unpacking:
+            enabled:              true
+        deprecated_functions:
+            enabled:              true
+        get_parameters_check:
             enabled:              true
         do_not_use_goto:
             enabled:              true
