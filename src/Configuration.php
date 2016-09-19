@@ -50,8 +50,11 @@ class Configuration implements ConfigurationInterface
         $root
             ->children()
                 ->booleanNode('blame')->defaultFalse()->end()
-            ->end()
-            ->children()
+                ->scalarNode('language_level')
+                    ->defaultValue(PHP_MAJOR_VERSION.'.'.PHP_MINOR_VERSION)
+                    ->attribute('example', '5.3')
+                    ->attribute('info', 'Will be used to automatically disable the analyzers that require a greater version of PHP.')
+                ->end()
                 ->enumNode('parser')
                     ->defaultValue('prefer-7')
                     ->attribute('label', 'Check types of Arguments.')

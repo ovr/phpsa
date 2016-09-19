@@ -12,7 +12,11 @@ use PHPSA\Context;
 
 class ArrayShortDefinition implements AnalyzerPassInterface
 {
-    use DefaultMetadataPassTrait;
+    use DefaultMetadataPassTrait {
+        DefaultMetadataPassTrait::getMetadata as defaultMetadata;
+    }
+
+    const DESCRIPTION = 'Short syntax can be used in array literals.';
 
     /**
      * @param Expr\Array_ $expr
@@ -42,5 +46,16 @@ class ArrayShortDefinition implements AnalyzerPassInterface
         return [
             Expr\Array_::class
         ];
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public static function getMetadata()
+    {
+        $metadata = self::defaultMetadata();
+        $metadata->setRequiredPhpVersion('5.4');
+
+        return $metadata;
     }
 }

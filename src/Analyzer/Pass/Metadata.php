@@ -16,11 +16,14 @@ class Metadata
     /** @var string */
     private $name;
 
-    /** @var string */
+    /** @var string|null */
     private $description;
 
     /** @var \Symfony\Component\Config\Definition\Builder\NodeDefinition */
     private $configuration;
+
+    /** @var string|null */
+    private $requiredPhpVersion;
 
     /**
      * @param string $name
@@ -82,5 +85,33 @@ class Metadata
     public function getConfiguration()
     {
         return $this->configuration;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getRequiredPhpVersion()
+    {
+        return $this->requiredPhpVersion;
+    }
+
+    /**
+     * @param string $requiredPhpVersion
+     */
+    public function setRequiredPhpVersion($requiredPhpVersion)
+    {
+        $this->requiredPhpVersion = $requiredPhpVersion;
+    }
+
+    /**
+     * Tells if the current analyzer can be used with code written in a given PHP version.
+     *
+     * @param string $version
+     *
+     * @return bool
+     */
+    public function allowsPhpVersion($version)
+    {
+        return $this->requiredPhpVersion === null || version_compare($version, $this->requiredPhpVersion, '>=');
     }
 }

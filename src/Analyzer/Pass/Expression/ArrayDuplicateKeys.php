@@ -14,7 +14,11 @@ class ArrayDuplicateKeys implements Pass\AnalyzerPassInterface
 {
     use DefaultMetadataPassTrait;
 
-    const DESCRIPTION = 'Short syntax can be used in array literals.';
+    const DESCRIPTION = <<<DESC
+This inspection reports any duplicated keys on array creation expression.
+If multiple elements in the array declaration use the same key, only the last
+one will be used as all others are overwritten.
+DESC;
 
     /**
      * @param Expr\Array_ $expr

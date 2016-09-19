@@ -40,10 +40,19 @@ class Factory
     {
         $analyzersConfig = $config->getValue('analyzers');
 
-        $filterEnabled = function ($passClass) use ($analyzersConfig) {
-            $passName = $passClass::getMetadata()->getName();
+        $filterEnabled = function ($passClass) use ($config, $analyzersConfig) {
+            /** @var AnalyzerPass\Metadata $passMetadata */
+            $passMetadata = $passClass::getMetadata();
 
-            return $analyzersConfig[$passName]['enabled'];
+            if (!$analyzersConfig[$passMetadata->getName()]['enabled']) {
+                return false;
+            }
+
+            if (!$passMetadata->allowsPhpVersion($config->getValue('language_level'))) {
+                return false;
+            }
+
+            return true;
         };
 
         $instanciate = function ($passClass) use ($analyzersConfig) {
