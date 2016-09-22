@@ -522,8 +522,7 @@ class Expression
                 }
 
                 if ($var->name instanceof Node\Expr\Variable) {
-                    // TODO what should we do here?
-                    // ex: list(${$foo}, $bar) = [1, 2];
+                    $this->compileVariableDeclaration($this->compile($var->name), new CompiledExpression());
                     continue;
                 }
 
@@ -549,34 +548,8 @@ class Expression
         }
 
         if ($expr->var instanceof Node\Expr\Variable) {
-            $compiledExpressionName = $this->compile($expr->var->name);
-            switch ($compiledExpressionName->getType()) {
-                case CompiledExpression::STRING:
-                    break;
-                default:
-                    $this->context->debug('Unexpected type of Variable name after compile');
-                    return new CompiledExpression();
-            }
+            $this->compileVariableDeclaration($this->compile($expr->var->name), $compiledExpression);
 
-            $symbol = $this->context->getSymbol($compiledExpressionName->getValue());
-            if ($symbol) {
-                $symbol->modify($compiledExpression->getType(), $compiledExpression->getValue());
-                $this->context->modifyReferencedVariables(
-                    $symbol,
-                    $compiledExpression->getType(),
-                    $compiledExpression->getValue()
-                );
-            } else {
-                $symbol = new Variable(
-                    $compiledExpressionName->getValue(),
-                    $compiledExpression->getValue(),
-                    $compiledExpression->getType(),
-                    $this->context->getCurrentBranch()
-                );
-                $this->context->addVariable($symbol);
-            }
-
-            $symbol->incSets();
             return $compiledExpression;
         }
 
@@ -596,6 +569,37 @@ class Expression
 
         $this->context->debug('Unknown how to pass symbol');
         return new CompiledExpression();
+    }
+
+    protected function compileVariableDeclaration(CompiledExpression $variableName, CompiledExpression $value)
+    {
+        switch ($variableName->getType()) {
+            case CompiledExpression::STRING:
+                break;
+            default:
+                $this->context->debug('Unexpected type of Variable name after compile');
+                return new CompiledExpression();
+        }
+
+        $symbol = $this->context->getSymbol($variableName->getValue());
+        if ($symbol) {
+            $symbol->modify($value->getType(), $value->getValue());
+            $this->context->modifyReferencedVariables(
+                $symbol,
+                $value->getType(),
+                $value->getValue()
+            );
+        } else {
+            $symbol = new Variable(
+                $variableName->getValue(),
+                $value->getValue(),
+                $value->getType(),
+                $this->context->getCurrentBranch()
+            );
+            $this->context->addVariable($symbol);
+        }
+
+        $symbol->incSets();
     }
 
     /**

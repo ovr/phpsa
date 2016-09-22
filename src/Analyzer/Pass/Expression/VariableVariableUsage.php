@@ -48,6 +48,11 @@ class VariableVariableUsage implements Pass\AnalyzerPassInterface, Pass\Configur
         $result = false;
 
         foreach ($expr->vars as $var) {
+            // list($a, ) = …
+            if (!$var) {
+                continue;
+            }
+
             $result = $this->analyzeVar($var, $context) || $result;
         }
 

@@ -7,7 +7,17 @@ class VariableVariableUsage
     /**
      * @return string
      */
-    public function simpleVariableVariable()
+    public function usingVariablesIsOk()
+    {
+        $var = '42';
+
+        return $var;
+    }
+
+    /**
+     * @return string
+     */
+    public function simpleVariableVariablesAreDiscouraged()
     {
         $varName = 'name';
 
@@ -17,14 +27,11 @@ class VariableVariableUsage
     }
 
     /**
-     * @return string
+     * @return array
      */
-    public function variableVariableInArrayAssignment()
+    public function arrayAssignmentIsOk()
     {
         $array = [];
-        $varName = 'array';
-
-        ${$varName}[] = 'foo';
         $array[] = 'bar';
 
         return $array;
@@ -33,7 +40,30 @@ class VariableVariableUsage
     /**
      * @return string
      */
-    public function variableVariableInListAssignment()
+    public function variableVariableInArrayAssignmentIsDiscouraged()
+    {
+        $array = [];
+        $varName = 'array';
+
+        ${$varName}[] = 'foo';
+
+        return $varName;
+    }
+
+    /**
+     * @return string
+     */
+    public function listStructureIsOk()
+    {
+        list($foo, ) = [1, 2];
+
+        return $foo;
+    }
+
+    /**
+     * @return string
+     */
+    public function variableVariableInListAssignmentIsDiscouraged()
     {
         $a = 'foo';
         list(${$a}, $b) = [1, 2];
@@ -42,27 +72,39 @@ class VariableVariableUsage
     }
 
     /**
-     * @return string
+     * @return void
      */
-    public function propertyAccessVariable()
+    public function propertyAccessIsOk()
+    {
+        $this->name = 'foo';
+    }
+
+    /**
+     * @return void
+     */
+    public function variablePropertyAccessIsDiscouraged()
     {
         $varName = 'name';
 
         $this->{$varName} = 'foo';
-
-        return $name;
     }
 
     /**
-     * @return string
+     * @return void
      */
-    public function arrayPropertyAccessVariable()
+    public function arrayPropertyAccessIsOk()
+    {
+        $this->names[] = 'foo';
+    }
+
+    /**
+     * @return void
+     */
+    public function variableArrayPropertyAccessIsDiscouraged()
     {
         $varName = 'name';
 
         $this->{$varName}[] = 'foo';
-
-        return $name;
     }
 }
 ?>
@@ -72,30 +114,30 @@ class VariableVariableUsage
         "type": "variable.dynamic_assignment",
         "message": "Dynamic assignment is greatly discouraged.",
         "file": "VariableVariableUsage.php",
-        "line": 13
+        "line": 23
     },
     {
         "type": "variable.dynamic_assignment",
         "message": "Dynamic assignment is greatly discouraged.",
         "file": "VariableVariableUsage.php",
-        "line": 26
+        "line": 47
     },
     {
         "type": "variable.dynamic_assignment",
         "message": "Dynamic assignment is greatly discouraged.",
         "file": "VariableVariableUsage.php",
-        "line": 38
+        "line": 68
     },
     {
         "type": "variable.dynamic_assignment",
         "message": "Dynamic assignment is greatly discouraged.",
         "file": "VariableVariableUsage.php",
-        "line": 50
+        "line": 88
     },
     {
         "type": "variable.dynamic_assignment",
         "message": "Dynamic assignment is greatly discouraged.",
         "file": "VariableVariableUsage.php",
-        "line": 62
+        "line": 106
     }
 ]
