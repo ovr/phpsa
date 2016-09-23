@@ -17,7 +17,6 @@ class BitwiseAnd extends AbstractExpressionCompiler
     protected $name = 'PhpParser\Node\Expr\AssignOp\BitwiseAnd';
 
     /**
-     * It's used in conditions
      * {left-expr} &= {right-expr}
      *
      * @param \PhpParser\Node\Expr\AssignOp\BitwiseAnd $expr
@@ -45,6 +44,6 @@ class BitwiseAnd extends AbstractExpressionCompiler
                 }
         }
 
-        return new CompiledExpression(CompiledExpression::UNKNOWN);
+        return new CompiledExpression();
     }
 }

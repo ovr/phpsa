@@ -39,7 +39,7 @@ class StaticCall extends AbstractExpressionCompiler
                     $expr
                 );
 
-                return new CompiledExpression;
+                return new CompiledExpression();
             }
 
             $method = $classDefinition->getMethod($name, true);
@@ -49,11 +49,9 @@ class StaticCall extends AbstractExpressionCompiler
                     sprintf('Method %s() is not static but was called in a static way', $name),
                     $expr
                 );
-
-                return new CompiledExpression;
             }
 
-            return new CompiledExpression;
+            return new CompiledExpression();
         }
 
         $context->debug('Unknown static function call');

@@ -17,7 +17,6 @@ class Plus extends AbstractExpressionCompiler
     protected $name = 'PhpParser\Node\Expr\AssignOp\Plus';
 
     /**
-     * It's used in conditions
      * {left-expr} += {right-expr}
      *
      * @param \PhpParser\Node\Expr\AssignOp\Plus $expr
@@ -45,6 +44,6 @@ class Plus extends AbstractExpressionCompiler
                 }
         }
 
-        return new CompiledExpression(CompiledExpression::UNKNOWN);
+        return new CompiledExpression();
     }
 }

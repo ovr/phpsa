@@ -43,7 +43,7 @@ class Div extends AbstractExpressionCompiler
                 $expr
             );
 
-            return new CompiledExpression(CompiledExpression::UNKNOWN);
+            return new CompiledExpression();
         }
 
         switch ($left->getType()) {
@@ -70,6 +70,6 @@ class Div extends AbstractExpressionCompiler
                 }
         }
 
-        return new CompiledExpression(CompiledExpression::UNKNOWN);
+        return new CompiledExpression();
     }
 }

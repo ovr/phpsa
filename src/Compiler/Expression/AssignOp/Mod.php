@@ -17,7 +17,6 @@ class Mod extends AbstractExpressionCompiler
     protected $name = 'PhpParser\Node\Expr\AssignOp\Mod';
 
     /**
-     * It's used in conditions
      * {left-expr} %= {right-expr}
      *
      * @param \PhpParser\Node\Expr\AssignOp\Mod $expr
@@ -45,6 +44,6 @@ class Mod extends AbstractExpressionCompiler
                 }
         }
 
-        return new CompiledExpression(CompiledExpression::UNKNOWN);
+        return new CompiledExpression();
     }
 }

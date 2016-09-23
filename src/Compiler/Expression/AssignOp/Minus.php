@@ -17,7 +17,6 @@ class Minus extends AbstractExpressionCompiler
     protected $name = 'PhpParser\Node\Expr\AssignOp\Minus';
 
     /**
-     * It's used in conditions
      * {left-expr} -= {right-expr}
      *
      * @param \PhpParser\Node\Expr\AssignOp\Minus $expr
@@ -45,6 +44,6 @@ class Minus extends AbstractExpressionCompiler
                 }
         }
         
-        return new CompiledExpression(CompiledExpression::UNKNOWN);
+        return new CompiledExpression();
     }
 }

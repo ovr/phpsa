@@ -17,7 +17,6 @@ class Equal extends AbstractExpressionCompiler
     protected $name = 'PhpParser\Node\Expr\BinaryOp\Equal';
 
     /**
-     * It's used in conditions
      * {left-expr} == {right-expr}
      *
      * @param \PhpParser\Node\Expr\BinaryOp\Equal $expr
@@ -35,16 +34,28 @@ class Equal extends AbstractExpressionCompiler
             case CompiledExpression::BOOLEAN:
             case CompiledExpression::ARR:
             case CompiledExpression::OBJECT:
+            case CompiledExpression::STRING:
+            case CompiledExpression::NUMBER:
+            case CompiledExpression::RESOURCE:
+            case CompiledExpression::CALLABLE_TYPE:
+            case CompiledExpression::NULL:
                 switch ($right->getType()) {
                     case CompiledExpression::INTEGER:
                     case CompiledExpression::DOUBLE:
                     case CompiledExpression::BOOLEAN:
                     case CompiledExpression::ARR:
                     case CompiledExpression::OBJECT:
-                        return new CompiledExpression(CompiledExpression::BOOLEAN, $left->getValue() == $right->getValue());
+                    case CompiledExpression::STRING:
+                    case CompiledExpression::NUMBER:
+                    case CompiledExpression::RESOURCE:
+                    case CompiledExpression::CALLABLE_TYPE:
+                    case CompiledExpression::NULL:
+                        return CompiledExpression::fromZvalValue(
+                            $left->getValue() == $right->getValue()
+                        );
                 }
         }
 
-        return new CompiledExpression(CompiledExpression::BOOLEAN);
+        return new CompiledExpression();
     }
 }

@@ -41,10 +41,12 @@ class LogicalXor extends AbstractExpressionCompiler
                     case CompiledExpression::ARR:
                     case CompiledExpression::NUMBER:
                     case CompiledExpression::OBJECT:
-                        return CompiledExpression::fromZvalValue($left->getValue() xor $right->getValue());
+                        return CompiledExpression::fromZvalValue(
+                            $left->getValue() xor $right->getValue()
+                        );
                 }
         }
 
-        return new CompiledExpression(CompiledExpression::BOOLEAN);
+        return new CompiledExpression();
     }
 }

@@ -17,7 +17,6 @@ class Pow extends AbstractExpressionCompiler
     protected $name = 'PhpParser\Node\Expr\AssignOp\Pow';
 
     /**
-     * It's used in conditions
      * {left-expr} **= {right-expr}
      *
      * @param \PhpParser\Node\Expr\AssignOp\Pow $expr
@@ -39,10 +38,12 @@ class Pow extends AbstractExpressionCompiler
                     case CompiledExpression::DOUBLE:
                     case CompiledExpression::NUMBER:
                     case CompiledExpression::BOOLEAN:
-                        return CompiledExpression::fromZvalValue(pow($left->getValue(), $expExpression->getValue()));
+                        return CompiledExpression::fromZvalValue(
+                            pow($left->getValue(), $expExpression->getValue())
+                        );
                 }
         }
         
-        return new CompiledExpression(CompiledExpression::UNKNOWN);
+        return new CompiledExpression();
     }
 }

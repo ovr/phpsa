@@ -41,6 +41,6 @@ class Concat extends AbstractExpressionCompiler
                 }
         }
 
-        return new CompiledExpression(CompiledExpression::UNKNOWN);
+        return new CompiledExpression();
     }
 }

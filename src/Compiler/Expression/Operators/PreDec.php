@@ -53,7 +53,7 @@ class PreDec extends AbstractExpressionCompiler
                 );
             }
 
-            return new CompiledExpression(CompiledExpression::UNKNOWN);
+            return new CompiledExpression();
         }
 
         $compiledExpression = $context->getExpressionCompiler()->compile($expr->var);
@@ -66,6 +66,6 @@ class PreDec extends AbstractExpressionCompiler
                 return CompiledExpression::fromZvalValue(--$value);
         }
 
-        return new CompiledExpression(CompiledExpression::UNKNOWN);
+        return new CompiledExpression();
     }
 }

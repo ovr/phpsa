@@ -43,6 +43,6 @@ abstract class AbstractOperator extends AbstractExpressionCompiler
                 }
         }
 
-        return new CompiledExpression(CompiledExpression::BOOLEAN);
+        return new CompiledExpression();
     }
 }

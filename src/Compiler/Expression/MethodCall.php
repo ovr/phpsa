@@ -41,13 +41,13 @@ class MethodCall extends AbstractExpressionCompiler
                         );
 
                         //it's needed to exit
-                        return new CompiledExpression;
+                        return new CompiledExpression();
                     }
 
                     $method = $calledObject->getMethod($methodName, true);
                     if (!$method) {
                         $context->debug('getMethod is not working');
-                        return new CompiledExpression;
+                        return new CompiledExpression();
                     }
 
                     if ($method->isStatic()) {
@@ -61,7 +61,7 @@ class MethodCall extends AbstractExpressionCompiler
                     return $method->run(clone $context, $compiledArguments);
                 }
 
-                return new CompiledExpression;
+                return new CompiledExpression();
             }
         } elseif (!$leftCE->canBeObject()) {
             $context->notice(
@@ -73,7 +73,7 @@ class MethodCall extends AbstractExpressionCompiler
         }
 
         $context->debug('[Unknown] @todo MethodCall');
-        return new CompiledExpression;
+        return new CompiledExpression();
     }
 
     /**
