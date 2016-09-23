@@ -63,6 +63,41 @@ class ArrayIllegalOffsetType
             '42' => 'another truth'
         ];
     }
+
+    /**
+     * @return array
+     */
+    public function arrayPropertyDeclarationWithObject()
+    {
+        $this->foo = [
+            'foo' => 'bar',
+            new \stdClass => 'biz',
+        ];
+    }
+
+    /**
+     * @return array
+     */
+    public function arrayPropertyDeclarationWithAVariableContainingAnObject()
+    {
+        $variable = new \DateTime();
+
+        $this->foo = [
+            0 => 42,
+            $variable => 43,
+        ];
+    }
+
+    /**
+     * @return array
+     */
+    public function arrayPropertyAssignationWithObject()
+    {
+        $this->array = [];
+
+        $this->array[new \DateTime()] = 'foo';
+        $this->array[] = 'bar';
+    }
 }
 ?>
 ----------------------------
@@ -90,5 +125,23 @@ class ArrayIllegalOffsetType
         "message":"Illegal array offset type DateTime for key $variable.",
         "file":"ArrayIllegalOffsetType.php",
         "line":51
+    },
+    {
+        "type":"array.illegal_offset_type",
+        "message":"Illegal array offset type stdClass.",
+        "file":"ArrayIllegalOffsetType.php",
+        "line": 73
+    },
+    {
+        "type":"array.illegal_offset_type",
+        "message":"Illegal array offset type DateTime for key $variable.",
+        "file":"ArrayIllegalOffsetType.php",
+        "line":86
+    },
+    {
+        "type":"array.illegal_offset_type",
+        "message":"Illegal array offset type DateTime.",
+        "file":"ArrayIllegalOffsetType.php",
+        "line":97
     }
 ]
