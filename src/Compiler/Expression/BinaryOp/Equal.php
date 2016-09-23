@@ -43,7 +43,6 @@ class Equal extends AbstractExpressionCompiler
                     case CompiledExpression::OBJECT:
                         return new CompiledExpression(CompiledExpression::BOOLEAN, $left->getValue() == $right->getValue());
                 }
-                break;
         }
 
         return new CompiledExpression(CompiledExpression::BOOLEAN);

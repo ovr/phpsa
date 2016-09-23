@@ -53,7 +53,6 @@ class Plus extends AbstractExpressionCompiler
                          */
                         return new CompiledExpression(CompiledExpression::DOUBLE, $left->getValue() + $right->getValue());
                 }
-                break;
         }
 
         return new CompiledExpression(CompiledExpression::UNKNOWN);

@@ -43,7 +43,6 @@ class BooleanAnd extends AbstractExpressionCompiler
                     case CompiledExpression::NUMBER:
                         return CompiledExpression::fromZvalValue($left->getValue() && $right->getValue());
                 }
-                break;
         }
 
         return new CompiledExpression(CompiledExpression::BOOLEAN);

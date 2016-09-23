@@ -43,7 +43,6 @@ class LogicalAnd extends AbstractExpressionCompiler
                     case CompiledExpression::OBJECT:
                         return CompiledExpression::fromZvalValue($left->getValue() and $right->getValue());
                 }
-                break;
         }
 
         return new CompiledExpression(CompiledExpression::BOOLEAN);

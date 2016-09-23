@@ -43,7 +43,6 @@ class LogicalXor extends AbstractExpressionCompiler
                     case CompiledExpression::OBJECT:
                         return CompiledExpression::fromZvalValue($left->getValue() xor $right->getValue());
                 }
-                break;
         }
 
         return new CompiledExpression(CompiledExpression::BOOLEAN);

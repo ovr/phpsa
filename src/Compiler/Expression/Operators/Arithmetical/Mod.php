@@ -67,7 +67,6 @@ class Mod extends AbstractExpressionCompiler
                     case CompiledExpression::DOUBLE:
                         return CompiledExpression::fromZvalValue($left->getValue() % $right->getValue());
                 }
-                break;
         }
 
         return new CompiledExpression(CompiledExpression::UNKNOWN);
