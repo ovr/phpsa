@@ -36,9 +36,7 @@ class BitwiseXor extends AbstractExpressionCompiler
                         return CompiledExpression::fromZvalValue(
                             $left->getValue() ^ $expExpression->getValue()
                         );
-                        break;
                 }
-                break;
         }
 
         return new CompiledExpression(CompiledExpression::UNKNOWN);

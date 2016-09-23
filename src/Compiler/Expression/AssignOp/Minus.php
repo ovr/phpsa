@@ -43,7 +43,6 @@ class Minus extends AbstractExpressionCompiler
                             $left->getValue() - $expExpression->getValue()
                         );
                 }
-                break;
         }
         
         return new CompiledExpression(CompiledExpression::UNKNOWN);

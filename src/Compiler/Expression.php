@@ -698,7 +698,6 @@ class Expression
                     default:
                         $this->context->debug("Type {$compiledKeyResult->getType()} is not supported for key value");
                         return new CompiledExpression(CompiledExpression::ARR);
-                        break;
                 }
             } else {
                 $resultArray[] = $compiledValueResult->getValue();

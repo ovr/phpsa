@@ -63,9 +63,7 @@ class Concat extends AbstractExpressionCompiler
                             CompiledExpression::STRING,
                             $leftExpression->getValue() . $rightExpression->getValue()
                         );
-                        break;
                 }
-                break;
         }
 
         return new CompiledExpression(CompiledExpression::UNKNOWN);
