@@ -21,7 +21,7 @@ class ArrayIllegalOffsetType implements Pass\AnalyzerPassInterface, Pass\Configu
     {
         if ($expr instanceof Expr\Array_) {
             return $this->analyzeArray($expr, $context);
-        } else if ($expr instanceof Expr\Assign && $expr->var instanceof Expr\ArrayDimFetch) {
+        } elseif ($expr instanceof Expr\Assign && $expr->var instanceof Expr\ArrayDimFetch) {
             return $this->analyzeDimensionFetch($expr->var, $context);
         }
     }
