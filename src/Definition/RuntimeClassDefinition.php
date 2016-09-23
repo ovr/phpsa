@@ -106,7 +106,7 @@ class RuntimeClassDefinition extends ClassDefinition
     }
 
     /**
-     * @return null|RuntimeClassDefinition|ClassDefinition
+     * @return null|RuntimeClassDefinition
      */
     public function getExtendsClassDefinition()
     {
