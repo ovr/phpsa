@@ -22,9 +22,6 @@ class MissingBreakStatement
             case 'foo':
                 $value = 'bar';
                 break;
-            case 'error':
-                $value = 'an empty return looks a bit weird in a switch';
-                return;
             default:
                 return 'what?';
         }
@@ -64,7 +61,44 @@ class MissingBreakStatement
                 $value = 'yay!';
                 break;
             default:
-                return 'what?';
+                $value = 'what?';
+        }
+
+        return $value;
+    }
+
+    /**
+     * @return string
+     */
+    public function testValidSwitchWithMissingBreakForLastCase()
+    {
+        $value = 'foo';
+
+        switch ('hello') {
+            case 'hello':
+            case 'bar':
+                $value = 'baz';
+                break;
+            case 'foo':
+                $value = 'yay!';
+        }
+
+        return $value;
+    }
+
+    /**
+     * @return string
+     */
+    public function missingBreakOnLastCaseWithDefault()
+    {
+        switch ('hello') {
+            case 'bar':
+                $value = 'baz';
+                break;
+            case 'foo':
+                $value = 'yay!';
+            default:
+                $value = 'default';
         }
 
         return $value;
@@ -79,11 +113,10 @@ class MissingBreakStatement
         "file":"MissingBreakStatement.php",
         "line":19
     },
-
     {
         "type":"missing_break_statement",
-        "message":"Empty return in \"case\" statement",
+        "message":"Missing \"break\" statement",
         "file":"MissingBreakStatement.php",
-        "line":26
+        "line":97
     }
 ]
