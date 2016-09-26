@@ -45,7 +45,7 @@ class Factory
                 new AnalyzerPass\Statement\MagicMethod\GetParametersCheck(),
                 new AnalyzerPass\Statement\DoNotUseGoto(),
                 new AnalyzerPass\Statement\MissingBreakStatement(),
-                new AnalyzerPass\Statement\PropertyWithVar(),
+                new AnalyzerPass\Statement\MissingVisibility(),
                 new AnalyzerPass\Statement\MethodCannotReturn(),
                 new AnalyzerPass\Statement\UnexpectedUseOfThis(),
                 new AnalyzerPass\Statement\TestAnnotation(),
