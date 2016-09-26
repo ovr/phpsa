@@ -14,7 +14,7 @@ class ConfigurationLoader extends FileLoader
     public function load($resource, $type = null)
     {
         try {
-            $config = $this->locator->locate($resource);
+            $this->locator->locate($resource);
         } catch (\InvalidArgumentException $e) {
             return [];
         }

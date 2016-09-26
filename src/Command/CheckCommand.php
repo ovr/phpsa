@@ -44,6 +44,7 @@ class CheckCommand extends Command
             ->setName('check')
             ->setDescription('SPA')
             ->addOption('blame', null, InputOption::VALUE_NONE, 'Git blame author for bad code ;)')
+            ->addOption('config-file', null, InputOption::VALUE_REQUIRED, 'Path to the configuration file.')
             ->addArgument('path', InputArgument::OPTIONAL, 'Path to check file or directory', '.')
             ->addOption(
                 'report-json',
@@ -88,17 +89,11 @@ class CheckCommand extends Command
         $application = $this->getApplication();
         $application->compiler = new Compiler();
 
-        $loader = new ConfigurationLoader(new FileLocator([
-            realpath($input->getArgument('path')) . DIRECTORY_SEPARATOR
-        ]));
+        $configFile = $input->getOption('config-file') ?: '.phpsa.yml';
+        $configDir = realpath($input->getArgument('path'));
+        $application->configuration = $this->loadConfiguration($configFile, $configDir);
 
         $em = EventManager::getInstance();
-
-        $application->configuration = new Configuration(
-            $loader->load('.phpsa.yml'),
-            Analyzer\Factory::getPassesConfigurations()
-        );
-
         Analyzer\Factory::factory($em, $application->configuration);
         $context = new Context($output, $application, $em);
 
@@ -188,5 +183,24 @@ class CheckCommand extends Command
     protected function getCompiler()
     {
         return $this->getApplication()->compiler;
+    }
+
+    /**
+     * @param string $configFile
+     * @param string $configurationDirectory
+     *
+     * @return Configuration
+     */
+    protected function loadConfiguration($configFile, $configurationDirectory)
+    {
+        $loader = new ConfigurationLoader(new FileLocator([
+            getcwd(),
+            $configurationDirectory
+        ]));
+
+        return new Configuration(
+            $loader->load($configFile),
+            Analyzer\Factory::getPassesConfigurations()
+        );
     }
 }
