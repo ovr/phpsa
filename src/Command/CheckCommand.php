@@ -43,7 +43,7 @@ class CheckCommand extends Command
         $this
             ->setName('check')
             ->setDescription('SPA')
-            ->addOption('blame', null, InputOption::VALUE_OPTIONAL, 'Git blame author for bad code ;)', -1)
+            ->addOption('blame', null, InputOption::VALUE_NONE, 'Git blame author for bad code ;)')
             ->addArgument('path', InputArgument::OPTIONAL, 'Path to check file or directory', '.')
             ->addOption(
                 'report-json',
@@ -105,9 +105,8 @@ class CheckCommand extends Command
         /**
          * Store option's in application's configuration
          */
-        $blame = $input->getOption('blame');
-        if ($blame === -1) {
-            $application->configuration->setValue('blame', $blame);
+        if ($input->getOption('blame')) {
+            $application->configuration->setValue('blame', true);
         }
 
         $fileParser = new FileParser(
