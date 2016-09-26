@@ -9,7 +9,12 @@
     "authors": [
         {
             "name": "Dmitry Patsura",
-            "email": "talk@dmtry.me"
+            "email": "talk@dmtry.me",
+            "homepage": "https://github.com/ovr"
+        },
+        {
+            "name": "Contributors",
+            "homepage": "https://github.com/ovr/phpsa/graphs/contributors"
         }
     ],
     "require": {
