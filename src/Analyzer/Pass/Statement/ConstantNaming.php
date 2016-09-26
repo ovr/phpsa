@@ -4,11 +4,10 @@ namespace PHPSA\Analyzer\Pass\Statement;
 
 use PhpParser\Node\Stmt\ClassConst;
 use PHPSA\Analyzer\Pass\AnalyzerPassInterface;
-use PHPSA\Analyzer\Pass\ConfigurablePassInterface;
 use PHPSA\Context;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 
-class ConstantNaming implements ConfigurablePassInterface, AnalyzerPassInterface
+class ConstantNaming implements AnalyzerPassInterface
 {
     /**
      * @param ClassConst $stmt
@@ -18,8 +17,9 @@ class ConstantNaming implements ConfigurablePassInterface, AnalyzerPassInterface
     public function pass(ClassConst $stmt, Context $context)
     {
         $result = false;
+
         foreach ($stmt->consts as $const) {
-            if ($const->name !== strtoupper($const->name)) {
+            if ($const->name != strtoupper($const->name)) {
                 $context->notice(
                     'constant.naming',
                     'Constant names should be all uppercase.',
@@ -31,19 +31,6 @@ class ConstantNaming implements ConfigurablePassInterface, AnalyzerPassInterface
         }
         
         return $result;
-    }
-
-    /**
-     * @return TreeBuilder
-     */
-    public function getConfiguration()
-    {
-        $treeBuilder = new TreeBuilder();
-        $treeBuilder->root('constant_naming')
-            ->canBeDisabled()
-        ;
-
-        return $treeBuilder;
     }
 
     /**
