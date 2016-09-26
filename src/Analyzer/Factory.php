@@ -46,6 +46,7 @@ class Factory
                 new AnalyzerPass\Statement\MissingBreakStatement(),
                 new AnalyzerPass\Statement\MethodCannotReturn(),
                 new AnalyzerPass\Statement\UnexpectedUseOfThis(),
+                new AnalyzerPass\Statement\TestAnnotation(),
                 new AnalyzerPass\Statement\OldConstructor(),
             ]
         );
