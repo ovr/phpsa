@@ -15,8 +15,8 @@ class PrintTest extends \Tests\PHPSA\TestCase
         );
         $compiledExpression = $this->compileExpression($baseExpression);
 
-        $this->assertInstanceOfCompiledExpression($compiledExpression);
-        $this->assertSame(CompiledExpression::INTEGER, $compiledExpression->getType());
-        $this->assertSame(1, $compiledExpression->getValue());
+        parent::assertInstanceOfCompiledExpression($compiledExpression);
+        parent::assertSame(CompiledExpression::INTEGER, $compiledExpression->getType());
+        parent::assertSame(1, $compiledExpression->getValue());
     }
 }

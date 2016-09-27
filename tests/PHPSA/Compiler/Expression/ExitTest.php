@@ -15,8 +15,8 @@ class ExitTest extends \Tests\PHPSA\TestCase
         );
         $compiledExpression = $this->compileExpression($baseExpression);
 
-        $this->assertInstanceOfCompiledExpression($compiledExpression);
-        $this->assertSame(CompiledExpression::STRING, $compiledExpression->getType());
-        $this->assertSame("test", $compiledExpression->getValue());
+        parent::assertInstanceOfCompiledExpression($compiledExpression);
+        parent::assertSame(CompiledExpression::STRING, $compiledExpression->getType());
+        parent::assertSame("test", $compiledExpression->getValue());
     }
 }
