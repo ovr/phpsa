@@ -214,6 +214,8 @@ class Expression
                 return new Expression\PrintOp();
             case Node\Expr\Empty_::class:
                 return new Expression\EmptyOp();
+            case Node\Expr\Eval_::class:
+                return new Expression\EvalOp();
         }
 
         return false;
