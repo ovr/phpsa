@@ -216,6 +216,8 @@ class Expression
                 return new Expression\EmptyOp();
             case Node\Expr\Eval_::class:
                 return new Expression\EvalOp();
+            case Node\Expr\ErrorSuppress::class:
+                return new Expression\ErrorSuppress();
         }
 
         return false;
