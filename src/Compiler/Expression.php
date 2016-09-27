@@ -204,6 +204,8 @@ class Expression
                 return new Expression\Operators\UnaryMinus();
             case Node\Expr\UnaryPlus::class:
                 return new Expression\Operators\UnaryPlus();
+            case Node\Expr\Exit_::class:
+                return new Expression\ExitOp();
         }
 
         return false;
