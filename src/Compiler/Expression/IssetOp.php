@@ -22,6 +22,8 @@ class IssetOp extends AbstractExpressionCompiler
      */
     protected function compile($expr, Context $context)
     {
+        $result = false;
+
         foreach ($expr->vars as $var) {
             if ($var instanceof Variable) {
                 $varName = $var->name;
@@ -36,11 +38,14 @@ class IssetOp extends AbstractExpressionCompiler
                     $variable->incUse();
 
                     if ($variable->getValue() !== null) {
-                        return CompiledExpression::fromZvalValue(true);
+                        $result = true;
+                        continue; // this variable is set, continue
                     }
                 }
-                return CompiledExpression::fromZvalValue(false);
+                return CompiledExpression::fromZvalValue(false); // one of the vars is not set
             }
         }
+
+        return CompiledExpression::fromZvalValue($result); // if all are set return true, else false
     }
 }
