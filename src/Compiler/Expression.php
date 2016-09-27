@@ -212,6 +212,8 @@ class Expression
                 return new Expression\IssetOp();
             case Node\Expr\Print_::class:
                 return new Expression\PrintOp();
+            case Node\Expr\Empty_::class:
+                return new Expression\EmptyOp();
         }
 
         return false;
