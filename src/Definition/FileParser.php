@@ -108,6 +108,12 @@ class FileParser
                         $aliasManager->add($use->name->parts);
                     }
                 }
+            } elseif ($statement instanceof Node\Stmt\GroupUse) {
+                if (count($statement->uses) > 0) {
+                    foreach ($statement->uses as $use) {
+                        $aliasManager->add($statement->prefix . $use->name->parts);
+                    }
+                }
             } elseif ($statement instanceof Node\Stmt\Class_) {
                 $definition = new ClassDefinition($statement->name, $statement, $statement->type);
                 $definition->setFilepath($filepath);
