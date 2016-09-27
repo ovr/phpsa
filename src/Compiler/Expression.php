@@ -206,6 +206,8 @@ class Expression
                 return new Expression\Operators\UnaryPlus();
             case Node\Expr\Exit_::class:
                 return new Expression\ExitOp();
+            case Node\Expr\Isset_::class:
+                return new Expression\IssetOp();
         }
 
         return false;
