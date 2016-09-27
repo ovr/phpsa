@@ -21,6 +21,8 @@ class Statement
     protected function factory($stmt)
     {
         switch (get_class($stmt)) {
+            case Stmt\Break_::class:
+                return new Statement\BreakSt();
             case Stmt\Echo_::class:
                 return new Statement\EchoSt();
             case Stmt\Return_::class:
@@ -55,13 +57,6 @@ class Statement
     public function __construct(Node\Stmt $stmt, Context $context)
     {
         try {
-            /**
-             * @todo Think a little bit more about own statement for break;
-             */
-            if ($stmt instanceof Stmt\Break_) {
-                return;
-            }
-
             $context->getEventManager()->fire(
                 Event\StatementBeforeCompile::EVENT_NAME,
                 new Event\StatementBeforeCompile(
