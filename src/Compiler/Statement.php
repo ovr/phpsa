@@ -67,10 +67,10 @@ class Statement
                 )
             );
             
-            if ($stmt instanceof Stmt\Goto_ || $stmt instanceof Stmt\Label || $stmt instanceof Stmt\InlineHTML) {
+            if ($stmt instanceof Stmt\Goto_ || $stmt instanceof Stmt\Label || $stmt instanceof Stmt\InlineHTML || $stmt instanceof Stmt\Nop) {
                 return;
             }
-            
+
             $compiler = $this->factory($stmt);
         } catch (\Exception $e) {
             $context->debug('StatementCompiler is not implemented for ' . get_class($stmt));
