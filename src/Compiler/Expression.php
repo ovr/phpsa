@@ -220,6 +220,8 @@ class Expression
                 return new Expression\ErrorSuppress();
             case Node\Expr\Clone_::class:
                 return new Expression\CloneOp();
+            case Node\Expr\Ternary::class:
+                return new Expression\Ternary();
         }
 
         return false;
