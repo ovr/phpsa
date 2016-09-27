@@ -49,6 +49,7 @@ class Factory
                 new AnalyzerPass\Statement\UnexpectedUseOfThis(),
                 new AnalyzerPass\Statement\TestAnnotation(),
                 new AnalyzerPass\Statement\OldConstructor(),
+                new AnalyzerPass\Statement\ConstantNaming(),
             ]
         );
         $analyzer->bind();

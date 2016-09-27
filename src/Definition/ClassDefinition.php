@@ -130,6 +130,7 @@ class ClassDefinition extends ParentDefinition
         $context->setFilepath($this->filepath);
         $context->setScope($this);
 
+        // Compile event for properties
         foreach ($this->properties as $property) {
             if (!$property->default) {
                 continue;
@@ -145,6 +146,18 @@ class ClassDefinition extends ParentDefinition
             );
         }
 
+        // Compile event for constants
+        foreach ($this->constants as $const) {
+            $context->getEventManager()->fire(
+                Event\StatementBeforeCompile::EVENT_NAME,
+                new Event\StatementBeforeCompile(
+                    $const,
+                    $context
+                )
+            );
+        }
+
+        // Compile each method
         foreach ($this->methods as $method) {
             $context->clearSymbols();
 
