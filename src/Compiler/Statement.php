@@ -47,6 +47,8 @@ class Statement
                 return new Statement\CatchSt();
             case Stmt\Throw_::class:
                 return new Statement\ThrowSt();
+            case Stmt\Global_::class:
+                return new Statement\GlobalSt();
         }
 
         throw new RuntimeException('Unknown statement: ' . get_class($stmt));
