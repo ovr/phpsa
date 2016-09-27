@@ -104,7 +104,9 @@ class Expression
                 return new Expression\BinaryOp\NotEqual();
             case Node\Expr\BinaryOp\Spaceship::class:
                 return new Expression\BinaryOp\SpaceShip();
-
+            case Node\Expr\BinaryOp\Coalesce::class:
+                return new Expression\BinaryOp\Coalesce();
+                
             /**
              * @link http://php.net/manual/en/language.operators.increment.php
              */
