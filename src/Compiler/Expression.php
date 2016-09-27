@@ -208,6 +208,8 @@ class Expression
                 return new Expression\ExitOp();
             case Node\Expr\Isset_::class:
                 return new Expression\IssetOp();
+            case Node\Expr\Print_::class:
+                return new Expression\PrintOp();
         }
 
         return false;
