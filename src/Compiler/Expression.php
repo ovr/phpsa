@@ -218,6 +218,8 @@ class Expression
                 return new Expression\EvalOp();
             case Node\Expr\ErrorSuppress::class:
                 return new Expression\ErrorSuppress();
+            case Node\Expr\Clone_::class:
+                return new Expression\CloneOp();
         }
 
         return false;
