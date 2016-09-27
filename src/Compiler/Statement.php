@@ -51,6 +51,8 @@ class Statement
                 return new Statement\GlobalSt();
             case Stmt\Static_::class:
                 return new Statement\StaticSt();
+            case Stmt\Declare_::class:
+                return new Statement\DeclareSt();
         }
 
         throw new RuntimeException('Unknown statement: ' . get_class($stmt));
