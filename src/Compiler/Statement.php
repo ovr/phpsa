@@ -55,6 +55,8 @@ class Statement
                 return new Statement\DeclareSt();
             case Stmt\Const_::class:
                 return new Statement\ConstSt();
+            case Stmt\Unset_::class:
+                return new Statement\UnsetSt();
         }
 
         throw new RuntimeException('Unknown statement: ' . get_class($stmt));
