@@ -23,6 +23,13 @@ class BooleanOrTest extends \Tests\PHPSA\TestCase
             array(null, null, false),
             array(true, null, true),
             array(null, true, true),
+            array(1, true, true),
+            array(1.4, false, true),
+            array(1, false, true),
+            array(-1, false, true),
+            array("a", false, true),
+            array(array(), array(), false),
+            array(array(), "a", true),
         );
     }
 

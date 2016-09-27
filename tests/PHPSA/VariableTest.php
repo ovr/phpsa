@@ -172,4 +172,37 @@ class VariableTest extends TestCase
         static::assertSame($variable->getValue(), $parentVariable->getValue());
         static::assertSame($variable->getType(), $parentVariable->getType());
     }
+
+    public function testGetTypeName()
+    {
+        $int = new Variable('a', 1, CompiledExpression::INTEGER);
+        parent::assertSame("integer", $int->getTypeName());
+
+        $double = new Variable('b', 1, CompiledExpression::DOUBLE);
+        parent::assertSame("double", $double->getTypeName());
+
+        $number = new Variable('c', 1, CompiledExpression::NUMBER);
+        parent::assertSame("number", $number->getTypeName());
+
+        $arr = new Variable('d', [1,2], CompiledExpression::ARR);
+        parent::assertSame("array", $arr->getTypeName());
+
+        $object = new Variable('e', 1, CompiledExpression::OBJECT);
+        parent::assertSame("object", $object->getTypeName());
+
+        $resource = new Variable('f', 1, CompiledExpression::RESOURCE);
+        parent::assertSame("resource", $resource->getTypeName());
+
+        $callable = new Variable('g', 1, CompiledExpression::CALLABLE_TYPE);
+        parent::assertSame("callable", $callable->getTypeName());
+
+        $boolean = new Variable('h', 1, CompiledExpression::BOOLEAN);
+        parent::assertSame("boolean", $boolean->getTypeName());
+
+        $null = new Variable('i', 1, CompiledExpression::NULL);
+        parent::assertSame("null", $null->getTypeName());
+
+        $unknown = new Variable('j', 1, CompiledExpression::UNKNOWN);
+        parent::assertSame("unknown", $unknown->getTypeName());
+    }
 }

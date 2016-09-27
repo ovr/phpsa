@@ -29,12 +29,18 @@ class BooleanAnd extends AbstractExpressionCompiler
             case CompiledExpression::STRING:
             case CompiledExpression::BOOLEAN:
             case CompiledExpression::NULL:
+            case CompiledExpression::ARR:
+            case CompiledExpression::OBJECT:
+            case CompiledExpression::NUMBER:
                 switch ($right->getType()) {
                     case CompiledExpression::INTEGER:
                     case CompiledExpression::DOUBLE:
                     case CompiledExpression::STRING:
                     case CompiledExpression::BOOLEAN:
                     case CompiledExpression::NULL:
+                    case CompiledExpression::ARR:
+                    case CompiledExpression::OBJECT:
+                    case CompiledExpression::NUMBER:
                         return CompiledExpression::fromZvalValue($left->getValue() && $right->getValue());
                 }
                 break;
