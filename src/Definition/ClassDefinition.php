@@ -110,7 +110,7 @@ class ClassDefinition extends ParentDefinition
 
     /**
      * @param Context $context
-     * @return $this
+     * @return bool
      */
     public function compile(Context $context)
     {
@@ -186,7 +186,7 @@ class ClassDefinition extends ParentDefinition
             }
         }
 
-        return $this;
+        return true;
     }
 
     /**
