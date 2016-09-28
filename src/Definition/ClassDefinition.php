@@ -186,6 +186,15 @@ class ClassDefinition extends ParentDefinition
             }
         }
 
+        $context->getEventManager()->fire(
+            Event\StatementAfterCompile::EVENT_NAME,
+            new Event\StatementAfterCompile(
+                $this->statement,
+                $context,
+                $this // ClassDefinition is a result of compile
+            )
+        );
+
         return true;
     }
 
