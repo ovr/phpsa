@@ -3,8 +3,6 @@
 namespace Tests\PHPSA\Compiler\Statement;
 
 use PhpParser\Node;
-use PHPSA\CompiledExpression;
-use PHPSA\Compiler\Expression;
 use PHPSA\Variable;
 
 class EchoTest extends \Tests\PHPSA\TestCase
