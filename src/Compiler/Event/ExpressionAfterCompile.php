@@ -7,9 +7,9 @@ namespace PHPSA\Compiler\Event;
 
 use PHPSA\Context;
 
-class ExpressionBeforeCompile extends \Webiny\Component\EventManager\Event
+class ExpressionAfterCompile extends \Webiny\Component\EventManager\Event
 {
-    const EVENT_NAME = 'expression.before-compile';
+    const EVENT_NAME = 'expression.after-compile';
 
     /**
      * @var Context
@@ -21,12 +21,18 @@ class ExpressionBeforeCompile extends \Webiny\Component\EventManager\Event
      */
     protected $expression;
 
-    public function __construct(\PhpParser\NodeAbstract $expression, Context $context)
+    /**
+     * @var mixed
+     */
+    protected $result;
+
+    public function __construct(\PhpParser\NodeAbstract $expression, Context $context, $result)
     {
         parent::__construct();
 
         $this->context = $context;
         $this->expression = $expression;
+        $this->result = $result;
     }
 
     /**
@@ -43,5 +49,13 @@ class ExpressionBeforeCompile extends \Webiny\Component\EventManager\Event
     public function getContext()
     {
         return $this->context;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getResult()
+    {
+        return $this->result;
     }
 }

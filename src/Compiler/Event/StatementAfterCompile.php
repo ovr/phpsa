@@ -7,9 +7,9 @@ namespace PHPSA\Compiler\Event;
 
 use PHPSA\Context;
 
-class StatementBeforeCompile extends \Webiny\Component\EventManager\Event
+class StatementAfterCompile extends \Webiny\Component\EventManager\Event
 {
-    const EVENT_NAME = 'statement.before-compile';
+    const EVENT_NAME = 'statement.after-compile';
 
     /**
      * @var Context
@@ -21,12 +21,18 @@ class StatementBeforeCompile extends \Webiny\Component\EventManager\Event
      */
     protected $statement;
 
-    public function __construct(\PhpParser\Node\Stmt $statement, Context $context)
+    /**
+     * @var mixed
+     */
+    protected $result;
+
+    public function __construct(\PhpParser\Node\Stmt $statement, Context $context, $result)
     {
         parent::__construct();
 
         $this->context = $context;
         $this->statement = $statement;
+        $this->result = $result;
     }
 
     /**
@@ -43,5 +49,13 @@ class StatementBeforeCompile extends \Webiny\Component\EventManager\Event
     public function getStatement()
     {
         return $this->statement;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getResult()
+    {
+        return $this->result;
     }
 }
