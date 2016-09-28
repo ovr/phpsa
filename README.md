@@ -12,102 +12,18 @@ PHPSA - Smart Analysis for PHP
 
 P.S This software is currently in early alpha state, any contributions/stars will be awesome.
 
-## Components
+### Components
 
-- [X] Compiler - Component to compile expression(s) and statement(s) from AST
-- [X] Analyzer
-- [X] ControlFlow (WIP)
-- [X] Definition - base definitions
+- [X] Core - Component containing definitions and other core files
+- [X] Compiler - Component to compile expression(s) and statement(s) from an abstract syntax tree
+- [X] Analyzer - Component doing various checks on your files
+- [X] ControlFlow - Component for ControlFlow (WIP)
 
-## Goals
+### Installation <sub>[(more)](/docs/01_Installation.md)</sub>
 
-What is needed or planned as future.
+The recommended way to install phpsa is via Composer.
 
-#### Unused
-
-- [ ] Import
-- [X] Local variable
-- [X] Parameter
-- [ ] Private field
-- [ ] Private method
-
-#### Undefined
-
-- [X] Class
-- [X] Class constant
-- [X] Class property
-- [X] Class method
-- [ ] Callback
-- [X] Constant
-- [X] Function
-- [ ] Namespace
-- [X] Variable
-
-#### PHPDockblock
-
-- [X] Missing doc block
-- [ ] Missing @return
-- [ ] Missing @param
-
-#### Control flow
-
-- [ ] Loop which does not loop
-- [ ] Ternary operator simplification
-- [ ] Elvis operator can be used
-- [ ] Not optimal if conditions
-- [ ] Infinite loop
-- [ ] Unreachable statement
-- [X] Stupid cast
-- [X] Not implemented class methods
-- [X] Not implemented function
-
-#### Probable bugs
-
-- [X] Division by zero {expr}/0
-- [X] Division from zero 0/{expr}
-- [X] Missing 'break' statement
-- [X] Void function result used
-
-#### General
-
-- [ ] Language level
-- [X] Syntax error
-
-#### Analyzer(s)
-
-- Alias Check
-- Argument Unpacking
-- Debug Code
-- Deprecated Functions
-- Deprecated Ini Options
-- Random Api Migration
-- Use Cast
-- Array short definition
-- Regular Expressions
-
-## Installation
-
-### Via `.phar`
-
-The easiest way to get it working is to download a tagged phpsa.phar release, and put this on your path. For example:
-
-```
-wget https://github.com/ovr/phpsa/releases/download/0.5.0/phpsa.phar
-chmod +x phpsa.phar
-sudo mv phpsa.phar /usr/local/bin/phpsa
-```
-
-### Via composer
-
-The recommended way to install phpsa is via `composer`.
-
-1. If you do not have composer installed, download the [`composer.phar`](https://getcomposer.org/composer.phar) executable or use the installer.
-
-``` sh
-$ curl -sS https://getcomposer.org/installer | php
-```
-
-2. Run `php composer.phar require ovr/phpsa` or add requirement in composer.json.
+Run `php composer.phar require ovr/phpsa` or add a new requirement in your composer.json.
 
 ``` json
 {
@@ -117,126 +33,43 @@ $ curl -sS https://getcomposer.org/installer | php
 }
 ```
 
-3. Run `php composer.phar update`
-
-
-### Via source
+### How to use <sub>[(more)](/docs/02_Usage.md)</sub>
 
 ```sh
-git clone https://github.com/ovr/phpsa
-cd phpsa
-./bin/phpsa
+$ ./bin/phpsa check fixtures/
+
+Syntax error:  Syntax error, unexpected T_RETURN on line 11 in fixtures/simple/syntax/Error2.php 
+
+    $b = $a + 1; 123123
+
+Notice:  Constant BBBB does not exist in self scope in fixtures/simple/undefined/Const.php on 29 [undefined-const]
+
+    return self::BBBB; 
+
+Notice:  You are trying to cast 'string' to 'string'. in fixtures/simple/code-smell/StandardFunctionCall.php on 16 [stupid.cast]
+
+    return (string) json_encode(array(
+
+Notice:  Missing docblock for callStaticMethodBySelf() method in fixtures/Compiling/Expression/StaticCall.php on 18 [missing-docblock]
+
+    public static function callStaticMethodBySelf()
+
 ```
 
-### It is highly recommended to disable xdebug
 
-You can run `php` with parameters to disable it:
+### Requirements
 
-```sh
-php -n -d xdebug.enable=0 -f ./bin/phpsa
-```
+PHP >= 5.5 (compatible up to version 7.0 && hhvm), but you can check files for PHP >= 5.2 with this.
 
-## How to use
+### Documentation
 
-```sh
-$ ./bin/phpsa
-PHP Smart Analyzer version 0.5.0
+See our [documentation](/docs/) in case you need more information on some topic.
 
-Usage:
-  command [options] [arguments]
+### Contributing
 
-Options:
-  -h, --help            Display this help message
-  -q, --quiet           Do not output any message
-  -V, --version         Display this application version
-      --ansi            Force ANSI output
-      --no-ansi         Disable ANSI output
-  -n, --no-interaction  Do not ask any interactive question
-  -v|vv|vvv, --verbose  Increase the verbosity of messages: 1 for normal output, 2 for more verbose output and 3 for debug
+Check our [Contributing Guide](/.github/CONTRIBUTING.md) to see how you can help.
 
-Available commands:
-  check  SPA
-  help   Displays help for a command
-  list   Lists commands
-```
-
-Example output:
-
-```sh
-$ ./bin/phpsa check ./tests/
-
-It is highly recommended to disable the XDebug extension before invoking this command.
-Scanning directory ./tests/simple
-found 10 files
-
-Syntax error:  Syntax error, unexpected '}' on line 8 in ./tests/simple/syntax-error/1.php
-
-Notice:  Unused variable $a in method test() in ./tests/simple/unused-variable/1.php  [unused-variable]
-
-Notice:  Property a does not exist in this scope in ./tests/simple/undefined/Property.php on 9 [undefined-property]
-
-	 return $this->a;
-
-Notice:  Constant BBBB does not exist in self scope in ./tests/simple/undefined/Const.php on 14 [undefined-const]
-
-	 return self::BBBB;
-
-Notice:  Method b() does not exist in this scope in ./tests/simple/undefined/MCall.php on 7 [undefined-mcall]
-
-	 return $this->b();
-
-Notice:  You trying to use undefined variable $unusedVariable in ./tests/simple/undefined/MCall.php on 23 [undefined-variable]
-
-	 return $unusedVariable->b();
-
-Notice:  Function undefinedFunction() does not exist in ./tests/simple/undefined/FCall.php on 7 [undefined-fcall]
-
-	 undefinedFunction();
-
-Notice:  You trying to use undefined variable $b in ./tests/simple/undefined/LocalVariable.php on 8 [undefined-variable]
-
-	 return $a + $b;
-
-Notice:  Static method b() does not exist in self scope in ./tests/simple/undefined/SCall.php on 7 [undefined-scall]
-
-	 return self::b();
-
-Notice:  You trying to use division on {expr}/0 in ./tests/simple/devision-by-zero/1.php on 7 [division-zero]
-
-	 return 1000 / 0;
-
-Notice:  You trying to use division on {expr}/0 in ./tests/simple/devision-by-zero/1.php on 12 [division-zero]
-
-	 return 1000 / (100-100);
-
-Notice:  You trying to use division on {expr}/0 in ./tests/simple/devision-by-zero/1.php on 17 [division-zero]
-
-	 return 1000 / ((50+50)-100);
-
-Notice:  You trying to use division on {expr}/0 in ./tests/simple/devision-by-zero/1.php on 22 [division-zero]
-
-	 return 1000 / ((5*5)-25);
-
-Notice:  You trying to use division on {expr}/0 in ./tests/simple/devision-by-zero/1.php on 27 [division-zero]
-
-	 return 1000 / ((-25) + (5*5));
-
-Notice:  You trying to use division on {expr}/0 in ./tests/simple/devision-by-zero/1.php on 32 [division-zero]
-
-	 return 1000 / ((-4) + (5^1));
-
-Notice:  You trying to use division from 0/{expr} in ./tests/simple/devision-by-zero/1.php on 37 [division-zero]
-
-	 return 0 / 1000;
-
-Memory usage: 4.97 (peak: 5.25) MB
-```
-
-## Requirements
-
-- PHP >= 5.5 (compatible up to version 7.0 && hhvm), but anyway this can check files for PHP >= 5.2
-
-## Sponsors
+### Sponsors
 
 Thanks to our sponsors and supporters:
 
@@ -244,8 +77,8 @@ Thanks to our sponsors and supporters:
 |---|
 | <a href="https://www.jetbrains.com/phpstorm/" title="PHP IDE :: JetBrains PhpStorm" target="_blank"><img src="https://resources.jetbrains.com/assets/media/open-graph/jetbrains_250x250.png" height="55"></img></a> |
 
-## LICENSE
+### LICENSE
 
 This project is open-sourced software licensed under the MIT License.
 
-See the LICENSE file for more information.
+See the [LICENSE](LICENSE) file for more information.
