@@ -6,11 +6,14 @@
 namespace PHPSA\Analyzer\Pass\Statement;
 
 use PhpParser\Node\Stmt;
+use PHPSA\Analyzer\Helper\DefaultMetadataPassTrait;
 use PHPSA\Analyzer\Pass;
 use PHPSA\Context;
 
 class OptionalParamBeforeRequired implements Pass\AnalyzerPassInterface
 {
+    use DefaultMetadataPassTrait;
+
     /**
      * @param Stmt $func
      * @param Context $context

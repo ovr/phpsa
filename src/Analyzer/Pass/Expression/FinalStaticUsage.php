@@ -3,12 +3,15 @@
 namespace PHPSA\Analyzer\Pass\Expression;
 
 use PhpParser\Node\Expr;
+use PHPSA\Analyzer\Helper\DefaultMetadataPassTrait;
 use PHPSA\Analyzer\Pass\AnalyzerPassInterface;
 use PHPSA\Context;
 use PHPSA\Definition\ClassDefinition;
 
 class FinalStaticUsage implements AnalyzerPassInterface
 {
+    use DefaultMetadataPassTrait;
+
     /**
      * @param Expr\StaticCall $expr
      * @param Context $context

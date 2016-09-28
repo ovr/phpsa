@@ -11,11 +11,14 @@ use PhpParser\Node\Stmt\ElseIf_;
 use PhpParser\Node\Stmt\Switch_;
 use PhpParser\Node\Stmt\While_;
 use PhpParser\Node\Stmt\For_;
+use PHPSA\Analyzer\Helper\DefaultMetadataPassTrait;
 use PHPSA\Analyzer\Pass;
 use PHPSA\Context;
 
 class FixedCondition implements Pass\AnalyzerPassInterface
 {
+    use DefaultMetadataPassTrait;
+
     /**
      * @param $stmt
      * @param Context $context

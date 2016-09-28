@@ -13,13 +13,13 @@ use PhpParser\Node\Expr\BinaryOp\NotIdentical;
 use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Scalar;
 use PhpParser\Node\Stmt;
-use PHPSA\Analyzer\Helper\ConfigurablePassTrait;
+use PHPSA\Analyzer\Helper\DefaultMetadataPassTrait;
 use PHPSA\Analyzer\Pass;
 use PHPSA\Context;
 
 class YodaCondition implements Pass\AnalyzerPassInterface
 {
-    use ConfigurablePassTrait;
+    use DefaultMetadataPassTrait;
 
     /**
      * @param $stmt

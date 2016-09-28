@@ -6,11 +6,14 @@ use PhpParser\Node\Stmt;
 use PhpParser\Node;
 use PhpParser\Node\Stmt\Goto_;
 use PhpParser\Node\Stmt\Label;
+use PHPSA\Analyzer\Helper\DefaultMetadataPassTrait;
 use PHPSA\Analyzer\Pass;
 use PHPSA\Context;
 
 class GotoUsage implements Pass\AnalyzerPassInterface
 {
+    use DefaultMetadataPassTrait;
+
     /**
      * @param $stmt
      * @param Context $context

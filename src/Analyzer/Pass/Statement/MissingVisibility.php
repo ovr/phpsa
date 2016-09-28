@@ -6,11 +6,14 @@ use PhpParser\Node\Stmt\Property;
 use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt;
+use PHPSA\Analyzer\Helper\DefaultMetadataPassTrait;
 use PHPSA\Analyzer\Pass\AnalyzerPassInterface;
 use PHPSA\Context;
 
 class MissingVisibility implements AnalyzerPassInterface
 {
+    use DefaultMetadataPassTrait;
+
     /**
      * @param Stmt $stmt
      * @param Context $context

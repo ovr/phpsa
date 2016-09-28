@@ -3,11 +3,14 @@
 namespace PHPSA\Analyzer\Pass\Statement;
 
 use PhpParser\Node\Stmt\Static_;
+use PHPSA\Analyzer\Helper\DefaultMetadataPassTrait;
 use PHPSA\Analyzer\Pass;
 use PHPSA\Context;
 
 class StaticUsage implements Pass\AnalyzerPassInterface
 {
+    use DefaultMetadataPassTrait;
+
     /**
      * @param Static_ $stmt
      * @param Context $context
