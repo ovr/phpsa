@@ -1,16 +1,16 @@
 
 Hey!
 
-Type: bug fix | new feature | refactoring | code quality | documentation
+Type: bug fix | new feature | code quality | documentation
 Link to issue:
 
 This pull request affects the following components: **(please check boxes)**
 
+* [ ] Core
 * [ ] Analyzer
 * [ ] Compiler
-* [ ] Core
 * [ ] Control Flow Graph
-* [ ] Data Flow
+* [ ] Documentation
 
 **In raising this pull request, I confirm the following (please check boxes):**
 
