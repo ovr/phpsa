@@ -37,12 +37,6 @@ class UnaryPlus extends AbstractExpressionCompiler
                 return CompiledExpression::fromZvalValue(
                     + (int) $left->getValue()
                 );
-            case CompiledExpression::ARR:
-                $context->notice(
-                    'unsupported-operand-types',
-                    'Unsupported operand types -{array}',
-                    $expr
-                );
         }
 
         return new CompiledExpression();
