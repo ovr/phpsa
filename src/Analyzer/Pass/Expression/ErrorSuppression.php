@@ -4,6 +4,7 @@ namespace PHPSA\Analyzer\Pass\Expression;
 
 use PhpParser\Node\Expr;
 use PHPSA\Analyzer\Pass\AnalyzerPassInterface;
+use PHPSA\Compiler\Event\ExpressionAfterCompile;
 use PHPSA\Context;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 
@@ -31,7 +32,7 @@ class ErrorSuppression implements AnalyzerPassInterface
     public function getRegister()
     {
         return [
-            Expr\ErrorSuppress::class
+            [Expr\ErrorSuppress::class, ExpressionAfterCompile::EVENT_NAME]
         ];
     }
 }

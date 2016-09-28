@@ -5,6 +5,7 @@ namespace PHPSA\Analyzer\Pass\Statement;
 use PhpParser\Node\Stmt;
 use PhpParser\Node;
 use PHPSA\Analyzer\Pass;
+use PHPSA\Compiler\Event\StatementBeforeCompile;
 use PHPSA\Context;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 
@@ -41,7 +42,7 @@ class DoNotUseGoto implements Pass\ConfigurablePassInterface, Pass\AnalyzerPassI
     public function getRegister()
     {
         return [
-            Stmt\Goto_::class,
+            [Stmt\Goto_::class, StatementBeforeCompile::EVENT_NAME]
         ];
     }
 }

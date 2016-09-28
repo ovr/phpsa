@@ -7,6 +7,7 @@ namespace PHPSA\Analyzer\Pass\Expression;
 
 use PhpParser\Node\Expr;
 use PHPSA\Analyzer\Pass\AnalyzerPassInterface;
+use PHPSA\Compiler\Event\ExpressionAfterCompile;
 use PHPSA\Context;
 
 class EvalUsage implements AnalyzerPassInterface
@@ -33,7 +34,7 @@ class EvalUsage implements AnalyzerPassInterface
     public function getRegister()
     {
         return [
-            Expr\Eval_::class
+            [Expr\Eval_::class, ExpressionAfterCompile::EVENT_NAME]
         ];
     }
 }

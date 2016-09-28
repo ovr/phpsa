@@ -7,6 +7,7 @@ namespace PHPSA\Analyzer\Pass\Statement;
 
 use PhpParser\Node\Stmt;
 use PHPSA\Analyzer\Pass;
+use PHPSA\Compiler\Event\StatementBeforeCompile;
 use PHPSA\Context;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 
@@ -55,7 +56,7 @@ class MissingBreakStatement implements Pass\ConfigurablePassInterface, Pass\Anal
     public function getRegister()
     {
         return [
-            Stmt\Switch_::class
+            [Stmt\Switch_::class, StatementBeforeCompile::EVENT_NAME]
         ];
     }
 

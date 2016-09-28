@@ -5,6 +5,7 @@ namespace PHPSA\Analyzer\Pass\Statement;
 use PhpParser\Node\Stmt\ClassMethod;
 use PHPSA\Analyzer\Pass\AnalyzerPassInterface;
 use PHPSA\Analyzer\Pass\ConfigurablePassInterface;
+use PHPSA\Compiler\Event\StatementBeforeCompile;
 use PHPSA\Context;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use phpDocumentor\Reflection\DocBlock;
@@ -61,7 +62,7 @@ class TestAnnotation implements ConfigurablePassInterface, AnalyzerPassInterface
     public function getRegister()
     {
         return [
-            ClassMethod::class
+            [ClassMethod::class, StatementBeforeCompile::EVENT_NAME],
         ];
     }
 }

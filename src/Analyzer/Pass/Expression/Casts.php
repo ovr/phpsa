@@ -4,6 +4,7 @@ namespace PHPSA\Analyzer\Pass\Expression;
 
 use PhpParser\Node\Expr;
 use PHPSA\Analyzer\Pass\AnalyzerPassInterface;
+use PHPSA\Compiler\Event\ExpressionAfterCompile;
 use PHPSA\Context;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use PHPSA\CompiledExpression;
@@ -64,18 +65,18 @@ class Casts implements AnalyzerPassInterface
     }
 
     /**
-     * @return TreeBuilder
+     * @return array
      */
     public function getRegister()
     {
         return [
-            Expr\Cast\Array_::class,
-            Expr\Cast\Bool_::class,
-            Expr\Cast\Int_::class,
-            Expr\Cast\Double::class,
-            Expr\Cast\Object_::class,
-            Expr\Cast\String_::class,
-            Expr\Cast\Unset_::class,
+            [Expr\Cast\Array_::class, ExpressionAfterCompile::EVENT_NAME],
+            [Expr\Cast\Bool_::class, ExpressionAfterCompile::EVENT_NAME],
+            [Expr\Cast\Int_::class, ExpressionAfterCompile::EVENT_NAME],
+            [Expr\Cast\Double::class, ExpressionAfterCompile::EVENT_NAME],
+            [Expr\Cast\Object_::class, ExpressionAfterCompile::EVENT_NAME],
+            [Expr\Cast\String_::class, ExpressionAfterCompile::EVENT_NAME],
+            [Expr\Cast\Unset_::class, ExpressionAfterCompile::EVENT_NAME]
         ];
     }
 }

@@ -8,6 +8,7 @@ namespace PHPSA\Analyzer\Pass\Statement;
 use PhpParser\Node\Stmt;
 use PhpParser\Node;
 use PHPSA\Analyzer\Pass;
+use PHPSA\Compiler\Event\StatementBeforeCompile;
 use PHPSA\Context;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 
@@ -68,12 +69,12 @@ class UnexpectedUseOfThis implements Pass\ConfigurablePassInterface, Pass\Analyz
     public function getRegister()
     {
         return [
-            Stmt\ClassMethod::class,
-            Stmt\TryCatch::class,
-            Stmt\Foreach_::class,
-            Stmt\Static_::class,
-            Stmt\Global_::class,
-            Stmt\Unset_::class,
+            [Stmt\ClassMethod::class, StatementBeforeCompile::EVENT_NAME,[$this, 'pass']],
+            [Stmt\TryCatch::class, StatementBeforeCompile::EVENT_NAME,[$this, 'pass']],
+            [Stmt\Foreach_::class, StatementBeforeCompile::EVENT_NAME,[$this, 'pass']],
+            [Stmt\Static_::class, StatementBeforeCompile::EVENT_NAME,[$this, 'pass']],
+            [Stmt\Global_::class, StatementBeforeCompile::EVENT_NAME,[$this, 'pass']],
+            [Stmt\Unset_::class, StatementBeforeCompile::EVENT_NAME,[$this, 'pass']],
         ];
     }
 

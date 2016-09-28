@@ -7,6 +7,7 @@ namespace PHPSA\Analyzer\Pass\Expression;
 
 use PhpParser\Node\Expr;
 use PHPSA\Analyzer\Pass;
+use PHPSA\Compiler\Event\ExpressionAfterCompile;
 use PHPSA\Context;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 
@@ -94,8 +95,8 @@ class ArrayIllegalOffsetType implements Pass\AnalyzerPassInterface, Pass\Configu
     public function getRegister()
     {
         return [
-            Expr\Array_::class,
-            Expr\Assign::class,
+            [Expr\Array_::class, ExpressionAfterCompile::EVENT_NAME],
+            [Expr\Assign::class, ExpressionAfterCompile::EVENT_NAME]
         ];
     }
 

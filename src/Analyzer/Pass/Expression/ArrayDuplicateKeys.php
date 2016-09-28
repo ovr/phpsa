@@ -8,6 +8,7 @@ namespace PHPSA\Analyzer\Pass\Expression;
 use PhpParser\Node\Expr;
 use PhpParser\Node\Scalar;
 use PHPSA\Analyzer\Pass;
+use PHPSA\Compiler\Event\ExpressionAfterCompile;
 use PHPSA\Context;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 
@@ -58,7 +59,7 @@ class ArrayDuplicateKeys implements Pass\AnalyzerPassInterface, Pass\Configurabl
     public function getRegister()
     {
         return [
-            Expr\Array_::class
+            [Expr\Array_::class, ExpressionAfterCompile::EVENT_NAME]
         ];
     }
 

@@ -4,6 +4,7 @@ namespace PHPSA\Analyzer\Pass\Statement;
 
 use PhpParser\Node\Stmt\ClassConst;
 use PHPSA\Analyzer\Pass\AnalyzerPassInterface;
+use PHPSA\Compiler\Event\StatementBeforeCompile;
 use PHPSA\Context;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 
@@ -39,7 +40,7 @@ class ConstantNaming implements AnalyzerPassInterface
     public function getRegister()
     {
         return [
-            ClassConst::class
+            [ClassConst::class, StatementBeforeCompile::EVENT_NAME]
         ];
     }
 }

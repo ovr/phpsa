@@ -7,6 +7,7 @@ namespace PHPSA\Analyzer\Pass\Expression;
 
 use PhpParser\Node\Expr;
 use PHPSA\Analyzer\Pass;
+use PHPSA\Compiler\Event\ExpressionAfterCompile;
 use PHPSA\Context;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 
@@ -38,7 +39,7 @@ class VariableVariableUsage implements Pass\AnalyzerPassInterface, Pass\Configur
     public function getRegister()
     {
         return [
-            Expr\Assign::class
+            [Expr\Assign::class, ExpressionAfterCompile::EVENT_NAME]
         ];
     }
 
