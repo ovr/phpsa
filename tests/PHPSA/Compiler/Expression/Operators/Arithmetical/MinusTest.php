@@ -58,6 +58,41 @@ class MinusTest extends \Tests\PHPSA\TestCase
     }
 
     /**
+     * Data provider for Minus {int} - {double} = {double} and {double} - {double} = {double}
+     *
+     * @return array
+     */
+    public function testResultDoubleDataProvider()
+    {
+        return array(
+            array(-1, -1.0, 0.0),
+            array(-1.0, -1.0, 0.0),
+            array(3, 1.5, 1.5),
+            array(4.0, 2.0, 2.0),
+            array(2, 3.5, -1.5),
+            array(2.5, 3.5, -1.0),
+        );
+    }
+
+    /**
+     * Tests {int} - {double} = {double} and {double} - {double} = {double}
+     *
+     * @dataProvider testResultDoubleDataProvider
+     */
+    public function testMinusResultDouble($a, $b, $c)
+    {
+        $baseExpression = new Node\Expr\BinaryOp\Minus(
+            new Node\Scalar\DNumber($a),
+            new Node\Scalar\DNumber($b)
+        );
+        $compiledExpression = $this->compileExpression($baseExpression);
+
+        $this->assertInstanceOfCompiledExpression($compiledExpression);
+        $this->assertSame(CompiledExpression::DOUBLE, $compiledExpression->getType());
+        $this->assertSame($c, $compiledExpression->getValue());
+    }
+
+    /**
      * Tests {left-expr::UNKNOWN} - {right-expr}
      */
     public function testFirstUnexpectedTypes()
