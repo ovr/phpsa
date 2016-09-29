@@ -2,6 +2,7 @@
 Hey!
 
 Type: bug fix | new feature | code quality | documentation
+
 Link to issue:
 
 This pull request affects the following components: **(please check boxes)**
