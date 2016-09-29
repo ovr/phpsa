@@ -105,6 +105,7 @@ class ClassDefinition extends ParentDefinition
         foreach ($property->props as $propertyDefinition) {
             $this->properties[$propertyDefinition->name] = $propertyDefinition;
         }
+        
         $this->propertyStatements[] = $property;
     }
 
