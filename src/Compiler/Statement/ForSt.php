@@ -31,6 +31,12 @@ class ForSt extends AbstractCompiler
             }
         }
 
+        if (count($stmt->loop) > 0) {
+            foreach ($stmt->loop as $loop) {
+                $context->getExpressionCompiler()->compile($loop);
+            }
+        }
+
         if (count($stmt->stmts) > 0) {
             foreach ($stmt->stmts as $statement) {
                 \PHPSA\nodeVisitorFactory($statement, $context);

@@ -10,7 +10,7 @@ class DoTest extends \Tests\PHPSA\TestCase
     /**
      * Tests do {} while ($stmtTest = 2) creates the variable
      */
-    public function testWhileConditionCreatesVar()
+    public function testDoConditionCreatesVar()
     {
         $context = $this->getContext();
 
@@ -33,7 +33,7 @@ class DoTest extends \Tests\PHPSA\TestCase
     /**
      * Tests do { $stmtTest = 2; } while (1 == 1) creates the variable
      */
-    public function testWhileStatementCreatesVar()
+    public function testDoStatementCreatesVar()
     {
         $context = $this->getContext();
 
