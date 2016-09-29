@@ -32,9 +32,16 @@ class ClassDefinition extends ParentDefinition
     /**
      * Class properties
      *
-     * @var Node\Stmt\Property[]
+     * @var Node\Stmt\PropertyProperty[]
      */
     protected $properties = array();
+
+    /**
+     * Property Statements
+     *
+     * @var Node\Stmt\Property[]
+     */
+    protected $propertyStatements = array();
 
     /**
      * Class constants
@@ -98,6 +105,8 @@ class ClassDefinition extends ParentDefinition
         foreach ($property->props as $propertyDefinition) {
             $this->properties[$propertyDefinition->name] = $propertyDefinition;
         }
+        
+        $this->propertyStatements[] = $property;
     }
 
     /**
@@ -152,6 +161,17 @@ class ClassDefinition extends ParentDefinition
                 Event\StatementBeforeCompile::EVENT_NAME,
                 new Event\StatementBeforeCompile(
                     $const,
+                    $context
+                )
+            );
+        }
+
+        // Compiler event for property statements
+        foreach ($this->propertyStatements as $prop) {
+            $context->getEventManager()->fire(
+                Event\StatementBeforeCompile::EVENT_NAME,
+                new Event\StatementBeforeCompile(
+                    $prop,
                     $context
                 )
             );
