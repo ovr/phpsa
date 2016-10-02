@@ -1,6 +1,6 @@
-![Logo](http://dmtry.me/img/logos/phpsa.png?v1 "PHPSA")
+![Logo](http://dmtry.me/img/logos/phpsa.png?v2 "PHPSA")
 
-PHPSA - Smart Analysis for PHP
+PHPSA - Smart Analyzer for PHP
 ===============================
 [![Build Status](https://travis-ci.org/ovr/phpsa.svg?branch=master)](https://travis-ci.org/ovr/phpsa)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/ovr/phpsa/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/ovr/phpsa/?branch=master)
