@@ -8,6 +8,7 @@ namespace PHPSA;
 use PHPSA\Definition\ClassDefinition;
 use PHPSA\Definition\FunctionDefinition;
 use PHPSA\Definition\RuntimeClassDefinition;
+use PHPSA\Definition\TraitDefinition;
 use ReflectionClass;
 
 class Compiler
@@ -16,6 +17,11 @@ class Compiler
      * @var ClassDefinition[]
      */
     protected $classes = array();
+
+    /**
+     * @var TraitDefinition[]
+     */
+    protected $traits = array();
 
     /**
      * @var FunctionDefinition[]
@@ -28,6 +34,14 @@ class Compiler
     public function addClass(ClassDefinition $class)
     {
         $this->classes[implode('\\', [$class->getNamespace(), $class->getName()])] = $class;
+    }
+
+    /**
+     * @param TraitDefinition $class
+     */
+    public function addTrait(TraitDefinition $class)
+    {
+        $this->traits[implode('\\', [$class->getNamespace(), $class->getName()])] = $class;
     }
 
     /**
