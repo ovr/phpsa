@@ -119,6 +119,12 @@ class FileParser
                         $aliasManager->add($statement->prefix . $use->name->parts);
                     }
                 }
+            } elseif ($statement instanceof Node\Stmt\Trait_) {
+                $definition = new TraitDefinition();
+                $definition->setFilepath($filepath);
+                $definition->setNamespace($aliasManager->getNamespace());
+
+                $this->compiler->addTrait($definition);
             } elseif ($statement instanceof Node\Stmt\Class_) {
                 $definition = new ClassDefinition($statement->name, $statement, $statement->type);
                 $definition->setFilepath($filepath);
