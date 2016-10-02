@@ -120,7 +120,7 @@ class FileParser
                     }
                 }
             } elseif ($statement instanceof Node\Stmt\Trait_) {
-                $definition = new TraitDefinition();
+                $definition = new TraitDefinition($statement->name, $statement);
                 $definition->setFilepath($filepath);
                 $definition->setNamespace($aliasManager->getNamespace());
 

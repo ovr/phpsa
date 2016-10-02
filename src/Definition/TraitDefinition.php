@@ -6,6 +6,7 @@
 namespace PHPSA\Definition;
 
 use PHPSA\Context;
+use PhpParser\Node\Stmt;
 
 class TraitDefinition extends ParentDefinition
 {
@@ -13,6 +14,17 @@ class TraitDefinition extends ParentDefinition
      * @var string
      */
     protected $filepath;
+
+    /**
+     * @var Stmt\Trait_
+     */
+    private $statement;
+
+    public function __construct($name, Stmt\Trait_ $statement)
+    {
+        $this->name = $name;
+        $this->statement = $statement;
+    }
 
     /**
      * Compile the definition
