@@ -357,4 +357,8 @@ class ClassDefinition extends ParentDefinition
     {
         return $this->extendsClass;
     }
+
+    public function mergeTrait(TraitDefinition $definition)
+    {
+    }
 }

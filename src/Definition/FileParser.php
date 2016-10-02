@@ -123,6 +123,7 @@ class FileParser
                 $definition = new TraitDefinition($statement->name, $statement);
                 $definition->setFilepath($filepath);
                 $definition->setNamespace($aliasManager->getNamespace());
+                $definition->precompile();
 
                 $this->compiler->addTrait($definition);
             } elseif ($statement instanceof Node\Stmt\Class_) {
@@ -142,11 +143,18 @@ class FileParser
 
                 foreach ($statement->stmts as $stmt) {
                     if ($stmt instanceof Node\Stmt\ClassMethod) {
-                        $method = new ClassMethod($stmt->name, $stmt, $stmt->type);
-
-                        $definition->addMethod($method);
+                        $definition->addMethod(
+                            new ClassMethod($stmt->name, $stmt, $stmt->type)
+                        );
                     } elseif ($stmt instanceof Node\Stmt\Property) {
                         $definition->addProperty($stmt);
+                    } elseif ($stmt instanceof Node\Stmt\TraitUse) {
+                        foreach ($stmt->traits as $traitPart) {
+                            $traitDefinition = $this->compiler->getTrait($traitPart->toString());
+                            if ($traitDefinition) {
+                                $definition->mergeTrait($traitDefinition);
+                            }
+                        }
                     } elseif ($stmt instanceof Node\Stmt\ClassConst) {
                         $definition->addConst($stmt);
                     }
