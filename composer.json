@@ -25,7 +25,7 @@
         "symfony/config": "^3.0.5",
         "symfony/yaml": "^3.0.5",
         "nikic/php-parser": "^2.1",
-        "phpdocumentor/reflection-docblock": "^2.0.4",
+        "phpdocumentor/reflection-docblock": "^3.0",
         "phpdocumentor/type-resolver": "^0.2",
         "webiny/event-manager": "^1.4.1",
         "regex-guard/regex-guard": "^1.1"
