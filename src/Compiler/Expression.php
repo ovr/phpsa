@@ -105,7 +105,9 @@ class Expression
                 return new Expression\BinaryOp\NotEqual();
             case Node\Expr\BinaryOp\Spaceship::class:
                 return new Expression\BinaryOp\SpaceShip();
-
+            case Node\Expr\BinaryOp\Coalesce::class:
+                return new Expression\BinaryOp\Coalesce();
+                
             /**
              * @link http://php.net/manual/en/language.operators.increment.php
              */
@@ -205,6 +207,22 @@ class Expression
                 return new Expression\Operators\UnaryMinus();
             case Node\Expr\UnaryPlus::class:
                 return new Expression\Operators\UnaryPlus();
+            case Node\Expr\Exit_::class:
+                return new Expression\ExitOp();
+            case Node\Expr\Isset_::class:
+                return new Expression\IssetOp();
+            case Node\Expr\Print_::class:
+                return new Expression\PrintOp();
+            case Node\Expr\Empty_::class:
+                return new Expression\EmptyOp();
+            case Node\Expr\Eval_::class:
+                return new Expression\EvalOp();
+            case Node\Expr\ErrorSuppress::class:
+                return new Expression\ErrorSuppress();
+            case Node\Expr\Clone_::class:
+                return new Expression\CloneOp();
+            case Node\Expr\Ternary::class:
+                return new Expression\Ternary();
         }
 
         return false;

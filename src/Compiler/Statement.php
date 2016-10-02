@@ -21,6 +21,10 @@ class Statement
     protected function factory($stmt)
     {
         switch (get_class($stmt)) {
+            case Stmt\Break_::class:
+                return new Statement\BreakSt();
+            case Stmt\Continue_::class:
+                return new Statement\ContinueSt();
             case Stmt\Echo_::class:
                 return new Statement\EchoSt();
             case Stmt\Return_::class:
@@ -43,6 +47,16 @@ class Statement
                 return new Statement\CatchSt();
             case Stmt\Throw_::class:
                 return new Statement\ThrowSt();
+            case Stmt\Global_::class:
+                return new Statement\GlobalSt();
+            case Stmt\Static_::class:
+                return new Statement\StaticSt();
+            case Stmt\Declare_::class:
+                return new Statement\DeclareSt();
+            case Stmt\Const_::class:
+                return new Statement\ConstSt();
+            case Stmt\Unset_::class:
+                return new Statement\UnsetSt();
         }
 
         throw new RuntimeException('Unknown statement: ' . get_class($stmt));
@@ -55,13 +69,6 @@ class Statement
     public function __construct(Node\Stmt $stmt, Context $context)
     {
         try {
-            /**
-             * @todo Think a little bit more about own statement for break;
-             */
-            if ($stmt instanceof Stmt\Break_) {
-                return;
-            }
-
             $context->getEventManager()->fire(
                 Event\StatementBeforeCompile::EVENT_NAME,
                 new Event\StatementBeforeCompile(
@@ -70,6 +77,10 @@ class Statement
                 )
             );
             
+            if ($stmt instanceof Stmt\Goto_ || $stmt instanceof Stmt\Label || $stmt instanceof Stmt\InlineHTML || $stmt instanceof Stmt\Nop) {
+                return;
+            }
+
             $compiler = $this->factory($stmt);
         } catch (\Exception $e) {
             $context->debug('StatementCompiler is not implemented for ' . get_class($stmt));
