@@ -358,7 +358,16 @@ class ClassDefinition extends ParentDefinition
         return $this->extendsClass;
     }
 
+    /**
+     * @param TraitDefinition $definition
+     */
     public function mergeTrait(TraitDefinition $definition)
     {
+        $methods = $definition->getMethods();
+        if ($methods) {
+            foreach ($methods as $method) {
+                $this->addMethod($method);
+            }
+        }
     }
 }

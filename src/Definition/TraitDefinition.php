@@ -18,12 +18,12 @@ class TraitDefinition extends ParentDefinition
     /**
      * @var Stmt\Trait_
      */
-    private $statement;
+    protected $statement;
 
     /**
      * @var ClassMethod[]
      */
-    private $methods;
+    protected $methods = [];
 
     public function __construct($name, Stmt\Trait_ $statement)
     {
@@ -78,5 +78,13 @@ class TraitDefinition extends ParentDefinition
     public function addMethod($method)
     {
         $this->methods[] = $method;
+    }
+
+    /**
+     * @return ClassMethod[]
+     */
+    public function getMethods()
+    {
+        return $this->methods;
     }
 }
