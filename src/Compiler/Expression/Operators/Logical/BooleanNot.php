@@ -31,10 +31,11 @@ class BooleanNot extends AbstractExpressionCompiler
             case CompiledExpression::NULL:
             case CompiledExpression::ARR:
             case CompiledExpression::OBJECT:
-                return new CompiledExpression(CompiledExpression::BOOLEAN, !$compiledExpression->getValue());
+                return CompiledExpression::fromZvalValue(
+                    !$compiledExpression->getValue()
+                );
         }
 
-
-        return new CompiledExpression(CompiledExpression::BOOLEAN);
+        return new CompiledExpression();
     }
 }

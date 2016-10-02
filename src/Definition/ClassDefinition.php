@@ -343,7 +343,7 @@ class ClassDefinition extends ParentDefinition
     }
 
     /**
-     * @param array $interface
+     * @param string $interface
      */
     public function addInterface($interface)
     {

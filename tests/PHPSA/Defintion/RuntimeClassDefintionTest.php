@@ -4,7 +4,6 @@ namespace Tests\PHPSA\Defintion;
 
 use PHPSA\Compiler\Parameter;
 use PHPSA\Definition\RuntimeClassDefinition;
-use PHPSA\Variable;
 use ReflectionClass;
 use Tests\PHPSA\TestCase;
 

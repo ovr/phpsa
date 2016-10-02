@@ -28,26 +28,6 @@ class Concat extends AbstractExpressionCompiler
         $rightExpression = $expressionCompiler->compile($expr->right);
 
         switch ($leftExpression->getType()) {
-            case CompiledExpression::ARR:
-                $context->notice(
-                    'unsupported-operand-types',
-                    'Unsupported operand types -{array}',
-                    $expr
-                );
-                break;
-        }
-
-        switch ($rightExpression->getType()) {
-            case CompiledExpression::ARR:
-                $context->notice(
-                    'unsupported-operand-types',
-                    'Unsupported operand types -{array}',
-                    $expr
-                );
-                break;
-        }
-
-        switch ($leftExpression->getType()) {
             case CompiledExpression::STRING:
             case CompiledExpression::NUMBER:
             case CompiledExpression::INTEGER:
@@ -63,11 +43,9 @@ class Concat extends AbstractExpressionCompiler
                             CompiledExpression::STRING,
                             $leftExpression->getValue() . $rightExpression->getValue()
                         );
-                        break;
                 }
-                break;
         }
 
-        return new CompiledExpression(CompiledExpression::STRING);
+        return new CompiledExpression();
     }
 }

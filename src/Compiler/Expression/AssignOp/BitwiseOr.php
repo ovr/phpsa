@@ -17,7 +17,6 @@ class BitwiseOr extends AbstractExpressionCompiler
     protected $name = 'PhpParser\Node\Expr\AssignOp\BitwiseOr';
 
     /**
-     * It's used in conditions
      * {left-expr} |= {right-expr}
      *
      * @param \PhpParser\Node\Expr\AssignOp\BitwiseOr $expr
@@ -42,11 +41,9 @@ class BitwiseOr extends AbstractExpressionCompiler
                         return CompiledExpression::fromZvalValue(
                             $left->getValue() | $expExpression->getValue()
                         );
-                        break;
                 }
-                break;
         }
 
-        return new CompiledExpression(CompiledExpression::UNKNOWN);
+        return new CompiledExpression();
     }
 }

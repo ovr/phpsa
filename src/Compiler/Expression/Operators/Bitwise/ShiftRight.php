@@ -33,7 +33,6 @@ class ShiftRight extends AbstractExpressionCompiler
                     case CompiledExpression::BOOLEAN:
                         return new CompiledExpression(CompiledExpression::INTEGER, $left->getValue() >> $right->getValue());
                 }
-                break;
         }
 
         return new CompiledExpression();

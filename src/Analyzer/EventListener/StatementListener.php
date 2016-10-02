@@ -15,11 +15,17 @@ class StatementListener extends EventListener
      */
     private $analyzers;
 
+    /**
+     * @param array $analyzers
+     */
     public function __construct(array $analyzers)
     {
         $this->analyzers = $analyzers;
     }
 
+    /**
+     * @param \PHPSA\Compiler\Event\StatementBeforeCompile $event
+     */
     public function beforeCompile(\PHPSA\Compiler\Event\StatementBeforeCompile $event)
     {
         $expression = $event->getStatement();

@@ -41,7 +41,7 @@ class FunctionCall extends AbstractExpressionCompiler
                 $expr->name
             );
 
-            return new CompiledExpression;
+            return new CompiledExpression();
         }
 
         $compiler = $context->application->compiler;

@@ -20,7 +20,7 @@ class UnsetCast extends AbstractExpressionCompiler
      */
     protected function compile($expr, Context $context)
     {
-        $compiledExpression = $context->getExpressionCompiler()->compile($expr->expr);
+        $context->getExpressionCompiler()->compile($expr->expr);
 
         return new CompiledExpression(CompiledExpression::NULL, null);
     }

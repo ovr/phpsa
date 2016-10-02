@@ -41,9 +41,8 @@ abstract class AbstractOperator extends AbstractExpressionCompiler
                             $this->compare($left->getValue(), $right->getValue())
                         );
                 }
-                break;
         }
 
-        return new CompiledExpression(CompiledExpression::BOOLEAN);
+        return new CompiledExpression();
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Compiling\Statements;
+namespace Tests\Analyze\Fixtures\Expression\FunctionCall;
 
 class DeprecatedIniOptions
 {

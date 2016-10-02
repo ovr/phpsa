@@ -33,7 +33,6 @@ class Pow extends AbstractExpressionCompiler
                     case CompiledExpression::BOOLEAN:
                         return CompiledExpression::fromZvalValue(pow($left->getValue(), $right->getValue()));
                 }
-                break;
         }
 
         return new CompiledExpression();

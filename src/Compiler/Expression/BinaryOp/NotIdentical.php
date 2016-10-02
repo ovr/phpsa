@@ -28,18 +28,30 @@ class NotIdentical extends AbstractExpressionCompiler
             case CompiledExpression::INTEGER:
             case CompiledExpression::DOUBLE:
             case CompiledExpression::BOOLEAN:
+            case CompiledExpression::ARR:
+            case CompiledExpression::OBJECT:
+            case CompiledExpression::STRING:
             case CompiledExpression::NUMBER:
+            case CompiledExpression::RESOURCE:
+            case CompiledExpression::CALLABLE_TYPE:
             case CompiledExpression::NULL:
                 switch ($right->getType()) {
                     case CompiledExpression::INTEGER:
                     case CompiledExpression::DOUBLE:
                     case CompiledExpression::BOOLEAN:
+                    case CompiledExpression::ARR:
+                    case CompiledExpression::OBJECT:
+                    case CompiledExpression::STRING:
                     case CompiledExpression::NUMBER:
+                    case CompiledExpression::RESOURCE:
+                    case CompiledExpression::CALLABLE_TYPE:
                     case CompiledExpression::NULL:
-                        return new CompiledExpression(CompiledExpression::BOOLEAN, $left->getValue() !== $right->getValue());
+                        return CompiledExpression::fromZvalValue(
+                            $left->getValue() !== $right->getValue()
+                        );
                 }
         }
 
-        return new CompiledExpression(CompiledExpression::BOOLEAN);
+        return new CompiledExpression();
     }
 }

@@ -29,6 +29,10 @@ class FileParser
      */
     protected $compiler;
 
+    /**
+     * @param \PhpParser\Parser $parser
+     * @param Compiler $compiler
+     */
     public function __construct(\PhpParser\Parser $parser, Compiler $compiler)
     {
         $this->nodeTraverser = new \PhpParser\NodeTraverser();
@@ -41,6 +45,7 @@ class FileParser
     /**
      * @param string $filepath
      * @param Context $context
+     * @throws RuntimeException when filepath is not readable
      */
     public function parserFile($filepath, Context $context)
     {
@@ -95,7 +100,7 @@ class FileParser
     }
 
     /**
-     * @param Node\Stmt $topStatement
+     * @param Node\Stmt|Node\Stmt[] $topStatement
      * @param AliasManager $aliasManager
      * @param string $filepath
      */

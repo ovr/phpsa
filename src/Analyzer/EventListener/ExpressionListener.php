@@ -15,11 +15,17 @@ class ExpressionListener extends EventListener
      */
     private $analyzers;
 
+    /**
+     * @param array $analyzers
+     */
     public function __construct(array $analyzers)
     {
         $this->analyzers = $analyzers;
     }
 
+    /**
+     * @param \PHPSA\Compiler\Event\ExpressionBeforeCompile $event
+     */
     public function beforeCompile(\PHPSA\Compiler\Event\ExpressionBeforeCompile $event)
     {
         $expression = $event->getExpression();

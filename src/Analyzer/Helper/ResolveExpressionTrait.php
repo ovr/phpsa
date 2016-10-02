@@ -16,7 +16,6 @@ trait ResolveExpressionTrait
      * @param FuncCall $funcCall
      * @param Context $context
      * @return string|bool
-     * @throws \PHPSA\Exception\RuntimeException
      */
     public function resolveFunctionName(FuncCall $funcCall, Context $context)
     {

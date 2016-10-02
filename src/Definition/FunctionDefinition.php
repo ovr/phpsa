@@ -38,7 +38,8 @@ class FunctionDefinition extends ParentDefinition
     protected $possibleReturnTypes = array();
 
     /**
-     * @param $name
+     * @param string $name
+     * @param Node\Stmt\Function_ $statement
      */
     public function __construct($name, Node\Stmt\Function_ $statement)
     {
@@ -111,7 +112,7 @@ class FunctionDefinition extends ParentDefinition
     }
 
     /**
-    * @return array
+    * @return Node\Param[]
     */
     public function getParams()
     {

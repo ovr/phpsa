@@ -41,19 +41,19 @@ class MethodCall extends AbstractExpressionCompiler
                         );
 
                         //it's needed to exit
-                        return new CompiledExpression;
+                        return new CompiledExpression();
                     }
 
                     $method = $calledObject->getMethod($methodName, true);
                     if (!$method) {
                         $context->debug('getMethod is not working');
-                        return new CompiledExpression;
+                        return new CompiledExpression();
                     }
 
                     if ($method->isStatic()) {
                         $context->notice(
                             'mcall.static',
-                            "Method {$methodName}() is a static function but called like class method",
+                            "Method {$methodName}() is static but called like a class method",
                             $expr
                         );
                     }
@@ -61,19 +61,19 @@ class MethodCall extends AbstractExpressionCompiler
                     return $method->run(clone $context, $compiledArguments);
                 }
 
-                return new CompiledExpression;
+                return new CompiledExpression();
             }
         } elseif (!$leftCE->canBeObject()) {
             $context->notice(
-                'mcall.not-object',
-                'Is not object cannot be called like this',
+                'mcall.non-object',
+                sprintf('$%s is not an object and cannot be called like this', $expr->var->name),
                 $expr->var,
                 Check::CHECK_ALPHA
             );
         }
 
         $context->debug('[Unknown] @todo MethodCall');
-        return new CompiledExpression;
+        return new CompiledExpression();
     }
 
     /**

@@ -55,6 +55,9 @@ class CheckCommand extends Command
 
     /**
      * Executes the command.
+     *
+     * @param InputInterface $input
+     * @param OutputInterface $output
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {

@@ -7,7 +7,6 @@ use PHPSA\Context;
 use PHPSA\Node\Scalar\Boolean;
 use PHPSA\Node\Scalar\Fake;
 use PHPSA\Node\Scalar\Nil;
-use PHPSA\Compiler\Expression;
 use RuntimeException;
 use Symfony\Component\Console\Output\ConsoleOutput;
 use PHPSA\Definition\ClassDefinition;
@@ -76,6 +75,8 @@ class TestCase extends \PHPUnit_Framework_TestCase
 
     /**
      * @param $value
+     * @throws RuntimeException when non empty array is passed
+     * @throws RuntimeException when type of param is not supported
      * @return Node\Scalar\DNumber|Node\Scalar\LNumber
      */
     public function newScalarExpr($value)

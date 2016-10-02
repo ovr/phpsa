@@ -212,6 +212,8 @@ class Expression
 
     /**
      * @param object|string $expr
+     * @throws InvalidArgumentException when $expr is not string/object/null
+     * @throws RuntimeException when compiler class does not return a CompiledExpression
      * @return CompiledExpression
      */
     public function compile($expr)
@@ -471,7 +473,7 @@ class Expression
 
         $this->context->notice(
             'property-fetch-on-non-object',
-            "It's not possible to fetch property on not object",
+            "It's not possible to fetch a property on a non-object",
             $expr,
             Check::CHECK_BETA
         );
@@ -661,7 +663,7 @@ class Expression
 
         $this->context->notice(
             'undefined-variable',
-            sprintf('You trying to use undefined variable $%s', $expr->name),
+            sprintf('You are trying to use an undefined variable $%s', $expr->name),
             $expr
         );
 
@@ -697,7 +699,6 @@ class Expression
                     default:
                         $this->context->debug("Type {$compiledKeyResult->getType()} is not supported for key value");
                         return new CompiledExpression(CompiledExpression::ARR);
-                        break;
                 }
             } else {
                 $resultArray[] = $compiledValueResult->getValue();

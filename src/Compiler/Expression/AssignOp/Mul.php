@@ -33,12 +33,12 @@ class Mul extends AbstractExpressionCompiler
                     case CompiledExpression::DOUBLE:
                     case CompiledExpression::NUMBER:
                     case CompiledExpression::BOOLEAN:
-                        return CompiledExpression::fromZvalValue($left->getValue() * $expExpression->getValue());
-                        break;
+                        return CompiledExpression::fromZvalValue(
+                            $left->getValue() * $expExpression->getValue()
+                        );
                 }
-                break;
         }
         
-        return new CompiledExpression(CompiledExpression::UNKNOWN);
+        return new CompiledExpression();
     }
 }

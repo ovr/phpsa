@@ -28,33 +28,22 @@ class Div extends AbstractExpressionCompiler
         $left = $context->getExpressionCompiler()->compile($expr->left);
         $right = $context->getExpressionCompiler()->compile($expr->right);
 
-        switch ($left->getType()) {
-            case CompiledExpression::DOUBLE:
-            case CompiledExpression::INTEGER:
-            case CompiledExpression::BOOLEAN:
-                if ($left->isEquals(0)) {
-                    $context->notice(
-                        'division-zero',
-                        sprintf('You trying to use division from %s/{expr}', $left->getValue()),
-                        $expr
-                    );
-                }
-                break;
+        if ($left->isEquals(0)) {
+            $context->notice(
+                'division-zero',
+                sprintf('You are trying to divide from 0: %s/{expr}', $left->getValue()),
+                $expr
+            );
         }
 
-        switch ($right->getType()) {
-            case CompiledExpression::INTEGER:
-            case CompiledExpression::DOUBLE:
-            case CompiledExpression::BOOLEAN:
-                if ($right->isEquals(0)) {
-                    $context->notice(
-                        'division-zero',
-                        sprintf('You trying to use division on {expr}/%s', $right->getValue()),
-                        $expr
-                    );
+        if ($right->isEquals(0)) {
+            $context->notice(
+                'division-zero',
+                sprintf('You are trying to divide by 0: {expr}/%s', $right->getValue()),
+                $expr
+            );
 
-                    return new CompiledExpression(CompiledExpression::UNKNOWN);
-                }
+            return new CompiledExpression();
         }
 
         switch ($left->getType()) {
@@ -64,14 +53,13 @@ class Div extends AbstractExpressionCompiler
                 switch ($right->getType()) {
                     case CompiledExpression::BOOLEAN:
                         /**
-                         * Boolean is true via isEquals(0) check is not passed before
-                         * {int}/1 = {int}
-                         * {double}/1 = {double}
+                         * Boolean is true since isEquals(0) check did not pass before
+                         * {expr}/1 = {expr}
                          */
 
                         $context->notice(
-                            'division-on-true',
-                            'You trying to use stupid division {expr}/true ~ {expr}/1 = {expr}',
+                            'division-by-true',
+                            'You are trying to divide by true: {expr}/true ~ {expr}/1 = {expr}',
                             $expr
                         );
                     //no break
@@ -80,9 +68,8 @@ class Div extends AbstractExpressionCompiler
                     case CompiledExpression::BOOLEAN:
                         return CompiledExpression::fromZvalValue($left->getValue() / $right->getValue());
                 }
-                break;
         }
 
-        return new CompiledExpression(CompiledExpression::UNKNOWN);
+        return new CompiledExpression();
     }
 }

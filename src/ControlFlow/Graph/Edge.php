@@ -22,6 +22,11 @@ class Edge
      */
     protected $type;
 
+    /**
+     * @param Node $source
+     * @param Node $destination
+     * @param integer $type
+     */
     public function __construct(Node $source, Node $destination = null, $type = -1)
     {
         $this->source = $source;

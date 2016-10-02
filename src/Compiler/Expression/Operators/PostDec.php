@@ -57,20 +57,8 @@ class PostDec extends AbstractExpressionCompiler
                     $expr
                 );
             }
-
-            return new CompiledExpression(CompiledExpression::UNKNOWN);
         }
 
-        $compiledExpression = $context->getExpressionCompiler()->compile($expr->var);
-
-        switch ($compiledExpression->getType()) {
-            case CompiledExpression::INTEGER:
-            case CompiledExpression::DOUBLE:
-            case CompiledExpression::NUMBER:
-                $value = $compiledExpression->getValue();
-                return CompiledExpression::fromZvalValue($value--);
-        }
-
-        return new CompiledExpression(CompiledExpression::UNKNOWN);
+        return new CompiledExpression();
     }
 }

@@ -41,11 +41,12 @@ class LogicalOr extends AbstractExpressionCompiler
                     case CompiledExpression::ARR:
                     case CompiledExpression::NUMBER:
                     case CompiledExpression::OBJECT:
-                        return CompiledExpression::fromZvalValue($left->getValue() or $right->getValue());
+                        return CompiledExpression::fromZvalValue(
+                            $left->getValue() or $right->getValue()
+                        );
                 }
-                break;
         }
 
-        return new CompiledExpression(CompiledExpression::BOOLEAN);
+        return new CompiledExpression();
     }
 }

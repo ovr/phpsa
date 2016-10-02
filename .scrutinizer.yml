@@ -1,4 +1,7 @@
 # language: php
+filter:
+    excluded_paths: ["tests/analyze-fixtures/*"]
+
 before_commands:
     - "composer install --no-dev --prefer-source"
 

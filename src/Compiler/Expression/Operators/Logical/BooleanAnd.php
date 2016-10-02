@@ -41,11 +41,12 @@ class BooleanAnd extends AbstractExpressionCompiler
                     case CompiledExpression::ARR:
                     case CompiledExpression::OBJECT:
                     case CompiledExpression::NUMBER:
-                        return CompiledExpression::fromZvalValue($left->getValue() && $right->getValue());
+                        return CompiledExpression::fromZvalValue(
+                            $left->getValue() && $right->getValue()
+                        );
                 }
-                break;
         }
 
-        return new CompiledExpression(CompiledExpression::BOOLEAN);
+        return new CompiledExpression();
     }
 }
