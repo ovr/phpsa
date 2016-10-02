@@ -1,4 +1,4 @@
-![Logo](http://dmtry.me/img/logos/phpsa.png?v2 "PHPSA")
+![Logo](http://dmtry.me/img/logos/phpsa.png?v2 "PHPSA" | width=100)
 
 PHPSA - Smart Analyzer for PHP
 ===============================
