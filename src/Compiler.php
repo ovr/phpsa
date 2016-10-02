@@ -129,6 +129,19 @@ class Compiler
     }
 
     /**
+     * @param string $name
+     * @return TraitDefinition|null
+     */
+    public function getTrait($name)
+    {
+        if (isset($this->traits[$name])) {
+            return $this->traits[$name];
+        }
+
+        return null;
+    }
+
+    /**
      * Try to find function from pre-compiled function(s)
      *
      * @param string $name
