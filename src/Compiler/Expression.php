@@ -6,6 +6,7 @@
 namespace PHPSA\Compiler;
 
 use InvalidArgumentException;
+use phpDocumentor\Reflection\DocBlockFactory;
 use PHPSA\Check;
 use PHPSA\CompiledExpression;
 use PHPSA\Compiler\Event\ExpressionBeforeCompile;
@@ -317,7 +318,7 @@ class Expression
             return new CompiledExpression();
         }
 
-        $phpdoc = new \phpDocumentor\Reflection\DocBlock($docBlock->getText());
+        $phpdoc = DocBlockFactory::createInstance()->create($docBlock->getText());
 
         $varTags = $phpdoc->getTagsByName('var');
         if ($varTags) {

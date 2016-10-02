@@ -19,21 +19,21 @@
     ],
     "require": {
         "php": ">=5.5",
-        "ovr/phpreflection": "~0.3.1",
-        "symfony/console": "~3.0.5",
-        "symfony/event-dispatcher": "~3.0.5",
-        "symfony/config": "~3.0.5",
-        "symfony/yaml": "~3.0.5",
-        "nikic/php-parser": "~2.1.0",
-        "phpdocumentor/reflection-docblock": "~2.0.4",
-        "phpdocumentor/type-resolver": "^0.2.0",
-        "webiny/event-manager": "~1.4.1",
-        "regex-guard/regex-guard": "~1.1.0"
+        "ovr/phpreflection": "^0.3.1",
+        "symfony/console": "^3.0.5",
+        "symfony/event-dispatcher": "^3.0.5",
+        "symfony/config": "^3.0.5",
+        "symfony/yaml": "^3.0.5",
+        "nikic/php-parser": "^2.1",
+        "phpdocumentor/reflection-docblock": "^3.0",
+        "phpdocumentor/type-resolver": "^0.2",
+        "webiny/event-manager": "^1.4.1",
+        "regex-guard/regex-guard": "^1.1"
     },
     "require-dev": {
-        "phpunit/phpunit": "~4.8.26",
-        "squizlabs/php_codesniffer": "~2.6",
-        "symfony/var-dumper": "~3.1.0"
+        "phpunit/phpunit": "^4.8.26",
+        "squizlabs/php_codesniffer": "^2.6",
+        "symfony/var-dumper": "^3.1"
     },
     "autoload": {
         "files": ["src/functions.php"],

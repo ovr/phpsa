@@ -2,15 +2,24 @@
 
 namespace PHPSA\Analyzer\Pass\Statement;
 
+use phpDocumentor\Reflection\DocBlockFactory;
 use PhpParser\Node\Stmt\ClassMethod;
 use PHPSA\Analyzer\Pass\AnalyzerPassInterface;
 use PHPSA\Analyzer\Pass\ConfigurablePassInterface;
 use PHPSA\Context;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
-use phpDocumentor\Reflection\DocBlock;
 
 class TestAnnotation implements ConfigurablePassInterface, AnalyzerPassInterface
 {
+
+    /** @var DocBlockFactory */
+    protected $docBlockFactory;
+
+    public function __construct()
+    {
+        $this->docBlockFactory = DocBlockFactory::createInstance();
+    }
+
     /**
      * @param ClassMethod $methodStmt
      * @param Context $context
@@ -28,7 +37,7 @@ class TestAnnotation implements ConfigurablePassInterface, AnalyzerPassInterface
         }
 
         if ($methodStmt->getDocComment()) {
-            $phpdoc = new DocBlock($methodStmt->getDocComment()->getText());
+            $phpdoc = $this->docBlockFactory->create($methodStmt->getDocComment()->getText());
 
             if ($phpdoc->hasTag('test')) {
                 $context->notice(
