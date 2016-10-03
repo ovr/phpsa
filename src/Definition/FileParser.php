@@ -152,7 +152,7 @@ class FileParser
                         foreach ($stmt->traits as $traitPart) {
                             $traitDefinition = $this->compiler->getTrait($traitPart->toString());
                             if ($traitDefinition) {
-                                $definition->mergeTrait($traitDefinition);
+                                $definition->mergeTrait($traitDefinition, $stmt->adaptations);
                             }
                         }
                     } elseif ($stmt instanceof Node\Stmt\ClassConst) {

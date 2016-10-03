@@ -219,4 +219,20 @@ class ClassMethod extends AbstractDefinition
     {
         return $this->statement->params;
     }
+
+    /**
+     * @return int
+     */
+    public function getModifier()
+    {
+        return $this->type;
+    }
+
+    /**
+     * @param int $type
+     */
+    public function setModifier($type)
+    {
+        $this->type = $type;
+    }
 }

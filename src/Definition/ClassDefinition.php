@@ -373,11 +373,32 @@ class ClassDefinition extends ParentDefinition
 
     /**
      * @param TraitDefinition $definition
+     * @param Node\Stmt\TraitUseAdaptation\Alias[] $adaptations
      */
-    public function mergeTrait(TraitDefinition $definition)
+    public function mergeTrait(TraitDefinition $definition, array $adaptations)
     {
         $methods = $definition->getMethods();
         if ($methods) {
+            foreach ($adaptations as $adaptation) {
+                // We don't support Trait name for now
+                if (!$adaptation->trait) {
+                    $methodNameFromTrait = $adaptation->method;
+                    if (isset($methods[$methodNameFromTrait])) {
+                        /** @var ClassMethod $method Method from Trait */
+                        $method = $methods[$methodNameFromTrait];
+                        if ($adaptation->newName
+                            || ($adaptation->newModifier && $method->getModifier() != $adaptation->newModifier)) {
+                            // Don't modify original method from Trait
+                            $method = clone $method;
+                            $method->setName($adaptation->newName);
+                            $method->setModifier($adaptation->newModifier);
+
+                            $methods[$methodNameFromTrait] = $method;
+                        }
+                    }
+                }
+            }
+
             foreach ($methods as $method) {
                 $this->addMethod($method, false);
             }

@@ -51,4 +51,12 @@ abstract class AbstractDefinition
     {
         return $this->compiled;
     }
+
+    /**
+     * @param string $name
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+    }
 }
