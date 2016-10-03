@@ -111,7 +111,6 @@ class RuntimeClassDefinition extends ClassDefinition
     public function getExtendsClassDefinition()
     {
         $parentReflection = $this->reflection->getParentClass();
-
         if (!$parentReflection) {
             return null;
         }
@@ -125,7 +124,6 @@ class RuntimeClassDefinition extends ClassDefinition
     public function getExtendsClass()
     {
         $parentReflection = $this->reflection->getParentClass();
-
         if (!$parentReflection) {
             return null;
         }
