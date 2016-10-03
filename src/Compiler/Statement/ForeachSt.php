@@ -6,6 +6,7 @@
 namespace PHPSA\Compiler\Statement;
 
 use PHPSA\Context;
+use PHPSA\CompiledExpression;
 
 class ForeachSt extends AbstractCompiler
 {
@@ -21,11 +22,11 @@ class ForeachSt extends AbstractCompiler
         $context->getExpressionCompiler()->compile($stmt->expr);
 
         if ($stmt->keyVar) {
-            $context->getExpressionCompiler()->declareVariable($stmt->keyVar);
+            $context->getExpressionCompiler()->declareVariable($stmt->keyVar, null, CompiledExpression::MIXED);
         }
 
         if ($stmt->valueVar) {
-            $context->getExpressionCompiler()->declareVariable($stmt->valueVar);
+            $context->getExpressionCompiler()->declareVariable($stmt->valueVar, null, CompiledExpression::MIXED);
         }
 
         if (count($stmt->stmts) > 0) {

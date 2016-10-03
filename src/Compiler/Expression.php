@@ -388,13 +388,15 @@ class Expression
 
     /**
      * @param Node\Expr\Variable $expr
+     * @param mixed $value
+     * @param int $type
      * @return CompiledExpression
      */
-    public function declareVariable(Node\Expr\Variable $expr)
+    public function declareVariable(Node\Expr\Variable $expr, $value = null, $type = CompiledExpression::UNKNOWN)
     {
         $variable = $this->context->getSymbol($expr->name);
         if (!$variable) {
-            $variable = new Variable($expr->name, null, CompiledExpression::UNKNOWN, $this->context->getCurrentBranch());
+            $variable = new Variable($expr->name, $value, $type, $this->context->getCurrentBranch());
             $this->context->addVariable($variable);
         }
 
@@ -485,7 +487,7 @@ class Expression
             }
 
             return new CompiledExpression(CompiledExpression::UNKNOWN);
-        } elseif (!$scopeExpression->canBeObject()) {
+        } elseif ($scopeExpression->canBeObject()) {
             return new CompiledExpression(CompiledExpression::UNKNOWN);
         }
 
