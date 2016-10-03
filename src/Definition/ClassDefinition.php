@@ -90,11 +90,24 @@ class ClassDefinition extends ParentDefinition
     }
 
     /**
-     * @param ClassMethod $methodDefintion
+     * @param ClassMethod $classMethod
+     * @param bool $overwrite Should we overwrite method if it already exists
+     * @return bool Did we overwrite method?
      */
-    public function addMethod(ClassMethod $methodDefintion)
+    public function addMethod(ClassMethod $classMethod, $overwrite = true)
     {
-        $this->methods[$methodDefintion->getName()] = $methodDefintion;
+        if ($overwrite) {
+            $this->methods[$classMethod->getName()] = $classMethod;
+        } else {
+            $name = $classMethod->getName();
+            if (isset($this->methods[$name])) {
+                return false;
+            } else {
+                $this->methods[$name] = $classMethod;
+            }
+        }
+
+        return true;
     }
 
     /**
@@ -366,7 +379,7 @@ class ClassDefinition extends ParentDefinition
         $methods = $definition->getMethods();
         if ($methods) {
             foreach ($methods as $method) {
-                $this->addMethod($method);
+                $this->addMethod($method, false);
             }
         }
     }
