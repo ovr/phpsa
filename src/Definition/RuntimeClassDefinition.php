@@ -102,7 +102,7 @@ class RuntimeClassDefinition extends ClassDefinition
      */
     public function isAbstract()
     {
-        throw new NotImplementedException(__FUNCTION__);
+        return $this->reflection->isAbstract();
     }
 
     /**
