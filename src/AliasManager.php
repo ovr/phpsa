@@ -34,7 +34,7 @@ class AliasManager
      */
     public function isClassImported($classNS)
     {
-        if (isset($this->aliases[$classNS])) {
+        if (in_array($classNS, $this->aliases)) {
             return true;
         }
 
