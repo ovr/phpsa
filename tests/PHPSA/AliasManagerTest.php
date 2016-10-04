@@ -57,8 +57,6 @@ class AliasManagerTest extends TestCase
      */
     public function testIsClassImported()
     {
-        $this->markTestSkipped('See https://github.com/ovr/phpsa/issues/173 for bug');
-
         $manager = new AliasManager();
 
         $this->assertNull($manager->add('WebThings'));
