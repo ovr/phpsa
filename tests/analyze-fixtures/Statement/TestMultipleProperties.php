@@ -21,6 +21,6 @@ class TestSingleProperty
         "type":"limit.properties",
         "message":"Number of properties larger than one.",
         "file":"TestMultipleProperties.php",
-        "line":6
+        "line":8
     }
 ]
