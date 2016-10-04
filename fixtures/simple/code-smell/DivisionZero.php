@@ -2,7 +2,7 @@
 
 namespace Tests\Simple\CodeSmell;
 
-class DevisionZero
+class DivisionZero
 {
     /**
      * @return float
