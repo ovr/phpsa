@@ -13,7 +13,7 @@ class ModTest extends \Tests\PHPSA\TestCase
      *
      * @return array
      */
-    public function testModResultIntDataProvider()
+    public function modDataProvider()
     {
         return array(
             array(2, 2, 0),
@@ -31,7 +31,7 @@ class ModTest extends \Tests\PHPSA\TestCase
     /**
      * Tests {var} %= {expr} with result type = int
      *
-     * @dataProvider testModResultIntDataProvider
+     * @dataProvider modDataProvider
      */
     public function testModResultInt($a, $b, $c)
     {

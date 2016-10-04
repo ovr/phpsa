@@ -13,7 +13,7 @@ class PlusTest extends \Tests\PHPSA\TestCase
      *
      * @return array
      */
-    public function testIntToIntDataProvider()
+    public function intToIntDataProvider()
     {
         return array(
             array(-1, -1, -2),
@@ -36,7 +36,7 @@ class PlusTest extends \Tests\PHPSA\TestCase
      *
      * @return array
      */
-    public function testIntToFloatDataProvider()
+    public function intToFloatDataProvider()
     {
         return array(
             array(1, -1.5, -0.5),
@@ -54,7 +54,7 @@ class PlusTest extends \Tests\PHPSA\TestCase
     /**
      * Tests {int} + {int} = {int}
      *
-     * @dataProvider testIntToIntDataProvider
+     * @dataProvider intToIntDataProvider
      */
     public function testPlusIntToInt($a, $b, $c)
     {
@@ -76,7 +76,7 @@ class PlusTest extends \Tests\PHPSA\TestCase
     /**
      * Tests {int} + {float} = {float}
      *
-     * @dataProvider testIntToFloatDataProvider
+     * @dataProvider intToFloatDataProvider
      */
     public function testPlusIntToFloat($a, $b, $c)
     {
@@ -100,7 +100,7 @@ class PlusTest extends \Tests\PHPSA\TestCase
      *
      * testPlusFloatToInt($b, $a - it's special to use already defined fixtures
      *
-     * @dataProvider testIntToFloatDataProvider
+     * @dataProvider intToFloatDataProvider
      */
     public function testPlusFloatToInt($b, $a, $c)
     {
@@ -122,7 +122,7 @@ class PlusTest extends \Tests\PHPSA\TestCase
     /**
      * Tests {float} + {float} = {float}
      *
-     * @dataProvider testIntToFloatDataProvider
+     * @dataProvider intToFloatDataProvider
      */
     public function testPlusFloatToFloat($a, $b, $c)
     {

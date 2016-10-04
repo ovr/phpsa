@@ -13,7 +13,7 @@ class PlusTest extends \Tests\PHPSA\TestCase
      *
      * @return array
      */
-    public function testPlusResultIntDataProvider()
+    public function plusResultIntDataProvider()
     {
         return array(
             array(2, 2, 4),
@@ -32,7 +32,7 @@ class PlusTest extends \Tests\PHPSA\TestCase
     /**
      * Tests {var} += {expr} with result type = int
      *
-     * @dataProvider testPlusResultIntDataProvider
+     * @dataProvider plusResultIntDataProvider
      */
     public function testPlusResultInt($a, $b, $c)
     {
@@ -53,7 +53,7 @@ class PlusTest extends \Tests\PHPSA\TestCase
      *
      * @return array
      */
-    public function testPlusResultDoubleDataProvider()
+    public function plusResultDoubleDataProvider()
     {
         return array(
             array(2, -1.5, 0.5),
@@ -67,7 +67,7 @@ class PlusTest extends \Tests\PHPSA\TestCase
     /**
      * Tests {var} += {expr} with result type = double
      *
-     * @dataProvider testPlusResultDoubleDataProvider
+     * @dataProvider plusResultDoubleDataProvider
      */
     public function testPlusResultDouble($a, $b, $c)
     {

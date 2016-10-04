@@ -15,7 +15,7 @@ class IndenticalTest extends \Tests\PHPSA\TestCase
     /**
      * @return array
      */
-    public function testProviderForStaticIntToIntCases()
+    public function providerForStaticIntToIntCases()
     {
         return array(
             array(-1, -1),
@@ -32,7 +32,7 @@ class IndenticalTest extends \Tests\PHPSA\TestCase
      * @param int $a
      * @param int $b
      *
-     * @dataProvider testProviderForStaticIntToIntCases
+     * @dataProvider providerForStaticIntToIntCases
      */
     public function testStaticIntToInt($a, $b)
     {
@@ -56,7 +56,7 @@ class IndenticalTest extends \Tests\PHPSA\TestCase
      * @param int $a
      * @param int $b
      *
-     * @dataProvider testProviderForStaticIntToIntCases
+     * @dataProvider providerForStaticIntToIntCases
      */
     public function testStaticFloatToFloat($a, $b)
     {
@@ -80,7 +80,7 @@ class IndenticalTest extends \Tests\PHPSA\TestCase
         $this->assertSame(true, $compiledExpression->getValue());
     }
 
-    public function testProviderForStaticIntToFloatCases()
+    public function providerForStaticIntToFloatCases()
     {
         return array(
             array(-1, -1.0),
@@ -97,7 +97,7 @@ class IndenticalTest extends \Tests\PHPSA\TestCase
      * @param int $a
      * @param int $b
      *
-     * @dataProvider testProviderForStaticIntToIntCases
+     * @dataProvider providerForStaticIntToIntCases
      */
     public function testStaticFailIntToFloat($a, $b)
     {
@@ -123,7 +123,7 @@ class IndenticalTest extends \Tests\PHPSA\TestCase
      * @param int $a
      * @param int $b
      *
-     * @dataProvider testProviderForStaticIntToIntCases
+     * @dataProvider providerForStaticIntToIntCases
      */
     public function testStaticFailFloatToInt($a, $b)
     {

@@ -27,7 +27,7 @@ abstract class AbstractDivMod extends \Tests\PHPSA\TestCase
      *
      * @return array
      */
-    public function testDivIntResultDataProvider()
+    public function divIntResultDataProvider()
     {
         return array(
             array(-1, -1),
@@ -47,7 +47,7 @@ abstract class AbstractDivMod extends \Tests\PHPSA\TestCase
     /**
      * Tests {int} $operator {int} = {int}
      *
-     * @dataProvider testDivIntResultDataProvider
+     * @dataProvider divIntResultDataProvider
      */
     public function testDivIntToIntWithIntResult($a, $b)
     {
@@ -70,7 +70,7 @@ abstract class AbstractDivMod extends \Tests\PHPSA\TestCase
      *
      * @return array
      */
-    public function testDivFloatResultDataProvider()
+    public function divFloatResultDataProvider()
     {
         return array(
             array(-1, -1.25, 0.8),
@@ -87,7 +87,7 @@ abstract class AbstractDivMod extends \Tests\PHPSA\TestCase
     /**
      * Tests {int} $operator {double} = {double}
      *
-     * @dataProvider testDivFloatResultDataProvider
+     * @dataProvider divFloatResultDataProvider
      */
     public function testDivIntToDoubleWithDoubleResult($a, $b, $c)
     {
@@ -112,7 +112,7 @@ abstract class AbstractDivMod extends \Tests\PHPSA\TestCase
      *
      * @return array
      */
-    public function testDivDoubleToDoubleResultDataProvider()
+    public function divDoubleToDoubleResultDataProvider()
     {
         return array(
             array(-1.25, -1, 1.25),
@@ -128,7 +128,7 @@ abstract class AbstractDivMod extends \Tests\PHPSA\TestCase
     /**
      * Tests {double} $operator {int} = {double}
      *
-     * @dataProvider testDivDoubleToDoubleResultDataProvider
+     * @dataProvider divDoubleToDoubleResultDataProvider
      */
     public function testDivDoubleToIntWithDoubleResult($a, $b, $c)
     {
@@ -150,7 +150,7 @@ abstract class AbstractDivMod extends \Tests\PHPSA\TestCase
     /**
      * Tests {double} $operator {double} = {double}
      *
-     * @dataProvider testDivDoubleToDoubleResultDataProvider
+     * @dataProvider divDoubleToDoubleResultDataProvider
      */
     public function testDivDoubleToDoubleWithDoubleResult($a, $b, $c)
     {
