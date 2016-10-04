@@ -51,6 +51,7 @@ class Factory
                 new AnalyzerPass\Statement\TestAnnotation(),
                 new AnalyzerPass\Statement\OldConstructor(),
                 new AnalyzerPass\Statement\ConstantNaming(),
+                new AnalyzerPass\Statement\DoNotUseInlineHTML(),
             ]
         );
         $analyzer->bind();
