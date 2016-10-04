@@ -13,7 +13,7 @@ class PowTest extends \Tests\PHPSA\TestCase
      *
      * @return array
      */
-    public function testPowResultIntDataProvider()
+    public function powResultIntDataProvider()
     {
         return array(
             array(2, 2, 4),
@@ -33,7 +33,7 @@ class PowTest extends \Tests\PHPSA\TestCase
     /**
      * Tests {var} **= {expr} with result type = int
      *
-     * @dataProvider testPowResultIntDataProvider
+     * @dataProvider powResultIntDataProvider
      */
     public function testPowResultInt($a, $b, $c)
     {
@@ -54,7 +54,7 @@ class PowTest extends \Tests\PHPSA\TestCase
      *
      * @return array
      */
-    public function testPowResultDoubleDataProvider()
+    public function powResultDoubleDataProvider()
     {
         return array(
             array(2, -2, 0.25),
@@ -71,7 +71,7 @@ class PowTest extends \Tests\PHPSA\TestCase
     /**
      * Tests {var} **= {expr} with result type = double
      *
-     * @dataProvider testPowResultDoubleDataProvider
+     * @dataProvider powResultDoubleDataProvider
      */
     public function testPowResultDouble($a, $b, $c)
     {

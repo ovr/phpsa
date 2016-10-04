@@ -13,7 +13,7 @@ class MulTest extends \Tests\PHPSA\TestCase
      *
      * @return array
      */
-    public function testMulResultIntDataProvider()
+    public function mulResultIntDataProvider()
     {
         return array(
             array(2, 2, 4),
@@ -33,7 +33,7 @@ class MulTest extends \Tests\PHPSA\TestCase
     /**
      * Tests {var} *= {expr} with result type = int
      *
-     * @dataProvider testMulResultIntDataProvider
+     * @dataProvider mulResultIntDataProvider
      */
     public function testMulResultInt($a, $b, $c)
     {
@@ -54,7 +54,7 @@ class MulTest extends \Tests\PHPSA\TestCase
      *
      * @return array
      */
-    public function testMulResultDoubleDataProvider()
+    public function mulResultDoubleDataProvider()
     {
         return array(
             array(2, 1.5, 3.0),
@@ -70,7 +70,7 @@ class MulTest extends \Tests\PHPSA\TestCase
     /**
      * Tests {var} *= {expr} with result type = double
      *
-     * @dataProvider testMulResultDoubleDataProvider
+     * @dataProvider mulResultDoubleDataProvider
      */
     public function testMulResultDouble($a, $b, $c)
     {

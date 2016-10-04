@@ -13,7 +13,7 @@ class ConcatTest extends \Tests\PHPSA\TestCase
      *
      * @return array
      */
-    public function testConcatResultDataProvider()
+    public function concatResultDataProvider()
     {
         return array(
             array(2, 2, "22"),
@@ -34,7 +34,7 @@ class ConcatTest extends \Tests\PHPSA\TestCase
     /**
      * Tests {expr} . {expr} = {expr}
      *
-     * @dataProvider testConcatResultDataProvider
+     * @dataProvider concatResultDataProvider
      */
     public function testConcatResult($a, $b, $c)
     {

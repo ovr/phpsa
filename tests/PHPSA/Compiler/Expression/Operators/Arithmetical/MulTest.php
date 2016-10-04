@@ -13,7 +13,7 @@ class MulTest extends \Tests\PHPSA\TestCase
      *
      * @return array
      */
-    public function testDivIntResultDataProvider()
+    public function divIntResultDataProvider()
     {
         return array(
             array(-1, -1, 1),
@@ -33,7 +33,7 @@ class MulTest extends \Tests\PHPSA\TestCase
     /**
      * Tests {int} / {int} = {int}
      *
-     * @dataProvider testDivIntResultDataProvider
+     * @dataProvider divIntResultDataProvider
      */
     public function testDivIntToIntWithIntResult($a, $b, $c)
     {
@@ -57,7 +57,7 @@ class MulTest extends \Tests\PHPSA\TestCase
      *
      * @return array
      */
-    public function testFloatResultDataProvider()
+    public function floatResultDataProvider()
     {
         return array(
             array(-1, -1.25, 1*1.25),
@@ -74,7 +74,7 @@ class MulTest extends \Tests\PHPSA\TestCase
     /**
      * Tests {int} * {double} = {double}
      *
-     * @dataProvider testFloatResultDataProvider
+     * @dataProvider floatResultDataProvider
      */
     public function testIntOnDoubleWithDoubleResult($a, $b, $c)
     {
@@ -98,7 +98,7 @@ class MulTest extends \Tests\PHPSA\TestCase
      *
      * @return array
      */
-    public function testDoubleOnDoubleResultDataProvider()
+    public function doubleOnDoubleResultDataProvider()
     {
         return array(
             array(-1.25, -1, 1.25),
@@ -114,7 +114,7 @@ class MulTest extends \Tests\PHPSA\TestCase
     /**
      * Tests {double} * {int} = {double}
      *
-     * @dataProvider testDoubleOnDoubleResultDataProvider
+     * @dataProvider doubleOnDoubleResultDataProvider
      */
     public function testDoubleOnIntWithDoubleResult($a, $b, $c)
     {
@@ -136,7 +136,7 @@ class MulTest extends \Tests\PHPSA\TestCase
     /**
      * Tests {double} * {double} = {double}
      *
-     * @dataProvider testDoubleOnDoubleResultDataProvider
+     * @dataProvider doubleOnDoubleResultDataProvider
      */
     public function testDoubleOnDoubleWithDoubleResult($a, $b, $c)
     {

@@ -13,7 +13,7 @@ class MinusTest extends \Tests\PHPSA\TestCase
      *
      * @return array
      */
-    public function testIntToIntDataProvider()
+    public function intToIntDataProvider()
     {
         return array(
             array(-1, -1, 0),
@@ -38,7 +38,7 @@ class MinusTest extends \Tests\PHPSA\TestCase
     /**
      * Tests {int} - {int} = {int}
      *
-     * @dataProvider testIntToIntDataProvider
+     * @dataProvider intToIntDataProvider
      */
     public function testMinusIntFromInt($a, $b, $c)
     {
@@ -62,7 +62,7 @@ class MinusTest extends \Tests\PHPSA\TestCase
      *
      * @return array
      */
-    public function testResultDoubleDataProvider()
+    public function resultDoubleDataProvider()
     {
         return array(
             array(-1, -1.0, 0.0),
@@ -77,7 +77,7 @@ class MinusTest extends \Tests\PHPSA\TestCase
     /**
      * Tests {int} - {double} = {double} and {double} - {double} = {double}
      *
-     * @dataProvider testResultDoubleDataProvider
+     * @dataProvider resultDoubleDataProvider
      */
     public function testMinusResultDouble($a, $b, $c)
     {

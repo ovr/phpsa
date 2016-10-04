@@ -13,7 +13,7 @@ class DivTest extends \Tests\PHPSA\TestCase
      *
      * @return array
      */
-    public function testDivResultIntDataProvider()
+    public function divResultIntDataProvider()
     {
         return array(
             array(2, 2, 1),
@@ -32,7 +32,7 @@ class DivTest extends \Tests\PHPSA\TestCase
     /**
      * Tests {var} /= {expr} with result type = int
      *
-     * @dataProvider testDivResultIntDataProvider
+     * @dataProvider divResultIntDataProvider
      */
     public function testDivResultInt($a, $b, $c)
     {
@@ -53,7 +53,7 @@ class DivTest extends \Tests\PHPSA\TestCase
      *
      * @return array
      */
-    public function testDivResultDoubleDataProvider()
+    public function divResultDoubleDataProvider()
     {
         return array(
             array(2, 0.5, 4.0),
@@ -68,7 +68,7 @@ class DivTest extends \Tests\PHPSA\TestCase
     /**
      * Tests {var} /= {expr} with result type = double
      *
-     * @dataProvider testDivResultDoubleDataProvider
+     * @dataProvider divResultDoubleDataProvider
      */
     public function testDivResultDouble($a, $b, $c)
     {
