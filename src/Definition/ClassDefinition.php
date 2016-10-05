@@ -118,7 +118,7 @@ class ClassDefinition extends ParentDefinition
         foreach ($property->props as $propertyDefinition) {
             $this->properties[$propertyDefinition->name] = $propertyDefinition;
         }
-        
+
         $this->propertyStatements[] = $property;
     }
 
@@ -329,6 +329,14 @@ class ClassDefinition extends ParentDefinition
     public function isAbstract()
     {
         return (bool) ($this->type & Node\Stmt\Class_::MODIFIER_ABSTRACT);
+    }
+
+    /**
+     * @return bool
+     */
+    public function isFinal()
+    {
+        return (bool) ($this->type & Node\Stmt\Class_::MODIFIER_FINAL);
     }
 
     /**
