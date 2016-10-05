@@ -7,6 +7,7 @@ namespace PHPSA\Analyzer\Helper;
 
 use PhpParser\Node;
 use PhpParser\Node\Expr\FuncCall;
+use PhpParser\Node\Expr\Yield_;
 use PhpParser\Node\Stmt\Return_;
 use PHPSA\Context;
 
@@ -34,13 +35,36 @@ trait ResolveExpressionTrait
     }
 
     /**
+     * Return \Generator with Return_ statement(s)
+     *
      * @param \PhpParser\Node[] $nodes
-     * @return \PhpParser\Node\Stmt\Return_
+     * @return \Generator
      */
     protected function findReturnStatement(array $nodes)
     {
+        return $this->findNode($nodes, Return_::class);
+    }
+
+    /**
+     * Return \Generator with Yield_ expression(s)
+     *
+     * @param \PhpParser\Node[] $nodes
+     * @return \Generator
+     */
+    protected function findYieldExpression(array $nodes)
+    {
+        return $this->findNode($nodes, Yield_::class);
+    }
+
+    /**
+     * @param array $nodes
+     * @param string $nodeName Class name of Node(s) what We should return
+     * @return \Generator
+     */
+    protected function findNode(array $nodes, $nodeName)
+    {
         foreach ($this->traverseArray($nodes) as $node) {
-            if ($node instanceof Return_) {
+            if (get_class($node) === $nodeName) {
                 yield $node;
             }
         }
@@ -50,11 +74,11 @@ trait ResolveExpressionTrait
      * For the code above
      * Я атеист, но когда я начинал это писать, только Бог и я понимали, что я делаю
      * Сейчас остался только Бог
-     */
-
-    /**
+     *
      * @param Node $node
      * @return \Generator
+     *
+     * @todo After move to PHP 7.0+ use yield from
      */
     protected function traverseNode(Node $node)
     {
