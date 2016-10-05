@@ -29,24 +29,24 @@ class DoNotUseLabels
         "type": "do_not_use_labels",
         "message": "Do not use labels",
         "file": "DoNotUseLabels.php",
-        "line": 7
+        "line": 8
     },
     {
         "type": "do_not_use_labels",
         "message": "Do not use labels",
         "file": "DoNotUseLabels.php",
-        "line": 10
+        "line": 11
     },
     {
         "type": "do_not_use_labels",
         "message": "Do not use labels",
         "file": "DoNotUseLabels.php",
-        "line": 12
+        "line": 13
     },
     {
         "type": "do_not_use_goto",
         "message": "Do not use goto statements",
         "file": "DoNotUseLabels.php",
-        "line": 13
+        "line": 14
     }
 ]
