@@ -17,7 +17,6 @@ class DoNotUseLabels implements Pass\ConfigurablePassInterface, Pass\AnalyzerPas
      */
     public function pass($stmt, Context $context)
     {
-
         if ($stmt instanceof Stmt\Label) {
             $context->notice(
                 'do_not_use_labels',
@@ -43,8 +42,7 @@ class DoNotUseLabels implements Pass\ConfigurablePassInterface, Pass\AnalyzerPas
     {
         $treeBuilder = new TreeBuilder();
         $treeBuilder->root('do_not_use_labels')
-            ->canBeDisabled()
-        ;
+            ->canBeDisabled();
 
         return $treeBuilder;
     }

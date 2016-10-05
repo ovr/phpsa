@@ -2,7 +2,8 @@
 
 namespace Tests\Analyze\Fixtures\Statement;
 
-class DoNotUseLabels {
+class DoNotUseLabels
+{
     public function testLabel()
     {
         marker1:
