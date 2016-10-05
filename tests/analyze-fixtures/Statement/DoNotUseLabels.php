@@ -41,5 +41,11 @@ class DoNotUseLabels {
         "message": "Do not use labels",
         "file": "DoNotUseLabels.php",
         "line": 12
+    },
+    {
+        "type": "do_not_use_goto",
+        "message": "Do not use goto statements",
+        "file": "DoNotUseLabels.php",
+        "line": 13
     }
 ]

@@ -15,11 +15,25 @@ class DoNotUseLabels implements Pass\ConfigurablePassInterface, Pass\AnalyzerPas
      * @param Context $context
      * @return bool
      */
-    public function pass(Stmt\Label $stmt, Context $context)
+    public function pass($stmt, Context $context)
     {
-        $context->notice('do_not_use_labels', 'Do not use labels', $stmt);
 
-        return true;
+        if ($stmt instanceof Stmt\Label) {
+            $context->notice(
+                'do_not_use_labels',
+                'Do not use labels',
+                $stmt
+            );
+            return true;
+        } elseif ($stmt instanceof Stmt\Goto_) {
+            $context->notice(
+                'do_not_use_goto',
+                'Do not use goto statements',
+                $stmt
+            );
+            return true;
+        }
+        return false;
     }
 
     /**
