@@ -47,14 +47,14 @@ class Casts implements AnalyzerPassInterface
         if ($castType === $exprType) {
             $context->notice(
                 'stupid.cast',
-                sprintf("You are trying to cast '%s' to '%s'.", $typeName, $typeName),
+                sprintf("You are trying to cast '%s' to '%s'", $typeName, $typeName),
                 $expr
             );
             return true;
         } elseif (get_class($expr) == Expr\Cast\Unset_::class && $exprType === CompiledExpression::NULL) {
             $context->notice(
                 'stupid.cast',
-                "You are trying to cast 'null' to 'unset' (null).",
+                "You are trying to cast 'null' to 'unset' (null)",
                 $expr
             );
             return true;

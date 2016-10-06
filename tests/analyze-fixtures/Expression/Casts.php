@@ -93,43 +93,43 @@ class Casts
 [
     {
         "type":"stupid.cast",
-        "message":"You are trying to cast 'integer' to 'integer'.",
+        "message":"You are trying to cast 'integer' to 'integer'",
         "file":"Casts.php",
         "line":9
     },
     {
         "type":"stupid.cast",
-        "message":"You are trying to cast 'null' to 'unset' (null).",
+        "message":"You are trying to cast 'null' to 'unset' (null)",
         "file":"Casts.php",
         "line":21
     },
     {
         "type":"stupid.cast",
-        "message":"You are trying to cast 'array' to 'array'.",
+        "message":"You are trying to cast 'array' to 'array'",
         "file":"Casts.php",
         "line":33
     },
     {
         "type":"stupid.cast",
-        "message":"You are trying to cast 'boolean' to 'boolean'.",
+        "message":"You are trying to cast 'boolean' to 'boolean'",
         "file":"Casts.php",
         "line":45
     },
     {
         "type":"stupid.cast",
-        "message":"You are trying to cast 'double' to 'double'.",
+        "message":"You are trying to cast 'double' to 'double'",
         "file":"Casts.php",
         "line":57
     },
     {
         "type":"stupid.cast",
-        "message":"You are trying to cast 'string' to 'string'.",
+        "message":"You are trying to cast 'string' to 'string'",
         "file":"Casts.php",
         "line":69
     },
     {
         "type":"stupid.cast",
-        "message":"You are trying to cast 'object' to 'object'.",
+        "message":"You are trying to cast 'object' to 'object'",
         "file":"Casts.php",
         "line":81
     }
