@@ -203,6 +203,8 @@ class Expression
              */
             case Node\Expr\Array_::class:
                 return new Expression\ArrayOp();
+            case Node\Expr\Assign::class:
+                return new Expression\Assign();
             case Node\Expr\AssignRef::class:
                 return new Expression\AssignRef();
             case Node\Expr\Closure::class:
@@ -277,8 +279,6 @@ class Expression
                 return $this->compile($expr->value);
             case Node\Stmt\Property::class:
                 return $this->passProperty($expr);
-            case Node\Expr\Assign::class:
-                return $this->passSymbol($expr);
 
             /**
              * Expressions
@@ -453,102 +453,5 @@ class Expression
         }
 
         return new CompiledExpression(CompiledExpression::STRING, $expr->toString());
-    }
-
-    /**
-     * @param Node\Expr\Assign $expr
-     * @return CompiledExpression
-     */
-    protected function passSymbol(Node\Expr\Assign $expr)
-    {
-        $compiledExpression = $this->compile($expr->expr);
-
-        if ($expr->var instanceof Node\Expr\List_) {
-            $isCorrectType = $compiledExpression->isArray();
-
-            foreach ($expr->var->vars as $key => $var) {
-                if (!$var instanceof Node\Expr\Variable) {
-                    continue;
-                }
-
-                if ($var->name instanceof Node\Expr\Variable) {
-                    $this->compileVariableDeclaration($this->compile($var->name), new CompiledExpression());
-                    continue;
-                }
-
-                $symbol = $this->context->getSymbol($var->name);
-                if (!$symbol) {
-                    $symbol = new Variable(
-                        $var->name,
-                        null,
-                        CompiledExpression::UNKNOWN,
-                        $this->context->getCurrentBranch()
-                    );
-                    $this->context->addVariable($symbol);
-                }
-
-                if (!$isCorrectType) {
-                    $symbol->modify(CompiledExpression::NULL, null);
-                }
-
-                $symbol->incSets();
-            }
-
-            return new CompiledExpression();
-        }
-
-        if ($expr->var instanceof Node\Expr\Variable) {
-            $this->compileVariableDeclaration($this->compile($expr->var->name), $compiledExpression);
-
-            return $compiledExpression;
-        }
-
-        if ($expr->var instanceof Node\Expr\PropertyFetch) {
-            $compiledExpression = $this->compile($expr->var->var);
-            if ($compiledExpression->getType() == CompiledExpression::OBJECT) {
-                $objectDefinition = $compiledExpression->getValue();
-                if ($objectDefinition instanceof ClassDefinition) {
-                    if (is_string($expr->var->name)) {
-                        if ($objectDefinition->hasProperty($expr->var->name)) {
-                            return $this->compile($objectDefinition->getProperty($expr->var->name));
-                        }
-                    }
-                }
-            }
-        }
-
-        $this->context->debug('Unknown how to pass symbol');
-        return new CompiledExpression();
-    }
-
-    protected function compileVariableDeclaration(CompiledExpression $variableName, CompiledExpression $value)
-    {
-        switch ($variableName->getType()) {
-            case CompiledExpression::STRING:
-                break;
-            default:
-                $this->context->debug('Unexpected type of Variable name after compile');
-                return new CompiledExpression();
-        }
-
-        $symbol = $this->context->getSymbol($variableName->getValue());
-        if ($symbol) {
-            $symbol->modify($value->getType(), $value->getValue());
-            $this->context->modifyReferencedVariables(
-                $symbol,
-                $value->getType(),
-                $value->getValue()
-            );
-        } else {
-            $symbol = new Variable(
-                $variableName->getValue(),
-                $value->getValue(),
-                $value->getType(),
-                $this->context->getCurrentBranch()
-            );
-            $this->context->addVariable($symbol);
-        }
-
-        $symbol->incSets();
     }
 }
