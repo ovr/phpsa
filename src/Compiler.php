@@ -101,7 +101,7 @@ class Compiler
              *
              * Ignore traits compiling from vendor
              */
-            $checkVendor = strpos($function->getFilepath(), './vendor');
+            $checkVendor = strpos($trait->getFilepath(), './vendor');
             if ($checkVendor !== false && $checkVendor < 3) {
                 continue;
             }
