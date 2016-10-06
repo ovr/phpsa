@@ -25,6 +25,7 @@ class Factory
                 new AnalyzerPass\Expression\VariableVariableUsage(),
                 new AnalyzerPass\Expression\Casts(),
                 new AnalyzerPass\Expression\EvalUsage(),
+                new AnalyzerPass\Expression\FinalStaticUsage(),
                 // Arrays
                 new AnalyzerPass\Expression\ArrayShortDefinition(),
                 new AnalyzerPass\Expression\ArrayDuplicateKeys(),
