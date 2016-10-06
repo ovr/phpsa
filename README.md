@@ -46,7 +46,7 @@ Notice:  Constant BBBB does not exist in self scope in fixtures/simple/undefined
 
     return self::BBBB; 
 
-Notice:  You are trying to cast 'string' to 'string'. in fixtures/simple/code-smell/StandardFunctionCall.php on 16 [stupid.cast]
+Notice:  You are trying to cast 'string' to 'string' in fixtures/simple/code-smell/StandardFunctionCall.php on 16 [stupid.cast]
 
     return (string) json_encode(array(
 
