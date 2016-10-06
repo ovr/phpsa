@@ -203,6 +203,8 @@ class Expression
              */
             case Node\Expr\Array_::class:
                 return new Expression\ArrayOp();
+            case Node\Expr\AssignRef::class:
+                return new Expression\AssignRef();
             case Node\Expr\Closure::class:
                 return new Expression\Closure();
             case Node\Expr\ConstFetch::class:
@@ -277,8 +279,6 @@ class Expression
                 return $this->passProperty($expr);
             case Node\Expr\Assign::class:
                 return $this->passSymbol($expr);
-            case Node\Expr\AssignRef::class:
-                return $this->passSymbolByRef($expr);
 
             /**
              * Expressions
@@ -550,49 +550,5 @@ class Expression
         }
 
         $symbol->incSets();
-    }
-
-    /**
-     * @param Node\Expr\AssignRef $expr
-     * @return CompiledExpression
-     */
-    protected function passSymbolByRef(Node\Expr\AssignRef $expr)
-    {
-        if ($expr->var instanceof Node\Expr\Variable) {
-            $name = $expr->var->name;
-
-            $compiledExpression = $this->compile($expr->expr);
-
-            $symbol = $this->context->getSymbol($name);
-            if ($symbol) {
-                $symbol->modify($compiledExpression->getType(), $compiledExpression->getValue());
-            } else {
-                $symbol = new Variable(
-                    $name,
-                    $compiledExpression->getValue(),
-                    $compiledExpression->getType(),
-                    $this->context->getCurrentBranch()
-                );
-                $this->context->addVariable($symbol);
-            }
-
-            if ($expr->expr instanceof Node\Expr\Variable) {
-                $rightVarName = $expr->expr->name;
-
-                $rightSymbol = $this->context->getSymbol($rightVarName);
-                if ($rightSymbol) {
-                    $rightSymbol->incUse();
-                    $symbol->setReferencedTo($rightSymbol);
-                } else {
-                    $this->context->debug('Cannot fetch variable by name: ' . $rightVarName);
-                }
-            }
-
-            $symbol->incSets();
-            return $compiledExpression;
-        }
-
-        $this->context->debug('Unknown how to pass symbol by ref');
-        return new CompiledExpression();
     }
 }
