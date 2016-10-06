@@ -32,7 +32,7 @@ class ClassConstFetch extends AbstractExpressionCompiler
             $leftCEValue = $leftCE->getValue();
             if ($leftCEValue instanceof ClassDefinition) {
                 if (!$leftCEValue->hasConst($expr->name, true)) {
-                    $this->context->notice(
+                    $context->notice(
                         'undefined-const',
                         sprintf('Constant %s does not exist in %s scope', $expr->name, $expr->class),
                         $expr
@@ -44,7 +44,7 @@ class ClassConstFetch extends AbstractExpressionCompiler
             }
         }
 
-        $this->context->debug('Unknown const fetch', $expr);
+        $context->debug('Unknown const fetch', $expr);
         return new CompiledExpression();
     }
 }
