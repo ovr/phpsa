@@ -207,6 +207,8 @@ class Expression
                 return new Expression\Closure();
             case Node\Expr\ConstFetch::class:
                 return new Expression\ConstFetch();
+            case Node\Expr\ClassConstFetch::class:
+                return new Expression\ClassConstFetch();
             case Node\Expr\UnaryMinus::class:
                 return new Expression\Operators\UnaryMinus();
             case Node\Expr\UnaryPlus::class:
@@ -271,8 +273,6 @@ class Expression
                 return $this->passPropertyFetch($expr);
             case Node\Stmt\Property::class:
                 return $this->passProperty($expr);
-            case Node\Expr\ClassConstFetch::class:
-                return $this->passConstFetch($expr);
             case Node\Expr\Assign::class:
                 return $this->passSymbol($expr);
             case Node\Expr\AssignRef::class:
@@ -499,33 +499,6 @@ class Expression
         );
 
         return new CompiledExpression(CompiledExpression::UNKNOWN);
-    }
-
-    /**
-     * @param Node\Expr\ClassConstFetch $expr
-     * @return CompiledExpression
-     */
-    protected function passConstFetch(Node\Expr\ClassConstFetch $expr)
-    {
-        $leftCE = $this->compile($expr->class);
-        if ($leftCE->isObject()) {
-            $leftCEValue = $leftCE->getValue();
-            if ($leftCEValue instanceof ClassDefinition) {
-                if (!$leftCEValue->hasConst($expr->name, true)) {
-                    $this->context->notice(
-                        'undefined-const',
-                        sprintf('Constant %s does not exist in %s scope', $expr->name, $expr->class),
-                        $expr
-                    );
-                    return new CompiledExpression(CompiledExpression::UNKNOWN);
-                }
-
-                return new CompiledExpression();
-            }
-        }
-
-        $this->context->debug('Unknown const fetch', $expr);
-        return new CompiledExpression();
     }
 
     /**
