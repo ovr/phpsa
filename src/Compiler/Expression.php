@@ -205,6 +205,8 @@ class Expression
                 return new Expression\ArrayOp();
             case Node\Expr\Closure::class:
                 return new Expression\Closure();
+            case Node\Expr\ConstFetch::class:
+                return new Expression\ConstFetch();
             case Node\Expr\UnaryMinus::class:
                 return new Expression\Operators\UnaryMinus();
             case Node\Expr\UnaryPlus::class:
@@ -281,8 +283,6 @@ class Expression
             /**
              * Expressions
              */
-            case Node\Expr\ConstFetch::class:
-                return $this->constFetch($expr);
             case Node\Name::class:
                 return $this->getNodeName($expr);
             case Node\Name\FullyQualified::class:
@@ -688,29 +688,5 @@ class Expression
         );
 
         return new CompiledExpression();
-    }
-
-    /**
-     * Convert const fetch expr to CompiledExpression
-     *
-     * @param Node\Expr\ConstFetch $expr
-     * @return CompiledExpression
-     */
-    protected function constFetch(Node\Expr\ConstFetch $expr)
-    {
-        if ($expr->name instanceof Node\Name) {
-            if ($expr->name->parts[0] === 'true') {
-                return new CompiledExpression(CompiledExpression::BOOLEAN, true);
-            }
-
-            if ($expr->name->parts[0] === 'false') {
-                return new CompiledExpression(CompiledExpression::BOOLEAN, false);
-            }
-        }
-
-        /**
-         * @todo Implement check
-         */
-        return $this->compile($expr->name);
     }
 }
