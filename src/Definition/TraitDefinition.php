@@ -7,6 +7,7 @@ namespace PHPSA\Definition;
 
 use PHPSA\Context;
 use PhpParser\Node\Stmt;
+use PHPSA\Compiler\Event;
 
 class TraitDefinition extends ParentDefinition
 {
@@ -39,6 +40,14 @@ class TraitDefinition extends ParentDefinition
      */
     public function compile(Context $context)
     {
+        $context->getEventManager()->fire(
+            Event\StatementBeforeCompile::EVENT_NAME,
+            new Event\StatementBeforeCompile(
+                $this->statement,
+                $context
+            )
+        );
+
         return true;
     }
 

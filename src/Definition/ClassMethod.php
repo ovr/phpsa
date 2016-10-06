@@ -69,14 +69,6 @@ class ClassMethod extends AbstractDefinition
         $this->compiled = true;
         $context->scopePointer = $this->getPointer();
 
-        if ($this->statement->getDocComment() === null) {
-            $context->notice(
-                'missing-docblock',
-                sprintf('Missing docblock for %s() method', $this->name),
-                $this->statement
-            );
-        }
-
         /**
          * It's not needed to compile empty method via it's abstract
          */
