@@ -209,6 +209,8 @@ class Expression
                 return new Expression\ConstFetch();
             case Node\Expr\ClassConstFetch::class:
                 return new Expression\ClassConstFetch();
+            case Node\Expr\PropertyFetch::class:
+                return new Expression\PropertyFetch();
             case Node\Expr\UnaryMinus::class:
                 return new Expression\Operators\UnaryMinus();
             case Node\Expr\UnaryPlus::class:
@@ -271,8 +273,6 @@ class Expression
                  * @todo Better compile
                  */
                 return $this->compile($expr->value);
-            case Node\Expr\PropertyFetch::class:
-                return $this->passPropertyFetch($expr);
             case Node\Stmt\Property::class:
                 return $this->passProperty($expr);
             case Node\Expr\Assign::class:
@@ -320,7 +320,7 @@ class Expression
     }
 
     /**
-     * @todo Implement
+     * @todo Implement - needs to be a new analyzer for var docblock
      *
      * @param Node\Stmt\Property $st
      * @return CompiledExpression
@@ -453,52 +453,6 @@ class Expression
         }
 
         return new CompiledExpression(CompiledExpression::STRING, $expr->toString());
-    }
-
-    /**
-     * @param Node\Expr\PropertyFetch $expr
-     * @return CompiledExpression
-     */
-    protected function passPropertyFetch(Node\Expr\PropertyFetch $expr)
-    {
-        $propertNameCE = $this->compile($expr->name);
-
-        $scopeExpression = $this->compile($expr->var);
-        if ($scopeExpression->isObject()) {
-            $scopeExpressionValue = $scopeExpression->getValue();
-            if ($scopeExpressionValue instanceof ClassDefinition) {
-                $propertyName = $propertNameCE->isString() ? $propertNameCE->getValue() : false;
-                if ($propertyName) {
-                    if ($scopeExpressionValue->hasProperty($propertyName, true)) {
-                        $property = $scopeExpressionValue->getProperty($propertyName, true);
-                        return $this->compile($property);
-                    } else {
-                        $this->context->notice(
-                            'undefined-property',
-                            sprintf(
-                                'Property %s does not exist in %s scope',
-                                $propertyName,
-                                $scopeExpressionValue->getName()
-                            ),
-                            $expr
-                        );
-                    }
-                }
-            }
-
-            return new CompiledExpression(CompiledExpression::UNKNOWN);
-        } elseif ($scopeExpression->canBeObject()) {
-            return new CompiledExpression(CompiledExpression::UNKNOWN);
-        }
-
-        $this->context->notice(
-            'property-fetch-on-non-object',
-            "It's not possible to fetch a property on a non-object",
-            $expr,
-            Check::CHECK_BETA
-        );
-
-        return new CompiledExpression(CompiledExpression::UNKNOWN);
     }
 
     /**
