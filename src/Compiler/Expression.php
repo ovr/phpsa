@@ -201,6 +201,8 @@ class Expression
             /**
              * Other
              */
+            case Node\Expr\Array_::class:
+                return new Expression\ArrayOp();
             case Node\Expr\Closure::class:
                 return new Expression\Closure();
             case Node\Expr\UnaryMinus::class:
@@ -279,8 +281,6 @@ class Expression
             /**
              * Expressions
              */
-            case Node\Expr\Array_::class:
-                return $this->getArray($expr);
             case Node\Expr\ConstFetch::class:
                 return $this->constFetch($expr);
             case Node\Name::class:
@@ -688,44 +688,6 @@ class Expression
         );
 
         return new CompiledExpression();
-    }
-
-    /**
-     * Compile Array_ expression to CompiledExpression
-     *
-     * @param Node\Expr\Array_ $expr
-     * @return CompiledExpression
-     */
-    protected function getArray(Node\Expr\Array_ $expr)
-    {
-        if ($expr->items === []) {
-            return new CompiledExpression(CompiledExpression::ARR, []);
-        }
-
-        $resultArray = [];
-
-        foreach ($expr->items as $item) {
-            $compiledValueResult = $this->compile($item->value);
-            if ($item->key) {
-                $compiledKeyResult = $this->compile($item->key);
-                switch ($compiledKeyResult->getType()) {
-                    case CompiledExpression::INTEGER:
-                    case CompiledExpression::DOUBLE:
-                    case CompiledExpression::BOOLEAN:
-                    case CompiledExpression::NULL:
-                    case CompiledExpression::STRING:
-                        $resultArray[$compiledKeyResult->getValue()] = $compiledValueResult->getValue();
-                        break;
-                    default:
-                        $this->context->debug("Type {$compiledKeyResult->getType()} is not supported for key value");
-                        return new CompiledExpression(CompiledExpression::ARR);
-                }
-            } else {
-                $resultArray[] = $compiledValueResult->getValue();
-            }
-        }
-
-        return new CompiledExpression(CompiledExpression::ARR, $resultArray);
     }
 
     /**
