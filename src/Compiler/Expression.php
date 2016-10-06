@@ -229,6 +229,8 @@ class Expression
                 return new Expression\CloneOp();
             case Node\Expr\Ternary::class:
                 return new Expression\Ternary();
+            case Node\Expr\Variable::class:
+                return new Expression\Variable();
         }
 
         return false;
@@ -277,8 +279,6 @@ class Expression
                 return $this->passSymbol($expr);
             case Node\Expr\AssignRef::class:
                 return $this->passSymbolByRef($expr);
-            case Node\Expr\Variable::class:
-                return $this->passExprVariable($expr);
 
             /**
              * Expressions
@@ -639,27 +639,6 @@ class Expression
         }
 
         $this->context->debug('Unknown how to pass symbol by ref');
-        return new CompiledExpression();
-    }
-
-    /**
-     * @param Node\Expr\Variable $expr
-     * @return CompiledExpression
-     */
-    protected function passExprVariable(Node\Expr\Variable $expr)
-    {
-        $variable = $this->context->getSymbol($expr->name);
-        if ($variable) {
-            $variable->incGets();
-            return new CompiledExpression($variable->getType(), $variable->getValue(), $variable);
-        }
-
-        $this->context->notice(
-            'undefined-variable',
-            sprintf('You are trying to use an undefined variable $%s', $expr->name),
-            $expr
-        );
-
         return new CompiledExpression();
     }
 }

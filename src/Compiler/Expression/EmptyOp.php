@@ -6,7 +6,7 @@ use PHPSA\CompiledExpression;
 use PHPSA\Context;
 use PHPSA\Compiler\Expression;
 use PHPSA\Compiler\Expression\AbstractExpressionCompiler;
-use PhpParser\Node\Expr\Variable;
+use PhpParser\Node\Expr\Variable as VariableNode;
 use PhpParser\Node\Name;
 
 class EmptyOp extends AbstractExpressionCompiler
@@ -22,7 +22,7 @@ class EmptyOp extends AbstractExpressionCompiler
      */
     protected function compile($expr, Context $context)
     {
-        if ($expr->expr instanceof Variable) {
+        if ($expr->expr instanceof VariableNode) {
             $varName = $expr->expr->name;
 
             if ($varName instanceof Name) {
