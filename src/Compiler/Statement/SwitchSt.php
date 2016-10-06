@@ -21,17 +21,9 @@ class SwitchSt extends AbstractCompiler
     {
         $context->getExpressionCompiler()->compile($stmt->cond);
 
-        if (count($stmt->cases)) {
+        if (count($stmt->cases) > 0) {
             foreach ($stmt->cases as $case) {
-                if ($case->cond) {
-                    $context->getExpressionCompiler()->compile($case->cond);
-                }
-
-                if (count($case->stmts)) {
-                    foreach ($case->stmts as $caseStatements) {
-                        \PHPSA\nodeVisitorFactory($caseStatements, $context);
-                    }
-                }
+                \PHPSA\nodeVisitorFactory($case, $context);
             }
         } else {
             $context->notice('not-implemented-body', 'Missing body', $stmt);

@@ -36,28 +36,14 @@ class IfSt extends AbstractCompiler
 
         if (count($ifStatement->elseifs) > 0) {
             foreach ($ifStatement->elseifs as $elseIfStatement) {
-                $context->getExpressionCompiler()->compile($elseIfStatement->cond);
-
-                if (count($elseIfStatement->stmts) > 0) {
-                    foreach ($elseIfStatement->stmts as $stmt) {
-                        \PHPSA\nodeVisitorFactory($stmt, $context);
-                    }
-                } else {
-                    $context->notice('not-implemented-body', 'Missing body', $elseIfStatement);
-                }
+                \PHPSA\nodeVisitorFactory($elseIfStatement, $context);
             }
         }
 
         $context->setCurrentBranch(Variable::BRANCH_CONDITIONAL_FALSE);
 
         if ($ifStatement->else) {
-            if (count($ifStatement->else->stmts) > 0) {
-                foreach ($ifStatement->else->stmts as $stmt) {
-                    \PHPSA\nodeVisitorFactory($stmt, $context);
-                }
-            } else {
-                $context->notice('not-implemented-body', 'Missing body', $ifStatement->else);
-            }
+            \PHPSA\nodeVisitorFactory($ifStatement->else, $context);
         }
 
         $context->setCurrentBranch(Variable::BRANCH_ROOT);

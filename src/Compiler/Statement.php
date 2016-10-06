@@ -23,6 +23,8 @@ class Statement
         switch (get_class($stmt)) {
             case Stmt\Break_::class:
                 return new Statement\BreakSt();
+            case Stmt\Case_::class:
+                return new Statement\CaseSt();
             case Stmt\Continue_::class:
                 return new Statement\ContinueSt();
             case Stmt\Echo_::class:
@@ -35,6 +37,10 @@ class Statement
                 return new Statement\SwitchSt();
             case Stmt\If_::class:
                 return new Statement\IfSt();
+            case Stmt\ElseIf_::class:
+                return new Statement\ElseIfSt();
+            case Stmt\Else_::class:
+                return new Statement\ElseSt();
             case Stmt\Do_::class:
                 return new Statement\DoSt();
             case Stmt\For_::class:
