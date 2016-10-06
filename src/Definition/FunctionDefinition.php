@@ -8,6 +8,7 @@ namespace PHPSA\Definition;
 use PHPSA\CompiledExpression;
 use PHPSA\Context;
 use PhpParser\Node;
+use PHPSA\Compiler\Event;
 
 /**
  * Class FunctionDefinition
@@ -58,6 +59,14 @@ class FunctionDefinition extends ParentDefinition
         if ($this->compiled) {
             return true;
         }
+
+        $context->getEventManager()->fire(
+            Event\StatementBeforeCompile::EVENT_NAME,
+            new Event\StatementBeforeCompile(
+                $this->statement,
+                $context
+            )
+        );
 
         $context->setFilepath($this->filepath);
         $this->compiled = true;

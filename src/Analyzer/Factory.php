@@ -51,6 +51,7 @@ class Factory
                 new AnalyzerPass\Statement\MethodCannotReturn(),
                 new AnalyzerPass\Statement\UnexpectedUseOfThis(),
                 new AnalyzerPass\Statement\TestAnnotation(),
+                new AnalyzerPass\Statement\MissingDocblock(),
                 new AnalyzerPass\Statement\OldConstructor(),
                 new AnalyzerPass\Statement\ConstantNaming(),
                 new AnalyzerPass\Statement\DoNotUseInlineHTML(),

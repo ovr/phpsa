@@ -329,12 +329,6 @@ class Expression
     {
         $docBlock = $st->getDocComment();
         if (!$docBlock) {
-            $this->context->notice(
-                'missing-docblock',
-                sprintf('Missing docblock for $%s property', $st->props[0]->name),
-                $st
-            );
-
             return new CompiledExpression();
         }
 
