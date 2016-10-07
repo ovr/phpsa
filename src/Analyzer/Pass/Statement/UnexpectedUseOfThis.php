@@ -20,8 +20,8 @@ class UnexpectedUseOfThis implements Pass\ConfigurablePassInterface, Pass\Analyz
      */
     public function pass(Node\Stmt $stmt, Context $context)
     {
-        if ($stmt instanceof Stmt\ClassMethod) {
-            return $this->inspectClassMethodArguments($stmt, $context);
+        if ($stmt instanceof Stmt\ClassMethod || $stmt instanceof Stmt\Function_) {
+            return $this->inspectParams($stmt, $context);
         } elseif ($stmt instanceof Stmt\TryCatch) {
             return $this->inspectTryCatch($stmt, $context);
         } elseif ($stmt instanceof Stmt\Foreach_) {
@@ -57,6 +57,7 @@ class UnexpectedUseOfThis implements Pass\ConfigurablePassInterface, Pass\Analyz
     {
         return [
             Stmt\ClassMethod::class,
+            Stmt\Function_::class,
             Stmt\TryCatch::class,
             Stmt\Foreach_::class,
             Stmt\Static_::class,
@@ -66,18 +67,18 @@ class UnexpectedUseOfThis implements Pass\ConfigurablePassInterface, Pass\Analyz
     }
 
     /**
-     * @param Stmt\ClassMethod $methodStmt
+     * @param Stmt\ClassMethod|Stmt\Function_ $stmt
      * @param Context $context
      * @return bool
      */
-    private function inspectClassMethodArguments(Stmt\ClassMethod $methodStmt, Context $context)
+    private function inspectParams(Stmt $stmt, Context $context)
     {
         /** @var \PhpParser\Node\Param $param */
-        foreach ($methodStmt->getParams() as $param) {
+        foreach ($stmt->getParams() as $param) {
             if ($param->name === 'this') {
                 $context->notice(
                     'unexpected_use.this',
-                    sprintf('Method %s can not have a parameter named "this".', $methodStmt->name),
+                    sprintf('Method/Function %s can not have a parameter named "this".', $stmt->name),
                     $param
                 );
 
