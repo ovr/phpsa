@@ -215,6 +215,8 @@ class Expression
                 return new Expression\ClassConstFetch();
             case Node\Expr\PropertyFetch::class:
                 return new Expression\PropertyFetch();
+            case Node\Expr\StaticPropertyFetch::class:
+                return new Expression\StaticPropertyFetch();
             case Node\Expr\ArrayDimFetch::class:
                 return new Expression\ArrayDimFetch();
             case Node\Expr\UnaryMinus::class:
