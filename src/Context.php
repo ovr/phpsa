@@ -271,6 +271,9 @@ class Context
 
             if ($expr) {
                 $this->output->write(':' . $expr->getLine());
+
+                $code = trim($code[$expr->getLine() - 1]);
+                $this->output->writeln("<comment>\t {$code} </comment>");
             }
 
             $this->output->writeln('');

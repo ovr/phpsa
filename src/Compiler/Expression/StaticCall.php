@@ -54,7 +54,7 @@ class StaticCall extends AbstractExpressionCompiler
             return new CompiledExpression();
         }
 
-        $context->debug('Unknown static function call');
+        $context->debug('Unknown static function call', $expr);
         return new CompiledExpression();
     }
 }

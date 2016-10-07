@@ -79,7 +79,7 @@ class Assign extends AbstractExpressionCompiler
             }
         }
 
-        $context->debug('Unknown how to pass symbol');
+        $context->debug('Unknown how to pass symbol', $expr);
         return new CompiledExpression();
     }
 
