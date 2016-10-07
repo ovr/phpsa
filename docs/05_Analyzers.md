@@ -94,6 +94,10 @@ Checks for a missing docblock for: class, property, class constant, trait, inter
 
 Checks for missing visibility modifiers for properties and methods.
 
+#### MultipleUnaryOperators
+
+Checks for use of multiple unary operators that cancel each other out. For example `!!boolean` or `- -int`. (there is a space between the two minus)
+
 #### OldConstructor
 
 Checks for use of PHP 4 constructors and discourages it.

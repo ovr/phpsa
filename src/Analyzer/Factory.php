@@ -22,6 +22,7 @@ class Factory
             [
                 // Another
                 new AnalyzerPass\Expression\ErrorSuppression(),
+                new AnalyzerPass\Expression\MultipleUnaryOperators(),
                 new AnalyzerPass\Expression\VariableVariableUsage(),
                 new AnalyzerPass\Expression\Casts(),
                 new AnalyzerPass\Expression\EvalUsage(),
