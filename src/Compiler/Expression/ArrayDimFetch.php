@@ -25,7 +25,7 @@ class ArrayDimFetch extends AbstractExpressionCompiler
         $var = $compiler->compile($expr->var);
         $dim = $compiler->compile($expr->dim);
 
-        if (!$var->isArray() && !$var->getType() == CompiledExpression::MIXED) {
+        if (!$var->isArray()) {
             $context->notice(
                 'array_dim_fetch_on_non_array',
                 "It's not possible to fetch an array element on a non array",
