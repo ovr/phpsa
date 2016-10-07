@@ -80,3 +80,5 @@ Notice:  You trying to use division from 0/{expr} in fixtures/simple/code-smell/
     return 0 / 1000; 
 
 ```
+
+Next: [Configuration](./03_Configuration.md)

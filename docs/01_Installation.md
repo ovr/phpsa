@@ -40,3 +40,5 @@ git clone https://github.com/ovr/phpsa
 cd phpsa
 ./bin/phpsa
 ```
+
+Next: [Usage](./02_Usage.md)
