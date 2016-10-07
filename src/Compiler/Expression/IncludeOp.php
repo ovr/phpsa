@@ -7,7 +7,7 @@ use PHPSA\Context;
 use PHPSA\Compiler\Expression;
 use PHPSA\Compiler\Expression\AbstractExpressionCompiler;
 
-class ExitOp extends AbstractExpressionCompiler
+class IncludeOp extends AbstractExpressionCompiler
 {
     protected $name = 'PhpParser\Node\Expr\Include_';
 
