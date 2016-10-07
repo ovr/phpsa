@@ -46,7 +46,7 @@ class MethodCall extends AbstractExpressionCompiler
 
                     $method = $calledObject->getMethod($methodName, true);
                     if (!$method) {
-                        $context->debug('getMethod is not working');
+                        $context->debug('getMethod is not working', $expr);
                         return new CompiledExpression();
                     }
 
@@ -72,7 +72,7 @@ class MethodCall extends AbstractExpressionCompiler
             );
         }
 
-        $context->debug('[Unknown] @todo MethodCall');
+        $context->debug('[Unknown] @todo MethodCall', $expr);
         return new CompiledExpression();
     }
 
