@@ -8,7 +8,7 @@ Checks for use of alias functions and suggests the use of the originals.
 
 #### ArgumentUnpacking
 
-Checks for use of `func_get_args()` and suggests the use of argument unpacking (... operator)
+Checks for use of `func_get_args()` and suggests the use of argument unpacking. (... operator)
 
 #### ArrayDuplicateKeys
 
@@ -29,6 +29,10 @@ Checks for assignments in conditions. (= instead of ==)
 #### Casts
 
 Checks for casts that try to cast a type to itself.
+
+#### CompareWithArray
+
+Checks for `{type array} > 1` and similar and suggests use of `count()`. 
 
 #### ConstantNaming
 
