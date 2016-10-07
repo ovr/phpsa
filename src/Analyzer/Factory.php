@@ -27,6 +27,7 @@ class Factory
                 new AnalyzerPass\Expression\EvalUsage(),
                 new AnalyzerPass\Expression\FinalStaticUsage(),
                 new AnalyzerPass\Expression\CompareWithArray(),
+                new AnalyzerPass\Expression\BacktickUsage(),
                 // Arrays
                 new AnalyzerPass\Expression\ArrayShortDefinition(),
                 new AnalyzerPass\Expression\ArrayDuplicateKeys(),
