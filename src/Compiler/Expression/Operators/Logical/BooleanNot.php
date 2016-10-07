@@ -22,18 +22,10 @@ class BooleanNot extends AbstractExpressionCompiler
     {
         $compiledExpression = $context->getExpressionCompiler()->compile($expr->expr);
 
-        switch ($compiledExpression->getType()) {
-            case CompiledExpression::DOUBLE:
-            case CompiledExpression::INTEGER:
-            case CompiledExpression::NUMBER:
-            case CompiledExpression::STRING:
-            case CompiledExpression::BOOLEAN:
-            case CompiledExpression::NULL:
-            case CompiledExpression::ARR:
-            case CompiledExpression::OBJECT:
-                return CompiledExpression::fromZvalValue(
-                    !$compiledExpression->getValue()
-                );
+        if ($compiledExpression->isTypeKnown()) {
+            return CompiledExpression::fromZvalValue(
+                !$compiledExpression->getValue()
+            );
         }
 
         return new CompiledExpression();
