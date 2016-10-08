@@ -46,9 +46,9 @@ class Factory
         );
         $analyzer->registerStatementPasses(
             [
-                new AnalyzerPass\Statement\MagicMethod\GetParametersCheck(),
-                new AnalyzerPass\Statement\DoNotUseGoto(),
-                new AnalyzerPass\Statement\DoNotUseGlobals(),
+                new AnalyzerPass\Statement\MagicMethodParameters(),
+                new AnalyzerPass\Statement\GotoUsage(),
+                new AnalyzerPass\Statement\GlobalUsage(),
                 new AnalyzerPass\Statement\HasMoreThanOneProperty(),
                 new AnalyzerPass\Statement\MissingBreakStatement(),
                 new AnalyzerPass\Statement\MissingVisibility(),
@@ -58,7 +58,7 @@ class Factory
                 new AnalyzerPass\Statement\MissingDocblock(),
                 new AnalyzerPass\Statement\OldConstructor(),
                 new AnalyzerPass\Statement\ConstantNaming(),
-                new AnalyzerPass\Statement\DoNotUseInlineHTML(),
+                new AnalyzerPass\Statement\InlineHtmlUsage(),
                 new AnalyzerPass\Statement\AssignmentInCondition(),
             ]
         );

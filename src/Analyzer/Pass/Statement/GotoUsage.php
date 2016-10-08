@@ -8,9 +8,8 @@ use PhpParser\Node\Stmt\Goto_;
 use PhpParser\Node\Stmt\Label;
 use PHPSA\Analyzer\Pass;
 use PHPSA\Context;
-use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 
-class DoNotUseGoto implements Pass\ConfigurablePassInterface, Pass\AnalyzerPassInterface
+class GotoUsage implements Pass\AnalyzerPassInterface
 {
     /**
      * @param $stmt
@@ -21,32 +20,20 @@ class DoNotUseGoto implements Pass\ConfigurablePassInterface, Pass\AnalyzerPassI
     {
         if ($stmt instanceof Label) {
             $context->notice(
-                'do_not_use_goto',
+                'goto_usage',
                 'Do not use labels',
                 $stmt
             );
             return true;
         } elseif ($stmt instanceof Goto_) {
             $context->notice(
-                'do_not_use_goto',
+                'goto_usage',
                 'Do not use goto statements',
                 $stmt
             );
             return true;
         }
         return false;
-    }
-
-    /**
-     * @return TreeBuilder
-     */
-    public function getConfiguration()
-    {
-        $treeBuilder = new TreeBuilder();
-        $treeBuilder->root('do_not_use_goto')
-            ->canBeDisabled();
-
-        return $treeBuilder;
     }
 
     /**

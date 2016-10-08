@@ -41,21 +41,21 @@ class WrongMagicMethods
 ----------------------------
 [
     {
-        "type":"magic.get.wrong-parameters",
+        "type":"magic_method_parameters",
         "message":"Magic method __get must take 1 parameter at least",
-        "file":"GetParametersCheck.php",
+        "file":"MagicMethodParameters.php",
         "line":24
     },
     {
-        "type":"magic.get.wrong-parameters",
+        "type":"magic_method_parameters",
         "message":"Magic method __set must take 2 parameters at least",
-        "file":"GetParametersCheck.php",
+        "file":"MagicMethodParameters.php",
         "line":29
     },
     {
-        "type":"magic.get.wrong-parameters",
+        "type":"magic_method_parameters",
         "message":"Magic method __clone cannot accept arguments",
-        "file":"GetParametersCheck.php",
+        "file":"MagicMethodParameters.php",
         "line":34
     }
 ]

@@ -4,14 +4,8 @@ namespace Tests\Analyze\Fixtures\Statement;
 
 $a = 1;
 
-/**
- */
-class DoNotUseGlobals
+class GlobalUsage
 {
-
-    /**
-     * test global
-     */
     public function testGlobal()
     {
         $a = 4;
@@ -19,23 +13,20 @@ class DoNotUseGlobals
         global $a;
     }
 
-    /**
-     * test no global
-     */
     public function testNoGlobal()
     {
         $a = 2;
 
         return $a * 3;
     }
-
 }
-
 ?>
 ----------------------------
-[{
-    "type": "do_not_use_globals",
-    "message": "Do not use globals",
-    "file": "DoNotUseGlobals.php",
-    "line": 18
-}]
+[
+    {
+        "type": "global_usage",
+        "message": "Do not use globals",
+        "file": "GlobalUsage.php",
+        "line": 12
+    }
+]

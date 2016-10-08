@@ -8,9 +8,8 @@ namespace PHPSA\Analyzer\Pass\Expression;
 use PhpParser\Node\Expr;
 use PHPSA\Analyzer\Pass;
 use PHPSA\Context;
-use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 
-class ArrayIllegalOffsetType implements Pass\AnalyzerPassInterface, Pass\ConfigurablePassInterface
+class ArrayIllegalOffsetType implements Pass\AnalyzerPassInterface
 {
     /**
      * @param Expr\Array_|Expr\Assign $expr
@@ -97,18 +96,5 @@ class ArrayIllegalOffsetType implements Pass\AnalyzerPassInterface, Pass\Configu
             Expr\Array_::class,
             Expr\Assign::class,
         ];
-    }
-
-    /**
-     * @return TreeBuilder
-     */
-    public function getConfiguration()
-    {
-        $treeBuilder = new TreeBuilder();
-        $treeBuilder->root('array.illegal_offset_type')
-            ->canBeDisabled()
-        ;
-
-        return $treeBuilder;
     }
 }

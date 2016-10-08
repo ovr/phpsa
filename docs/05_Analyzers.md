@@ -26,6 +26,10 @@ Recommends the use of [] short syntax for arrays.
 
 Checks for assignments in conditions. (= instead of ==)
 
+#### BacktickUsage
+
+Discourages the use of backtick operator for shell execution.
+
 #### Casts
 
 Checks for casts that try to cast a type to itself.
@@ -50,14 +54,6 @@ Checks for use of deprecated functions and gives alternatives if available.
 
 Checks for use of deprecated php.ini options and gives alternatives if available.
 
-#### DoNotUseGoto
-
-Checks for use of goto or labels (abc:) and discourages it.
-
-#### DoNotUseInlineHTML
-
-Discourages the use of inline html.
-
 #### ErrorSuppression
 
 Discourages the use of @ operator to silence errors.
@@ -70,13 +66,25 @@ Discourages the use of `eval()`.
 
 Checks for use of static:: inside a final class.
 
-#### GetParametersCheck
+#### GlobalUsage
 
-Checks that magic methods have the right amount of parameters.
+Discourages the use of `global $var;`.
+
+#### GotoUsage
+
+Discourages the use of goto and goto labels.
 
 #### HasMoreThanOneProperty
 
 Checks for multiple property definitions in one line. For example public $a, $b; and discourages it.
+
+#### InlineHtmlUsage
+
+Discourages the use of inline html.
+
+#### MagicMethodParameters
+
+Checks that magic methods have the right amount of parameters.
 
 #### MethodCannotReturn
 

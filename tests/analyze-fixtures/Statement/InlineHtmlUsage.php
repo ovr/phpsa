@@ -2,27 +2,26 @@
 
 namespace Tests\Analyze\Fixtures\Statement;
 
-class DoNotUseInlineHTML {
+class InlineHtmlUsage
+{
     public function testInlineHTML()
     {
-        $a = 1
-        ?><p><?= $a ?></p><?php
+        $a = 1;
+        ?><p>Test Inline HTML</p><?php
     }
 
     public function testNoInlineHTML()
     {
-
+        echo "<p>HTML</p>";
     }
-
 }
-
 ?>
 ----------------------------
 [
     {
-        "type": "do_not_use_inline_html",
+        "type": "inline_html_usage",
         "message": "Do not use inline HTML",
-        "file": "DoNotUseInlineHTML.php",
-        "line": 8
+        "file": "InlineHtmlUsage.php",
+        "line": 9
     }
 ]

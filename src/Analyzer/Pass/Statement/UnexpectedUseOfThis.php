@@ -9,9 +9,8 @@ use PhpParser\Node\Stmt;
 use PhpParser\Node;
 use PHPSA\Analyzer\Pass;
 use PHPSA\Context;
-use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 
-class UnexpectedUseOfThis implements Pass\ConfigurablePassInterface, Pass\AnalyzerPassInterface
+class UnexpectedUseOfThis implements Pass\AnalyzerPassInterface
 {
     /**
      * @param Node\Stmt $stmt
@@ -35,19 +34,6 @@ class UnexpectedUseOfThis implements Pass\ConfigurablePassInterface, Pass\Analyz
         }
 
         return false;
-    }
-
-    /**
-     * @return TreeBuilder
-     */
-    public function getConfiguration()
-    {
-        $treeBuilder = new TreeBuilder();
-        $treeBuilder->root('unexpected_use.this')
-            ->canBeDisabled()
-        ;
-
-        return $treeBuilder;
     }
 
     /**

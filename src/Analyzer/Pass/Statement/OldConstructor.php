@@ -5,11 +5,9 @@ namespace PHPSA\Analyzer\Pass\Statement;
 use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\Class_;
 use PHPSA\Analyzer\Pass\AnalyzerPassInterface;
-use PHPSA\Analyzer\Pass\ConfigurablePassInterface;
 use PHPSA\Context;
-use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 
-class OldConstructor implements ConfigurablePassInterface, AnalyzerPassInterface
+class OldConstructor implements AnalyzerPassInterface
 {
 
     /**
@@ -35,25 +33,12 @@ class OldConstructor implements ConfigurablePassInterface, AnalyzerPassInterface
     }
 
     /**
-     * @return TreeBuilder
-     */
-    public function getConfiguration()
-    {
-        $treeBuilder = new TreeBuilder();
-        $treeBuilder->root('old_constructor')
-            ->canBeDisabled()
-        ;
-
-        return $treeBuilder;
-    }
-
-    /**
      * @return array
      */
     public function getRegister()
     {
         return [
-            \PhpParser\Node\Stmt\Class_::class
+            Class_::class
         ];
     }
 }

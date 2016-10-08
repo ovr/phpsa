@@ -2,7 +2,7 @@
 
 namespace Tests\Analyze\Fixtures\Statement;
 
-class DoNotUseGoto
+class GotoUsage
 {
     public function testGoto()
     {
@@ -19,7 +19,6 @@ class DoNotUseGoto
     {
         marker1:
         $a = 1;
-
     }
 
     public function testNoLabel()
@@ -27,26 +26,25 @@ class DoNotUseGoto
         $a = 2;
     }
 }
-
 ?>
 ----------------------------
 [
     {
-        "type": "do_not_use_goto",
+        "type": "goto_usage",
         "message": "Do not use labels",
-        "file": "DoNotUseGoto.php",
+        "file": "GotoUsage.php",
         "line": 8
     },
     {
-        "type": "do_not_use_goto",
+        "type": "goto_usage",
         "message": "Do not use goto statements",
-        "file": "DoNotUseGoto.php",
+        "file": "GotoUsage.php",
         "line": 9
     },
     {
-        "type": "do_not_use_goto",
+        "type": "goto_usage",
         "message": "Do not use labels",
-        "file": "DoNotUseGoto.php",
+        "file": "GotoUsage.php",
         "line": 19
     }
 ]

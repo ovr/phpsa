@@ -10,9 +10,8 @@ use PHPSA\Analyzer\Helper\ResolveExpressionTrait;
 use PHPSA\Analyzer\Pass\AnalyzerPassInterface;
 use PHPSA\Analyzer\Pass\ConfigurablePassInterface;
 use PHPSA\Context;
-use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 
-class MethodCannotReturn implements ConfigurablePassInterface, AnalyzerPassInterface
+class MethodCannotReturn implements AnalyzerPassInterface
 {
     use ResolveExpressionTrait;
 
@@ -46,19 +45,6 @@ class MethodCannotReturn implements ConfigurablePassInterface, AnalyzerPassInter
         }
 
         return $result;
-    }
-
-    /**
-     * @return TreeBuilder
-     */
-    public function getConfiguration()
-    {
-        $treeBuilder = new TreeBuilder();
-        $treeBuilder->root('method_cannot_return')
-            ->canBeDisabled()
-        ;
-
-        return $treeBuilder;
     }
 
     /**

@@ -7,9 +7,8 @@ namespace PHPSA\Analyzer\Pass\Statement;
 use PhpParser\Node\Stmt\Property;
 use PHPSA\Analyzer\Pass;
 use PHPSA\Context;
-use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 
-class HasMoreThanOneProperty implements Pass\ConfigurablePassInterface, Pass\AnalyzerPassInterface
+class HasMoreThanOneProperty implements Pass\AnalyzerPassInterface
 {
     /**
      * @param Property $prop
@@ -24,19 +23,6 @@ class HasMoreThanOneProperty implements Pass\ConfigurablePassInterface, Pass\Ana
         }
 
         return false;
-    }
-
-    /**
-     * @return TreeBuilder
-     */
-    public function getConfiguration()
-    {
-        $treeBuilder = new TreeBuilder();
-        $treeBuilder->root('limit.properties')
-            ->canBeDisabled()
-        ;
-
-        return $treeBuilder;
     }
 
     /**

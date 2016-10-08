@@ -8,9 +8,8 @@ namespace PHPSA\Analyzer\Pass\Statement;
 use PhpParser\Node\Stmt;
 use PHPSA\Analyzer\Pass;
 use PHPSA\Context;
-use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 
-class MissingBreakStatement implements Pass\ConfigurablePassInterface, Pass\AnalyzerPassInterface
+class MissingBreakStatement implements Pass\AnalyzerPassInterface
 {
     /**
      * @param Stmt\Switch_ $switchStmt
@@ -34,19 +33,6 @@ class MissingBreakStatement implements Pass\ConfigurablePassInterface, Pass\Anal
         }
 
         return $result;
-    }
-
-    /**
-     * @return TreeBuilder
-     */
-    public function getConfiguration()
-    {
-        $treeBuilder = new TreeBuilder();
-        $treeBuilder->root('missing_break_statement')
-            ->canBeDisabled()
-        ;
-
-        return $treeBuilder;
     }
 
     /**

@@ -3,16 +3,14 @@
  * @author Patsura Dmitry https://github.com/ovr <talk@dmtry.me>
  */
 
-namespace PHPSA\Analyzer\Pass\Statement\MagicMethod;
+namespace PHPSA\Analyzer\Pass\Statement;
 
 use PhpParser\Node\Stmt\ClassMethod;
 use PHPSA\Analyzer\Pass\AnalyzerPassInterface;
-use PHPSA\Analyzer\Pass\ConfigurablePassInterface;
 use PHPSA\Check;
 use PHPSA\Context;
-use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 
-class GetParametersCheck implements ConfigurablePassInterface, AnalyzerPassInterface
+class MagicMethodParameters implements AnalyzerPassInterface
 {
     /**
      * @param ClassMethod $methodStmt
@@ -24,7 +22,7 @@ class GetParametersCheck implements ConfigurablePassInterface, AnalyzerPassInter
         if ($methodStmt->name == '__get') {
             if (count($methodStmt->params) == 0) {
                 $context->notice(
-                    'magic.get.wrong-parameters',
+                    'magic_method_parameters',
                     'Magic method __get must take 1 parameter at least',
                     $methodStmt,
                     Check::CHECK_SAFE
@@ -35,7 +33,7 @@ class GetParametersCheck implements ConfigurablePassInterface, AnalyzerPassInter
         if ($methodStmt->name == '__set') {
             if (count($methodStmt->params) < 2) {
                 $context->notice(
-                    'magic.get.wrong-parameters',
+                    'magic_method_parameters',
                     'Magic method __set must take 2 parameters at least',
                     $methodStmt,
                     Check::CHECK_SAFE
@@ -46,7 +44,7 @@ class GetParametersCheck implements ConfigurablePassInterface, AnalyzerPassInter
         if ($methodStmt->name == '__clone') {
             if (count($methodStmt->params) > 0) {
                 $context->notice(
-                    'magic.get.wrong-parameters',
+                    'magic_method_parameters',
                     'Magic method __clone cannot accept arguments',
                     $methodStmt,
                     Check::CHECK_SAFE
@@ -56,25 +54,12 @@ class GetParametersCheck implements ConfigurablePassInterface, AnalyzerPassInter
     }
 
     /**
-     * @return TreeBuilder
-     */
-    public function getConfiguration()
-    {
-        $treeBuilder = new TreeBuilder();
-        $treeBuilder->root('method_cannot_return')
-            ->canBeDisabled()
-        ;
-
-        return $treeBuilder;
-    }
-
-    /**
      * @return array
      */
     public function getRegister()
     {
         return [
-            \PhpParser\Node\Stmt\ClassMethod::class
+            ClassMethod::class
         ];
     }
 }

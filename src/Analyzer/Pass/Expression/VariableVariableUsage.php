@@ -8,9 +8,8 @@ namespace PHPSA\Analyzer\Pass\Expression;
 use PhpParser\Node\Expr;
 use PHPSA\Analyzer\Pass;
 use PHPSA\Context;
-use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 
-class VariableVariableUsage implements Pass\AnalyzerPassInterface, Pass\ConfigurablePassInterface
+class VariableVariableUsage implements Pass\AnalyzerPassInterface
 {
     /**
      * @param Expr\Assign $expr
@@ -118,18 +117,5 @@ class VariableVariableUsage implements Pass\AnalyzerPassInterface, Pass\Configur
         return [
             Expr\Assign::class
         ];
-    }
-
-    /**
-     * @return TreeBuilder
-     */
-    public function getConfiguration()
-    {
-        $treeBuilder = new TreeBuilder();
-        $treeBuilder->root('variable.dynamic_assignment')
-            ->canBeDisabled()
-        ;
-
-        return $treeBuilder;
     }
 }

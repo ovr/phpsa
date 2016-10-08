@@ -15,9 +15,8 @@ use PhpParser\Node\Stmt\Switch_;
 use PhpParser\Node\Stmt\While_;
 use PHPSA\Analyzer\Pass;
 use PHPSA\Context;
-use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 
-class AssignmentInCondition implements Pass\ConfigurablePassInterface, Pass\AnalyzerPassInterface
+class AssignmentInCondition implements Pass\AnalyzerPassInterface
 {
     /**
      * @param $stmt
@@ -45,18 +44,6 @@ class AssignmentInCondition implements Pass\ConfigurablePassInterface, Pass\Anal
         }
 
         return $result;
-    }
-
-    /**
-     * @return TreeBuilder
-     */
-    public function getConfiguration()
-    {
-        $treeBuilder = new TreeBuilder();
-        $treeBuilder->root('assignment_in_condition')
-            ->canBeDisabled();
-
-        return $treeBuilder;
     }
 
     /**

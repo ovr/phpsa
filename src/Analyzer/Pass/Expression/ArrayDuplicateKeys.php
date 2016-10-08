@@ -9,9 +9,8 @@ use PhpParser\Node\Expr;
 use PhpParser\Node\Scalar;
 use PHPSA\Analyzer\Pass;
 use PHPSA\Context;
-use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 
-class ArrayDuplicateKeys implements Pass\AnalyzerPassInterface, Pass\ConfigurablePassInterface
+class ArrayDuplicateKeys implements Pass\AnalyzerPassInterface
 {
     /**
      * @param Expr\Array_ $expr
@@ -60,18 +59,5 @@ class ArrayDuplicateKeys implements Pass\AnalyzerPassInterface, Pass\Configurabl
         return [
             Expr\Array_::class
         ];
-    }
-
-    /**
-     * @return TreeBuilder
-     */
-    public function getConfiguration()
-    {
-        $treeBuilder = new TreeBuilder();
-        $treeBuilder->root('array.duplicate_keys')
-            ->canBeDisabled()
-        ;
-
-        return $treeBuilder;
     }
 }
