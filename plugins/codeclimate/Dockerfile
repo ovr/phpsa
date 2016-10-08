@@ -10,7 +10,7 @@ COPY phpsa /usr/src/app/plugins/codeclimate/phpsa
 RUN curl -sS https://getcomposer.org/installer | php && \
     /usr/src/app/composer.phar install --no-dev --optimize-autoloader
 
-RUN adduser -u 9000 -D app
+RUN useradd -u 9000 -r -s /bin/false app
 
 USER app
 VOLUME /code
