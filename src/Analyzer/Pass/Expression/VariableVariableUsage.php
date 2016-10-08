@@ -40,6 +40,7 @@ class VariableVariableUsage implements Pass\AnalyzerPassInterface, Pass\Configur
             return $this->analyzeList($expr->var, $context);
         }
 
+        // $a = ... or class::$a =
         return $this->analyzeVar($expr->var, $context);
     }
 
@@ -88,7 +89,12 @@ class VariableVariableUsage implements Pass\AnalyzerPassInterface, Pass\Configur
         return false;
     }
 
-    private function analyzeVar(Expr\Variable $var, Context $context)
+
+    /**
+     * @param Expr\Variable|Expr\StaticPropertyFetch $var
+     * @param Context $context
+     */
+    private function analyzeVar(Expr $var, Context $context)
     {
         if (!$var->name instanceof Expr\Variable) {
             return false;
