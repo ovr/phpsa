@@ -1,6 +1,7 @@
 
 FROM lowlci/php-ubuntu-1604:7.0.8
 
+MAINTAINER Patsura Dmitry <talk@dmtry.me>
 WORKDIR /usr/src/app
 
 RUN git clone https://github.com/ovr/phpsa.git .
