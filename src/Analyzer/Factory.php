@@ -48,6 +48,7 @@ class Factory
             [
                 new AnalyzerPass\Statement\MagicMethod\GetParametersCheck(),
                 new AnalyzerPass\Statement\DoNotUseGoto(),
+                new AnalyzerPass\Statement\DoNotUseGlobals(),
                 new AnalyzerPass\Statement\HasMoreThanOneProperty(),
                 new AnalyzerPass\Statement\MissingBreakStatement(),
                 new AnalyzerPass\Statement\MissingVisibility(),
