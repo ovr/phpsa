@@ -3,7 +3,7 @@ FROM lowlci/php-ubuntu-1604:7.0.8
 
 WORKDIR /usr/src/app
 
-RUN git clone git@github.com:ovr/phpsa.git .
+RUN git clone https://github.com/ovr/phpsa.git .
 
 COPY phpsa /usr/src/app/plugins/codeclimate/phpsa
 
