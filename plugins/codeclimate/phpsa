@@ -24,7 +24,8 @@ foreach ($files as $file) {
 }
 
 if (!defined('PHPSA_COMPOSER_INSTALL')) {
-    fwrite(STDERR,
+    fwrite(
+        STDERR,
         'You need to set up the project dependencies using the following commands:' . PHP_EOL .
         'wget http://getcomposer.org/composer.phar' . PHP_EOL .
         'php composer.phar install' . PHP_EOL
@@ -39,4 +40,16 @@ if (extension_loaded('xdebug')) {
 }
 
 $console = new \PHPSA\Application();
-$console->run();
+$command = $console->get('check');
+
+try {
+    $command->run(
+        new \Symfony\Component\Console\Input\ArrayInput([]),
+        new \Symfony\Component\Console\Output\NullOutput()
+    );
+} catch (\Throwable $e) {
+    echo $e->getMessage();
+    die(1);
+}
+
+echo json_encode($console->getIssuesCollector()->getIssues(), JSON_PRETTY_PRINT);
