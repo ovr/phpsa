@@ -8,7 +8,7 @@ namespace PHPSA;
 class IssuesCollector
 {
     /**
-     * @var array
+     * @var Issue[]
      */
     protected $issues = [];
 
@@ -20,16 +20,21 @@ class IssuesCollector
      */
     public function addIssue($type, $message, $file, $line)
     {
-        $this->issues[] = [
-            'type' => $type,
-            'message' => $message,
-            'file' => $file,
-            'line' => $line
-        ];
+        $this->issues[] = new Issue(
+            $type,
+            $message,
+            [
+                'path' => $file,
+                'lines' => [
+                    'begin' => $line,
+                    'end' => $line,
+                ]
+            ]
+        );
     }
 
     /**
-     * @return array
+     * @return Issue[]
      */
     public function getIssues()
     {
