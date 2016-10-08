@@ -8,6 +8,7 @@ use PHPSA\Analyzer\EventListener\StatementListener;
 use PHPSA\Application;
 use PHPSA\Context;
 use PHPSA\Definition\FileParser;
+use PHPSA\Issue;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
 use Webiny\Component\EventManager\EventManager;
@@ -87,7 +88,20 @@ class AnalyzeFixturesTest extends TestCase
 
         $expectedArray = json_decode(trim($expectedDump), true);
         $expectedType = $expectedArray[0]["type"];
-        $issues = $application->getIssuesCollector()->getIssues();
+        $issues = array_map(
+            // @todo Remove after moving all notices on Issue(s)
+            function (Issue $issue) {
+                $location = $issue->getLocation();
+
+                return [
+                    'type' => $issue->getCheckName(),
+                    'message' => $issue->getDescription(),
+                    'file' => $location['path'],
+                    'line' => $location['lines']['begin'],
+                ];
+            },
+            $application->getIssuesCollector()->getIssues()
+        );
 
         foreach ($expectedArray as $check) {
             self::assertEquals(in_array($check, $issues), true, $file); // every expected Issue is in the collector

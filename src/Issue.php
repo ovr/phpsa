@@ -19,49 +19,49 @@ class Issue
      *
      * @var string
      */
-    const CATEGORY_Clarity = 'Clarity';
+    const CATEGORY_CLARITY = 'Clarity';
 
     /**
      * @todo Description
      *
      * @var string
      */
-    const CATEGORY_Compatibility = 'Compatibility';
+    const CATEGORY_COMPATIBILITY = 'Compatibility';
 
     /**
      * @todo Description
      *
      * @var string
      */
-    const CATEGORY_Complexity = 'Complexity';
+    const CATEGORY_COMPLEXITY = 'Complexity';
 
     /**
      * @todo Description
      *
      * @var string
      */
-    const CATEGORY_Duplication = 'Duplication';
+    const CATEGORY_DUPLICATION = 'Duplication';
 
     /**
      * @todo Description
      *
      * @var string
      */
-    const CATEGORY_Performance = 'Performance';
+    const CATEGORY_PERFORMANCE = 'Performance';
 
     /**
      * @todo Description
      *
      * @var string
      */
-    const CATEGORY_Security = 'Security';
+    const CATEGORY_SECURITY = 'Security';
 
     /**
      * @todo Description
      *
      * @var string
      */
-    const CATEGORY_Style = 'Style';
+    const CATEGORY_STYLE = 'Style';
 
     /**
      * Required. Must always be "issue".
@@ -127,5 +127,37 @@ class Issue
             'location' => $this->location,
             'categories' => $this->categories,
         ];
+    }
+
+    /**
+     * @return string
+     */
+    public function getLocation()
+    {
+        return $this->location;
+    }
+
+    /**
+     * @return string
+     */
+    public function getType()
+    {
+        return $this->type;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCheckName()
+    {
+        return $this->checkName;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDescription()
+    {
+        return $this->description;
     }
 }
