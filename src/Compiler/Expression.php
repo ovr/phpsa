@@ -215,6 +215,8 @@ class Expression
                 return new Expression\ClassConstFetch();
             case Node\Expr\PropertyFetch::class:
                 return new Expression\PropertyFetch();
+            case Node\Expr\StaticPropertyFetch::class:
+                return new Expression\StaticPropertyFetch();
             case Node\Expr\ArrayDimFetch::class:
                 return new Expression\ArrayDimFetch();
             case Node\Expr\UnaryMinus::class:
@@ -231,12 +233,20 @@ class Expression
                 return new Expression\EmptyOp();
             case Node\Expr\Eval_::class:
                 return new Expression\EvalOp();
+            case Node\Expr\ShellExec::class:
+                return new Expression\ShellExec();
             case Node\Expr\ErrorSuppress::class:
                 return new Expression\ErrorSuppress();
+            case Node\Expr\Include_::class:
+                return new Expression\IncludeOp();
             case Node\Expr\Clone_::class:
                 return new Expression\CloneOp();
             case Node\Expr\Ternary::class:
                 return new Expression\Ternary();
+            case Node\Expr\Yield_::class:
+                return new Expression\YieldOp();
+            case Node\Expr\YieldFrom::class:
+                return new Expression\YieldFrom();
             case Node\Expr\Variable::class:
                 return new Expression\Variable();
         }
