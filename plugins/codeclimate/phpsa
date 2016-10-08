@@ -52,4 +52,9 @@ try {
     die(1);
 }
 
-echo json_encode($console->getIssuesCollector()->getIssues(), JSON_PRETTY_PRINT);
+$issues = $console->getIssuesCollector()->getIssues();
+if ($issues) {
+    foreach ($issues as $issue) {
+        echo json_encode($issue->toArray(), JSON_PRETTY_PRINT) . PHP_EOL;
+    }
+}
