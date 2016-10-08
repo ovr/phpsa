@@ -4,6 +4,8 @@ namespace Tests\Analyze\Fixtures\Expression;
 
 class VariableVariableUsage
 {
+    public static $staticVar = 'notfoo';
+
     /**
      * @return string
      */
@@ -106,6 +108,24 @@ class VariableVariableUsage
 
         $this->{$varName}[] = 'foo';
     }
+
+    /**
+     * @return void
+     */
+    public function variableStaticPropertyAccessIsDiscouraged()
+    {
+        $varName = 'staticVar';
+
+        self::${$varName} = 'foo';
+    }
+
+    /**
+     * @return void
+     */
+    public function staticPropertyAccessIsOk()
+    {
+        self::$staticVar = 'foo';
+    }
 }
 ?>
 ----------------------------
@@ -114,30 +134,36 @@ class VariableVariableUsage
         "type": "variable.dynamic_assignment",
         "message": "Dynamic assignment is greatly discouraged.",
         "file": "VariableVariableUsage.php",
-        "line": 23
+        "line": 25
     },
     {
         "type": "variable.dynamic_assignment",
         "message": "Dynamic assignment is greatly discouraged.",
         "file": "VariableVariableUsage.php",
-        "line": 47
+        "line": 49
     },
     {
         "type": "variable.dynamic_assignment",
         "message": "Dynamic assignment is greatly discouraged.",
         "file": "VariableVariableUsage.php",
-        "line": 68
+        "line": 70
     },
     {
         "type": "variable.dynamic_assignment",
         "message": "Dynamic assignment is greatly discouraged.",
         "file": "VariableVariableUsage.php",
-        "line": 88
+        "line": 90
     },
     {
         "type": "variable.dynamic_assignment",
         "message": "Dynamic assignment is greatly discouraged.",
         "file": "VariableVariableUsage.php",
-        "line": 106
+        "line": 108
+    },
+    {
+        "type": "variable.dynamic_assignment",
+        "message": "Dynamic assignment is greatly discouraged.",
+        "file": "VariableVariableUsage.php",
+        "line": 118
     }
 ]
