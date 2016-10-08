@@ -1,0 +1,42 @@
+#!/usr/bin/env php
+<?php
+
+if (!ini_get('date.timezone')) {
+    ini_set('date.timezone', 'UTC');
+}
+
+/*
+ * @author Patsura Dmitry http://github.com/ovr <talk@dmtry.me>
+ */
+
+$files = array(
+    dirname(dirname(dirname(__DIR__))).'/autoload.php',
+    dirname(dirname(__DIR__)).'/autoload.php',
+    dirname(__DIR__).'/vendor/autoload.php',
+    __DIR__.'/vendor/autoload.php',
+);
+
+foreach ($files as $file) {
+    if (file_exists($file)) {
+        define('PHPSA_COMPOSER_INSTALL', $file);
+        break;
+    }
+}
+
+if (!defined('PHPSA_COMPOSER_INSTALL')) {
+    fwrite(STDERR,
+        'You need to set up the project dependencies using the following commands:' . PHP_EOL .
+        'wget http://getcomposer.org/composer.phar' . PHP_EOL .
+        'php composer.phar install' . PHP_EOL
+    );
+    die(1);
+}
+
+include_once PHPSA_COMPOSER_INSTALL;
+
+if (extension_loaded('xdebug')) {
+    ini_set('xdebug.max_nesting_level', 3000);
+}
+
+$console = new \PHPSA\Application();
+$console->run();
