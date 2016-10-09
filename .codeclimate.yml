@@ -1,0 +1,17 @@
+---
+engines:
+  duplication:
+    enabled: true
+    config:
+      languages:
+        - php
+  fixme:
+    enabled: false
+  phpsa:
+    enabled: false
+ratings:
+  paths:
+    - "**.php"
+exclude_paths:
+  - tests/analyze-fixtures/*
+  - tests/compiling-fixtures/*

@@ -1,0 +1,11 @@
+{
+  "name": "phpsa",
+  "description": "PHP Smart Analyzer.",
+  "maintainer": {
+    "name": "Patsura Dmitry",
+    "email": "talk@dmtry.me"
+  },
+  "languages" : ["php"],
+  "version": "0.5.0",
+  "spec_version": "0.0.1"
+}
