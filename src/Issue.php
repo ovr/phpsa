@@ -119,10 +119,14 @@ class Issue
         $this->categories = $categories;
     }
 
+    /**
+     * @return array
+     */
     public function toArray()
     {
         return [
             'type' => $this->type,
+            'check_name' => $this->checkName,
             'description' => $this->description,
             'location' => $this->location,
             'categories' => $this->categories,
