@@ -60,6 +60,7 @@ class Factory
                 new AnalyzerPass\Statement\ConstantNaming(),
                 new AnalyzerPass\Statement\InlineHtmlUsage(),
                 new AnalyzerPass\Statement\AssignmentInCondition(),
+                new AnalyzerPass\Statement\StaticUsage(),
             ]
         );
         $analyzer->bind();
