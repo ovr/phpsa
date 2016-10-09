@@ -118,6 +118,10 @@ Checks for use of old rand, srand, getrandmax functions and suggests alternative
 
 Checks that regular expressions are syntactically correct.
 
+#### StaticUsage
+
+Discourages the use of static variables (not properties).
+
 #### TestAnnotation
 
 Checks for use of `@test` when methods name begins with test, since it is unnecessary.
