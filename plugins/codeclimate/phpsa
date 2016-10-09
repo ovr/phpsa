@@ -1,29 +1,11 @@
 #!/usr/bin/env php
 <?php
-
-if (!ini_get('date.timezone')) {
-    ini_set('date.timezone', 'UTC');
-}
-
 /*
  * @author Patsura Dmitry http://github.com/ovr <talk@dmtry.me>
  */
 
-$files = array(
-    dirname(dirname(dirname(__DIR__))).'/autoload.php',
-    dirname(dirname(__DIR__)).'/autoload.php',
-    dirname(__DIR__).'/vendor/autoload.php',
-    __DIR__.'/vendor/autoload.php',
-);
-
-foreach ($files as $file) {
-    if (file_exists($file)) {
-        define('PHPSA_COMPOSER_INSTALL', $file);
-        break;
-    }
-}
-
-if (!defined('PHPSA_COMPOSER_INSTALL')) {
+$autoloadPath = dirname(__DIR__) . '/../vendor/autoload.php';;
+if (!file_exists($autoloadPath)) {
     fwrite(
         STDERR,
         'You need to set up the project dependencies using the following commands:' . PHP_EOL .
@@ -31,18 +13,28 @@ if (!defined('PHPSA_COMPOSER_INSTALL')) {
         'php composer.phar install' . PHP_EOL
     );
     die(1);
+} elseif (!is_readable($autoloadPath)) {
+    fwrite(
+        STDERR,
+        'Cannot read autoload.php, path: ' . $autoloadPath
+    );
+    die(1);
 }
 
-include_once PHPSA_COMPOSER_INSTALL;
+include_once $autoloadPath;
+
+if (!ini_get('date.timezone')) {
+    ini_set('date.timezone', 'UTC');
+}
 
 if (extension_loaded('xdebug')) {
     ini_set('xdebug.max_nesting_level', 3000);
 }
 
 $console = new \PHPSA\Application();
-$command = $console->get('check');
 
 try {
+    $command = $console->get('check');
     $command->run(
         new \Symfony\Component\Console\Input\ArrayInput([]),
         new \Symfony\Component\Console\Output\NullOutput()
