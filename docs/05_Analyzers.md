@@ -66,6 +66,10 @@ Discourages the use of `eval()`.
 
 Checks for use of static:: inside a final class.
 
+#### FixedCondition
+
+Checks if any conditions are fixed. For example `if (true)`. Can work with complex expressions.
+
 #### GlobalUsage
 
 Discourages the use of `global $var;`.
@@ -109,6 +113,10 @@ Checks for use of multiple unary operators that cancel each other out. For examp
 #### OldConstructor
 
 Checks for use of PHP 4 constructors and discourages it.
+
+#### OptionalParamBeforeRequired
+
+Checks if any optional parameters are before a required one. For example: `function ($a = 1, $b)`
 
 #### RandomApiMigration
 
