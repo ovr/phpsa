@@ -61,6 +61,7 @@ class Factory
                 new AnalyzerPass\Statement\InlineHtmlUsage(),
                 new AnalyzerPass\Statement\AssignmentInCondition(),
                 new AnalyzerPass\Statement\StaticUsage(),
+                new AnalyzerPass\Statement\OptionalParamBeforeRequired(),
             ]
         );
         $analyzer->bind();
