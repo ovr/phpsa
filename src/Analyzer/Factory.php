@@ -29,6 +29,7 @@ class Factory
                 new AnalyzerPass\Expression\FinalStaticUsage(),
                 new AnalyzerPass\Expression\CompareWithArray(),
                 new AnalyzerPass\Expression\BacktickUsage(),
+                new AnalyzerPass\Expression\LogicInversion(),
                 // Arrays
                 new AnalyzerPass\Expression\ArrayShortDefinition(),
                 new AnalyzerPass\Expression\ArrayDuplicateKeys(),
