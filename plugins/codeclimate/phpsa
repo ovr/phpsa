@@ -47,6 +47,6 @@ try {
 $issues = $console->getIssuesCollector()->getIssues();
 if ($issues) {
     foreach ($issues as $issue) {
-        echo json_encode($issue->toArray(), JSON_PRETTY_PRINT) . PHP_EOL;
+        echo json_encode($issue->toArray(), JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) . chr(0);
     }
 }
