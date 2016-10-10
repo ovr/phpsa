@@ -30,6 +30,7 @@ class Factory
                 new AnalyzerPass\Expression\CompareWithArray(),
                 new AnalyzerPass\Expression\BacktickUsage(),
                 new AnalyzerPass\Expression\LogicInversion(),
+                new AnalyzerPass\Expression\ExitUsage(),
                 // Arrays
                 new AnalyzerPass\Expression\ArrayShortDefinition(),
                 new AnalyzerPass\Expression\ArrayDuplicateKeys(),
