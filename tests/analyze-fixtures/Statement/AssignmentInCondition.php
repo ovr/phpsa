@@ -16,7 +16,7 @@ class AssignmentCondition
         }
     }
 
-    public function testAssignmentWhile()
+    public function testAssignmentLoops()
     {
         $a = 1;
         while ($a = 2) {
@@ -26,6 +26,10 @@ class AssignmentCondition
         do {
             echo $a;
         } while ($a = 2);
+
+        for (;$a = 2;) {
+            echo $a;
+        }
     }
 
     public function testAssignmentSwitch()
@@ -49,12 +53,16 @@ class AssignmentCondition
         }
     }
 
-    public function testNoAssignmentWhile()
+    public function testNoAssignmentLoops()
     {
         $a = 1;
-        while ($a == 1) {
+        while ($a == 2) {
             echo $a;
         }
+
+        do {
+            echo $a;
+        } while ($a == 2);
     }
 
     public function testNoAssignmentSwitch()
@@ -104,12 +112,18 @@ class AssignmentCondition
         "type": "assignment_in_condition",
         "message": "An assignment statement has been made instead of conditional statement",
         "file": "AssignmentInCondition.php",
-        "line": 34
+        "line": 29
     },
     {
         "type": "assignment_in_condition",
         "message": "An assignment statement has been made instead of conditional statement",
         "file": "AssignmentInCondition.php",
-        "line": 36
+        "line": 38
+    },
+    {
+        "type": "assignment_in_condition",
+        "message": "An assignment statement has been made instead of conditional statement",
+        "file": "AssignmentInCondition.php",
+        "line": 40
     }
 ]

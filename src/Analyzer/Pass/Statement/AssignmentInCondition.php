@@ -11,8 +11,9 @@ use PhpParser\Node\Stmt;
 use PhpParser\Node\Stmt\Do_;
 use PhpParser\Node\Stmt\ElseIf_;
 use PhpParser\Node\Stmt\If_;
-use PhpParser\Node\Stmt\Switch_;
+use PhpParser\Node\Stmt\Case_;
 use PhpParser\Node\Stmt\While_;
+use PhpParser\Node\Stmt\For_;
 use PHPSA\Analyzer\Pass;
 use PHPSA\Context;
 
@@ -25,25 +26,22 @@ class AssignmentInCondition implements Pass\AnalyzerPassInterface
      */
     public function pass($stmt, Context $context)
     {
-        $result = false;
+        $condition = $stmt->cond;
 
-        if ($stmt instanceof If_) {
-            $this->checkAssignment($stmt, $context);
-
-            $elseifStmts = $stmt->elseifs;
-            foreach ($elseifStmts as $elseif) {
-                $result = $this->checkAssignment($elseif, $context) || $result;
-            }
-        } elseif ($stmt instanceof While_ || $stmt instanceof Do_) {
-            $this->checkAssignment($stmt, $context);
-        } elseif ($stmt instanceof Switch_) {
-            $caseStmts = $stmt->cases;
-            foreach ($caseStmts as $case) {
-                $result = $this->checkAssignment($case, $context) || $result;
-            }
+        if ($stmt instanceof For_ && count($stmt->cond) > 0) { // For is the only one that has an array as condition
+            $condition = $condition[0];
         }
 
-        return $result;
+        if ($condition instanceof Assign) {
+            $context->notice(
+                'assignment_in_condition',
+                'An assignment statement has been made instead of conditional statement',
+                $stmt
+            );
+            return true;
+        }
+
+        return false;
     }
 
     /**
@@ -54,26 +52,10 @@ class AssignmentInCondition implements Pass\AnalyzerPassInterface
         return [
             If_::class,
             ElseIf_::class,
+            For_::class,
             While_::class,
             Do_::class,
-            Switch_::class,
+            Case_::class,
         ];
-    }
-
-    /**
-     * @param Stmt $stmt
-     * @param Context $context
-     * @return bool
-     */
-    private function checkAssignment(Stmt $stmt, Context $context)
-    {
-        if ($stmt->cond instanceof Assign) {
-            $context->notice(
-                'assignment_in_condition',
-                'An assignment statement has been made instead of conditional statement',
-                $stmt
-            );
-            return true;
-        }
     }
 }
