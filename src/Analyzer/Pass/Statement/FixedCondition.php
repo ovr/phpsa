@@ -27,13 +27,11 @@ class FixedCondition implements Pass\AnalyzerPassInterface
 
         if ($stmt instanceof For_ && count($stmt->cond) > 0) { // For is the only one that has an array as condition
             $condition = $condition[0];
-        } elseif ($stmt instanceof For_) { // For without condition
-            return false;
         }
 
         $expression = $context->getExpressionCompiler()->compile($condition);
 
-        if ($expression->hasValue()) {
+        if ($expression->hasValue()) { // @todo implement isStatic() method to see if expression changes or not
             $context->notice(
                 'fixed_condition',
                 'The condition will always result in the same boolean value',

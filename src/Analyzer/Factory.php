@@ -60,7 +60,6 @@ class Factory
                 new AnalyzerPass\Statement\ConstantNaming(),
                 new AnalyzerPass\Statement\InlineHtmlUsage(),
                 new AnalyzerPass\Statement\AssignmentInCondition(),
-                new AnalyzerPass\Statement\FixedCondition(),
                 new AnalyzerPass\Statement\StaticUsage(),
                 new AnalyzerPass\Statement\OptionalParamBeforeRequired(),
             ]
