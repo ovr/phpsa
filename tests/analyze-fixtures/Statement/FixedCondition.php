@@ -70,6 +70,15 @@ class FixedCondition
         }
     }
 
+    public function testInfiniteForLoop()
+    {
+        $condition = new \stdClass;
+
+        for (;$condition;) {
+            return;
+        }
+    }
+
 
     private function dynamicValue()
     {
@@ -115,5 +124,11 @@ class FixedCondition
         "message": "The condition will always result in the same boolean value",
         "file": "FixedCondition.php",
         "line": 55
+    },
+    {
+        "type": "fixed_condition",
+        "message": "The condition will always result in the same boolean value",
+        "file": "FixedCondition.php",
+        "line": 76
     }
 ]

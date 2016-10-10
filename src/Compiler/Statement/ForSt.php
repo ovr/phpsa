@@ -20,8 +20,8 @@ class ForSt extends AbstractCompiler
     public function compile($stmt, Context $context)
     {
         if (count($stmt->init) > 0) {
-            foreach ($stmt->init as $cond) {
-                $context->getExpressionCompiler()->compile($cond);
+            foreach ($stmt->init as $init) {
+                $context->getExpressionCompiler()->compile($init);
             }
         }
 

@@ -7,8 +7,10 @@ namespace PHPSA\Analyzer\Pass\Statement;
 
 use PhpParser\Node\Stmt\Do_;
 use PhpParser\Node\Stmt\If_;
+use PhpParser\Node\Stmt\ElseIf_;
 use PhpParser\Node\Stmt\Switch_;
 use PhpParser\Node\Stmt\While_;
+use PhpParser\Node\Stmt\For_;
 use PHPSA\Analyzer\Pass;
 use PHPSA\Context;
 
@@ -21,8 +23,15 @@ class FixedCondition implements Pass\AnalyzerPassInterface
      */
     public function pass($stmt, Context $context)
     {
-        $result = false;
-        $expression = $context->getExpressionCompiler()->compile($stmt->cond);
+        $condition = $stmt->cond;
+
+        if ($stmt instanceof For_ && count($stmt->cond) > 0) { // For is the only one that has an array as condition
+            $condition = $condition[0];
+        } elseif ($stmt instanceof For_) { // For without condition
+            return false;
+        }
+
+        $expression = $context->getExpressionCompiler()->compile($condition);
 
         if ($expression->hasValue()) {
             $context->notice(
@@ -31,16 +40,10 @@ class FixedCondition implements Pass\AnalyzerPassInterface
                 $stmt
             );
 
-            $result = true;
+            return true;
         }
 
-        if ($stmt instanceof If_) {
-            foreach ($stmt->elseifs as $elseif) {
-                $result = $this->pass($elseif, $context) || $result;
-            }
-        }
-
-        return $result;
+        return false;
     }
 
     /**
@@ -50,7 +53,9 @@ class FixedCondition implements Pass\AnalyzerPassInterface
     {
         return [
             If_::class,
+            ElseIf_::class,
             While_::class,
+            For_::class,
             Do_::class,
             Switch_::class,
         ];
