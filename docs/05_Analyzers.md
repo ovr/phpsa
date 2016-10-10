@@ -146,6 +146,8 @@ Checks for use of functions like boolval, strval and others and suggests the use
 
 Discourages the use of variable variables.
 
+#### YodaCondition
 
+Checks for Yoda conditions, where a constant is placed before the variable. For example: `if (3 == $a)`
 
 Next: [How To: Write own Analyzer](./06_HowTo_Own_Analyzer.md)
