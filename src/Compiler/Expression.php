@@ -7,7 +7,6 @@ namespace PHPSA\Compiler;
 
 use InvalidArgumentException;
 use phpDocumentor\Reflection\DocBlockFactory;
-use PHPSA\Check;
 use PHPSA\CompiledExpression;
 use PHPSA\Compiler\Event\ExpressionBeforeCompile;
 use PHPSA\Context;

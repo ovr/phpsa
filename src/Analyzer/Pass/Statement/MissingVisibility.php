@@ -7,7 +7,6 @@ use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt;
 use PHPSA\Analyzer\Pass\AnalyzerPassInterface;
-use PHPSA\Analyzer\Pass\ConfigurablePassInterface;
 use PHPSA\Context;
 
 class MissingVisibility implements AnalyzerPassInterface

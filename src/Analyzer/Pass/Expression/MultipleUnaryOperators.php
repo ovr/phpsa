@@ -5,7 +5,6 @@ namespace PHPSA\Analyzer\Pass\Expression;
 use PhpParser\Node\Expr;
 use PHPSA\Analyzer\Pass\AnalyzerPassInterface;
 use PHPSA\Context;
-use PHPSA\CompiledExpression;
 
 class MultipleUnaryOperators implements AnalyzerPassInterface
 {
