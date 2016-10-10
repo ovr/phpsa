@@ -64,6 +64,7 @@ class Factory
                 new AnalyzerPass\Statement\AssignmentInCondition(),
                 new AnalyzerPass\Statement\StaticUsage(),
                 new AnalyzerPass\Statement\OptionalParamBeforeRequired(),
+                new AnalyzerPass\Statement\YodaCondition(),
             ]
         );
         $analyzer->bind();
