@@ -108,6 +108,7 @@ class Factory
             // Another
             AnalyzerPass\Expression\ErrorSuppression::class,
             AnalyzerPass\Expression\MultipleUnaryOperators::class,
+            AnalyzerPass\Expression\StupidUnaryOperators::class,
             AnalyzerPass\Expression\VariableVariableUsage::class,
             AnalyzerPass\Expression\Casts::class,
             AnalyzerPass\Expression\EvalUsage::class,
