@@ -62,6 +62,10 @@ Discourages the use of @ operator to silence errors.
 
 Discourages the use of `eval()`.
 
+#### ExitUsage
+
+Discourages the use of `exit()` and `die()`.
+
 #### FinalStaticUsage
 
 Checks for use of static:: inside a final class.
