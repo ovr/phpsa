@@ -18,16 +18,12 @@ class DeclareSt extends AbstractCompiler
     {
         $compiler = $context->getExpressionCompiler();
 
-        if (count($stmt->declares) > 0) {
-            foreach ($stmt->declares as $declare) {
-                $compiler->compile($declare->value);
-            }
+        foreach ($stmt->declares as $declare) {
+            $compiler->compile($declare->value);
         }
 
-        if (count($stmt->stmts) > 0) {
-            foreach ($stmt->stmts as $stmt) {
-                \PHPSA\nodeVisitorFactory($stmt, $context);
-            }
+        foreach ($stmt->stmts as $stmt) {
+            \PHPSA\nodeVisitorFactory($stmt, $context);
         }
     }
 }

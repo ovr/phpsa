@@ -91,6 +91,7 @@ class Factory
             AnalyzerPass\Statement\MissingDocblock::class,
             AnalyzerPass\Statement\OldConstructor::class,
             AnalyzerPass\Statement\ConstantNaming::class,
+            AnalyzerPass\Statement\MissingBody::class,
             AnalyzerPass\Statement\InlineHtmlUsage::class,
             AnalyzerPass\Statement\AssignmentInCondition::class,
             AnalyzerPass\Statement\StaticUsage::class,

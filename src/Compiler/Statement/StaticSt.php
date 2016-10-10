@@ -18,10 +18,8 @@ class StaticSt extends AbstractCompiler
     {
         $compiler = $context->getExpressionCompiler();
 
-        if (count($stmt->vars) > 0) {
-            foreach ($stmt->vars as $var) {
-                $compiler->compile($var->default);
-            }
+        foreach ($stmt->vars as $var) {
+            $compiler->compile($var->default);
         }
     }
 }

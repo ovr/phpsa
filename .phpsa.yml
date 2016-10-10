@@ -65,6 +65,8 @@ phpsa:
             enabled:              true
         missing_visibility:
             enabled:              true
+        missing_body:
+            enabled:              true
         method_cannot_return:
             enabled:              true
         unexpected_use_of_this:

@@ -21,10 +21,8 @@ class EchoSt extends AbstractCompiler
     {
         $compiler = $context->getExpressionCompiler();
 
-        if (count($stmt->exprs) > 0) {
-            foreach ($stmt->exprs as $expr) {
-                $compiler->compile($expr);
-            }
+        foreach ($stmt->exprs as $expr) {
+            $compiler->compile($expr);
         }
     }
 }
