@@ -213,8 +213,17 @@ class Context
 
         $this->output->writeln('');
 
-        $this->application->getIssuesCollector()
-            ->addIssue($type, $message, basename($this->filepath), $expr->getLine() - 1);
+        $issueCollector = $this->application->getIssuesCollector();
+        $issueCollector->addIssue(
+            new Issue(
+                $type,
+                $message,
+                new IssueLocation(
+                    $this->filepath,
+                    $expr->getLine() - 1
+                )
+            )
+        );
 
         return true;
     }
@@ -233,8 +242,17 @@ class Context
         $this->output->writeln('<error>Syntax error:  ' . $exception->getMessage() . " in {$filepath} </error>");
         $this->output->writeln('');
 
-        $this->application->getIssuesCollector()
-            ->addIssue('syntax-error', 'syntax-error', $filepath, $exception->getStartLine() - 2);
+        $issueCollector = $this->application->getIssuesCollector();
+        $issueCollector->addIssue(
+            new Issue(
+                'syntax-error',
+                'syntax-error',
+                new IssueLocation(
+                    $filepath,
+                    $exception->getStartLine() - 2
+                )
+            )
+        );
 
         $code = trim($code[$exception->getStartLine()-2]);
         $this->output->writeln("<comment>\t {$code} </comment>");

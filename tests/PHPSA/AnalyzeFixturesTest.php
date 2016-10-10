@@ -96,8 +96,8 @@ class AnalyzeFixturesTest extends TestCase
                 return [
                     'type' => $issue->getCheckName(),
                     'message' => $issue->getDescription(),
-                    'file' => $location['path'],
-                    'line' => $location['lines']['begin'],
+                    'file' => $location->getFileName(),
+                    'line' => $location->getLineStart(),
                 ];
             },
             $application->getIssuesCollector()->getIssues()

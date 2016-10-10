@@ -101,17 +101,17 @@ class Issue
     /**
      * Required. A Location object representing the place in the source code where the issue was discovered.
      *
-     * @var string
+     * @var IssueLocation
      */
     protected $location;
 
     /**
      * @param string $checkName
      * @param string $description
-     * @param array $location
+     * @param IssueLocation $location
      * @param array $categories
      */
-    public function __construct($checkName, $description, array $location, array $categories = [self::CATEGORY_BUG_RISK])
+    public function __construct($checkName, $description, IssueLocation $location, array $categories = [self::CATEGORY_BUG_RISK])
     {
         $this->checkName = $checkName;
         $this->description = $description;
@@ -128,13 +128,13 @@ class Issue
             'type' => $this->type,
             'check_name' => $this->checkName,
             'description' => $this->description,
-            'location' => $this->location,
+            'location' => $this->location->toArray(),
             'categories' => $this->categories,
         ];
     }
 
     /**
-     * @return string
+     * @return IssueLocation
      */
     public function getLocation()
     {

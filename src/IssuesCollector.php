@@ -13,24 +13,11 @@ class IssuesCollector
     protected $issues = [];
 
     /**
-     * @param int $type
-     * @param string $message
-     * @param string $file
-     * @param int $line
+     * @param Issue $issue
      */
-    public function addIssue($type, $message, $file, $line)
+    public function addIssue(Issue $issue)
     {
-        $this->issues[] = new Issue(
-            $type,
-            $message,
-            [
-                'path' => $file,
-                'lines' => [
-                    'begin' => $line,
-                    'end' => $line,
-                ]
-            ]
-        );
+        $this->issues[] = $issue;
     }
 
     /**
