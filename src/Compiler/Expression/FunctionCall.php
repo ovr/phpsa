@@ -116,23 +116,21 @@ class FunctionCall extends AbstractExpressionCompiler
 
     protected function checkArguments(array $arguments, $functionReflection)
     {
-        if (count($arguments) > 0) {
-            foreach ($arguments as $key => $argument) {
-                $parameter = $functionReflection->getParameter($key);
-                $paramType = $parameter->getType();
-                $argumentType = $argument->getType();
+        foreach ($arguments as $key => $argument) {
+            $parameter = $functionReflection->getParameter($key);
+            $paramType = $parameter->getType();
+            $argumentType = $argument->getType();
 
-                $numberTypes = [CompiledExpression::INTEGER, CompiledExpression::DOUBLE];
-                $callableTypes = [CompiledExpression::STRING, CompiledExpression::ARR];
+            $numberTypes = [CompiledExpression::INTEGER, CompiledExpression::DOUBLE];
+            $callableTypes = [CompiledExpression::STRING, CompiledExpression::ARR];
 
-                // the paramtype is equal to the argument type or mixed
-                // or paramtype is number and argumenttype is integer, double
-                // or paramtype is callable and argumenttype is string, array
-                if (!($paramType == $argumentType || $paramType == CompiledExpression::MIXED)
-                && !($paramType == CompiledExpression::NUMBER && in_array($argumentType, $numberTypes))
-                && !($paramType == CompiledExpression::CALLABLE_TYPE && in_array($argumentType, $callableTypes))) {
-                    return false;
-                }
+            // the paramtype is equal to the argument type or mixed
+            // or paramtype is number and argumenttype is integer, double
+            // or paramtype is callable and argumenttype is string, array
+            if (!($paramType == $argumentType || $paramType == CompiledExpression::MIXED)
+            && !($paramType == CompiledExpression::NUMBER && in_array($argumentType, $numberTypes))
+            && !($paramType == CompiledExpression::CALLABLE_TYPE && in_array($argumentType, $callableTypes))) {
+                return false;
             }
         }
 
