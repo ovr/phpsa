@@ -37,10 +37,10 @@ class UnexpectedUseOfThis implements Pass\AnalyzerPassInterface
         }
 
         if ($stmt instanceof Stmt\Unset_) {
-            $result = $this->inspectUnset($stmt, $context) || $result;
+            return $this->inspectUnset($stmt, $context) || $result;
         }
 
-        return $result;
+        return false;
     }
 
     /**
