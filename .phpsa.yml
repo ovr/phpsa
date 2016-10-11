@@ -85,6 +85,8 @@ phpsa:
             enabled:              true
         static_usage:
             enabled:              true
+        stupid_unary_operators:
+            enabled:              true
         optional_param_before_required:
             enabled:              true
         yoda_condition:
