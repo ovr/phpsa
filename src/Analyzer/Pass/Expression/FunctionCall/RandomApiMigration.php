@@ -10,11 +10,11 @@ use PHPSA\Context;
 
 class RandomApiMigration extends AbstractFunctionCallAnalyzer
 {
-    protected $map = array(
+    protected $map = [
         'rand' => 'mt_rand',
         'srand' => 'mt_srand',
         'getrandmax' => 'mt_getrandmax'
-    );
+    ];
 
     public function pass(FuncCall $funcCall, Context $context)
     {

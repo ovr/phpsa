@@ -3,11 +3,14 @@
 namespace PHPSA\Analyzer\Pass\Expression;
 
 use PhpParser\Node\Expr;
+use PHPSA\Analyzer\Helper\DefaultMetadataPassTrait;
 use PHPSA\Analyzer\Pass\AnalyzerPassInterface;
 use PHPSA\Context;
 
 class CompareWithArray implements AnalyzerPassInterface
 {
+    use DefaultMetadataPassTrait;
+
     /**
      * @param Expr $expr
      * @param Context $context

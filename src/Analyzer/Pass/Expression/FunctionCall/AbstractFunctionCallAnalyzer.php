@@ -5,12 +5,14 @@
 
 namespace PHPSA\Analyzer\Pass\Expression\FunctionCall;
 
+use PHPSA\Analyzer\Helper\DefaultMetadataPassTrait;
 use PHPSA\Analyzer\Helper\ResolveExpressionTrait;
 use PHPSA\Analyzer\Pass\AnalyzerPassInterface;
 
 abstract class AbstractFunctionCallAnalyzer implements PassFunctionCallInterface, AnalyzerPassInterface
 {
     use ResolveExpressionTrait;
+    use DefaultMetadataPassTrait;
 
     /**
      * @return array

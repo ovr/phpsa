@@ -6,13 +6,14 @@
 namespace PHPSA\Analyzer\Pass\Statement;
 
 use PhpParser\Node\Stmt\ClassMethod;
+use PHPSA\Analyzer\Helper\DefaultMetadataPassTrait;
 use PHPSA\Analyzer\Helper\ResolveExpressionTrait;
-use PHPSA\Analyzer\Pass\AnalyzerPassInterface;
-use PHPSA\Analyzer\Pass\ConfigurablePassInterface;
+use PHPSA\Analyzer\Pass;
 use PHPSA\Context;
 
-class MethodCannotReturn implements AnalyzerPassInterface
+class MethodCannotReturn implements Pass\AnalyzerPassInterface
 {
+    use DefaultMetadataPassTrait;
     use ResolveExpressionTrait;
 
     /**

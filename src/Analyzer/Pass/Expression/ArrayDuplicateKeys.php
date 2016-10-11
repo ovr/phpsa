@@ -6,12 +6,20 @@
 namespace PHPSA\Analyzer\Pass\Expression;
 
 use PhpParser\Node\Expr;
-use PhpParser\Node\Scalar;
+use PHPSA\Analyzer\Helper\DefaultMetadataPassTrait;
 use PHPSA\Analyzer\Pass;
 use PHPSA\Context;
 
 class ArrayDuplicateKeys implements Pass\AnalyzerPassInterface
 {
+    use DefaultMetadataPassTrait;
+
+    const DESCRIPTION = <<<DESC
+This inspection reports any duplicated keys on array creation expression.
+If multiple elements in the array declaration use the same key, only the last
+one will be used as all others are overwritten.
+DESC;
+
     /**
      * @param Expr\Array_ $expr
      * @param Context $context

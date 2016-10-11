@@ -5,11 +5,14 @@ namespace PHPSA\Analyzer\Pass\Statement;
 use PhpParser\Node\Stmt;
 use PhpParser\Node;
 use PhpParser\Node\Stmt\Global_;
+use PHPSA\Analyzer\Helper\DefaultMetadataPassTrait;
 use PHPSA\Analyzer\Pass;
 use PHPSA\Context;
 
 class GlobalUsage implements Pass\AnalyzerPassInterface
 {
+    use DefaultMetadataPassTrait;
+
     /**
      * @param $stmt
      * @param Context $context

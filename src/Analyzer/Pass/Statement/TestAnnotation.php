@@ -4,11 +4,13 @@ namespace PHPSA\Analyzer\Pass\Statement;
 
 use phpDocumentor\Reflection\DocBlockFactory;
 use PhpParser\Node\Stmt\ClassMethod;
+use PHPSA\Analyzer\Helper\DefaultMetadataPassTrait;
 use PHPSA\Analyzer\Pass\AnalyzerPassInterface;
 use PHPSA\Context;
 
 class TestAnnotation implements AnalyzerPassInterface
 {
+    use DefaultMetadataPassTrait;
 
     /** @var DocBlockFactory */
     protected $docBlockFactory;

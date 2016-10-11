@@ -5,8 +5,6 @@
 
 namespace PHPSA;
 
-use PHPSA\Command\CheckCommand;
-
 class Application extends \Symfony\Component\Console\Application
 {
     /**
@@ -33,7 +31,8 @@ class Application extends \Symfony\Component\Console\Application
     {
         parent::__construct('PHP Smart Analyzer', $this->getStringVersion());
 
-        $this->add(new CheckCommand());
+        $this->add(new Command\CheckCommand());
+        $this->add(new Command\DumpReferenceCommand());
 
         $this->issuesCollector = new IssuesCollector();
         $this->configuration = new Configuration();

@@ -10,13 +10,13 @@ use PHPSA\Context;
 
 class UseCast extends AbstractFunctionCallAnalyzer
 {
-    protected $map = array(
+    protected $map = [
         'boolval' => 'bool',
         'intval' => 'int',
         'floatval' => 'double',
         'doubleval' => 'double',
         'strval' => 'string'
-    );
+    ];
 
     public function pass(FuncCall $funcCall, Context $context)
     {

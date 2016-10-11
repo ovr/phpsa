@@ -43,7 +43,8 @@ class CheckCommand extends Command
         $this
             ->setName('check')
             ->setDescription('SPA')
-            ->addOption('blame', null, InputOption::VALUE_OPTIONAL, 'Git blame author for bad code ;)', -1)
+            ->addOption('blame', null, InputOption::VALUE_NONE, 'Git blame author for bad code ;)')
+            ->addOption('config-file', null, InputOption::VALUE_REQUIRED, 'Path to the configuration file.')
             ->addArgument('path', InputArgument::OPTIONAL, 'Path to check file or directory', '.')
             ->addOption(
                 'report-json',
@@ -88,25 +89,19 @@ class CheckCommand extends Command
         $application = $this->getApplication();
         $application->compiler = new Compiler();
 
-        $loader = new ConfigurationLoader(new FileLocator([
-            realpath($input->getArgument('path')) . DIRECTORY_SEPARATOR
-        ]));
-
-        $application->configuration = new Configuration(
-            $loader->load('.phpsa.yml')
-        );
+        $configFile = $input->getOption('config-file') ?: '.phpsa.yml';
+        $configDir = realpath($input->getArgument('path'));
+        $application->configuration = $this->loadConfiguration($configFile, $configDir);
 
         $em = EventManager::getInstance();
-        Analyzer\Factory::factory($em);
-
+        Analyzer\Factory::factory($em, $application->configuration);
         $context = new Context($output, $application, $em);
 
         /**
          * Store option's in application's configuration
          */
-        $blame = $input->getOption('blame');
-        if ($blame === -1) {
-            $application->configuration->setValue('blame', $blame);
+        if ($input->getOption('blame')) {
+            $application->configuration->setValue('blame', true);
         }
 
         $fileParser = new FileParser(
@@ -188,5 +183,24 @@ class CheckCommand extends Command
     protected function getCompiler()
     {
         return $this->getApplication()->compiler;
+    }
+
+    /**
+     * @param string $configFile
+     * @param string $configurationDirectory
+     *
+     * @return Configuration
+     */
+    protected function loadConfiguration($configFile, $configurationDirectory)
+    {
+        $loader = new ConfigurationLoader(new FileLocator([
+            getcwd(),
+            $configurationDirectory
+        ]));
+
+        return new Configuration(
+            $loader->load($configFile),
+            Analyzer\Factory::getPassesConfigurations()
+        );
     }
 }

@@ -6,11 +6,14 @@
 namespace PHPSA\Analyzer\Pass\Expression;
 
 use PhpParser\Node\Expr\BooleanNot;
+use PHPSA\Analyzer\Helper\DefaultMetadataPassTrait;
 use PHPSA\Analyzer\Pass\AnalyzerPassInterface;
 use PHPSA\Context;
 
 class LogicInversion implements AnalyzerPassInterface
 {
+    use DefaultMetadataPassTrait;
+
     protected $map = [
         'Expr_BinaryOp_Equal' => ['!=', '=='],
         'Expr_BinaryOp_NotEqual' => ['==', '!='],

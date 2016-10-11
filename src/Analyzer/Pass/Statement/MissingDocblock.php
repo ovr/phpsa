@@ -3,11 +3,14 @@
 namespace PHPSA\Analyzer\Pass\Statement;
 
 use PhpParser\Node\Stmt;
+use PHPSA\Analyzer\Helper\DefaultMetadataPassTrait;
 use PHPSA\Analyzer\Pass\AnalyzerPassInterface;
 use PHPSA\Context;
 
 class MissingDocblock implements AnalyzerPassInterface
 {
+    use DefaultMetadataPassTrait;
+
     /**
      * @param Stmt $stmt
      * @param Context $context

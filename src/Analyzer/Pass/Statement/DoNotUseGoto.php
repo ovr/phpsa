@@ -2,28 +2,23 @@
 
 namespace PHPSA\Analyzer\Pass\Statement;
 
-use PhpParser\Node\Stmt\Static_;
+use PhpParser\Node\Stmt;
 use PHPSA\Analyzer\Helper\DefaultMetadataPassTrait;
 use PHPSA\Analyzer\Pass;
 use PHPSA\Context;
 
-class StaticUsage implements Pass\AnalyzerPassInterface
+class DoNotUseGoto implements Pass\AnalyzerPassInterface
 {
     use DefaultMetadataPassTrait;
 
     /**
-     * @param Static_ $stmt
+     * @param Stmt\Goto_ $stmt
      * @param Context $context
-     *
      * @return bool
      */
-    public function pass(Static_ $stmt, Context $context)
+    public function pass(Stmt\Goto_ $stmt, Context $context)
     {
-        $context->notice(
-            'static_usage',
-            'Do not use static variable scoping',
-            $stmt
-        );
+        $context->notice('do_not_use_goto', 'Do not use goto statements', $stmt);
 
         return true;
     }
@@ -34,7 +29,7 @@ class StaticUsage implements Pass\AnalyzerPassInterface
     public function getRegister()
     {
         return [
-            Static_::class,
+            Stmt\Goto_::class,
         ];
     }
 }

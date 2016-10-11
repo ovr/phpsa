@@ -8,6 +8,11 @@ namespace PHPSA\Analyzer\Pass;
 interface AnalyzerPassInterface
 {
     /**
+     * @return Metadata
+     */
+    public static function getMetadata();
+
+    /**
      * @return array
      */
     public function getRegister();

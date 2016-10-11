@@ -6,11 +6,14 @@
 namespace PHPSA\Analyzer\Pass\Expression;
 
 use PhpParser\Node\Expr;
-use PHPSA\Analyzer\Pass;
+use PHPSA\Analyzer\Helper\DefaultMetadataPassTrait;
+use PHPSA\Analyzer\Pass\AnalyzerPassInterface;
 use PHPSA\Context;
 
-class ArrayIllegalOffsetType implements Pass\AnalyzerPassInterface
+class ArrayIllegalOffsetType implements AnalyzerPassInterface
 {
+    use DefaultMetadataPassTrait;
+
     /**
      * @param Expr\Array_|Expr\Assign $expr
      * @param Context $context

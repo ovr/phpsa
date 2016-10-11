@@ -3,12 +3,15 @@
 namespace PHPSA\Analyzer\Pass\Expression;
 
 use PhpParser\Node\Expr;
+use PHPSA\Analyzer\Helper\DefaultMetadataPassTrait;
 use PHPSA\Analyzer\Pass\AnalyzerPassInterface;
 use PHPSA\Context;
 use PHPSA\CompiledExpression;
 
 class Casts implements AnalyzerPassInterface
 {
+    use DefaultMetadataPassTrait;
+
     /**
      * @param Expr $expr
      * @param Context $context
@@ -42,7 +45,7 @@ class Casts implements AnalyzerPassInterface
         $compiledExpression = $context->getExpressionCompiler()->compile($expr->expr);
         $exprType = $compiledExpression->getType();
         $typeName = $compiledExpression->getTypeName();
-        
+
         if ($castType === $exprType) {
             $context->notice(
                 'stupid.cast',
@@ -58,7 +61,7 @@ class Casts implements AnalyzerPassInterface
             );
             return true;
         }
-        
+
         return false;
     }
 

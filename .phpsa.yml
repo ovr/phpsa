@@ -1,1 +1,90 @@
-blame: true
+phpsa:
+    blame:                false
+
+    # Will be used to automatically disable the analyzers that require a greater version of PHP.
+    language_level:       '7.0' # Example: 5.3
+    parser:               prefer-7 # One of "prefer-7"; "prefer-5"; "only-7"; "only-5"
+    analyzers:
+        error_suppression:
+            enabled:              true
+        multiple_unary_operators:
+            enabled:              true
+        variable_variable_usage:
+            enabled:              true
+        casts:
+            enabled:              true
+        eval_usage:
+            enabled:              true
+        final_static_usage:
+            enabled:              true
+        compare_with_array:
+            enabled:              true
+        backtick_usage:
+            enabled:              true
+        logic_inversion:
+            enabled:              true
+        exit_usage:
+            enabled:              true
+
+        # Short syntax can be used in array literals.
+        array_short_definition:
+            enabled:              true
+
+        # This inspection reports any duplicated keys on array creation expression.
+        # If multiple elements in the array declaration use the same key, only the last
+        # one will be used as all others are overwritten.
+        array_duplicate_keys:
+            enabled:              true
+        array_illegal_offset_type:
+            enabled:              true
+        alias_check:
+            enabled:              true
+        debug_code:
+            enabled:              true
+        random_api_migration:
+            enabled:              true
+        use_cast:
+            enabled:              true
+        deprecated_ini_options:
+            enabled:              true
+        regular_expressions:
+            enabled:              true
+        argument_unpacking:
+            enabled:              true
+        deprecated_functions:
+            enabled:              true
+        magic_method_parameters:
+            enabled:              true
+        goto_usage:
+            enabled:              true
+        global_usage:
+            enabled:              true
+        has_more_than_one_property:
+            enabled:              true
+        missing_break_statement:
+            enabled:              true
+        missing_visibility:
+            enabled:              true
+        method_cannot_return:
+            enabled:              true
+        unexpected_use_of_this:
+            enabled:              true
+        test_annotation:
+            enabled:              true
+        missing_docblock:
+            enabled:              true
+        old_constructor:
+            enabled:              true
+        constant_naming:
+            enabled:              true
+        inline_html_usage:
+            enabled:              true
+        assignment_in_condition:
+            enabled:              true
+        static_usage:
+            enabled:              true
+        optional_param_before_required:
+            enabled:              true
+        yoda_condition:
+            enabled:              true
+

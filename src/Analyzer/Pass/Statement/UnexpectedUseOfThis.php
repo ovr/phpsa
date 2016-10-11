@@ -7,11 +7,14 @@ namespace PHPSA\Analyzer\Pass\Statement;
 
 use PhpParser\Node\Stmt;
 use PhpParser\Node;
+use PHPSA\Analyzer\Helper\DefaultMetadataPassTrait;
 use PHPSA\Analyzer\Pass;
 use PHPSA\Context;
 
 class UnexpectedUseOfThis implements Pass\AnalyzerPassInterface
 {
+    use DefaultMetadataPassTrait;
+
     /**
      * @param Node\Stmt $stmt
      * @param Context $context

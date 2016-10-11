@@ -6,12 +6,18 @@
 namespace PHPSA\Analyzer\Pass\Expression;
 
 use PhpParser\Node\Expr;
+use PHPSA\Analyzer\Helper\DefaultMetadataPassTrait;
 use PHPSA\Analyzer\Pass\AnalyzerPassInterface;
 use PHPSA\Context;
-use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 
 class ArrayShortDefinition implements AnalyzerPassInterface
 {
+    use DefaultMetadataPassTrait {
+        DefaultMetadataPassTrait::getMetadata as defaultMetadata;
+    }
+
+    const DESCRIPTION = 'Short syntax can be used in array literals.';
+
     /**
      * @param Expr\Array_ $expr
      * @param Context $context
@@ -40,5 +46,16 @@ class ArrayShortDefinition implements AnalyzerPassInterface
         return [
             Expr\Array_::class
         ];
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public static function getMetadata()
+    {
+        $metadata = self::defaultMetadata();
+        $metadata->setRequiredPhpVersion('5.4');
+
+        return $metadata;
     }
 }

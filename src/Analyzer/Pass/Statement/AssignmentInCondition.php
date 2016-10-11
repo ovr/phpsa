@@ -14,11 +14,14 @@ use PhpParser\Node\Stmt\If_;
 use PhpParser\Node\Stmt\Case_;
 use PhpParser\Node\Stmt\While_;
 use PhpParser\Node\Stmt\For_;
+use PHPSA\Analyzer\Helper\DefaultMetadataPassTrait;
 use PHPSA\Analyzer\Pass;
 use PHPSA\Context;
 
 class AssignmentInCondition implements Pass\AnalyzerPassInterface
 {
+    use DefaultMetadataPassTrait;
+
     /**
      * @param $stmt
      * @param Context $context

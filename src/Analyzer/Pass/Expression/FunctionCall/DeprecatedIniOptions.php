@@ -10,14 +10,14 @@ use PHPSA\Context;
 
 class DeprecatedIniOptions extends AbstractFunctionCallAnalyzer
 {
-    static protected $functions = array(
+    static protected $functions = [
         'ini_set' => 'ini_set',
         'ini_get' => 'ini_get',
         'ini_alter' => 'ini_alter',
         'ini_restore' => 'ini_restore'
-    );
+    ];
 
-    static protected $deprecatedOptions = array(
+    static protected $deprecatedOptions = [
         'asp_tags' => 'is a deprecated option since PHP 7.0.0',
         'always_populate_raw_post_data' => 'is a deprecated option since PHP 7.0.0',
         //
@@ -49,7 +49,7 @@ class DeprecatedIniOptions extends AbstractFunctionCallAnalyzer
         'safe_mode_exec_dir' => 'is a deprecated option since PHP 5.3.0 (removed in PHP 5.4.0)',
         'safe_mode_allowed_env_vars' => 'is a deprecated option since PHP 5.3.0 (removed in PHP 5.4.0)',
         'safe_mode_protected_env_vars' => 'is a deprecated option since PHP 5.3.0 (removed in PHP 5.4.0)'
-    );
+    ];
 
     public function pass(FuncCall $funcCall, Context $context)
     {
