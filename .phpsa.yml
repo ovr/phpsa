@@ -23,6 +23,8 @@ phpsa:
             enabled:              true
         logic_inversion:
             enabled:              true
+        exit_usage:
+            enabled:              true
 
         # Short syntax can be used in array literals.
         array_short_definition:
@@ -40,6 +42,16 @@ phpsa:
         debug_code:
             enabled:              true
         random_api_migration:
+            enabled:              true
+        use_cast:
+            enabled:              true
+        deprecated_ini_options:
+            enabled:              true
+        regular_expressions:
+            enabled:              true
+        argument_unpacking:
+            enabled:              true
+        deprecated_functions:
             enabled:              true
         magic_method_parameters:
             enabled:              true
@@ -72,5 +84,7 @@ phpsa:
         static_usage:
             enabled:              true
         optional_param_before_required:
+            enabled:              true
+        yoda_condition:
             enabled:              true
 
