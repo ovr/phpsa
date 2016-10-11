@@ -134,6 +134,10 @@ Checks that regular expressions are syntactically correct.
 
 Discourages the use of static variables (not properties).
 
+#### StupidUnaryOperators
+
+Checks for use of UnaryPlus `+$a` and suggests to use an int or float cast instead.
+
 #### TestAnnotation
 
 Checks for use of `@test` when methods name begins with test, since it is unnecessary.
