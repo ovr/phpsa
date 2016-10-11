@@ -40,7 +40,7 @@ trait ResolveExpressionTrait
      * @param \PhpParser\Node[] $nodes
      * @return \Generator
      */
-    protected function findReturnStatement(array $nodes)
+    protected function findStatement(array $nodes, $stmtClass)
     {
         return $this->findNode($nodes, Return_::class);
     }
@@ -64,10 +64,19 @@ trait ResolveExpressionTrait
     protected function findNode(array $nodes, $nodeName)
     {
         foreach ($this->traverseArray($nodes) as $node) {
-            if (get_class($node) === $nodeName) {
+            if ($node instanceof $stmtClass) {
                 yield $node;
             }
         }
+    }
+
+    /**
+     * @param \PhpParser\Node[] $nodes
+     * @return \PhpParser\Node\Stmt\Return_
+     */
+    protected function findReturnStatement(array $nodes)
+    {
+        return $this->findStatement($nodes, Return_::class);
     }
 
     /**
