@@ -26,32 +26,14 @@ class SpaceShip extends AbstractExpressionCompiler
         $left = $context->getExpressionCompiler()->compile($expr->left);
         $right = $context->getExpressionCompiler()->compile($expr->right);
 
-        switch ($left->getType()) {
-            case CompiledExpression::INTEGER:
-            case CompiledExpression::DOUBLE:
-            case CompiledExpression::BOOLEAN:
-            case CompiledExpression::NUMBER:
-            case CompiledExpression::NULL:
-            case CompiledExpression::ARR:
-            case CompiledExpression::OBJECT:
-            case CompiledExpression::STRING:
-                switch ($right->getType()) {
-                    case CompiledExpression::INTEGER:
-                    case CompiledExpression::DOUBLE:
-                    case CompiledExpression::BOOLEAN:
-                    case CompiledExpression::NUMBER:
-                    case CompiledExpression::NULL:
-                    case CompiledExpression::ARR:
-                    case CompiledExpression::OBJECT:
-                    case CompiledExpression::STRING:
-                        if ($left->getValue() == $right->getValue()) {
-                            return new CompiledExpression(CompiledExpression::INTEGER, 0);
-                        } elseif ($left->getValue() < $right->getValue()) {
-                            return new CompiledExpression(CompiledExpression::INTEGER, -1);
-                        } elseif ($left->getValue() > $right->getValue()) {
-                            return new CompiledExpression(CompiledExpression::INTEGER, 1);
-                        }
-                }
+        if ($left->isTypeKnown() && $right->isTypeKnown()) {
+            if ($left->getValue() == $right->getValue()) {
+                return new CompiledExpression(CompiledExpression::INTEGER, 0);
+            } elseif ($left->getValue() < $right->getValue()) {
+                return new CompiledExpression(CompiledExpression::INTEGER, -1);
+            } elseif ($left->getValue() > $right->getValue()) {
+                return new CompiledExpression(CompiledExpression::INTEGER, 1);
+            }
         }
 
         return new CompiledExpression();

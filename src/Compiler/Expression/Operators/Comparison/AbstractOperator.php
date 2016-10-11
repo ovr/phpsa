@@ -30,17 +30,10 @@ abstract class AbstractOperator extends AbstractExpressionCompiler
         $left = $context->getExpressionCompiler()->compile($expr->left);
         $right = $context->getExpressionCompiler()->compile($expr->right);
 
-        switch ($left->getType()) {
-            case CompiledExpression::INTEGER:
-            case CompiledExpression::DOUBLE:
-                switch ($right->getType()) {
-                    case CompiledExpression::INTEGER:
-                    case CompiledExpression::DOUBLE:
-                        return new CompiledExpression(
-                            CompiledExpression::BOOLEAN,
-                            $this->compare($left->getValue(), $right->getValue())
-                        );
-                }
+        if ($left->isTypeKnown() && $right->isTypeKnown()) {
+            return CompiledExpression::fromZvalValue(
+                $this->compare($left->getValue(), $right->getValue())
+            );
         }
 
         return new CompiledExpression();

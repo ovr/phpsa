@@ -23,28 +23,10 @@ class BooleanAnd extends AbstractExpressionCompiler
         $left = $context->getExpressionCompiler()->compile($expr->left);
         $right = $context->getExpressionCompiler()->compile($expr->right);
 
-        switch ($left->getType()) {
-            case CompiledExpression::INTEGER:
-            case CompiledExpression::DOUBLE:
-            case CompiledExpression::STRING:
-            case CompiledExpression::BOOLEAN:
-            case CompiledExpression::NULL:
-            case CompiledExpression::ARR:
-            case CompiledExpression::OBJECT:
-            case CompiledExpression::NUMBER:
-                switch ($right->getType()) {
-                    case CompiledExpression::INTEGER:
-                    case CompiledExpression::DOUBLE:
-                    case CompiledExpression::STRING:
-                    case CompiledExpression::BOOLEAN:
-                    case CompiledExpression::NULL:
-                    case CompiledExpression::ARR:
-                    case CompiledExpression::OBJECT:
-                    case CompiledExpression::NUMBER:
-                        return CompiledExpression::fromZvalValue(
-                            $left->getValue() && $right->getValue()
-                        );
-                }
+        if ($left->isTypeKnown() && $right->isTypeKnown()) {
+            return CompiledExpression::fromZvalValue(
+                $left->getValue() && $right->getValue()
+            );
         }
 
         return new CompiledExpression();

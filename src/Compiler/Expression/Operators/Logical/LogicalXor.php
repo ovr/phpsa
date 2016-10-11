@@ -23,28 +23,10 @@ class LogicalXor extends AbstractExpressionCompiler
         $left = $context->getExpressionCompiler()->compile($expr->left);
         $right = $context->getExpressionCompiler()->compile($expr->right);
 
-        switch ($left->getType()) {
-            case CompiledExpression::INTEGER:
-            case CompiledExpression::DOUBLE:
-            case CompiledExpression::STRING:
-            case CompiledExpression::BOOLEAN:
-            case CompiledExpression::NULL:
-            case CompiledExpression::ARR:
-            case CompiledExpression::NUMBER:
-            case CompiledExpression::OBJECT:
-                switch ($right->getType()) {
-                    case CompiledExpression::INTEGER:
-                    case CompiledExpression::DOUBLE:
-                    case CompiledExpression::STRING:
-                    case CompiledExpression::BOOLEAN:
-                    case CompiledExpression::NULL:
-                    case CompiledExpression::ARR:
-                    case CompiledExpression::NUMBER:
-                    case CompiledExpression::OBJECT:
-                        return CompiledExpression::fromZvalValue(
-                            $left->getValue() xor $right->getValue()
-                        );
-                }
+        if ($left->isTypeKnown() && $right->isTypeKnown()) {
+            return CompiledExpression::fromZvalValue(
+                $left->getValue() xor $right->getValue()
+            );
         }
 
         return new CompiledExpression();

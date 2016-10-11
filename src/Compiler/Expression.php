@@ -288,8 +288,6 @@ class Expression
                  * @todo Better compile
                  */
                 return $this->compile($expr->value);
-            case Node\Stmt\Property::class:
-                return $this->passProperty($expr);
 
             /**
              * Expressions
@@ -331,11 +329,9 @@ class Expression
     }
 
     /**
-     * @todo Implement - needs to be a new analyzer for var docblock
+     * @todo Implement - does not belong in this file
      *
      * @param Node\Stmt\Property $st
-     * @return CompiledExpression
-     */
     public function passProperty(Node\Stmt\Property $st)
     {
         $docBlock = $st->getDocComment();
@@ -347,7 +343,6 @@ class Expression
 
         $varTags = $phpdoc->getTagsByName('var');
         if ($varTags) {
-            /** @var \phpDocumentor\Reflection\DocBlock\Tag\VarTag $varTag */
             $varTag = current($varTags);
 
             $typeResolver = new \phpDocumentor\Reflection\TypeResolver();
@@ -390,6 +385,8 @@ class Expression
 
         return new CompiledExpression();
     }
+*/
+
 
     /**
      * @param Node\Expr\Variable $expr
@@ -416,7 +413,7 @@ class Expression
     {
         $this->context->debug('Unimplemented FullyQualified', $expr);
 
-        return new CompiledExpression;
+        return new CompiledExpression();
     }
 
     /**

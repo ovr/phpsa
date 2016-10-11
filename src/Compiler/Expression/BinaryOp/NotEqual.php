@@ -29,33 +29,12 @@ class NotEqual extends AbstractExpressionCompiler
         $left = $context->getExpressionCompiler()->compile($expr->left);
         $right = $context->getExpressionCompiler()->compile($expr->right);
 
-        switch ($left->getType()) {
-            case CompiledExpression::INTEGER:
-            case CompiledExpression::DOUBLE:
-            case CompiledExpression::BOOLEAN:
-            case CompiledExpression::ARR:
-            case CompiledExpression::OBJECT:
-            case CompiledExpression::STRING:
-            case CompiledExpression::NUMBER:
-            case CompiledExpression::RESOURCE:
-            case CompiledExpression::CALLABLE_TYPE:
-            case CompiledExpression::NULL:
-                switch ($right->getType()) {
-                    case CompiledExpression::INTEGER:
-                    case CompiledExpression::DOUBLE:
-                    case CompiledExpression::BOOLEAN:
-                    case CompiledExpression::ARR:
-                    case CompiledExpression::OBJECT:
-                    case CompiledExpression::STRING:
-                    case CompiledExpression::NUMBER:
-                    case CompiledExpression::RESOURCE:
-                    case CompiledExpression::CALLABLE_TYPE:
-                    case CompiledExpression::NULL:
-                        return CompiledExpression::fromZvalValue(
-                            $left->getValue() != $right->getValue()
-                        );
-                }
+        if ($left->isTypeKnown() && $right->isTypeKnown()) {
+            return CompiledExpression::fromZvalValue(
+                $left->getValue() != $right->getValue()
+            );
         }
+
 
         return new CompiledExpression();
     }

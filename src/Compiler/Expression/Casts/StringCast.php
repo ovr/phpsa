@@ -28,6 +28,8 @@ class StringCast extends AbstractExpressionCompiler
             case CompiledExpression::INTEGER:
             case CompiledExpression::NUMBER:
             case CompiledExpression::STRING:
+            case CompiledExpression::RESOURCE:
+            case CompiledExpression::NULL:
                 return new CompiledExpression(CompiledExpression::STRING, (string) $compiledExpression->getValue());
         }
 

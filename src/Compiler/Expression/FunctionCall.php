@@ -25,17 +25,19 @@ class FunctionCall extends AbstractExpressionCompiler
     {
         $expressionCompiler = $context->getExpressionCompiler();
         $fNameExpression = $expressionCompiler->compile($expr->name);
+        $name = $fNameExpression->getValue();
 
-        if ($fNameExpression->isCallable()) {
-            $value = $fNameExpression->getValue();
-            if ($value && $value instanceof ClosureDefinition) {
-                return $value->run($this->parseArgs($expr, clone $context), $context);
-            }
+        $compiler = $context->application->compiler;
+        $exists = false;
+        $arguments = $this->parseArgs($expr, clone $context);
+
+        // is it a Closure
+        if ($fNameExpression->isCallable() && $name instanceof ClosureDefinition) {
+            return $name->run($this->parseArgs($expr, clone $context), $context);
         }
 
-        if ($fNameExpression->isString() && $fNameExpression->isCorrectValue()) {
-            $name = $fNameExpression->getValue();
-        } else {
+        // is the function name a correct string
+        if (!$fNameExpression->isString() || !$fNameExpression->isCorrectValue()) {
             $context->debug(
                 'Unexpected function name type ' . $fNameExpression->getTypeName(),
                 $expr->name
@@ -44,164 +46,37 @@ class FunctionCall extends AbstractExpressionCompiler
             return new CompiledExpression();
         }
 
-        $compiler = $context->application->compiler;
-
-        $exists = false;
-        $namespace = null;
-
+        // namespace check for correct functionDefinition
         if ($context->scope) {
-            $namespace = $context->scope->getNamespace();
-        }
-
-        if ($namespace === null) {
-            $functionDefinition = $compiler->getFunction($name);
+            $functionDefinition = $compiler->getFunctionNS($name, $context->scope->getNamespace());
         } else {
-            $functionDefinition = $compiler->getFunctionNS($name, $namespace);
+            $functionDefinition = $compiler->getFunction($name);
         }
 
-        if (!$functionDefinition) {
-            $exists = function_exists($name);
-        }
-
+        // does the function exist
         if ($functionDefinition) {
             if (!$functionDefinition->isCompiled()) {
                 $functionDefinition->compile(clone $context);
             }
 
             $exists = true;
+        } else {
+            $exists = function_exists($name);
         }
 
-        $arguments = $this->parseArgs($expr, clone $context);
-
-        if (!$functionDefinition) {
+        if (!$exists) {
+            $context->notice(
+                'undefined-fcall',
+                sprintf('Function %s() does not exist', $expr->name->parts[0]),
+                $expr
+            );
+        } else {
             $reflector = new Reflector(Reflector::manuallyFactory());
             $functionReflection = $reflector->getFunction($name);
             if ($functionReflection) {
-                $argumentsSuccessPass = true;
+                $argumentsSuccessPass = $this->checkArguments($arguments, $functionReflection);
 
-                if (count($arguments) > 0) {
-                    foreach ($arguments as $key => $argument) {
-                        $parameter = $functionReflection->getParameter($key);
-                        if (!$parameter) {
-                            $argumentsSuccessPass = false;
-
-                            /**
-                             * @todo Think a little bit more about it
-                             */
-                            continue;
-                        }
-
-                        switch ($parameter->getType()) {
-                            case CompiledExpression::MIXED:
-                                //continue
-                                break;
-                            case CompiledExpression::INTEGER:
-                                switch ($argument->getType()) {
-                                    case CompiledExpression::INTEGER:
-                                        break;
-                                    default:
-                                        $argumentsSuccessPass = false;
-                                        break;
-                                }
-                                break;
-                            case CompiledExpression::DOUBLE:
-                                switch ($argument->getType()) {
-                                    case CompiledExpression::DOUBLE:
-                                        break;
-                                    default:
-                                        $argumentsSuccessPass = false;
-                                        break;
-                                }
-                                break;
-                            case CompiledExpression::NUMBER:
-                                switch ($argument->getType()) {
-                                    case CompiledExpression::INTEGER:
-                                    case CompiledExpression::STRING:
-                                    case CompiledExpression::NUMBER:
-                                        break;
-                                    default:
-                                        $argumentsSuccessPass = false;
-                                        break;
-                                }
-                                break;
-                            case CompiledExpression::RESOURCE:
-                                switch ($argument->getType()) {
-                                    case CompiledExpression::RESOURCE:
-                                        break;
-                                    default:
-                                        $argumentsSuccessPass = false;
-                                        break;
-                                }
-                                break;
-                            case CompiledExpression::ARR:
-                                switch ($argument->getType()) {
-                                    case CompiledExpression::ARR:
-                                        break;
-                                    default:
-                                        $argumentsSuccessPass = false;
-                                        break;
-                                }
-                                break;
-                            case CompiledExpression::STRING:
-                                switch ($argument->getType()) {
-                                    case CompiledExpression::STRING:
-                                        break;
-                                    default:
-                                        $argumentsSuccessPass = false;
-                                        break;
-                                }
-                                break;
-                            case CompiledExpression::OBJECT:
-                                switch ($argument->getType()) {
-                                    case CompiledExpression::OBJECT:
-                                        break;
-                                    default:
-                                        $argumentsSuccessPass = false;
-                                        break;
-                                }
-                                break;
-                            case CompiledExpression::BOOLEAN:
-                                switch ($argument->getType()) {
-                                    case CompiledExpression::OBJECT:
-                                        break;
-                                    default:
-                                        $argumentsSuccessPass = false;
-                                        break;
-                                }
-                                break;
-                            case CompiledExpression::CALLABLE_TYPE:
-                                switch ($argument->getType()) {
-                                    case CompiledExpression::CALLABLE_TYPE:
-                                        break;
-                                    case CompiledExpression::STRING:
-                                        /**
-                                         * @todo We need additional check on it
-                                         */
-                                        break;
-                                    /**
-                                     * array($this, 'method')
-                                     */
-                                    case CompiledExpression::ARR:
-                                        /**
-                                         * @todo We need additional check on it
-                                         */
-                                        break;
-                                    default:
-                                        $argumentsSuccessPass = false;
-                                        break;
-                                }
-                                break;
-                            default:
-                                $argumentsSuccessPass = false;
-                                break;
-                        }
-                    }
-                }
-
-                if (count($arguments) < $functionReflection->getNumberOfRequiredParameters()) {
-                    $argumentsSuccessPass = false;
-                }
-
+                // when everything is ok we run the function
                 if ($argumentsSuccessPass && $functionReflection->isRunnable()) {
                     array_walk(
                         $arguments,
@@ -221,14 +96,6 @@ class FunctionCall extends AbstractExpressionCompiler
             }
         }
 
-        if (!$exists) {
-            $context->notice(
-                'undefined-fcall',
-                sprintf('Function %s() does not exist', $expr->name->parts[0]),
-                $expr
-            );
-        }
-
         return new CompiledExpression();
     }
 
@@ -245,5 +112,33 @@ class FunctionCall extends AbstractExpressionCompiler
         }
 
         return $arguments;
+    }
+
+    protected function checkArguments(array $arguments, $functionReflection)
+    {
+        foreach ($arguments as $key => $argument) {
+            $parameter = $functionReflection->getParameter($key);
+            $paramType = $parameter->getType();
+            $argumentType = $argument->getType();
+
+            $numberTypes = [CompiledExpression::INTEGER, CompiledExpression::DOUBLE];
+            $callableTypes = [CompiledExpression::STRING, CompiledExpression::ARR];
+
+            // the paramtype is equal to the argument type or mixed
+            // or paramtype is number and argumenttype is integer, double
+            // or paramtype is callable and argumenttype is string, array
+            if (!($paramType == $argumentType || $paramType == CompiledExpression::MIXED)
+            && !($paramType == CompiledExpression::NUMBER && in_array($argumentType, $numberTypes))
+            && !($paramType == CompiledExpression::CALLABLE_TYPE && in_array($argumentType, $callableTypes))) {
+                return false;
+            }
+        }
+
+        // argumentcount != paramcount
+        if (count($arguments) != $functionReflection->getNumberOfRequiredParameters()) {
+            return false;
+        }
+
+        return true;
     }
 }

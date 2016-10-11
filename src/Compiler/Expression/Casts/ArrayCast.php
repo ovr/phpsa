@@ -22,15 +22,8 @@ class ArrayCast extends AbstractExpressionCompiler
     {
         $compiledExpression = $context->getExpressionCompiler()->compile($expr->expr);
 
-        switch ($compiledExpression->getType()) {
-            case CompiledExpression::BOOLEAN:
-            case CompiledExpression::DOUBLE:
-            case CompiledExpression::INTEGER:
-            case CompiledExpression::NUMBER:
-            case CompiledExpression::STRING:
-            case CompiledExpression::ARR:
-            case CompiledExpression::OBJECT:
-                return new CompiledExpression(CompiledExpression::ARR, (array) $compiledExpression->getValue());
+        if ($compiledExpression->isTypeKnown()) {
+            return new CompiledExpression(CompiledExpression::ARR, (array) $compiledExpression->getValue());
         }
 
         return new CompiledExpression();
