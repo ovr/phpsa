@@ -94,6 +94,10 @@ Checks that magic methods have the right amount of parameters.
 
 Checks for return statements in `__construct` and `__destruct` since they can't return anything.
 
+#### MissingBody
+
+Checks that statements that define a block of statements are not empty.
+
 #### MissingBreakStatement
 
 Checks for a missing break or return statement in switch cases. Can ignore empty cases and the last case.

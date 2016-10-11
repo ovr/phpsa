@@ -86,14 +86,6 @@ class ClassMethod extends AbstractDefinition
             return true;
         }
 
-        if (count($this->statement->stmts) == 0) {
-            return $context->notice(
-                'not-implemented-method',
-                sprintf('Method %s() is not implemented', $this->name),
-                $this->statement
-            );
-        }
-
         if ($this->statement->params) {
             foreach ($this->statement->params as $parameter) {
                 $type = CompiledExpression::UNKNOWN;

@@ -74,14 +74,6 @@ class FunctionDefinition extends ParentDefinition
         $context->scopePointer = $this->getPointer();
         $context->setScope(null);
 
-        if (count($this->statement->stmts) == 0) {
-            return $context->notice(
-                'not-implemented-function',
-                sprintf('Function %s() is not implemented', $this->name),
-                $this->statement
-            );
-        }
-
         if (count($this->statement->params) > 0) {
             /** @var  Node\Param $parameter */
             foreach ($this->statement->params as $parameter) {

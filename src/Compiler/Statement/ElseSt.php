@@ -14,12 +14,8 @@ class ElseSt extends AbstractCompiler
      */
     public function compile($elseStatement, Context $context)
     {
-        if (count($elseStatement->stmts) > 0) {
-            foreach ($elseStatement->stmts as $stmt) {
-                \PHPSA\nodeVisitorFactory($stmt, $context);
-            }
-        } else {
-            $context->notice('not-implemented-body', 'Missing body', $elseStatement);
+        foreach ($elseStatement->stmts as $stmt) {
+            \PHPSA\nodeVisitorFactory($stmt, $context);
         }
     }
 }

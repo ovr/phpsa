@@ -19,10 +19,8 @@ class CaseSt extends AbstractCompiler
             $context->getExpressionCompiler()->compile($statement->cond);
         }
 
-        if (count($statement->stmts > 0)) {
-            foreach ($statement->stmts as $caseStatements) {
-                \PHPSA\nodeVisitorFactory($caseStatements, $context);
-            }
+        foreach ($statement->stmts as $caseStatements) {
+            \PHPSA\nodeVisitorFactory($caseStatements, $context);
         }
     }
 }

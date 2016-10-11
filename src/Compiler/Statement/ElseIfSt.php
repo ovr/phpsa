@@ -16,12 +16,8 @@ class ElseIfSt extends AbstractCompiler
     {
         $context->getExpressionCompiler()->compile($elseIfStatement->cond);
 
-        if (count($elseIfStatement->stmts) > 0) {
-            foreach ($elseIfStatement->stmts as $stmt) {
-                \PHPSA\nodeVisitorFactory($stmt, $context);
-            }
-        } else {
-            $context->notice('not-implemented-body', 'Missing body', $elseIfStatement);
+        foreach ($elseIfStatement->stmts as $stmt) {
+            \PHPSA\nodeVisitorFactory($stmt, $context);
         }
     }
 }

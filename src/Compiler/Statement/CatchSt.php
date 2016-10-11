@@ -21,10 +21,6 @@ class CatchSt extends AbstractCompiler
     {
         $context->addVariable(new Variable($statement->var, null, CompiledExpression::OBJECT));
 
-        if (count($statement->stmts) === 0) {
-            $context->notice('not-implemented-body', 'Missing body', $statement);
-        }
-
         foreach ($statement->stmts as $stmt) {
             \PHPSA\nodeVisitorFactory($stmt, $context);
         }

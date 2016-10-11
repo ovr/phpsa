@@ -18,10 +18,8 @@ class ConstSt extends AbstractCompiler
     {
         $compiler = $context->getExpressionCompiler();
 
-        if (count($stmt->consts) > 0) {
-            foreach ($stmt->consts as $const) {
-                $compiler->compile($const->value);
-            }
+        foreach ($stmt->consts as $const) {
+            $compiler->compile($const->value);
         }
     }
 }

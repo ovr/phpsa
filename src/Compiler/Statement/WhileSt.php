@@ -21,12 +21,8 @@ class WhileSt extends AbstractCompiler
     {
         $context->getExpressionCompiler()->compile($stmt->cond);
 
-        if (count($stmt->stmts) > 0) {
-            foreach ($stmt->stmts as $statement) {
-                \PHPSA\nodeVisitorFactory($statement, $context);
-            }
-        } else {
-            $context->notice('not-implemented-body', 'Missing body', $stmt);
+        foreach ($stmt->stmts as $statement) {
+            \PHPSA\nodeVisitorFactory($statement, $context);
         }
     }
 }
