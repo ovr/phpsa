@@ -1,7 +1,7 @@
-
+# Contributing Guide
 Hey Contributor! :smiley_cat:
 
-All contribution to PHPSA are very much encouraged, and we do our best to make it as welcoming and simple as possible.
+All contributions to PHPSA are very much encouraged, and we do our best to make it as welcoming and simple as possible.
 
 ## Coding Standards
 
@@ -10,21 +10,20 @@ We require that all contributions meet at least the following guidelines:
 * Follow PSR-1 & PSR-2
 * Use camelCase for variables and methods/functions.
 * Don't use functions for casting like `intval`, `boolval` and etc, We are using `(int) $a`.
+* Avoid aliases for functions: `sizeof`, `join` and etc.
+* Avoid global variables.
+* Avoid strict comparisons if not necessary.
+* Avoid `static` methods.
+* Only use `static::` binding if it's really needed. `parent::` or `self::` will be sufficient in most cases.
+* Don't use `Singleton` pattern anywhere.
+* Use strict types (objects, arrays); for example: `function testMethod(array $array = [])`.
+* Use `$v === null` instead of 'is_null()' for null checking.
 * Avoid "Yoda conditions", where constants are placed first in comparisons:
 
 ```php
 if (true == $someParameter) {
 }
 ```
-
-* Avoid strict comparisons if not necessary.
-* Avoid `static` methods.
-* Only use `static::` binding if it's really needed. `parent::` or `self::` will be sufficient in most cases.
-* Don't use `Singleton` pattern anywhere.
-* Avoid aliases for functions: `sizeof`, `join` and etc.
-* Avoid global variables.
-* Use strict types (objects, arrays); for example: `function testMethod(array $array = [])`.
-* Use `$v === null` instead of 'is_null()' for null checking.
 * Don't forget about empty lines after logical blocks:
 
 ```php
@@ -41,20 +40,20 @@ public function simpleMethod($a)
 }
 ```
 
-**ATTENTION** Some rules can be omitted in `tests/analyze-fixtures`, because we need to check Analyzer on bad code.
+**ATTENTION** Some rules can be omitted in `tests/analyze-fixtures`, because we need to check Analyzers on bad code.
 
 ### Naming Conventions
 
 #### Naming
 
-* For `abstract` class, use `Abstract` prefix, `AbstractCondition`
+* For `abstract` classes, use `Abstract` prefix, `AbstractCondition`
 * For `trait`(s), use `Trait` suffix, `ResolveExpressionTrait`
-* For `interfaces`(es), use `Interface` suffix, `PassFunctionCallInterface`
-* For any class(es) that extend(s) from `Exception`, use `Exception` suffix, `UnknownException`
+* For `interface`(s), use `Interface` suffix, `PassFunctionCallInterface`
+* For any classes that extend from `Exception`, use `Exception` suffix, `UnknownException`
 
 #### Namespacing
 
-Please omit `s` in the end of NS/Class/Trait/Interface names
+Please omit `s` at the end of NS/Class/Trait/Interface names
 
 What we are using:
 
@@ -66,7 +65,7 @@ What we don't use:
 
 ## GIT
 
-Please don't use "merged" in your PR, we are using "rebase", small guide:
+Please don't use "merge" in your PR, we are using "rebase", small guide:
 
 [Git Branching Rebasing](https://git-scm.com/book/en/v2/Git-Branching-Rebasing)
 
@@ -105,10 +104,10 @@ make cs
 
 - If you are going to close an issue, write a comment describing why you are going to do so (with link reference to the commit/issue/PR)
 - Before merge, check that CI passes
-- Merge after review (yet another developer review)
+- Merge after review (1 other developer reviewed)
 - Check that code uses our `Coding Standards` and `Naming Conventions`
 - Don't merge big PRs (only simple PRs), if it's a big PR - please ping @ovr
 - Write `Thanks` to developer(s) and reviewer(s) after PR was merged
-- Protect any `merge` commits in PR, you should write a notice to the submitter
+- If there are any `merge` commits in PR, you should write a notice to the submitter to remove those
 
 Thanks :cake:
