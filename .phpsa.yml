@@ -63,20 +63,36 @@ phpsa:
         # Checks for illegal array key types (for example objects).
         array_illegal_offset_type:
             enabled:              true
+
+        # Checks for use of alias functions and suggests the use of the originals.
         alias_check:
             enabled:              true
+
+        # Checks for use of debug code and suggests to remove it.
         debug_code:
             enabled:              true
+
+        # Checks for use of old rand, srand, getrandmax functions and suggests alternatives.
         random_api_migration:
             enabled:              true
+
+        # Checks for use of functions like boolval, strval and others and suggests the use of casts.
         use_cast:
             enabled:              true
+
+        # Checks for use of deprecated php.ini options and gives alternatives if available.
         deprecated_ini_options:
             enabled:              true
+
+        # Checks that regular expressions are syntactically correct.
         regular_expressions:
             enabled:              true
+
+        # Checks for use of `func_get_args()` and suggests the use of argument unpacking. (... operator)
         argument_unpacking:
             enabled:              true
+
+        # Checks for use of deprecated functions and gives alternatives if available.
         deprecated_functions:
             enabled:              true
 
