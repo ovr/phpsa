@@ -14,6 +14,8 @@ class OptionalParamBeforeRequired implements Pass\AnalyzerPassInterface
 {
     use DefaultMetadataPassTrait;
 
+    const DESCRIPTION = 'Checks if any optional parameters are before a required one. For example: `function ($a = 1, $b)`';
+
     /**
      * @param Stmt $func
      * @param Context $context

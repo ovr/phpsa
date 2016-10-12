@@ -12,6 +12,8 @@ class Casts implements AnalyzerPassInterface
 {
     use DefaultMetadataPassTrait;
 
+    const DESCRIPTION = 'Checks for casts that try to cast a type to itself.';
+
     /**
      * @param Expr $expr
      * @param Context $context

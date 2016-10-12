@@ -16,6 +16,8 @@ class MethodCannotReturn implements Pass\AnalyzerPassInterface
     use DefaultMetadataPassTrait;
     use ResolveExpressionTrait;
 
+    const DESCRIPTION = 'Checks for return statements in `__construct` and `__destruct` since they can\'t return anything.';
+
     /**
      * @param ClassMethod $methodStmt
      * @param Context $context

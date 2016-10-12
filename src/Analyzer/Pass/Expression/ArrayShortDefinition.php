@@ -16,7 +16,7 @@ class ArrayShortDefinition implements AnalyzerPassInterface
         DefaultMetadataPassTrait::getMetadata as defaultMetadata;
     }
 
-    const DESCRIPTION = 'Short syntax can be used in array literals.';
+    const DESCRIPTION = 'Recommends the use of [] short syntax for arrays.';
 
     /**
      * @param Expr\Array_ $expr

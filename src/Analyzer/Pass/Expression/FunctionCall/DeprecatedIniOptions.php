@@ -10,6 +10,8 @@ use PHPSA\Context;
 
 class DeprecatedIniOptions extends AbstractFunctionCallAnalyzer
 {
+    const DESCRIPTION = 'Checks for use of deprecated php.ini options and gives alternatives if available.';
+
     static protected $functions = [
         'ini_set' => 'ini_set',
         'ini_get' => 'ini_get',

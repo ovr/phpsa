@@ -11,6 +11,8 @@ use PHPSA\Context;
 
 class DebugCode extends AbstractFunctionCallAnalyzer
 {
+    const DESCRIPTION = 'Checks for use of debug code and suggests to remove it.';
+
     protected $map = [
         'var_dump' => 'var_dump',
         'var_export' => 'var_export',

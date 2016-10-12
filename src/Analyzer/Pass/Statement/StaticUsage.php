@@ -11,6 +11,8 @@ class StaticUsage implements Pass\AnalyzerPassInterface
 {
     use DefaultMetadataPassTrait;
 
+    const DESCRIPTION = 'Discourages the use of static variables (not properties).';
+
     /**
      * @param Static_ $stmt
      * @param Context $context

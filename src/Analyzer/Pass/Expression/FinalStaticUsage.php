@@ -10,7 +10,11 @@ use PHPSA\Definition\ClassDefinition;
 
 class FinalStaticUsage implements AnalyzerPassInterface
 {
-    use DefaultMetadataPassTrait;
+    use DefaultMetadataPassTrait {
+        DefaultMetadataPassTrait::getMetadata as defaultMetadata;
+    }
+
+    const DESCRIPTION = 'Checks for use of `static::` inside a final class.';
 
     /**
      * @param Expr\StaticCall $expr
@@ -45,5 +49,16 @@ class FinalStaticUsage implements AnalyzerPassInterface
         return [
             Expr\StaticCall::class,
         ];
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public static function getMetadata()
+    {
+        $metadata = self::defaultMetadata();
+        $metadata->setRequiredPhpVersion('5.3'); //static:: since PHP 5.3
+
+        return $metadata;
     }
 }

@@ -13,6 +13,8 @@ class GlobalUsage implements Pass\AnalyzerPassInterface
 {
     use DefaultMetadataPassTrait;
 
+    const DESCRIPTION = 'Discourages the use of `global $var;`.';
+
     /**
      * @param $stmt
      * @param Context $context

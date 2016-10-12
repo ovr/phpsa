@@ -11,6 +11,8 @@ class ErrorSuppression implements AnalyzerPassInterface
 {
     use DefaultMetadataPassTrait;
 
+    const DESCRIPTION = 'Discourages the use of the `@` operator to silence errors.';
+
     /**
      * @param Expr\ErrorSuppress $expr
      * @param Context $context

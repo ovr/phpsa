@@ -10,6 +10,8 @@ use PHPSA\Context;
 
 class AliasCheck extends AbstractFunctionCallAnalyzer
 {
+    const DESCRIPTION = 'Checks for use of alias functions and suggests the use of the originals.';
+
     protected $map = [
         'join' => 'implode',
         'sizeof' => 'count',

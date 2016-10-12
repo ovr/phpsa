@@ -22,6 +22,8 @@ class AssignmentInCondition implements Pass\AnalyzerPassInterface
 {
     use DefaultMetadataPassTrait;
 
+    const DESCRIPTION = 'Checks for assignments in conditions. (= instead of ==)';
+
     /**
      * @param $stmt
      * @param Context $context

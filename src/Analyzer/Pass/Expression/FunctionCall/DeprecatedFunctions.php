@@ -7,6 +7,8 @@ use PHPSA\Context;
 
 class DeprecatedFunctions extends AbstractFunctionCallAnalyzer
 {
+    const DESCRIPTION = 'Checks for use of deprecated functions and gives alternatives if available.';
+
     protected $map = [
         'datefmt_set_timezone_id' => ['5.5','IntlDateFormatter::setTimeZone()'],
         'define_syslog_variables' => ['5.3','_'],

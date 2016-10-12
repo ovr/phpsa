@@ -14,6 +14,8 @@ class VariableVariableUsage implements Pass\AnalyzerPassInterface
 {
     use DefaultMetadataPassTrait;
 
+    const DESCRIPTION = 'Discourages the use of variable variables.';
+
     /**
      * @param Expr\Assign $expr
      * @param Context $context

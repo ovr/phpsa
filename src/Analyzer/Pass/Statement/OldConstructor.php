@@ -11,6 +11,8 @@ class OldConstructor implements AnalyzerPassInterface
 {
     use DefaultMetadataPassTrait;
 
+    const DESCRIPTION = 'Checks for use of PHP 4 constructors and discourages it.';
+
     /**
      * @param Stmt\Class_ $classStmt
      * @param Context $context

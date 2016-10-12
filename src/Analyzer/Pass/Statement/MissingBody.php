@@ -10,6 +10,8 @@ use PHPSA\Context;
 class MissingBody implements AnalyzerPassInterface
 {
     use DefaultMetadataPassTrait;
+
+    const DESCRIPTION = 'Checks that statements that define a block of statements are not empty.';
     
     /**
      * @param Stmt $stmt

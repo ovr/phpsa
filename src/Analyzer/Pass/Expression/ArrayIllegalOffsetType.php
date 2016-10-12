@@ -14,6 +14,8 @@ class ArrayIllegalOffsetType implements AnalyzerPassInterface
 {
     use DefaultMetadataPassTrait;
 
+    const DESCRIPTION = 'Checks for illegal array key types (for example objects).';
+
     /**
      * @param Expr\Array_|Expr\Assign $expr
      * @param Context $context

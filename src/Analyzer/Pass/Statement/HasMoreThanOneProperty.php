@@ -13,6 +13,8 @@ class HasMoreThanOneProperty implements Pass\AnalyzerPassInterface
 {
     use DefaultMetadataPassTrait;
 
+    const DESCRIPTION = 'Checks for multiple property definitions in one line. For example public $a, $b; and discourages it.';
+
     /**
      * @param Property $prop
      * @param Context $context

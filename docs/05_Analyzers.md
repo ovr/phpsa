@@ -12,7 +12,8 @@ Checks for use of `func_get_args()` and suggests the use of argument unpacking. 
 
 #### ArrayDuplicateKeys
 
-Checks for duplicate array keys on definition. Can handle variable keys.
+This inspection reports any duplicated keys on array creation expression.
+If multiple elements in the array declaration use the same key, only the last one will be used as all others are overwritten.
 
 #### ArrayIllegalOffsetType
 
@@ -36,7 +37,7 @@ Checks for casts that try to cast a type to itself.
 
 #### CompareWithArray
 
-Checks for `{type array} > 1` and similar and suggests use of `count()`. 
+Checks for `{type array} > 1` and similar and suggests use of `count()`.
 
 #### ConstantNaming
 
@@ -56,7 +57,7 @@ Checks for use of deprecated php.ini options and gives alternatives if available
 
 #### ErrorSuppression
 
-Discourages the use of @ operator to silence errors.
+Discourages the use of the `@` operator to silence errors.
 
 #### EvalUsage
 
@@ -68,7 +69,7 @@ Discourages the use of `exit()` and `die()`.
 
 #### FinalStaticUsage
 
-Checks for use of static:: inside a final class.
+Checks for use of `static::` inside a final class.
 
 #### GlobalUsage
 
@@ -85,6 +86,10 @@ Checks for multiple property definitions in one line. For example public $a, $b;
 #### InlineHtmlUsage
 
 Discourages the use of inline html.
+
+#### LogicInversion
+
+Checks for Logic inversion like `if (!($a == $b))` and suggests the correct operator.
 
 #### MagicMethodParameters
 

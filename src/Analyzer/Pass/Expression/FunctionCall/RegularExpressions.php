@@ -12,6 +12,8 @@ use PHPSA\Context;
 
 class RegularExpressions extends AbstractFunctionCallAnalyzer
 {
+    const DESCRIPTION = 'Checks that regular expressions are syntactically correct.';
+
     static public $map = [
         'preg_filter' => 0,
         'preg_grep' => 0,

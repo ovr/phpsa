@@ -11,6 +11,8 @@ class BacktickUsage implements AnalyzerPassInterface
 {
     use DefaultMetadataPassTrait;
 
+    const DESCRIPTION = 'Discourages the use of backtick operator for shell execution.';
+
     /**
      * @param Expr\ShellExec $expr
      * @param Context $context

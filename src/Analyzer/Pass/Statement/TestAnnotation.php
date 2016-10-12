@@ -12,6 +12,8 @@ class TestAnnotation implements AnalyzerPassInterface
 {
     use DefaultMetadataPassTrait;
 
+    const DESCRIPTION = 'Checks for use of `@test` when methods name begins with test, since it is unnecessary.';
+
     /** @var DocBlockFactory */
     protected $docBlockFactory;
 
