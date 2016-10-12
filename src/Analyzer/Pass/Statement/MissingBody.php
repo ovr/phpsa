@@ -20,6 +20,10 @@ class MissingBody implements AnalyzerPassInterface
      */
     public function pass(Stmt $stmt, Context $context)
     {
+        if ($stmt instanceof Stmt\ClassMethod && $stmt->isAbstract()) { // abstract classes are ok
+            return false;
+        }
+
         if ($stmt instanceof Stmt\Switch_) {
             $counting = $stmt->cases;
         } else {
