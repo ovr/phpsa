@@ -16,6 +16,8 @@ class TestSingleProperty
 
 ?>
 ----------------------------
+PHPSA\Analyzer\Pass\Statement\HasMoreThanOneProperty
+----------------------------
 [
     {
         "type":"limit.properties",

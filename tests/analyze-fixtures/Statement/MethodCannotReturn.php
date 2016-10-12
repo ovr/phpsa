@@ -32,6 +32,8 @@ class TestNoReturn
 
 ?>
 ----------------------------
+PHPSA\Analyzer\Pass\Statement\MethodCannotReturn
+----------------------------
 [
     {
         "type":"return.construct",

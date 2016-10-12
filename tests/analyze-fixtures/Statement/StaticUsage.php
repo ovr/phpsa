@@ -22,6 +22,8 @@ class StaticUsage
 }
 ?>
 ----------------------------
+PHPSA\Analyzer\Pass\Statement\StaticUsage
+----------------------------
 [
     {
         "type": "static_usage",

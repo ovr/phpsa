@@ -101,6 +101,8 @@ class ArrayIllegalOffsetType
 }
 ?>
 ----------------------------
+PHPSA\Analyzer\Pass\Expression\ArrayIllegalOffsetType
+----------------------------
 [
     {
         "type":"array.illegal_offset_type",

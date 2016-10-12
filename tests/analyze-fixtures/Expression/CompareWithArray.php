@@ -26,6 +26,8 @@ class CompareWithArray
 }
 ?>
 ----------------------------
+PHPSA\Analyzer\Pass\Expression\CompareWithArray
+----------------------------
 [
     {
         "type":"compare_with_array",

@@ -129,6 +129,8 @@ class VariableVariableUsage
 }
 ?>
 ----------------------------
+PHPSA\Analyzer\Pass\Expression\VariableVariableUsage
+----------------------------
 [
     {
         "type": "variable.dynamic_assignment",

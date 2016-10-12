@@ -57,6 +57,8 @@ class ArrayDuplicateKeys
 }
 ?>
 ----------------------------
+\PHPSA\Analyzer\Pass\Expression\ArrayDuplicateKeys
+----------------------------
 [
     {
         "type":"array.duplicate_keys",

@@ -32,6 +32,8 @@ function testFuncGetArgsNotEmpty($a)
 }
 ?>
 ----------------------------
+PHPSA\Analyzer\Pass\Expression\FunctionCall\ArgumentUnpacking
+----------------------------
 [
     {
         "type":"fcall.argumentunpacking",

@@ -23,6 +23,8 @@ class AliasCheck
 
 ?>
 ----------------------------
+PHPSA\Analyzer\Pass\Expression\FunctionCall\AliasCheck
+----------------------------
 [{
 "type": "fcall.alias",
 "message": "join() is an alias of another function. Use implode() instead.",

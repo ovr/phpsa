@@ -31,6 +31,8 @@ class DeprecatedIniOptions
 }
 ?>
 ----------------------------
+PHPSA\Analyzer\Pass\Expression\FunctionCall\DeprecatedIniOptions
+----------------------------
 [
     {
         "type":"deprecated.option",

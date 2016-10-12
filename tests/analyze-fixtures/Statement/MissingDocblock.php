@@ -67,6 +67,8 @@ trait withDocblockTrait
 //interface withDocblockInterface {} Interface currently not supported
 ?>
 ----------------------------
+PHPSA\Analyzer\Pass\Statement\MissingDocblock
+----------------------------
 [
     {
         "type":"missing_docblock",

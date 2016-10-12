@@ -16,6 +16,8 @@ class BacktickUsage
 }
 ?>
 ----------------------------
+PHPSA\Analyzer\Pass\Expression\BacktickUsage
+----------------------------
 [
     {
         "type":"backtick_usage",

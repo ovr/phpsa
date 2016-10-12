@@ -106,6 +106,8 @@ class MissingBreakStatement
 }
 ?>
 ----------------------------
+PHPSA\Analyzer\Pass\Statement\MissingBreakStatement
+----------------------------
 [
     {
         "type":"missing_break_statement",

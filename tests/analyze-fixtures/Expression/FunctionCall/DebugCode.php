@@ -115,6 +115,8 @@ class DebugCode
 
 ?>
 ----------------------------
+PHPSA\Analyzer\Pass\Expression\FunctionCall\DebugCode
+----------------------------
 [
     {
         "type":"debug.code",

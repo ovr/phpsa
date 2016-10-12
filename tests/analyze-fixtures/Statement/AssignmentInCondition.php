@@ -77,6 +77,8 @@ class AssignmentCondition
 
 ?>
 ----------------------------
+PHPSA\Analyzer\Pass\Statement\AssignmentInCondition
+----------------------------
 [
     {
         "type": "assignment_in_condition",

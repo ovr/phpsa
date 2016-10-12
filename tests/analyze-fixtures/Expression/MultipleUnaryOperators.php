@@ -65,6 +65,8 @@ class MultipleUnaryOperators
 }
 ?>
 ----------------------------
+PHPSA\Analyzer\Pass\Expression\MultipleUnaryOperators
+----------------------------
 [
     {
         "type":"multiple_unary_operators",

@@ -25,6 +25,8 @@ class ArrayShortDefinition
 }
 ?>
 ----------------------------
+PHPSA\Analyzer\Pass\Expression\ArrayShortDefinition
+----------------------------
 [
     {
         "type":"array.short-syntax",

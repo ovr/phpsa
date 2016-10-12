@@ -20,6 +20,8 @@ class StupidUnaryOperators
 }
 ?>
 ----------------------------
+PHPSA\Analyzer\Pass\Expression\StupidUnaryOperators
+----------------------------
 [
     {
         "type":"stupid_unary_operators",

@@ -20,6 +20,8 @@ class PropertyWithVar
 }
 ?>
 ----------------------------
+PHPSA\Analyzer\Pass\Statement\MissingVisibility
+----------------------------
 [
     {
         "type":"missing_visibility",

@@ -16,6 +16,8 @@ class RegularExpressions
 }
 ?>
 ----------------------------
+PHPSA\Analyzer\Pass\Expression\FunctionCall\RegularExpressions
+----------------------------
 [
     {
         "type":"regex.invalid",

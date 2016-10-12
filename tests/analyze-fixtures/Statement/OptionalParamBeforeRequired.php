@@ -25,6 +25,8 @@ class OptionalParamAfterRequiredClass
 
 ?>
 ----------------------------
+PHPSA\Analyzer\Pass\Statement\OptionalParamBeforeRequired
+----------------------------
 [
     {
         "type":"optional-param-before-required",

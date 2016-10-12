@@ -15,6 +15,8 @@ final class FinalStaticUsage
 }
 ?>
 ----------------------------
+PHPSA\Analyzer\Pass\Expression\FinalStaticUsage
+----------------------------
 [
     {
         "type":"error.final-static-usage",
