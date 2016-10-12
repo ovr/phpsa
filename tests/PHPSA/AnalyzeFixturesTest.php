@@ -20,11 +20,6 @@ use PHPSA\Analyzer\Pass as AnalyzerPass;
 
 class AnalyzeFixturesTest extends TestCase
 {
-    /**
-     * @var EventManager
-     */
-    static protected $em;
-
     public function provideTestParseAndDump()
     {
         $iter = new RecursiveIteratorIterator(
@@ -41,9 +36,9 @@ class AnalyzeFixturesTest extends TestCase
             }
 
             $contents = file_get_contents($file);
-            list (, $expected) = explode('----------------------------', $contents);
+            list (, $analyzer, $expected) = explode('----------------------------', $contents);
 
-            yield [$file->getPathname(), $expected];
+            yield [$file->getPathname(), trim($analyzer), trim($expected)];
         }
     }
 
@@ -51,11 +46,12 @@ class AnalyzeFixturesTest extends TestCase
      * @dataProvider provideTestParseAndDump
      *
      * @param $file
-     * @param $expectedDump
+     * @param string $analyzer
+     * @param string $expectedDump
      * @throws \PHPSA\Exception\RuntimeException
      * @throws \Webiny\Component\EventManager\EventManagerException
      */
-    public function testParseAndDump($file, $expectedDump)
+    public function testParseAndDump($file, $analyzer, $expectedDump)
     {
         $compiler = new Compiler();
 
@@ -80,7 +76,7 @@ class AnalyzeFixturesTest extends TestCase
         $context = new Context(
             new \Symfony\Component\Console\Output\NullOutput(),
             $application = new Application(),
-            $this->getEventManager()
+            $this->getEventManager($analyzer)
         );
         $application->compiler = $compiler;
 
@@ -88,7 +84,7 @@ class AnalyzeFixturesTest extends TestCase
 
         $compiler->compile($context);
 
-        $expectedArray = json_decode(trim($expectedDump), true);
+        $expectedArray = json_decode($expectedDump, true);
         $expectedType = $expectedArray[0]["type"];
         $issues = array_map(
             // @todo Remove after moving all notices on Issue(s)
@@ -117,19 +113,40 @@ class AnalyzeFixturesTest extends TestCase
     }
 
     /**
+     * @param string $analyzer
      * @return EventManager
      * @throws \Webiny\Component\EventManager\EventManagerException
      */
-    protected function getEventManager()
+    protected function getEventManager($analyzerName)
     {
-        if (self::$em) {
-            return self::$em;
+        if (!class_exists($analyzerName, true)) {
+            throw new \InvalidArgumentException("Analyzer with name: {$analyzerName} doesnot exist");
         }
 
-        self::$em = EventManager::getInstance();
-        $configuration = new Configuration([], Analyzer\Factory::getPassesConfigurations());
-        \PHPSA\Analyzer\Factory::factory(self::$em, $configuration);
+        /** @var \PHPSA\Analyzer\Pass\Metadata $metaData */
+        $metaData = $analyzerName::getMetadata();
+        if (!$metaData->allowsPhpVersion(PHP_VERSION)) {
+            parent::markTestSkipped(
+                sprintf(
+                    'We cannot tests %s with %s because PHP required version is %s',
+                    $analyzerName,
+                    PHP_VERSION,
+                    $metaData->getRequiredPhpVersion()
+                )
+            );
+        }
+        
+        $analyzerConfiguration = $metaData->getConfiguration();
+        $analyzerConfiguration->attribute('enabled', true);
 
-        return self::$em;
+        $config = [
+            $analyzerName::getMetadata()->getConfiguration()
+        ];
+
+        $em = EventManager::getInstance();
+        $configuration = new Configuration([], $config);
+        \PHPSA\Analyzer\Factory::factory($em, $configuration);
+
+        return $em;
     }
 }
