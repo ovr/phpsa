@@ -168,6 +168,17 @@ class ClassDefinition extends ParentDefinition
             );
         }
 
+        // Compile event for PropertyProperty
+        foreach ($this->properties as $property) {
+            $context->getEventManager()->fire(
+                Event\StatementBeforeCompile::EVENT_NAME,
+                new Event\StatementBeforeCompile(
+                    $property,
+                    $context
+                )
+            );
+        }
+
         // Compile event for constants
         foreach ($this->constants as $const) {
             $context->getEventManager()->fire(
