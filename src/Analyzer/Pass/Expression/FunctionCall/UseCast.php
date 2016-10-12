@@ -10,6 +10,8 @@ use PHPSA\Context;
 
 class UseCast extends AbstractFunctionCallAnalyzer
 {
+    const DESCRIPTION = 'Checks for use of functions like boolval, strval and others and suggests the use of casts.';
+
     protected $map = [
         'boolval' => 'bool',
         'intval' => 'int',

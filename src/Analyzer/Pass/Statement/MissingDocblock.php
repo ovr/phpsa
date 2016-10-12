@@ -11,6 +11,8 @@ class MissingDocblock implements AnalyzerPassInterface
 {
     use DefaultMetadataPassTrait;
 
+    const DESCRIPTION = 'Checks for a missing docblock for: class, property, class constant, trait, interface, class method, function.';
+
     /**
      * @param Stmt $stmt
      * @param Context $context

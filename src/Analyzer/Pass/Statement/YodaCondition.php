@@ -21,6 +21,8 @@ class YodaCondition implements Pass\AnalyzerPassInterface
 {
     use DefaultMetadataPassTrait;
 
+    const DESCRIPTION = 'Checks for Yoda conditions, where a constant is placed before the variable. For example: `if (3 == $a)`';
+
     /**
      * @param $stmt
      * @param Context $context

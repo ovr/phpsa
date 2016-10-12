@@ -14,6 +14,8 @@ class EvalUsage implements AnalyzerPassInterface
 {
     use DefaultMetadataPassTrait;
 
+    const DESCRIPTION = 'Discourages the use of `eval()`.';
+
     /**
      * @param Expr\Eval_ $expr
      * @param Context $context

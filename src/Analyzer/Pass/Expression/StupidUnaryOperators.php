@@ -11,6 +11,8 @@ class StupidUnaryOperators implements AnalyzerPassInterface
 {
     use DefaultMetadataPassTrait;
 
+    const DESCRIPTION = 'Checks for use of UnaryPlus `+$a` and suggests to use an int or float cast instead.';
+
     /**
      * @param Expr $expr
      * @param Context $context

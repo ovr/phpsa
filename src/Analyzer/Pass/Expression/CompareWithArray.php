@@ -11,6 +11,8 @@ class CompareWithArray implements AnalyzerPassInterface
 {
     use DefaultMetadataPassTrait;
 
+    const DESCRIPTION = 'Checks for `{type array} > 1` and similar and suggests use of `count()`.';
+
     /**
      * @param Expr $expr
      * @param Context $context

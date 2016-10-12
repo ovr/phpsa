@@ -15,6 +15,8 @@ class UnexpectedUseOfThis implements Pass\AnalyzerPassInterface
 {
     use DefaultMetadataPassTrait;
 
+    const DESCRIPTION = 'Checks for behavior that would result in overwriting $this variable.';
+
     /**
      * @param Node\Stmt $stmt
      * @param Context $context

@@ -14,6 +14,8 @@ class MissingBreakStatement implements Pass\AnalyzerPassInterface
 {
     use DefaultMetadataPassTrait;
 
+    const DESCRIPTION = 'Checks for a missing break or return statement in switch cases. Can ignore empty cases and the last case.';
+
     /**
      * @param Stmt\Switch_ $switchStmt
      * @param Context $context

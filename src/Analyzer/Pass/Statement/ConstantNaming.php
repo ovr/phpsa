@@ -12,6 +12,8 @@ class ConstantNaming implements AnalyzerPassInterface
 {
     use DefaultMetadataPassTrait;
 
+    const DESCRIPTION = 'Checks that constants are all uppercase.';
+
     /**
      * @param ClassConst $stmt
      * @param Context $context

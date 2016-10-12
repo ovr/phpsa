@@ -12,6 +12,8 @@ class InlineHtmlUsage implements Pass\AnalyzerPassInterface
 {
     use DefaultMetadataPassTrait;
 
+    const DESCRIPTION = 'Discourages the use of inline html.';
+
     /**
      * @param Stmt\InlineHTML $stmt
      * @param Context $context

@@ -14,6 +14,8 @@ class ExitUsage implements Pass\AnalyzerPassInterface
 {
     use DefaultMetadataPassTrait;
 
+    const DESCRIPTION = 'Discourages the use of `exit()` and `die()`.';
+
     /**
      * @param Expr\Exit_ $expr
      * @param Context $context

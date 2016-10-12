@@ -14,6 +14,8 @@ class GotoUsage implements Pass\AnalyzerPassInterface
 {
     use DefaultMetadataPassTrait;
 
+    const DESCRIPTION = 'Discourages the use of goto and goto labels.';
+
     /**
      * @param $stmt
      * @param Context $context

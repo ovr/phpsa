@@ -15,6 +15,8 @@ class MagicMethodParameters implements AnalyzerPassInterface
 {
     use DefaultMetadataPassTrait;
 
+    const DESCRIPTION = 'Checks that magic methods have the right amount of parameters.';
+
     /**
      * @param ClassMethod $methodStmt
      * @param Context $context

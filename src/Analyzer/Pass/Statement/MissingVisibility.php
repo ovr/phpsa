@@ -14,6 +14,8 @@ class MissingVisibility implements AnalyzerPassInterface
 {
     use DefaultMetadataPassTrait;
 
+    const DESCRIPTION = 'Checks for missing visibility modifiers for properties and methods.';
+
     /**
      * @param Stmt $stmt
      * @param Context $context

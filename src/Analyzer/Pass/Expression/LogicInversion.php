@@ -14,6 +14,8 @@ class LogicInversion implements AnalyzerPassInterface
 {
     use DefaultMetadataPassTrait;
 
+    const DESCRIPTION = 'Checks for Logic inversion like `if (!($a == $b))` and suggests the correct operator.';
+
     protected $map = [
         'Expr_BinaryOp_Equal' => ['!=', '=='],
         'Expr_BinaryOp_NotEqual' => ['==', '!='],
