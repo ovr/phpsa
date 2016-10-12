@@ -33,6 +33,8 @@ class ExitUsage
 }
 ?>
 ----------------------------
+PHPSA\Analyzer\Pass\Expression\ExitUsage
+----------------------------
 [
     {
         "type":"exit_usage",

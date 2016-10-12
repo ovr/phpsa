@@ -112,6 +112,8 @@ class LogicValid
 }
 ?>
 ----------------------------
+PHPSA\Analyzer\Pass\Expression\LogicInversion
+----------------------------
 [
     {
         "type":"logic_inversion",

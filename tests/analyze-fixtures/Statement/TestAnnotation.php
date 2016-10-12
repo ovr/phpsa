@@ -40,6 +40,8 @@ class TestAnnotation
 }
 ?>
 ----------------------------
+PHPSA\Analyzer\Pass\Statement\TestAnnotation
+----------------------------
 [
     {
         "type":"test.annotation",

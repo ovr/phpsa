@@ -143,6 +143,8 @@ function OtherAsArgument($a)
 }
 ?>
 ----------------------------
+PHPSA\Analyzer\Pass\Statement\UnexpectedUseOfThis
+----------------------------
 [
     {
         "type":"unexpected_use.this",

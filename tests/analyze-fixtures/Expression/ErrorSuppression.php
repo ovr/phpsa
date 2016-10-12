@@ -22,6 +22,8 @@ class ErrorSuppression
 }
 ?>
 ----------------------------
+PHPSA\Analyzer\Pass\Expression\ErrorSuppression
+----------------------------
 [
     {
         "type":"error.suppression",

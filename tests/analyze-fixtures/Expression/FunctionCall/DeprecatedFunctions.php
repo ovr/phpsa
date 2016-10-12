@@ -30,6 +30,8 @@ class DeprecatedFunctions
 }
 ?>
 ----------------------------
+PHPSA\Analyzer\Pass\Expression\FunctionCall\DeprecatedFunctions
+----------------------------
 [
     {
         "type":"deprecated.function",

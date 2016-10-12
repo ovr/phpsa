@@ -39,6 +39,8 @@ class WrongMagicMethods
 }
 ?>
 ----------------------------
+PHPSA\Analyzer\Pass\Statement\MagicMethodParameters
+----------------------------
 [
     {
         "type":"magic_method_parameters",

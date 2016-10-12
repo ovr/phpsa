@@ -22,6 +22,8 @@ class GlobalUsage
 }
 ?>
 ----------------------------
+PHPSA\Analyzer\Pass\Statement\GlobalUsage
+----------------------------
 [
     {
         "type": "global_usage",

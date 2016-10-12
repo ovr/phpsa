@@ -18,8 +18,9 @@ trait DefaultMetadataPassTrait
         $name = Inflector::convertToSnakeCase(end($fqcnParts));
         $description = null;
 
-        if (defined('self::DESCRIPTION')) {
-            $description = self::DESCRIPTION;
+        // static:: because AbstractFunctionCallAnalyzer implement DefaultMetadataPassTrait and is a parent class
+        if (defined('static::DESCRIPTION')) {
+            $description = static::DESCRIPTION;
         }
 
         return Metadata::create($name, $description);

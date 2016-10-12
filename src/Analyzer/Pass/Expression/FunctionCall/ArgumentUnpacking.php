@@ -32,4 +32,15 @@ class ArgumentUnpacking extends AbstractFunctionCallAnalyzer
             }
         }
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public static function getMetadata()
+    {
+        $metaData = parent::getMetadata();
+        $metaData->setRequiredPhpVersion('5.6');
+
+        return $metaData;
+    }
 }

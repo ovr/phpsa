@@ -90,6 +90,8 @@ class Casts
 }
 ?>
 ----------------------------
+PHPSA\Analyzer\Pass\Expression\Casts
+----------------------------
 [
     {
         "type":"stupid.cast",

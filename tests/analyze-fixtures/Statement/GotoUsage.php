@@ -28,6 +28,8 @@ class GotoUsage
 }
 ?>
 ----------------------------
+PHPSA\Analyzer\Pass\Statement\GotoUsage
+----------------------------
 [
     {
         "type": "goto_usage",

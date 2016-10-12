@@ -44,6 +44,10 @@ class Factory
             /** @var AnalyzerPass\Metadata $passMetadata */
             $passMetadata = $passClass::getMetadata();
 
+            if (!isset($analyzersConfig[$passMetadata->getName()])) {
+                return false;
+            }
+
             if (!$analyzersConfig[$passMetadata->getName()]['enabled']) {
                 return false;
             }

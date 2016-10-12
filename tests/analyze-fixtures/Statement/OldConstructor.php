@@ -20,6 +20,8 @@ class NewConstructorUsed
 
 ?>
 ----------------------------
+PHPSA\Analyzer\Pass\Statement\OldConstructor
+----------------------------
 [
     {
         "type":"deprecated.constructor",

@@ -80,6 +80,8 @@ function implementedBodyFunction() {
 }
 ?>
 ----------------------------
+PHPSA\Analyzer\Pass\Statement\MissingBody
+----------------------------
 [
     {
         "type":"missing_body",

@@ -13,6 +13,8 @@ class ConstantNaming
 }
 ?>
 ----------------------------
+PHPSA\Analyzer\Pass\Statement\ConstantNaming
+----------------------------
 [
     {
         "type":"constant.naming",

@@ -66,6 +66,8 @@ class UseCast
 }
 ?>
 ----------------------------
+PHPSA\Analyzer\Pass\Expression\FunctionCall\UseCast
+----------------------------
 [
     {
         "type":"fcall.cast",

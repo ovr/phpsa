@@ -16,6 +16,8 @@ class EvalUsage
 }
 ?>
 ----------------------------
+PHPSA\Analyzer\Pass\Expression\EvalUsage
+----------------------------
 [
     {
         "type":"eval_usage",

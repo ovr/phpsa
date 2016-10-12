@@ -17,6 +17,8 @@ class InlineHtmlUsage
 }
 ?>
 ----------------------------
+PHPSA\Analyzer\Pass\Statement\InlineHtmlUsage
+----------------------------
 [
     {
         "type": "inline_html_usage",

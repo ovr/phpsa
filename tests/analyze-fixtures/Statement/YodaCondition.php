@@ -79,6 +79,8 @@ class YodaCondition
 
 ?>
 ----------------------------
+PHPSA\Analyzer\Pass\Statement\YodaCondition
+----------------------------
 [
     {
         "type": "yoda_condition",
