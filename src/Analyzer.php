@@ -7,6 +7,7 @@
 namespace PHPSA;
 
 use PHPSA\Analyzer\EventListener\ExpressionListener;
+use PHPSA\Analyzer\EventListener\ScalarListener;
 use PHPSA\Analyzer\EventListener\StatementListener;
 use PHPSA\Analyzer\Pass\AnalyzerPassInterface;
 use Webiny\Component\EventManager\EventManager;
@@ -121,6 +122,12 @@ class Analyzer
         $this->eventManager->listen(Compiler\Event\StatementBeforeCompile::EVENT_NAME)
             ->handler(
                 new StatementListener($this->bindOnStatements)
+            )
+            ->method('beforeCompile');
+
+        $this->eventManager->listen(Compiler\Event\ScalarBeforeCompile::EVENT_NAME)
+            ->handler(
+                new ScalarListener($this->bindOnScalars)
             )
             ->method('beforeCompile');
     }

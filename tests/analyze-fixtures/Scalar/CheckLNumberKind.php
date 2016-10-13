@@ -8,7 +8,6 @@ class CheckLNumberKind
     {
         $hex = 0x76;
         $oct = 076;
-
     }
 
     public function goodLNumberKind()

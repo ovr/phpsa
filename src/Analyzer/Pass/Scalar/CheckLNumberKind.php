@@ -29,7 +29,7 @@ class CheckLNumberKind implements AnalyzerPassInterface
             return true;
         }
 
-        return true;
+        return false;
     }
 
     /**
