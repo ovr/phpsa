@@ -4,6 +4,7 @@ namespace PHPSA\Compiler\Statement;
 
 use PHPSA\CompiledExpression;
 use PHPSA\Context;
+use PhpParser\Node\Scalar\LNumber;
 
 class BreakSt extends AbstractCompiler
 {
@@ -19,7 +20,15 @@ class BreakSt extends AbstractCompiler
         $compiler = $context->getExpressionCompiler();
 
         if ($stmt->num !== null) {
-            $compiler->compile($stmt->num);
+            $compiled = $compiler->compile($stmt->num);
+            
+            if (!($stmt->num instanceof LNumber) || $compiled->getValue() == 0) {
+                $context->notice(
+                    'language-error',
+                    'Break only supports positive integers.',
+                    $stmt
+                );
+            }
         }
     }
 }
