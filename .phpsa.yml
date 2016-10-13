@@ -167,4 +167,6 @@ phpsa:
         # Checks for Yoda conditions, where a constant is placed before the variable. For example: `if (3 == $a)`
         yoda_condition:
             enabled:              true
+        for_condition:
+            enabled:              true
 

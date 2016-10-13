@@ -101,6 +101,7 @@ class Factory
             AnalyzerPass\Statement\StaticUsage::class,
             AnalyzerPass\Statement\OptionalParamBeforeRequired::class,
             AnalyzerPass\Statement\YodaCondition::class,
+            AnalyzerPass\Statement\ForCondition::class,
         ];
     }
 
