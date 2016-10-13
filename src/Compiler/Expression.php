@@ -273,6 +273,11 @@ class Expression
             throw new InvalidArgumentException('$expr must be string/object/null');
         }
 
+        if ($expr instanceof Node\Scalar) {
+            $scalar = new \PHPSA\Compiler\Scalar($this->context, $this->context->getEventManager());
+            return $scalar->compile($expr);
+        }
+
         $this->eventManager->fire(
             ExpressionBeforeCompile::EVENT_NAME,
             new ExpressionBeforeCompile(
@@ -300,18 +305,18 @@ class Expression
             /**
              * Simple Scalar(s)
              */
-            case \PHPSA\Node\Scalar\Nil::class:
-                return new CompiledExpression(CompiledExpression::NULL);
-            case Node\Scalar\LNumber::class:
-                return new CompiledExpression(CompiledExpression::INTEGER, $expr->value);
-            case Node\Scalar\DNumber::class:
-                return new CompiledExpression(CompiledExpression::DOUBLE, $expr->value);
-            case Node\Scalar\String_::class:
-                return new CompiledExpression(CompiledExpression::STRING, $expr->value);
-            case \PHPSA\Node\Scalar\Boolean::class:
-                return new CompiledExpression(CompiledExpression::BOOLEAN, $expr->value);
-            case \PHPSA\Node\Scalar\Fake::class:
-                return new CompiledExpression($expr->type, $expr->value);
+//            case \PHPSA\Node\Scalar\Nil::class:
+//                return new CompiledExpression(CompiledExpression::NULL);
+//            case Node\Scalar\LNumber::class:
+//                return new CompiledExpression(CompiledExpression::INTEGER, $expr->value);
+//            case Node\Scalar\DNumber::class:
+//                return new CompiledExpression(CompiledExpression::DOUBLE, $expr->value);
+//            case Node\Scalar\String_::class:
+//                return new CompiledExpression(CompiledExpression::STRING, $expr->value);
+//            case \PHPSA\Node\Scalar\Boolean::class:
+//                return new CompiledExpression(CompiledExpression::BOOLEAN, $expr->value);
+//            case \PHPSA\Node\Scalar\Fake::class:
+//                return new CompiledExpression($expr->type, $expr->value);
         }
 
         $expressionCompiler = $this->factory($expr);

@@ -28,6 +28,10 @@ class Factory
             $configs[] = $passClass::getMetadata()->getConfiguration();
         }
 
+        foreach (self::getScalarPasses() as $passClass) {
+            $configs[] = $passClass::getMetadata()->getConfiguration();
+        }
+
         return $configs;
     }
 
@@ -71,6 +75,9 @@ class Factory
         );
         $analyzer->registerStatementPasses(
             array_map($instanciate, array_filter(self::getStatementPasses(), $filterEnabled))
+        );
+        $analyzer->registerScalarPasses(
+            array_map($instanciate, array_filter(self::getScalarPasses(), $filterEnabled))
         );
         $analyzer->bind();
 
@@ -137,6 +144,16 @@ class Factory
             AnalyzerPass\Expression\FunctionCall\RegularExpressions::class,
             AnalyzerPass\Expression\FunctionCall\ArgumentUnpacking::class,
             AnalyzerPass\Expression\FunctionCall\DeprecatedFunctions::class,
+        ];
+    }
+
+    /**
+     * @return array
+     */
+    private static function getScalarPasses()
+    {
+        return [
+            AnalyzerPass\Scalar\CheckLNumberKind::class,
         ];
     }
 }

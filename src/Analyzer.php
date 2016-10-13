@@ -7,6 +7,7 @@
 namespace PHPSA;
 
 use PHPSA\Analyzer\EventListener\ExpressionListener;
+use PHPSA\Analyzer\EventListener\ScalarListener;
 use PHPSA\Analyzer\EventListener\StatementListener;
 use PHPSA\Analyzer\Pass\AnalyzerPassInterface;
 use Webiny\Component\EventManager\EventManager;
@@ -27,6 +28,11 @@ class Analyzer
      * @var []AnalyzerPassInterface[]
      */
     protected $bindOnStatements = [];
+
+    /**
+     * @var []AnalyzerPassInterface[]
+     */
+    protected $bindOnScalars = [];
 
     /**
      * @param EventManager $eventManager
@@ -81,6 +87,28 @@ class Analyzer
     }
 
     /**
+     * @param array $scalarPasses all the scalar analyzers
+     * @throws \RuntimeException if the analyzer does not implement the required interface
+     */
+    public function registerScalarPasses(array $scalarPasses)
+    {
+        foreach ($scalarPasses as $pass) {
+            if (!$pass instanceof AnalyzerPassInterface) {
+                throw new \RuntimeException('Analyzer pass must implement AnalyzerPassInterface');
+            }
+
+            $bindOnScalars = $pass->getRegister();
+            foreach ($bindOnScalars as $bindOnScalar) {
+                if (isset($this->bindOnScalars[$bindOnScalar])) {
+                    $this->bindOnScalars[$bindOnScalar][] = $pass;
+                } else {
+                    $this->bindOnScalars[$bindOnScalar] = [$pass];
+                }
+            }
+        }
+    }
+
+    /**
      * binds the listeners
      */
     public function bind()
@@ -94,6 +122,12 @@ class Analyzer
         $this->eventManager->listen(Compiler\Event\StatementBeforeCompile::EVENT_NAME)
             ->handler(
                 new StatementListener($this->bindOnStatements)
+            )
+            ->method('beforeCompile');
+
+        $this->eventManager->listen(Compiler\Event\ScalarBeforeCompile::EVENT_NAME)
+            ->handler(
+                new ScalarListener($this->bindOnScalars)
             )
             ->method('beforeCompile');
     }
