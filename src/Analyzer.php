@@ -29,6 +29,11 @@ class Analyzer
     protected $bindOnStatements = [];
 
     /**
+     * @var []AnalyzerPassInterface[]
+     */
+    protected $bindOnScalars = [];
+
+    /**
      * @param EventManager $eventManager
      */
     public function __construct(EventManager $eventManager)
@@ -75,6 +80,28 @@ class Analyzer
                     $this->bindOnStatements[$bindOnStatement][] = $pass;
                 } else {
                     $this->bindOnStatements[$bindOnStatement] = [$pass];
+                }
+            }
+        }
+    }
+
+    /**
+     * @param array $scalarPasses all the scalar analyzers
+     * @throws \RuntimeException if the analyzer does not implement the required interface
+     */
+    public function registerScalarPasses(array $scalarPasses)
+    {
+        foreach ($scalarPasses as $pass) {
+            if (!$pass instanceof AnalyzerPassInterface) {
+                throw new \RuntimeException('Analyzer pass must implement AnalyzerPassInterface');
+            }
+
+            $bindOnScalars = $pass->getRegister();
+            foreach ($bindOnScalars as $bindOnScalar) {
+                if (isset($this->bindOnScalars[$bindOnScalar])) {
+                    $this->bindOnScalars[$bindOnScalar][] = $pass;
+                } else {
+                    $this->bindOnScalars[$bindOnScalar] = [$pass];
                 }
             }
         }
