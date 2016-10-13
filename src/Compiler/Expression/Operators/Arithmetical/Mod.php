@@ -28,18 +28,10 @@ class Mod extends AbstractExpressionCompiler
         $left = $context->getExpressionCompiler()->compile($expr->left);
         $right = $context->getExpressionCompiler()->compile($expr->right);
 
-        if ($left->isEquals(0)) {
-            $context->notice(
-                'division-zero',
-                'You are trying to divide from 0: ' . $left->getValue() . '%{expr}',
-                $expr
-            );
-        }
-
         if ($right->isEquals(0)) {
             $context->notice(
-                'division-zero',
-                'You are trying to divide by 0: {expr}%' . $right->getValue(),
+                'language-error',
+                'You are trying to divide by 0.',
                 $expr
             );
 
@@ -52,17 +44,6 @@ class Mod extends AbstractExpressionCompiler
             case CompiledExpression::BOOLEAN:
                 switch ($right->getType()) {
                     case CompiledExpression::BOOLEAN:
-                        /**
-                         * Boolean is true since isEquals(0) check did not pass before
-                         * {expr}/1 = {expr}
-                         */
-
-                        $context->notice(
-                            'division-by-true',
-                            'You are trying to divide by true: {expr}%true ~ {expr}%1 = {expr}',
-                            $expr
-                        );
-                        //no break
                     case CompiledExpression::INTEGER:
                     case CompiledExpression::DOUBLE:
                         return CompiledExpression::fromZvalValue($left->getValue() % $right->getValue());

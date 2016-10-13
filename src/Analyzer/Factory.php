@@ -128,6 +128,8 @@ class Factory
             AnalyzerPass\Expression\EvalUsage::class,
             AnalyzerPass\Expression\FinalStaticUsage::class,
             AnalyzerPass\Expression\CompareWithArray::class,
+            AnalyzerPass\Expression\DivisionFromZero::class,
+            AnalyzerPass\Expression\DivisionByOne::class,
             AnalyzerPass\Expression\BacktickUsage::class,
             AnalyzerPass\Expression\LogicInversion::class,
             AnalyzerPass\Expression\ExitUsage::class,

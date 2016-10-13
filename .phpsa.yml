@@ -38,6 +38,14 @@ phpsa:
         compare_with_array:
             enabled:              true
 
+        # Checks for division from 0. For example: `0/$x`, `false%$x`
+        division_from_zero:
+            enabled:              true
+
+        # Checks for division by 1. For example: `$x/1`, `$x%true`
+        division_by_one:
+            enabled:              true
+
         # Discourages the use of backtick operator for shell execution.
         backtick_usage:
             enabled:              true
