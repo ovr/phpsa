@@ -1,7 +1,10 @@
 # Configuration
 
-You can change the configuration by editing .phpsa.yml in the root directory. Here it's possible to disable every single analyzer or just configure a minimum php version your checked code should run on and we will automatically disable all analyzers that you don't need for you.
+You can change the configuration by editing .phpsa.yml in the root directory.
+The blame setting can show the git information about the author of the line.
 
-work in progress
+You can also set a language level setting. This will disable all analyzers that require a higher version than specified here automatically.
+
+For a finer configuration you can enable/disable every single analyzer there is. Some of them (like MissingDocblock) will have extra settings besides enabled. Here it's possible to configure the analyzer. The MissingDocblock analyzer for example can let you choose for which language constructs you want to see notices for a missing docblock.
 
 Next: [Components](./04_Components.md)
