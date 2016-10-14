@@ -15,6 +15,8 @@ class PropertyDefinitionDefaultValue implements Pass\AnalyzerPassInterface
 {
     use DefaultMetadataPassTrait;
 
+    const DESCRIPTION = 'Checks if any Property Definition is done with a default null value (not needed). For example: `$a = null`';
+
     /**
      * @param $stmt
      * @param Context $context

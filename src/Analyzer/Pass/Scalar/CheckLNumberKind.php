@@ -11,7 +11,7 @@ class CheckLNumberKind implements AnalyzerPassInterface
 {
     use DefaultMetadataPassTrait;
 
-    const DESCRIPTION = 'Using octal, hexadecimal or binary integers are discouraged.';
+    const DESCRIPTION = 'Using octal, hexadecimal or binary integers is discouraged.';
 
     /**
      * @param Scalar\LNumber $lNum

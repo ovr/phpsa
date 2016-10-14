@@ -11,6 +11,8 @@ class ForCondition implements AnalyzerPassInterface
 {
     use DefaultMetadataPassTrait;
 
+    const DESCRIPTION = 'Discourages the use of `for` with multiple conditions.';
+
     public function pass(For_ $stmt, Context $context)
     {
         if (count($stmt->cond) > 1) {

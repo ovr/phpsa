@@ -35,6 +35,10 @@ Discourages the use of backtick operator for shell execution.
 
 Checks for casts that try to cast a type to itself.
 
+#### CheckLNumberKind
+
+Using octal, hexadecimal or binary integers is discouraged.
+
 #### CompareWithArray
 
 Checks for `{type array} > 1` and similar and suggests use of `count()`.
@@ -73,7 +77,7 @@ Checks for use of `static::` inside a final class.
 
 #### ForCondition
 
-Discourages the use of `for` with multiple conditions
+Discourages the use of `for` with multiple conditions.
 
 #### GlobalUsage
 
@@ -133,7 +137,7 @@ Checks if any optional parameters are before a required one. For example: `funct
 
 #### PropertyDefinitionDefaultValue
 
-Checks if any Property Definition is done with a default null value(not needed). For example: `$a = null`
+Checks if any Property Definition is done with a default null value (not needed). For example: `$a = null`
 
 #### RandomApiMigration
 
