@@ -12,9 +12,15 @@ class MissingDocblock implements AnalyzerPassInterface
 {
     const DESCRIPTION = 'Checks for a missing docblock for: class, property, class constant, trait, interface, class method, function.';
 
+    /**
+     * Contains the Nodes that are registered
+     */
     public $register = [];
 
-    public function __construct($config)
+    /**
+     * @param array $config The config values for the analyzer
+     */
+    public function __construct(array $config)
     {
         if ($config["class"] == true) {
             $this->register[] = Stmt\Class_::class;
@@ -68,7 +74,7 @@ class MissingDocblock implements AnalyzerPassInterface
     }
 
     /**
-     * {@inheritdoc}
+     * @return Metadata
      */
     public static function getMetadata()
     {
