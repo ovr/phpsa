@@ -48,7 +48,7 @@ class Metadata
      * @param null $description
      * @param NodeDefinition|null $config
      */
-    private function __construct($name, NodeDefinition $config, $description = null)
+    public function __construct($name, NodeDefinition $config, $description = null)
     {
         $this->name = $name;
         $this->configuration = $config;

@@ -143,6 +143,13 @@ phpsa:
         # Checks for a missing docblock for: class, property, class constant, trait, interface, class method, function.
         missing_docblock:
             enabled:              true
+            class:                true
+            class_method:         true
+            class_const:          true
+            class_property:       true
+            function:             true
+            interface:            true
+            trait:                true
 
         # Checks for use of PHP 4 constructors and discourages it.
         old_constructor:
