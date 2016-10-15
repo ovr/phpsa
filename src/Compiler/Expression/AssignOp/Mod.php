@@ -28,6 +28,16 @@ class Mod extends AbstractExpressionCompiler
         $left = $context->getExpressionCompiler()->compile($expr->var);
         $expExpression = $context->getExpressionCompiler()->compile($expr->expr);
 
+        if ($expExpression->isEquals(0)) {
+            $context->notice(
+                'language-error',
+                'You are trying to divide by 0.',
+                $expr
+            );
+
+            return new CompiledExpression();
+        }
+
         switch ($left->getType()) {
             case CompiledExpression::INTEGER:
             case CompiledExpression::DOUBLE:

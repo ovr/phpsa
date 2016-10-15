@@ -59,6 +59,14 @@ Checks for use of deprecated functions and gives alternatives if available.
 
 Checks for use of deprecated php.ini options and gives alternatives if available.
 
+#### DivisionByOne
+
+Checks for division by 1. For example: `$x/1`, `$x%true`
+
+#### DivisionFromZero
+
+Checks for division from 0. For example: `0/$x`, `false%$x`
+
 #### ErrorSuppression
 
 Discourages the use of the `@` operator to silence errors.
