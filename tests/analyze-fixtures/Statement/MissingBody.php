@@ -35,7 +35,7 @@ class MissingBody
 function missingBodyFunction() {
 }
 
-class ImplementedBody
+abstract class ImplementedBody
 {
     public function implementedBodyMethod() {
         echo "implemented";
@@ -73,6 +73,8 @@ class ImplementedBody
             echo "implemented";
         }
     }
+
+    abstract public function abstractFunc();
 }
 
 function implementedBodyFunction() {
