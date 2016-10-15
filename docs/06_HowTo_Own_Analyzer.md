@@ -1,10 +1,10 @@
 # How to write your own Analyzer
 
-This gives an overview about what is needed to do, to create your own analyzer. It mainly consists of 3 steps.
+This gives an overview of what needs to be done to create your own analyzer. It mainly consists of 3 steps:
 
 ### 1. Create Analyzer
 
-First you need to find out what you want to do. There are Expressions and Statements. 
+First, you need to find out what you want to do. There are Expressions and Statements. 
 
 A rule of thumb is: if what you want to check for has blocks (for example if, while, try catch) it is a statement, else it's an expression. But there are exceptions to this so just check nikic's PhpParser project to find out what you need:
 
@@ -16,11 +16,11 @@ If you found what you need you can create your analyzer in the appropriate direc
 
 You will have to change the getRegister() method. Add here all the Nodes you want your analyzer to check. (can be multiple!) In the pass() method you write the code your analyzer should execute. The metadata are some configuration settings. For example you can set a minimum php version level. If the checked code is below that version level your analyzer won't be executed.
 
-A tip for writing your analyzer: Check out the `$context` variable that gets passed in. It contains a lot of useful things. For example you can get an Expression Compiler like this:
+A tip for writing your analyzer: Check out the `$context` variable that gets passed in. It contains a lot of useful things. For example, you can get an Expression Compiler like this:
 
 `$context->getExpressionCompiler()->compile($something);`
 
-You can then use that CompiledExpression. This can for example compile variables down to it's value or check data types.
+You can then use that CompiledExpression. This can, for example, compile variables down to its value or check data types.
 
 ### 2. Add it to the Factory
 
