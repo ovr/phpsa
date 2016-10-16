@@ -274,7 +274,7 @@ class Expression
         }
 
         if ($expr instanceof Node\Scalar) {
-            $scalar = new \PHPSA\Compiler\Scalar($this->context, $this->context->getEventManager());
+            $scalar = new \PHPSA\Compiler\Scalar($this->context, $this->eventManager);
             return $scalar->compile($expr);
         }
 
