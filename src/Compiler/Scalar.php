@@ -67,7 +67,7 @@ class Scalar
                 return new CompiledExpression(CompiledExpression::DOUBLE, $scalar->value);
             case Node\Scalar\String_::class:
                 return new CompiledExpression(CompiledExpression::STRING, $scalar->value);
-                
+
             // @todo Review this and implement support
             case Node\Scalar\EncapsedStringPart::class:
             case Node\Scalar\Encapsed::class:
