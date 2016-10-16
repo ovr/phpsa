@@ -43,3 +43,5 @@ Now you split that file by: `----------------------------` (it has to be exactly
 ### 5. Add it to Documentation
 
 Add your analyzer to `docs/05_Analyzers.md` with a short description of what your analyzer does.
+
+Next: [Plugins](./07_Plugins.md)
