@@ -60,6 +60,22 @@ class Scalar
     protected function factory(Node\Scalar $scalar)
     {
         switch (get_class($scalar)) {
+            // Native Scalars
+            case Node\Scalar\LNumber::class:
+                return new CompiledExpression(CompiledExpression::INTEGER, $scalar->value);
+            case Node\Scalar\DNumber::class:
+                return new CompiledExpression(CompiledExpression::DOUBLE, $scalar->value);
+            case Node\Scalar\String_::class:
+                return new CompiledExpression(CompiledExpression::STRING, $scalar->value);
+                
+            // @todo Review this and implement support
+            case Node\Scalar\EncapsedStringPart::class:
+            case Node\Scalar\Encapsed::class:
+                return new CompiledExpression(CompiledExpression::STRING);
+
+            /**
+             * Fake scalars for testing
+             */
             case \PHPSA\Node\Scalar\Nil::class:
                 return new CompiledExpression(CompiledExpression::NULL);
             case \PHPSA\Node\Scalar\Boolean::class:
@@ -68,28 +84,25 @@ class Scalar
                 return new CompiledExpression($scalar->type, $scalar->value);
 
             /**
-             * Numbers
+             * MagicConst
+             * @todo Review this and implement support, now We return only type
              */
             case Node\Scalar\MagicConst\Line::class:
-            case Node\Scalar\LNumber::class:
-                return new CompiledExpression(CompiledExpression::INTEGER, $scalar->value);
-            case Node\Scalar\DNumber::class:
-                return new CompiledExpression(CompiledExpression::DOUBLE, $scalar->value);
-
-            /**
-             * Strings
-             */
-            case Node\Scalar\String_::class:
-            case Node\Scalar\EncapsedStringPart::class:
-            case Node\Scalar\Encapsed::class:
+                return new CompiledExpression(CompiledExpression::INTEGER);
             case Node\Scalar\MagicConst\Trait_::class:
+                return new CompiledExpression(CompiledExpression::STRING);
             case Node\Scalar\MagicConst\Namespace_::class:
+                return new CompiledExpression(CompiledExpression::STRING);
             case Node\Scalar\MagicConst\Class_::class:
+                return new CompiledExpression(CompiledExpression::STRING);
             case Node\Scalar\MagicConst\Dir::class:
+                return new CompiledExpression(CompiledExpression::STRING);
             case Node\Scalar\MagicConst\File::class:
+                return new CompiledExpression(CompiledExpression::STRING);
             case Node\Scalar\MagicConst\Function_::class:
+                return new CompiledExpression(CompiledExpression::STRING);
             case Node\Scalar\MagicConst\Method::class:
-                return new CompiledExpression(CompiledExpression::STRING, $scalar->value);
+                return new CompiledExpression(CompiledExpression::STRING);
 
             default:
                 throw new RuntimeException('Unknown scalar: ' . get_class($scalar));
