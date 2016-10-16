@@ -88,7 +88,7 @@ class Scalar
              * @todo Review this and implement support, now We return only type
              */
             case Node\Scalar\MagicConst\Line::class:
-                return new CompiledExpression(CompiledExpression::INTEGER);
+                return new CompiledExpression(CompiledExpression::INTEGER, $scalar->getAttribute('startLine'));
             case Node\Scalar\MagicConst\Trait_::class:
                 return new CompiledExpression(CompiledExpression::STRING);
             case Node\Scalar\MagicConst\Namespace_::class:
