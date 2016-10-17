@@ -2,15 +2,15 @@
 
 ## CodeClimate
 
-We still working on full integration with CodeClimate but you can try it localy:
+We are still working on full integration with CodeClimate, but you can try it locally:
 
-First, you need to build `PHPSA` Docker image:
+First, you need to build the `PHPSA` Docker image:
 
 ```sh
 docker build --no-cache=true -t codeclimate/codeclimate-phpsa --file ./plugins/codeclimate/Dockerfile .
 ```
 
-Next enable `PHPSA` in configuration `.codeclimate.yml`:
+Next enable `PHPSA` in configuration file `.codeclimate.yml`:
 
 ```yaml
 ---
