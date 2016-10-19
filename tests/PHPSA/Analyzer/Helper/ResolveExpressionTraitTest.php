@@ -22,23 +22,37 @@ class ResolveExpressionTraitTest extends \Tests\PHPSA\TestCase
                 CompiledExpression::STRING
             )
         );
+        $context->addVariable(
+            new \PHPSA\Variable(
+                'variableWithIntValue',
+                12345,
+                CompiledExpression::INTEGER
+            )
+        );
 
         return [
+            // success
             [
                 new \PhpParser\Node\Name(['testFn']),
                 'testFn',
                 $context
             ],
             [
+                new \PhpParser\Node\Expr\Variable('variableWithFunctionName'),
+                'testFunctionName',
+                $context
+            ],
+            // not success
+            [
                 new \PhpParser\Node\Expr\Variable('unknown'),
                 false,
                 $context
             ],
             [
-                new \PhpParser\Node\Expr\Variable('variableWithFunctionName'),
-                'testFunctionName',
+                new \PhpParser\Node\Expr\Variable('variableWithIntValue'),
+                false,
                 $context
-            ]
+            ],
         ];
     }
 
@@ -57,6 +71,40 @@ class ResolveExpressionTraitTest extends \Tests\PHPSA\TestCase
                     $nameExpr
                 ),
                 $context
+            )
+        );
+    }
+
+    public function testFindReturnStatement()
+    {
+        $returnStatement = new \PhpParser\Node\Stmt\Return_();
+
+        parent::assertSame(
+            [$returnStatement],
+            // findReturnStatement will return \Generator, We should iterate it
+            iterator_to_array(
+                $this->findReturnStatement(
+                    [
+                        $returnStatement
+                    ]
+                )
+            )
+        );
+    }
+
+    public function testFindYieldStatement()
+    {
+        $returnStatement = new \PhpParser\Node\Expr\Yield_();
+
+        parent::assertSame(
+            [$returnStatement],
+            // findReturnStatement will return \Generator, We should iterate it
+            iterator_to_array(
+                $this->findYieldExpression(
+                    [
+                        $returnStatement
+                    ]
+                )
             )
         );
     }
