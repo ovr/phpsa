@@ -40,6 +40,8 @@ class TraitDefinition extends ParentDefinition
      */
     public function compile(Context $context)
     {
+        $context->setFilepath($this->filepath);
+
         $context->getEventManager()->fire(
             Event\StatementBeforeCompile::EVENT_NAME,
             new Event\StatementBeforeCompile(
