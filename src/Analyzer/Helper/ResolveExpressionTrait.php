@@ -90,7 +90,7 @@ trait ResolveExpressionTrait
                     yield $rNode;
                 }
             } elseif ($subNode instanceof Node) {
-                yield $node;
+                yield $subNode;
 
                 foreach ($this->traverseNode($subNode) as $rNode) {
                     yield $rNode;
@@ -111,6 +111,8 @@ trait ResolveExpressionTrait
                     yield $rNode;
                 }
             } elseif ($node instanceof Node) {
+                yield $node;
+
                 foreach ($this->traverseNode($node) as $rNode) {
                     yield $rNode;
                 }
