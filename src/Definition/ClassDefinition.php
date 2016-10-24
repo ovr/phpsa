@@ -140,6 +140,10 @@ class ClassDefinition extends ParentDefinition
             return true;
         }
 
+        $this->compiled = true;
+        $context->setFilepath($this->filepath);
+        $context->setScope($this);
+
         $context->getEventManager()->fire(
             Event\StatementBeforeCompile::EVENT_NAME,
             new Event\StatementBeforeCompile(
@@ -147,10 +151,6 @@ class ClassDefinition extends ParentDefinition
                 $context
             )
         );
-
-        $this->compiled = true;
-        $context->setFilepath($this->filepath);
-        $context->setScope($this);
 
         // Compile event for properties
         foreach ($this->properties as $property) {
