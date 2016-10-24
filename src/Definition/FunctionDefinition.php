@@ -60,6 +60,12 @@ class FunctionDefinition extends ParentDefinition
             return true;
         }
 
+        $context->setFilepath($this->filepath);
+        $this->compiled = true;
+
+        $context->scopePointer = $this->getPointer();
+        $context->setScope(null);
+
         $context->getEventManager()->fire(
             Event\StatementBeforeCompile::EVENT_NAME,
             new Event\StatementBeforeCompile(
@@ -67,12 +73,6 @@ class FunctionDefinition extends ParentDefinition
                 $context
             )
         );
-
-        $context->setFilepath($this->filepath);
-        $this->compiled = true;
-
-        $context->scopePointer = $this->getPointer();
-        $context->setScope(null);
 
         if (count($this->statement->params) > 0) {
             /** @var  Node\Param $parameter */
