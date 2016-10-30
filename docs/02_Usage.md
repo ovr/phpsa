@@ -1,6 +1,6 @@
 # Usage
 
-You can change the configuration by editing .phpsa.yml in the root directory. Here it's possible to disable every single analyzer or just configure a minimum php version your checked code should run on and we will automatically disable all analyzers that you don't need for you.
+You can change the configuration by editing .phpsa.yml in the root directory. Here, it's possible to disable every single analyzer. Or, just configure a minimum php version that your checked code should run on and we will automatically disable all analyzers that you don't need.
 
 ```sh
 $ ./bin/phpsa
@@ -26,7 +26,7 @@ Available commands:
 
 ## It is highly recommended to disable xdebug
 
-You can run `php` with parameters to disable it:
+You can run `php` with these parameters to disable it:
 
 ```sh
 php -n -d xdebug.enable=0 -f ./bin/phpsa
@@ -34,7 +34,7 @@ php -n -d xdebug.enable=0 -f ./bin/phpsa
 
 ## Example output
 
-You can try it out and run phpsa on our fixtures/ directory. It contains various things the analyzer will notice you of.
+You can try it out and run phpsa on our fixtures/directory. It contains various things the analyzer will notify you of.
 
 ```sh
 $ ./bin/phpsa check fixtures/
