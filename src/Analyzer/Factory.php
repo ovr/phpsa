@@ -110,6 +110,7 @@ class Factory
             AnalyzerPass\Statement\YodaCondition::class,
             AnalyzerPass\Statement\ForCondition::class,
             AnalyzerPass\Statement\PropertyDefinitionDefaultValue::class,
+            AnalyzerPass\Statement\ReturnAndYieldInOneMethod::class,
         ];
     }
 

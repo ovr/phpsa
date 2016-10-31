@@ -184,6 +184,10 @@ phpsa:
         property_definition_default_value:
             enabled:              true
 
+        # Checks for using return and yield statements in a one method and discourages it.
+        return_and_yield_in_one_method:
+            enabled:              true
+
         # Using octal, hexadecimal or binary integers is discouraged.
         check_l_number_kind:
             enabled:              true

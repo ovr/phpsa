@@ -155,6 +155,10 @@ Checks for use of old rand, srand, getrandmax functions and suggests alternative
 
 Checks that regular expressions are syntactically correct.
 
+#### ReturnAndYieldInOneMethod
+
+Checks for using return and yield statements in a one method and discourages it.
+
 #### StaticUsage
 
 Discourages the use of static variables (not properties).
