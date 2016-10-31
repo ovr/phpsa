@@ -62,7 +62,7 @@ trait ResolveExpressionTrait
     protected function findNode(array $nodes, $nodeName)
     {
         foreach ($this->traverseArray($nodes) as $node) {
-            if ($node instanceof $nodeName) {
+            if (get_class($node) === $nodeName) {
                 yield $node;
             }
         }
