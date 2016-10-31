@@ -9,7 +9,17 @@ class ReturnAndYieldInOneMethod
         if ($a) {
             return $a;
         }
+
         yield $a;
+    }
+
+    public function testReturnAndYieldFrom($a = true)
+    {
+        if ($a) {
+            return $a;
+        }
+
+        yield from [1, 2, 3, 4, 5];
     }
 
     public function testReturnOnly($a = true)
@@ -17,6 +27,7 @@ class ReturnAndYieldInOneMethod
         if ($a) {
             return $a;
         }
+
         return !$a;
     }
 
@@ -34,11 +45,19 @@ class ReturnAndYieldInOneMethod
 }
 ?>
 ----------------------------
+PHPSA\Analyzer\Pass\Statement\ReturnAndYieldInOneMethod
+----------------------------
 [
     {
         "type": "return_and_yield_in_one_method",
         "message": "Do not use return and yield in a one method",
         "file": "ReturnAndYieldInOneMethod.php",
         "line": 6
+    },
+    {
+        "type": "return_and_yield_in_one_method",
+        "message": "Do not use return and yield in a one method",
+        "file": "ReturnAndYieldInOneMethod.php",
+        "line": 15
     }
 ]
