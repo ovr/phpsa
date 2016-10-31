@@ -35,17 +35,6 @@ trait ResolveExpressionTrait
     }
 
     /**
-     * Return \Generator with Return_ statement(s)
-     *
-     * @param \PhpParser\Node[] $nodes
-     * @return \Generator
-     */
-    protected function findStatement(array $nodes, $stmtClass)
-    {
-        return $this->findNode($nodes, Return_::class);
-    }
-
-    /**
      * Return \Generator with Yield_ expression(s)
      *
      * @param \PhpParser\Node[] $nodes
@@ -57,6 +46,15 @@ trait ResolveExpressionTrait
     }
 
     /**
+     * @param \PhpParser\Node[] $nodes
+     * @return \Generator
+     */
+    protected function findReturnStatement(array $nodes)
+    {
+        return $this->findNode($nodes, Return_::class);
+    }
+
+    /**
      * @param array $nodes
      * @param string $nodeName Class name of Node(s) what We should return
      * @return \Generator
@@ -64,19 +62,10 @@ trait ResolveExpressionTrait
     protected function findNode(array $nodes, $nodeName)
     {
         foreach ($this->traverseArray($nodes) as $node) {
-            if ($node instanceof $stmtClass) {
+            if ($node instanceof $nodeName) {
                 yield $node;
             }
         }
-    }
-
-    /**
-     * @param \PhpParser\Node[] $nodes
-     * @return \PhpParser\Node\Stmt\Return_
-     */
-    protected function findReturnStatement(array $nodes)
-    {
-        return $this->findStatement($nodes, Return_::class);
     }
 
     /**

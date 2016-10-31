@@ -2,11 +2,11 @@
 
 namespace PHPSA\Analyzer\Pass\Statement;
 
-use PhpParser\Node\Expr\Yield_;
 use PhpParser\Node\Stmt;
 use PHPSA\Analyzer\Helper\DefaultMetadataPassTrait;
 use PHPSA\Analyzer\Helper\ResolveExpressionTrait;
 use PHPSA\Analyzer\Pass;
+use PhpParser\Node\Expr;
 use PHPSA\Context;
 
 class ReturnAndYieldInOneMethod implements Pass\AnalyzerPassInterface
@@ -21,32 +21,18 @@ class ReturnAndYieldInOneMethod implements Pass\AnalyzerPassInterface
      */
     public function pass(Stmt $stmt, Context $context)
     {
-        if ($this->returnStatementExists($stmt) && $this->yieldStatementExists($stmt)) {
+        $yieldExists = $this->findYieldExpression([$stmt])->current();
+        if (!$yieldExists) {
+            // YieldFrom is another expression
+            $yieldExists = $this->findNode([$stmt], Expr\YieldFrom::class)->current();
+        }
+
+        if ($yieldExists && $this->findReturnStatement([$stmt])->current()) {
             $context->notice('return_and_yield_in_one_method', 'Do not use return and yield in a one method', $stmt);
             return true;
         }
 
         return false;
-    }
-
-    /**
-     * @param Stmt $node
-     *
-     * @return bool
-     */
-    private function returnStatementExists(Stmt $node)
-    {
-        return (bool)$this->findReturnStatement([$node])->current();
-    }
-
-    /**
-     * @param Stmt $node
-     *
-     * @return bool
-     */
-    private function yieldStatementExists(Stmt $node)
-    {
-        return (bool)$this->findStatement([$node], Yield_::class)->current();
     }
 
     /**
