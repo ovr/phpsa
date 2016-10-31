@@ -22,3 +22,18 @@ function nodeVisitorFactory($stmt, Context $context)
 
     return $context->getExpressionCompiler()->compile($stmt);
 }
+
+/**
+ * Especial to protect HHVM: exception: Need to call next() first
+ *
+ * @param \Generator $generator
+ * @return bool
+ */
+function generatorHasValue(\Generator $generator)
+{
+    foreach ($generator as $v) {
+        return true;
+    }
+
+    return false;
+}
