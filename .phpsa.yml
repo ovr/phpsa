@@ -175,8 +175,6 @@ phpsa:
         # Checks for Yoda conditions, where a constant is placed before the variable. For example: `if (3 == $a)`
         yoda_condition:
             enabled:              true
-        return_and_yield_in_one_method:
-            enabled:              true
 
         # Discourages the use of `for` with multiple conditions.
         for_condition:
@@ -184,6 +182,10 @@ phpsa:
 
         # Checks if any Property Definition is done with a default null value (not needed). For example: `$a = null`
         property_definition_default_value:
+            enabled:              true
+
+        # Checks for using return and yield statements in a one method and discourages it.
+        return_and_yield_in_one_method:
             enabled:              true
 
         # Using octal, hexadecimal or binary integers is discouraged.

@@ -11,8 +11,10 @@ use PHPSA\Context;
 
 class ReturnAndYieldInOneMethod implements Pass\AnalyzerPassInterface
 {
-    use DefaultMetadataPassTrait,
-        ResolveExpressionTrait;
+    const DESCRIPTION = 'Checks for using return and yield statements in a one method and discourages it.';
+
+    use DefaultMetadataPassTrait;
+    use ResolveExpressionTrait;
 
     /**
      * @param Stmt $stmt
