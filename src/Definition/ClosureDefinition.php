@@ -36,7 +36,7 @@ class ClosureDefinition extends ParentDefinition
     /**
      * @var array
      */
-    protected $possibleReturnTypes = array();
+    protected $possibleReturnTypes = [];
 
     /**
      * @var SymbolTable

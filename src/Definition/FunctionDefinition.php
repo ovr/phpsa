@@ -36,7 +36,7 @@ class FunctionDefinition extends ParentDefinition
     /**
      * @var array
      */
-    protected $possibleReturnTypes = array();
+    protected $possibleReturnTypes = [];
 
     /**
      * @param string $name

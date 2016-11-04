@@ -23,7 +23,7 @@ class ReflectionClassMethod extends ClassMethod
      *
      * @var array
      */
-    protected $possibleReturnValues = array();
+    protected $possibleReturnValues = [];
 
     /**
      * @var ReflectionMethod
