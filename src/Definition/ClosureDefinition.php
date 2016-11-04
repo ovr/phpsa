@@ -9,6 +9,8 @@ use PHPSA\CompiledExpression;
 use PHPSA\Compiler\SymbolTable;
 use PHPSA\Context;
 use PhpParser\Node;
+use PHPSA\Compiler\Parameter;
+use PHPSA\Compiler\Types;
 
 /**
  * Class FunctionDefinition
@@ -102,7 +104,19 @@ class ClosureDefinition extends ParentDefinition
         if (count($this->statement->params) > 0) {
             /** @var  Node\Param $parameter */
             foreach ($this->statement->params as $parameter) {
-                $context->addSymbol($parameter->name);
+                $type = CompiledExpression::UNKNOWN;
+
+                if ($parameter->type) {
+                    if (is_string($parameter->type)) {
+                        $type = Types::getType($parameter->type);
+                    } elseif ($parameter->type instanceof Node\Name) {
+                        $type = CompiledExpression::OBJECT;
+                    }
+                }
+
+                $context->addVariable(
+                    new Parameter($parameter->name, null, $type, $parameter->byRef)
+                );
             }
         }
 
