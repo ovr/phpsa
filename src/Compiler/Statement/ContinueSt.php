@@ -2,6 +2,7 @@
 
 namespace PHPSA\Compiler\Statement;
 
+use PhpParser\Node\Scalar\LNumber;
 use PHPSA\CompiledExpression;
 use PHPSA\Context;
 
