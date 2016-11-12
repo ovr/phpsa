@@ -27,7 +27,7 @@ class MethodCall extends AbstractExpressionCompiler
         $compiledArguments = $this->parseArgs($expr->args, $context);
 
         $leftCE = $expressionCompiler->compile($expr->var);
-        if ($leftCE->isObject()) {
+        if ($leftCE->canBeObject()) {
             /** @var ClassDefinition $calledObject */
             $calledObject = $leftCE->getValue();
             if ($calledObject instanceof ClassDefinition) {
@@ -60,10 +60,9 @@ class MethodCall extends AbstractExpressionCompiler
 
                     return $method->run(clone $context, $compiledArguments);
                 }
-
-                return new CompiledExpression();
             }
-        } elseif (!$leftCE->canBeObject()) {
+            return new CompiledExpression();
+        } else {
             $context->notice(
                 'mcall.non-object',
                 sprintf('$%s is not an object and cannot be called like this', $expr->var->name),

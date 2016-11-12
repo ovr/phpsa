@@ -27,28 +27,28 @@ class ClassDefinition extends ParentDefinition
      *
      * @var ClassMethod[]
      */
-    protected $methods = array();
+    protected $methods = [];
 
     /**
      * Class properties
      *
      * @var Node\Stmt\PropertyProperty[]
      */
-    protected $properties = array();
+    protected $properties = [];
 
     /**
      * Property Statements
      *
      * @var Node\Stmt\Property[]
      */
-    protected $propertyStatements = array();
+    protected $propertyStatements = [];
 
     /**
      * Class constants
      *
      * @var Node\Stmt\Const_[]
      */
-    protected $constants = array();
+    protected $constants = [];
 
     /**
      * @todo Use Finder
@@ -75,7 +75,7 @@ class ClassDefinition extends ParentDefinition
     /**
      * @var array
      */
-    protected $interfaces = array();
+    protected $interfaces = [];
 
     /**
      * @param string $name

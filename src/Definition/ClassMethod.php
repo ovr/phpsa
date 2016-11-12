@@ -38,7 +38,7 @@ class ClassMethod extends AbstractDefinition
      *
      * @var array
      */
-    protected $possibleReturnValues = array();
+    protected $possibleReturnValues = [];
 
     /**
      * @param string $name
@@ -93,7 +93,7 @@ class ClassMethod extends AbstractDefinition
                 if ($parameter->type) {
                     if (is_string($parameter->type)) {
                         $type = Types::getType($parameter->type);
-                    } elseif ($parameter->type instanceof Node\Name\FullyQualified) {
+                    } elseif ($parameter->type instanceof Node\Name) {
                         $type = CompiledExpression::OBJECT;
                     }
                 }
