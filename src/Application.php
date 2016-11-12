@@ -33,6 +33,7 @@ class Application extends \Symfony\Component\Console\Application
 
         $this->add(new Command\CheckCommand());
         $this->add(new Command\DumpReferenceCommand());
+        $this->add(new Command\DumpDocumentationCommand());
 
         $this->issuesCollector = new IssuesCollector();
         $this->configuration = new Configuration();

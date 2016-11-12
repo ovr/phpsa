@@ -22,6 +22,11 @@ tests: tests-local
 tests-ci:
 	./vendor/bin/phpunit -v --debug --coverage-clover=coverage.clover
 
+# For renewing config and documentation when analyzers were changed
+analyzers:
+	./bin/phpsa config:dump-reference > .phpsa.yml	
+	./bin/phpsa config:dump-documentation > docs/05_Analyzers.md
+
 test: tests-local cs
 
 ci: cs tests-ci check-fixtures check-src
