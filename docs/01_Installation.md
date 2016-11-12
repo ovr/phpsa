@@ -5,7 +5,7 @@
 The easiest way to get it working is to download a tagged phpsa.phar release, and put this on your path. For example:
 
 ```
-wget https://github.com/ovr/phpsa/releases/download/0.6.0/phpsa.phar
+wget https://github.com/ovr/phpsa/releases/download/0.6.1/phpsa.phar
 chmod +x phpsa.phar
 sudo mv phpsa.phar /usr/local/bin/phpsa
 ```
