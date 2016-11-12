@@ -22,7 +22,7 @@ class Application extends \Symfony\Component\Console\Application
      */
     public $compiler;
 
-    const VERSION = '0.5.0';
+    const VERSION = '0.6.0';
 
     /**
      * Starts the application.
