@@ -1,16 +1,10 @@
 <?php
-/**
- * @author Patsura Dmitry https://github.com/ovr <talk@dmtry.me>
- */
 
 namespace PHPSA\Command;
 
 use PhpParser\ParserFactory;
-use PHPSA\Analyzer;
 use PHPSA\Application;
 use PHPSA\Compiler;
-use PHPSA\Configuration;
-use PHPSA\ConfigurationLoader;
 use PHPSA\Context;
 use PHPSA\Definition\FileParser;
 use RecursiveDirectoryIterator;
@@ -24,41 +18,24 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Webiny\Component\EventManager\EventManager;
-use PHPSA\Analyzer\Pass as AnalyzerPass;
 
-/**
- * Class CheckCommand
- * @package PHPSA\Command
- *
- * @method Application getApplication();
- */
-class CheckCommand extends Command
+
+class CompileCommand extends Command
 {
 
     /**
-     * Configures the command.
+     * {@inheritdoc}
      */
     protected function configure()
     {
         $this
-            ->setName('check')
-            ->setDescription('Runs compiler and analyzers on all files in path')
-            ->addOption('blame', null, InputOption::VALUE_NONE, 'Git blame author for bad code ;)')
-            ->addOption('config-file', null, InputOption::VALUE_REQUIRED, 'Path to the configuration file.')
-            ->addArgument('path', InputArgument::OPTIONAL, 'Path to check file or directory', '.')
-            ->addOption(
-                'report-json',
-                null,
-                InputOption::VALUE_REQUIRED,
-                'Path to save detailed report in JSON format. Example: /tmp/report.json'
-            );
+            ->setName('compile')
+            ->setDescription('Runs compiler on all files in path')
+            ->addArgument('path', InputArgument::OPTIONAL, 'Path to check file or directory', '.');
     }
 
     /**
-     * Executes the command.
-     *
-     * @param InputInterface $input
-     * @param OutputInterface $output
+     * {@inheritdoc}
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
@@ -89,20 +66,8 @@ class CheckCommand extends Command
         $application = $this->getApplication();
         $application->compiler = new Compiler();
 
-        $configFile = $input->getOption('config-file') ?: '.phpsa.yml';
-        $configDir = realpath($input->getArgument('path'));
-        $application->configuration = $this->loadConfiguration($configFile, $configDir);
-
         $em = EventManager::getInstance();
-        Analyzer\Factory::factory($em, $application->configuration);
         $context = new Context($output, $application, $em);
-
-        /**
-         * Store option's in application's configuration
-         */
-        if ($input->getOption('blame')) {
-            $application->configuration->setValue('blame', true);
-        }
 
         $fileParser = new FileParser(
             $parser,
@@ -153,28 +118,6 @@ class CheckCommand extends Command
          * Step 2 Recursive check ...
          */
         $application->compiler->compile($context);
-
-        $jsonReport = $input->getOption('report-json');
-        if ($jsonReport) {
-            file_put_contents(
-                $jsonReport,
-                json_encode(
-                    $this->getApplication()->getIssuesCollector()->getIssues()
-                )
-            );
-        }
-
-        $output->writeln('');
-        $output->writeln('Memory usage: ' . $this->getMemoryUsage(false) . ' (peak: ' . $this->getMemoryUsage(true) . ') MB');
-    }
-
-    /**
-     * @param boolean $type
-     * @return float
-     */
-    protected function getMemoryUsage($type)
-    {
-        return round(memory_get_usage($type) / 1024 / 1024, 2);
     }
 
     /**
@@ -183,24 +126,5 @@ class CheckCommand extends Command
     protected function getCompiler()
     {
         return $this->getApplication()->compiler;
-    }
-
-    /**
-     * @param string $configFile
-     * @param string $configurationDirectory
-     *
-     * @return Configuration
-     */
-    protected function loadConfiguration($configFile, $configurationDirectory)
-    {
-        $loader = new ConfigurationLoader(new FileLocator([
-            getcwd(),
-            $configurationDirectory
-        ]));
-
-        return new Configuration(
-            $loader->load($configFile),
-            Analyzer\Factory::getPassesConfigurations()
-        );
     }
 }

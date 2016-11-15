@@ -19,9 +19,14 @@ Options:
   -v|vv|vvv, --verbose  Increase the verbosity of messages: 1 for normal output, 2 for more verbose output and 3 for debug
 
 Available commands:
-  check  SPA
-  help   Displays help for a command
-  list   Lists commands
+  check                      Runs compiler and analyzers on all files in path
+  compile                    Runs compiler on all files in path
+  help                       Displays help for a command
+  list                       Lists commands
+ config
+  config:dump-documentation  Dumps the analyzer documentation
+  config:dump-reference      Dumps the default configuration
+
 ```
 
 ## It is highly recommended to disable xdebug
