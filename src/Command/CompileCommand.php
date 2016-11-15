@@ -19,7 +19,6 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Webiny\Component\EventManager\EventManager;
 
-
 class CompileCommand extends Command
 {
 
