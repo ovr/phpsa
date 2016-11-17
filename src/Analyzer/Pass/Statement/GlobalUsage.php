@@ -16,7 +16,7 @@ class GlobalUsage implements Pass\AnalyzerPassInterface
     const DESCRIPTION = 'Discourages the use of `global $var;`.';
 
     /**
-     * @param $stmt
+     * @param Global_ $stmt
      * @param Context $context
      * @return bool
      */

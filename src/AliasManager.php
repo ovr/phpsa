@@ -5,6 +5,9 @@
 
 namespace PHPSA;
 
+/**
+ * Manages use statements
+ */
 class AliasManager
 {
     /**

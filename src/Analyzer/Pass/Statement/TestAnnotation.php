@@ -17,6 +17,9 @@ class TestAnnotation implements AnalyzerPassInterface
     /** @var DocBlockFactory */
     protected $docBlockFactory;
 
+    /**
+     * Creates a DocBlockFactory
+     */
     public function __construct()
     {
         $this->docBlockFactory = DocBlockFactory::createInstance();

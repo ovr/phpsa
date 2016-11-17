@@ -9,6 +9,9 @@ use Ovr\PHPReflection\Types;
 use PHPSA\Compiler\Types as CompilerTypes;
 use RuntimeException;
 
+/**
+ * The result of the compiler
+ */
 class CompiledExpression
 {
     /**

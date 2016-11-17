@@ -2,6 +2,9 @@
 
 namespace PHPSA\Node\Scalar;
 
+/**
+ * Boolean node extension
+ */
 class Boolean extends \PhpParser\Node\Scalar
 {
     /** @var boolean Number value */

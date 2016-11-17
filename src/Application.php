@@ -5,6 +5,9 @@
 
 namespace PHPSA;
 
+/**
+ * PHPSA Application
+ */
 class Application extends \Symfony\Component\Console\Application
 {
     /**

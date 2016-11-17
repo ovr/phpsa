@@ -17,6 +17,9 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Webiny\Component\EventManager\EventManager;
 
+/**
+ * Command to run compiler on files (no analyzer)
+ */
 class CompileCommand extends Command
 {
 

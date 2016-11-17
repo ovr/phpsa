@@ -5,6 +5,9 @@
 
 namespace PHPSA;
 
+/**
+ * A collection of Issues
+ */
 class IssuesCollector
 {
     /**

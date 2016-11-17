@@ -37,6 +37,11 @@ class VariableVariableUsage implements Pass\AnalyzerPassInterface
         return $this->analyzeAssign($expr, $context);
     }
 
+    /**
+     * @param Expr\Assign $expr
+     * @param Context $context
+     * @return bool
+     */
     private function analyzeAssign(Expr\Assign $expr, Context $context)
     {
         // list($a, $b) = …
@@ -48,6 +53,11 @@ class VariableVariableUsage implements Pass\AnalyzerPassInterface
         return $this->analyzeVar($expr->var, $context);
     }
 
+    /**
+     * @param Expr\List_ $expr
+     * @param Context $context
+     * @return bool
+     */
     private function analyzeList(Expr\List_ $expr, Context $context)
     {
         $result = false;
@@ -64,6 +74,11 @@ class VariableVariableUsage implements Pass\AnalyzerPassInterface
         return $result;
     }
 
+    /**
+     * @param Expr\ArrayDimFetch $expr
+     * @param Context $context
+     * @return bool
+     */
     private function analyzeArrayDimFetch(Expr\ArrayDimFetch $expr, Context $context)
     {
         $result = false;
@@ -83,6 +98,11 @@ class VariableVariableUsage implements Pass\AnalyzerPassInterface
         return $result;
     }
 
+    /**
+     * @param Expr\PropertyFetch $expr
+     * @param Context $context
+     * @return bool
+     */
     private function analyzePropertyFetch(Expr\PropertyFetch $expr, Context $context)
     {
         if ($expr->name instanceof Expr\Variable) {
@@ -109,6 +129,10 @@ class VariableVariableUsage implements Pass\AnalyzerPassInterface
         return true;
     }
 
+    /**
+     * @param Context $context
+     * @param Expr $expr
+     */
     private function notice(Context $context, Expr $expr)
     {
         $context->notice('variable.dynamic_assignment', 'Dynamic assignment is greatly discouraged.', $expr);

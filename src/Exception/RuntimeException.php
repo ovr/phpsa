@@ -7,6 +7,9 @@ namespace PHPSA\Exception;
 
 use PHPSA\Exception;
 
+/**
+ * Generic exception for PHPSA
+ */
 class RuntimeException extends Exception
 {
 

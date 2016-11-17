@@ -13,7 +13,8 @@ use PHPSA\Compiler\Parameter;
 use PHPSA\Compiler\Types;
 
 /**
- * Class FunctionDefinition
+ * Closure Definition
+ *
  * @package PHPSA\Definition
  */
 class ClosureDefinition extends ParentDefinition

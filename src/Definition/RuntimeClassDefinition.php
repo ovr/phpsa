@@ -9,6 +9,9 @@ use PHPSA\Context;
 use PHPSA\Exception\NotImplementedException;
 use ReflectionClass;
 
+/**
+ * Class created from Reflection
+ */
 class RuntimeClassDefinition extends ClassDefinition
 {
     /**

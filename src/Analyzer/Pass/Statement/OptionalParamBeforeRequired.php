@@ -1,8 +1,8 @@
 <?php
-
 /**
  * @author Medvedev Alexandr https://github.com/lexty <alexandr.mdr@gmail.com>
  */
+
 namespace PHPSA\Analyzer\Pass\Statement;
 
 use PhpParser\Node\Stmt;

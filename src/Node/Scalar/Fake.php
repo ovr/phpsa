@@ -2,6 +2,9 @@
 
 namespace PHPSA\Node\Scalar;
 
+/**
+ * Fake scalar node for testing purposes
+ */
 class Fake extends \PhpParser\Node\Scalar
 {
     /** @var mixed */

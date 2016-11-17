@@ -7,6 +7,9 @@ namespace PHPSA\Definition;
 
 use PHPSA\ScopePointer;
 
+/**
+ * Abstract Definition with namespace added
+ */
 abstract class ParentDefinition extends AbstractDefinition
 {
     /**

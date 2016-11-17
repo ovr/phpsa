@@ -5,6 +5,9 @@
 
 namespace PHPSA;
 
+/**
+ * An Issue the compiler or an analyzer found
+ */
 class Issue
 {
     /**

@@ -12,7 +12,8 @@ use PHPSA\Variable;
 use PHPSA\Compiler\Event;
 
 /**
- * Class ClassDefinition
+ * Class Definition
+ *
  * @package PHPSA\Definition
  */
 class ClassDefinition extends ParentDefinition

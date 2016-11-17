@@ -2,6 +2,7 @@
 /**
  * @author Leonardo da Mata https://github.com/barroca <barroca@gmail.com>
  */
+
 namespace PHPSA\Analyzer\Pass\Statement;
 
 use PhpParser\Node\Stmt\Property;

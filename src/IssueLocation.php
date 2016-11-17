@@ -5,6 +5,9 @@
 
 namespace PHPSA;
 
+/**
+ * The file and line of an issue
+ */
 class IssueLocation
 {
     /**

@@ -17,11 +17,11 @@ class GotoUsage implements Pass\AnalyzerPassInterface
     const DESCRIPTION = 'Discourages the use of goto and goto labels.';
 
     /**
-     * @param $stmt
+     * @param Stmt $stmt
      * @param Context $context
      * @return bool
      */
-    public function pass($stmt, Context $context)
+    public function pass(Stmt $stmt, Context $context)
     {
         if ($stmt instanceof Label) {
             $context->notice(

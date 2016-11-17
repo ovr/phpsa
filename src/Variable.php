@@ -7,6 +7,9 @@ namespace PHPSA;
 
 use PHPSA\Compiler\Types;
 
+/**
+ * A Variable
+ */
 class Variable
 {
     const BRANCH_ROOT = 0;

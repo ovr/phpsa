@@ -8,6 +8,9 @@ namespace PHPSA\Analyzer\EventListener;
 use PHPSA\Analyzer\Pass\FunctionCall\PassFunctionCallInterface;
 use Webiny\Component\EventManager\EventListener;
 
+/**
+ * Event listener for Expression nodes
+ */
 class ExpressionListener extends EventListener
 {
     /**

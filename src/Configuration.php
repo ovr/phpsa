@@ -10,6 +10,9 @@ use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 use Symfony\Component\Config\Definition\Processor;
 
+/**
+ * PHPSA configuration
+ */
 class Configuration implements ConfigurationInterface
 {
     /**
