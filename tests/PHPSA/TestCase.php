@@ -37,13 +37,13 @@ class TestCase extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @param $actual
+     * @param CompiledExpression|null $actual
      * @param string $message
      */
     protected function assertInstanceOfCompiledExpression($actual, $message = '')
     {
         parent::assertInstanceOf(
-            \PHPSA\CompiledExpression::class,
+            CompiledExpression::class,
             $actual,
             $message
         );
