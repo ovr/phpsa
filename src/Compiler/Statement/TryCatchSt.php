@@ -27,9 +27,11 @@ class TryCatchSt extends AbstractCompiler
             \PHPSA\nodeVisitorFactory($stmt, $context);
         }
 
-        if (count($statement->finallyStmts) > 0) {
-            foreach ($statement->finallyStmts as $stmt) {
-                \PHPSA\nodeVisitorFactory($stmt, $context);
+        if ($statement->finallyStmts !== null) {
+            if (count($statement->finallyStmts) > 0) {
+                foreach ($statement->finallyStmts as $stmt) {
+                    \PHPSA\nodeVisitorFactory($stmt, $context);
+                }
             }
         }
     }

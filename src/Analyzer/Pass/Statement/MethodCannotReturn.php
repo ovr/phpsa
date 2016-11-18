@@ -25,6 +25,10 @@ class MethodCannotReturn implements Pass\AnalyzerPassInterface
      */
     public function pass(ClassMethod $methodStmt, Context $context)
     {
+        if ($methodStmt->stmts === null) {
+            return false;
+        }
+        
         if (count($methodStmt->stmts) == 0) {
             return false;
         }
