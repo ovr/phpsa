@@ -100,6 +100,10 @@ phpsa:
         argument_unpacking:
             enabled:              true
 
+        # Checks for use of `unserialize()` without a 2nd parameter defining the allowed classes. Requires PHP 7.0+
+        unsafe_unserialize:
+            enabled:              true
+
         # Checks for use of deprecated functions and gives alternatives if available.
         deprecated_functions:
             enabled:              true
