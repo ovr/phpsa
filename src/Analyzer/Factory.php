@@ -156,6 +156,7 @@ class Factory
             AnalyzerPass\Expression\BacktickUsage::class,
             AnalyzerPass\Expression\LogicInversion::class,
             AnalyzerPass\Expression\ExitUsage::class,
+            AnalyzerPass\Expression\NestedTernary::class,
             // Arrays
             AnalyzerPass\Expression\ArrayShortDefinition::class,
             AnalyzerPass\Expression\ArrayDuplicateKeys::class,

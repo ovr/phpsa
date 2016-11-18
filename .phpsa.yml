@@ -58,6 +58,10 @@ phpsa:
         exit_usage:
             enabled:              true
 
+        # Discourages the use of nested ternaries.
+        nested_ternary:
+            enabled:              true
+
         # Recommends the use of [] short syntax for arrays.
         array_short_definition:
             enabled:              true
