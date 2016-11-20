@@ -11,7 +11,7 @@ class ObjectCastTest extends \Tests\PHPSA\TestCase
     /**
      * Tests (object) {expr} = {expr}
      */
-    public function testSimpleSuccessCompile()
+    public function objectCastDataProvider()
     {
         // @todo implement
     }

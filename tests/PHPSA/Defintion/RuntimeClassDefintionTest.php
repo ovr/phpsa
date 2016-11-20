@@ -11,12 +11,6 @@ class RuntimeClassDefintionTest extends TestCase
 {
     const TEST_CLASS_NAME = 'PHPSA\Definition\ClassDefinition';
 
-    public function testConstruct()
-    {
-        $definition = new RuntimeClassDefinition(new ReflectionClass(self::TEST_CLASS_NAME));
-        $definition->compile($this->getContext());
-    }
-
     public function testHasMethod()
     {
         $reflection = new ReflectionClass(self::TEST_CLASS_NAME);
