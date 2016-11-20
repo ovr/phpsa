@@ -165,6 +165,7 @@ class Factory
             AnalyzerPass\Expression\FunctionCall\AliasCheck::class,
             AnalyzerPass\Expression\FunctionCall\DebugCode::class,
             AnalyzerPass\Expression\FunctionCall\RandomApiMigration::class,
+            AnalyzerPass\Expression\FunctionCall\SleepUsage::class,
             AnalyzerPass\Expression\FunctionCall\UseCast::class,
             AnalyzerPass\Expression\FunctionCall\DeprecatedIniOptions::class,
             AnalyzerPass\Expression\FunctionCall\RegularExpressions::class,

@@ -88,6 +88,10 @@ phpsa:
         random_api_migration:
             enabled:              true
 
+        # Checks for use of different sleep functions which can lead to a DoS vulnerability.
+        sleep_usage:
+            enabled:              true
+
         # Checks for use of functions like boolval, strval and others and suggests the use of casts.
         use_cast:
             enabled:              true

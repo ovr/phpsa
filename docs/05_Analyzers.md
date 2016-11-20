@@ -83,6 +83,10 @@ Checks for use of debug code and suggests to remove it.
 
 Checks for use of old rand, srand, getrandmax functions and suggests alternatives.
 
+#### sleep_usage
+
+Checks for use of different sleep functions which can lead to a DoS vulnerability.
+
 #### use_cast
 
 Checks for use of functions like boolval, strval and others and suggests the use of casts.
