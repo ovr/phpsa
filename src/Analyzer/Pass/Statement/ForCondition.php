@@ -13,6 +13,11 @@ class ForCondition implements AnalyzerPassInterface
 
     const DESCRIPTION = 'Discourages the use of `for` with multiple conditions.';
 
+    /**
+     * @param For_ $stmt
+     * @param Context $context
+     * @return bool
+     */
     public function pass(For_ $stmt, Context $context)
     {
         if (count($stmt->cond) > 1) {

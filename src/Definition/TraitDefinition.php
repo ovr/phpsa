@@ -9,6 +9,9 @@ use PHPSA\Context;
 use PhpParser\Node\Stmt;
 use PHPSA\Compiler\Event;
 
+/**
+ * Trait Definition
+ */
 class TraitDefinition extends ParentDefinition
 {
     /**
@@ -26,6 +29,10 @@ class TraitDefinition extends ParentDefinition
      */
     protected $methods = [];
 
+    /**
+     * @param string $name
+     * @param Stmt\Trait_ $statement
+     */
     public function __construct($name, Stmt\Trait_ $statement)
     {
         $this->name = $name;
@@ -84,9 +91,9 @@ class TraitDefinition extends ParentDefinition
     }
 
     /**
-     * @param $method
+     * @param ClassMethod $method
      */
-    public function addMethod($method)
+    public function addMethod(ClassMethod $method)
     {
         $this->methods[] = $method;
     }

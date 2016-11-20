@@ -12,6 +12,9 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
+/**
+ * Command to dump the analyzer default configuration as YAML
+ */
 class DumpReferenceCommand extends Command
 {
     /**

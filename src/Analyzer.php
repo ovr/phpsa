@@ -3,7 +3,6 @@
  * @author Patsura Dmitry https://github.com/ovr <talk@dmtry.me>
  */
 
-
 namespace PHPSA;
 
 use PHPSA\Analyzer\EventListener\ExpressionListener;
@@ -12,6 +11,9 @@ use PHPSA\Analyzer\EventListener\StatementListener;
 use PHPSA\Analyzer\Pass\AnalyzerPassInterface;
 use Webiny\Component\EventManager\EventManager;
 
+/**
+ * Analyzer component
+ */
 class Analyzer
 {
     /**

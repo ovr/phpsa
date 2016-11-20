@@ -8,6 +8,9 @@ namespace PHPSA;
 use PHPSA\Definition\ClassMethod;
 use PHPSA\Definition\FunctionDefinition;
 
+/**
+ * A pointer to the object in which we currently operate
+ */
 class ScopePointer
 {
     /**

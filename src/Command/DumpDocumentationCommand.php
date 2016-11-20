@@ -7,6 +7,9 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
+/**
+ * Command to dump the analyzer documentation as markdown
+ */
 class DumpDocumentationCommand extends Command
 {
     /**

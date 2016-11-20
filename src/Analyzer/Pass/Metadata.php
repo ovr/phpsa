@@ -45,8 +45,8 @@ class Metadata
 
     /**
      * @param string $name
-     * @param null $description
-     * @param NodeDefinition|null $config
+     * @param NodeDefinition $config
+     * @param string|null $description
      */
     public function __construct($name, NodeDefinition $config, $description = null)
     {

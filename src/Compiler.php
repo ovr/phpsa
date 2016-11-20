@@ -11,6 +11,9 @@ use PHPSA\Definition\RuntimeClassDefinition;
 use PHPSA\Definition\TraitDefinition;
 use ReflectionClass;
 
+/**
+ * Compiler component
+ */
 class Compiler
 {
     /**

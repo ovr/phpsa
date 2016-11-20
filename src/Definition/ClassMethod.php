@@ -12,6 +12,9 @@ use PHPSA\Compiler\Types;
 use PHPSA\Compiler\Event;
 use PHPSA\Context;
 
+/**
+ * Class Method Definition
+ */
 class ClassMethod extends AbstractDefinition
 {
     /**

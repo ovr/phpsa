@@ -69,6 +69,12 @@ class ArrayIllegalOffsetType implements AnalyzerPassInterface
         return $result;
     }
 
+    /**
+     * @param Expr $expr
+     * @param Context $context
+     *
+     * @return bool
+     */
     private function analyzeExpression(Expr $expr, Context $context)
     {
         $compiledKey = $context->getExpressionCompiler()->compile($expr);

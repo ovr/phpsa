@@ -8,6 +8,9 @@ namespace PHPSA\Definition;
 use PHPSA\Context;
 use PHPSA\ScopePointer;
 
+/**
+ * Shared Definition properties and methods
+ */
 abstract class AbstractDefinition
 {
     /**

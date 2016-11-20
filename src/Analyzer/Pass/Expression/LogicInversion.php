@@ -1,8 +1,8 @@
 <?php
-
 /**
  * @author Medvedev Alexandr https://github.com/lexty <alexandr.mdr@gmail.com>
  */
+
 namespace PHPSA\Analyzer\Pass\Expression;
 
 use PhpParser\Node\Expr\BooleanNot;
@@ -16,6 +16,9 @@ class LogicInversion implements AnalyzerPassInterface
 
     const DESCRIPTION = 'Checks for Logic inversion like `if (!($a == $b))` and suggests the correct operator.';
 
+    /**
+     * @var array
+     */
     protected $map = [
         'Expr_BinaryOp_Equal' => ['!=', '=='],
         'Expr_BinaryOp_NotEqual' => ['==', '!='],

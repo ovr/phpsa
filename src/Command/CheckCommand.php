@@ -24,19 +24,18 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Webiny\Component\EventManager\EventManager;
-use PHPSA\Analyzer\Pass as AnalyzerPass;
 
 /**
- * Class CheckCommand
- * @package PHPSA\Command
+ * Command to run compiler and analyzers on files
  *
+ * @package PHPSA\Command
  * @method Application getApplication();
  */
 class CheckCommand extends Command
 {
 
     /**
-     * Configures the command.
+     * {@inheritdoc}
      */
     protected function configure()
     {
@@ -55,10 +54,7 @@ class CheckCommand extends Command
     }
 
     /**
-     * Executes the command.
-     *
-     * @param InputInterface $input
-     * @param OutputInterface $output
+     * {@inheritdoc}
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {

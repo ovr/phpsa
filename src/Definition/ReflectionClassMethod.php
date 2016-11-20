@@ -9,6 +9,9 @@ use PHPSA\CompiledExpression;
 use PHPSA\Context;
 use ReflectionMethod;
 
+/**
+ * Class Method created from Reflection
+ */
 class ReflectionClassMethod extends ClassMethod
 {
     /**

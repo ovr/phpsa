@@ -5,6 +5,9 @@ namespace PHPSA\Analyzer\EventListener;
 use PHPSA\Analyzer\Pass\FunctionCall\PassFunctionCallInterface;
 use Webiny\Component\EventManager\EventListener;
 
+/**
+ * Event listener for Scalar nodes
+ */
 class ScalarListener extends EventListener
 {
     /**

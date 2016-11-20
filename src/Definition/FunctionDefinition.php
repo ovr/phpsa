@@ -13,7 +13,8 @@ use PhpParser\Node;
 use PHPSA\Compiler\Event;
 
 /**
- * Class FunctionDefinition
+ * Function Definition
+ *
  * @package PHPSA\Definition
  */
 class FunctionDefinition extends ParentDefinition

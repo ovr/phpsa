@@ -2,6 +2,9 @@
 
 namespace PHPSA\Node\Scalar;
 
+/**
+ * Null node extension
+ */
 class Nil extends \PhpParser\Node\Scalar
 {
     /** @var null */

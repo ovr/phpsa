@@ -4,8 +4,6 @@ namespace Tests\PHPSA;
 
 use PhpParser\ParserFactory;
 use PHPSA\Analyzer;
-use PHPSA\Analyzer\EventListener\ExpressionListener;
-use PHPSA\Analyzer\EventListener\StatementListener;
 use PHPSA\Application;
 use PHPSA\Configuration;
 use PHPSA\Context;
@@ -15,8 +13,6 @@ use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
 use Webiny\Component\EventManager\EventManager;
 use PHPSA\Compiler;
-use PhpParser\Node;
-use PHPSA\Analyzer\Pass as AnalyzerPass;
 
 class AnalyzeFixturesTest extends TestCase
 {
@@ -113,7 +109,7 @@ class AnalyzeFixturesTest extends TestCase
     }
 
     /**
-     * @param string $analyzer
+     * @param string $analyzerName
      * @return EventManager
      * @throws \Webiny\Component\EventManager\EventManagerException
      */
