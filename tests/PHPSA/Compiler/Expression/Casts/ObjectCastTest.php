@@ -4,7 +4,6 @@ namespace Tests\PHPSA\Compiler\Expression\Casts;
 
 use PhpParser\Node;
 use PHPSA\CompiledExpression;
-use PHPSA\Compiler\Expression;
 
 class ObjectCastTest extends \Tests\PHPSA\TestCase
 {
@@ -13,10 +12,80 @@ class ObjectCastTest extends \Tests\PHPSA\TestCase
      */
     public function objectCastDataProvider()
     {
-        // @todo implement
+        return [
+            [
+                CompiledExpression::INTEGER,
+                1
+            ],
+            [
+                CompiledExpression::DOUBLE,
+                1.0
+            ],
+            [
+                CompiledExpression::ARR,
+                [
+                    1,
+                    2,
+                    3,
+                    4,
+                    5
+                ]
+            ],
+            [
+                CompiledExpression::ARR,
+                []
+            ],
+            [
+                CompiledExpression::ARR,
+                [
+                    1,
+                    2,
+                    3,
+                    4,
+                    5
+                ]
+            ],
+            [
+                CompiledExpression::BOOLEAN,
+                true
+            ],
+            [
+                CompiledExpression::RESOURCE,
+                STDIN
+            ],
+            [
+                CompiledExpression::STRING,
+                'test str'
+            ],
+            [
+                CompiledExpression::NULL,
+                null
+            ],
+        ];
     }
 
-    public function testUnexpectedType()
+    /**
+     * @dataProvider objectCastDataProvider
+     *
+     * @param int $type
+     * @param mixed $value
+     */
+    public function testSuccessObjectCast($type, $value)
+    {
+        $baseExpression = new Node\Expr\Cast\Object_(
+            $this->newFakeScalarExpr(
+                $type,
+                $value
+            )
+        );
+        $compiledExpression = $this->compileExpression($baseExpression);
+
+        $this->assertInstanceOfCompiledExpression($compiledExpression);
+        $this->assertSame(CompiledExpression::OBJECT, $compiledExpression->getType());
+        $this->assertEquals((object) $value, $compiledExpression->getValue());
+    }
+
+    public function testUnknownType()
     {
         $baseExpression = new Node\Expr\Cast\Object_(
             $this->newFakeScalarExpr()
