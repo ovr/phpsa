@@ -53,6 +53,10 @@ Checks for Logic inversion like `if (!($a == $b))` and suggests the correct oper
 
 Discourages the use of `exit()` and `die()`.
 
+#### nested_ternary
+
+Discourages the use of nested ternaries.
+
 #### array_short_definition
 
 Recommends the use of [] short syntax for arrays.
