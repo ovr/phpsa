@@ -2,7 +2,9 @@
 
 namespace Tests\PHPSA;
 
+use PHPSA\IssueLocation;
 use PHPSA\IssuesCollector;
+use PHPSA\Issue;
 
 class IssuesCollectorTest extends \PHPUnit_Framework_TestCase
 {
@@ -13,12 +15,10 @@ class IssuesCollectorTest extends \PHPUnit_Framework_TestCase
     public function testAddingIssue()
     {
         $collector = new IssuesCollector();
+        $issue = new Issue(__FUNCTION__, 'Test issue', new IssueLocation(__FILE__, 26));
 
-        $this->assertNull($collector->addIssue(100, 'Test issue', __FILE__, 26));
+        $this->assertNull($collector->addIssue($issue));
         $this->assertCount(1, $collector->getIssues());
-        $this->assertSame(
-            [['type' => 100, 'message' => 'Test issue', 'file' => __FILE__, 'line' => 26]],
-            $collector->getIssues()
-        );
+        $this->assertSame([$issue], $collector->getIssues());
     }
 }
