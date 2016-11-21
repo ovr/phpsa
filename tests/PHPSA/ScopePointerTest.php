@@ -7,17 +7,6 @@ use PHPSA\ScopePointer;
 class ScopePointerTest extends TestCase
 {
     /**
-     * @covers \PHPSA\ScopePointer::__construct
-     */
-    public function testConstructor()
-    {
-        $object = new \stdClass;
-        $scopePointer = new ScopePointer($object);
-
-        $this->assertInstanceOf('\PHPSA\ScopePointer', $scopePointer);
-    }
-
-    /**
      * @covers \PHPSA\ScopePointer::getObject
      */
     public function testGetObject()
