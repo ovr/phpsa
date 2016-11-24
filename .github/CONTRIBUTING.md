@@ -72,13 +72,17 @@ Please don't use "merge" in your PR, we are using "rebase", small guide:
 Example:
 
 ```bash
-git checkout YOU_BRANCH
+git checkout YOUR_BRANCH
 
-git fetch ORIGIN_REMOVE_OF_THE_PHPSA
+git fetch upstream
 
-git rebase ORIGIN_REMOVE_OF_THE_PHPSA/master
+git rebase upstream/master
 
-git push YOU_REMOVE YOU_BRANCH -f
+git push origin YOUR_BRANCH -f
+```
+This assumes you have configured the upstream remote like this:
+```bash
+git remote add upstream https://github.com/ovr/phpsa.git
 ```
 
 ## Testing
@@ -86,18 +90,17 @@ git push YOU_REMOVE YOU_BRANCH -f
 We are using Makefile:
 
 ```bash
-# Running code style check, unit tests, check PHPSA and fixtures
-make test
-
-# Running unit tests
+# running unit tests
 make tests
 
+# running code style check
+make cs
 
-# Running all (CI)
+# running all checks (CI)
 make ci
 
-# Running code style check
-make cs
+# updates configuration and documentation files when analyzers were changed/added
+make analyzers
 ```
 
 ## Maintaining (for push only developers)
