@@ -25,7 +25,7 @@ class ReturnSt extends AbstractCompiler
         switch ($compiledExpression->getType()) {
             case CompiledExpression::VOID:
                 $context->notice(
-                    'return.void',
+                    'language_error',
                     'You are trying to return void',
                     $stmt
                 );

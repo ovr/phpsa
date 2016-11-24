@@ -34,7 +34,7 @@ class StaticCall extends AbstractExpressionCompiler
             $classDefinition = $context->scope;
             if (!$classDefinition->hasMethod($name, true)) {
                 $context->notice(
-                    'undefined-scall',
+                    'language_error',
                     sprintf('Static method %s() does not exist in %s scope', $name, $expr->class),
                     $expr
                 );
@@ -45,7 +45,7 @@ class StaticCall extends AbstractExpressionCompiler
             $method = $classDefinition->getMethod($name, true);
             if ($expr->class->parts[0] !== 'parent' && !$method->isStatic()) {
                 $context->notice(
-                    'undefined-scall',
+                    'language_error',
                     sprintf('Method %s() is not static but was called in a static way', $name),
                     $expr
                 );

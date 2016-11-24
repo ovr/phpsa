@@ -33,7 +33,7 @@ class ClassConstFetch extends AbstractExpressionCompiler
             if ($leftCEValue instanceof ClassDefinition) {
                 if (!$leftCEValue->hasConst($expr->name, true)) {
                     $context->notice(
-                        'undefined-const',
+                        'language_error',
                         sprintf('Constant %s does not exist in %s scope', $expr->name, $expr->class),
                         $expr
                     );

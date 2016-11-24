@@ -35,7 +35,7 @@ class MethodCall extends AbstractExpressionCompiler
                 if ($methodName) {
                     if (!$calledObject->hasMethod($methodName, true)) {
                         $context->notice(
-                            'mcall.undefined',
+                            'language_error',
                             sprintf('Method %s() does not exist in %s scope', $methodName, $calledObject->getName()),
                             $expr
                         );
@@ -52,7 +52,7 @@ class MethodCall extends AbstractExpressionCompiler
 
                     if ($method->isStatic()) {
                         $context->notice(
-                            'mcall.static',
+                            'language_error',
                             "Method {$methodName}() is static but called like a class method",
                             $expr
                         );
@@ -64,7 +64,7 @@ class MethodCall extends AbstractExpressionCompiler
             return new CompiledExpression();
         } else {
             $context->notice(
-                'mcall.non-object',
+                'language_error',
                 sprintf('$%s is not an object and cannot be called like this', $expr->var->name),
                 $expr->var,
                 Check::CHECK_ALPHA

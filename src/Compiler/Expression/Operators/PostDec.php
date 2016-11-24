@@ -45,14 +45,14 @@ class PostDec extends AbstractExpressionCompiler
                 }
 
                 $context->notice(
-                    'postdec.variable.wrong-type',
+                    'language_error',
                     'You are trying to use post decrement operator on variable $' . $variableName .
                     ' with type: ' . $variable->getTypeName(),
                     $expr
                 );
             } else {
                 $context->notice(
-                    'postdec.undefined-variable',
+                    'language_error',
                     'You are trying to use post decrement operator on undefined variable: ' . $variableName,
                     $expr
                 );

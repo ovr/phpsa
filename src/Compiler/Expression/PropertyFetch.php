@@ -35,7 +35,7 @@ class PropertyFetch extends AbstractExpressionCompiler
                         return $compiler->compile($property);
                     } else {
                         $context->notice(
-                            'undefined-property',
+                            'language_error',
                             sprintf(
                                 'Property %s does not exist in %s scope',
                                 $propertyName,
@@ -53,7 +53,7 @@ class PropertyFetch extends AbstractExpressionCompiler
         }
 
         $context->notice(
-            'property-fetch-on-non-object',
+            'language_error',
             "It's not possible to fetch a property on a non-object",
             $expr,
             Check::CHECK_BETA

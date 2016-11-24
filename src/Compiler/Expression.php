@@ -428,7 +428,7 @@ class Expression
                 }
             } else {
                 $this->context->notice(
-                    'no-parent',
+                    'language_error',
                     'Cannot access parent:: when current class scope has no parent',
                     $expr
                 );
