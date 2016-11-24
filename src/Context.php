@@ -193,6 +193,12 @@ class Context
      */
     public function notice($type, $message, \PhpParser\NodeAbstract $expr, $status = Check::CHECK_SAFE)
     {
+        $analyzerConfig = $this->application->getConfiguration()->getValue('analyzers');
+
+        if ($type == "language_error" && !$analyzerConfig['language_error']['enabled']) {
+            return true;
+        }
+
         $filepath = $this->filepath;
         $code = file($filepath);
 

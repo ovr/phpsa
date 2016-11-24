@@ -76,6 +76,12 @@ class Configuration implements ConfigurationInterface
                 ->arrayNode('analyzers')
                 ->addDefaultsIfNotSet();
 
+        $language_error = (new TreeBuilder())->root('language_error')
+            ->info("Contains all compiler notices. Those are raised when PHP with strict error reporting would create at least a Notice message. (mostly experimental)")
+            ->canBeDisabled();
+
+        $analyzersConfigRoot->append($language_error);
+
         foreach ($analyzersConfiguration as $config) {
             $analyzersConfigRoot->append($config);
         }
