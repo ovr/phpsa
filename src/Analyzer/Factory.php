@@ -170,6 +170,7 @@ class Factory
             AnalyzerPass\Expression\FunctionCall\DeprecatedIniOptions::class,
             AnalyzerPass\Expression\FunctionCall\RegularExpressions::class,
             AnalyzerPass\Expression\FunctionCall\ArgumentUnpacking::class,
+            AnalyzerPass\Expression\FunctionCall\UnsafeUnserialize::class,
             AnalyzerPass\Expression\FunctionCall\DeprecatedFunctions::class,
         ];
     }

@@ -103,6 +103,10 @@ Checks that regular expressions are syntactically correct.
 
 Checks for use of `func_get_args()` and suggests the use of argument unpacking. (... operator)
 
+#### unsafe_unserialize
+
+Checks for use of `unserialize()` without a 2nd parameter defining the allowed classes. Requires PHP 7.0+
+
 #### deprecated_functions
 
 Checks for use of deprecated functions and gives alternatives if available.
