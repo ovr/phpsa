@@ -24,7 +24,7 @@ class BreakSt extends AbstractCompiler
             
             if (!($stmt->num instanceof LNumber) || $compiled->getValue() == 0) {
                 $context->notice(
-                    'language-error',
+                    'language_error',
                     'Break only supports positive integers.',
                     $stmt
                 );

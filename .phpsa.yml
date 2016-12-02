@@ -6,6 +6,10 @@ phpsa:
     parser:               prefer-7 # One of "prefer-7"; "prefer-5"; "only-7"; "only-5"
     analyzers:
 
+        # Contains all compiler notices. Those are raised when PHP with strict error reporting would create at least a Notice message. (mostly experimental)
+        language_error:
+            enabled:              true
+
         # Discourages the use of the `@` operator to silence errors.
         error_suppression:
             enabled:              true

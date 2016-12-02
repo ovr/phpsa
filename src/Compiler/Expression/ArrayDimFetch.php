@@ -27,7 +27,7 @@ class ArrayDimFetch extends AbstractExpressionCompiler
 
         if (!$var->isArray()) {
             $context->notice(
-                'array_dim_fetch_on_non_array',
+                'language_error',
                 "It's not possible to fetch an array element on a non array",
                 $expr
             );
@@ -37,7 +37,7 @@ class ArrayDimFetch extends AbstractExpressionCompiler
 
         if (!in_array($dim->getValue(), $var->getValue())) {
             $context->notice(
-                'array_dim_fetch_not_found',
+                'language_error',
                 "The array does not contain this value",
                 $expr
             );

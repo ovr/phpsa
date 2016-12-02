@@ -45,14 +45,14 @@ class PostInc extends AbstractExpressionCompiler
                 }
 
                 $context->notice(
-                    'postinc.variable.wrong-type',
+                    'language_error',
                     'You are trying to use post increment operator on variable $' . $variableName .
                     ' with type: ' . $variable->getTypeName(),
                     $expr
                 );
             } else {
                 $context->notice(
-                    'postinc.undefined-variable',
+                    'language_error',
                     'You are trying to use post increment operator on undefined variable: ' . $variableName,
                     $expr
                 );

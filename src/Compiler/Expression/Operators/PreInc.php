@@ -40,14 +40,14 @@ class PreInc extends AbstractExpressionCompiler
                 }
 
                 $context->notice(
-                    'preinc.variable.wrong-type',
+                    'language_error',
                     'You are trying to use pre increment operator on variable $' . $variableName .
                     ' with type: ' . $variable->getTypeName(),
                     $expr
                 );
             } else {
                 $context->notice(
-                    'preinc.undefined-variable',
+                    'language_error',
                     'You are trying to use pre increment operator on undefined variable: ' . $variableName,
                     $expr
                 );

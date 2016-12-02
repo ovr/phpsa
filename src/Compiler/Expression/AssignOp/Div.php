@@ -25,7 +25,7 @@ class Div extends AbstractExpressionCompiler
 
         if ($expExpression->isEquals(0)) {
             $context->notice(
-                'language-error',
+                'language_error',
                 'You are trying to divide by 0.',
                 $expr
             );

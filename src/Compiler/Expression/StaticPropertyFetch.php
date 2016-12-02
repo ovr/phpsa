@@ -34,7 +34,7 @@ class StaticPropertyFetch extends AbstractExpressionCompiler
             $classDefinition = $context->scope;
             if (!$classDefinition->hasProperty($name, true)) {
                 $context->notice(
-                    'undefined-scall',
+                    'language_error',
                     sprintf('Static property $%s does not exist in %s scope', $name, $expr->class),
                     $expr
                 );
@@ -45,7 +45,7 @@ class StaticPropertyFetch extends AbstractExpressionCompiler
             $property = $classDefinition->getPropertyStatement($name, true);
             if (!$property->isStatic()) {
                 $context->notice(
-                    'undefined-scall',
+                    'language_error',
                     sprintf('Property $%s is not static but was called in a static way', $name),
                     $expr
                 );
