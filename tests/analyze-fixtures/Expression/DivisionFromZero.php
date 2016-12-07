@@ -21,6 +21,14 @@ class DivisionFromZero
         $x /= 2;
         $x %= 2;
     }
+
+    /**
+     * @link https://github.com/ovr/phpsa/issues/249
+     */
+    public function testIssue249($type)
+    {
+        return round(memory_get_usage($type) / 1024 / 1024, 2);
+    }
 }
 ?>
 ----------------------------

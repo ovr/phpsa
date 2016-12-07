@@ -22,16 +22,18 @@ class DivisionFromZero implements AnalyzerPassInterface
     {
         $compiler = $context->getExpressionCompiler();
 
+        $left = null;
+
         if ($expr instanceof Expr\AssignOp) {
             $left = $compiler->compile($expr->var);
         } elseif ($expr instanceof Expr\BinaryOp) {
             $left = $compiler->compile($expr->left);
         }
 
-        if ($left->getValue() == 0) {
+        if ($left && $left->isTypeKnown() && $left->isSame(0)) {
             $context->notice(
                 'division_from_zero',
-                "You are trying to divide from zero",
+                'You are trying to divide from zero',
                 $expr
             );
 

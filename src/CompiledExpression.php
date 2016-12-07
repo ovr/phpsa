@@ -150,6 +150,17 @@ class CompiledExpression
     }
 
     /**
+     * Checks whether the expressions value same the given value.
+     *
+     * @param integer $value
+     * @return boolean
+     */
+    public function isSame($value)
+    {
+        return $this->value === $value;
+    }
+
+    /**
      * Returns the type of the expression.
      *
      * @return int
