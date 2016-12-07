@@ -114,6 +114,11 @@ class FunctionCall extends AbstractExpressionCompiler
         return $arguments;
     }
 
+    /**
+     * @param CompiledExpression[] $arguments
+     * @param \Ovr\PHPReflection\FunctionReflection $functionReflection
+     * @return bool
+     */
     protected function checkArguments(array $arguments, $functionReflection)
     {
         foreach ($arguments as $key => $argument) {
