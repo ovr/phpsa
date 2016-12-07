@@ -27,6 +27,8 @@ class StaticCall extends AbstractExpressionCompiler
         $expressionCompiler = $context->getExpressionCompiler();
         $leftCE = $expressionCompiler->compile($expr->class);
 
+        $this->parseArgs($expr->args, $context);
+
         if ($leftCE->isObject()) {
             $name = $expr->name;
 
@@ -56,5 +58,24 @@ class StaticCall extends AbstractExpressionCompiler
 
         $context->debug('Unknown static function call', $expr);
         return new CompiledExpression();
+    }
+
+
+    /**
+     * @param \PhpParser\Node\Arg[] $arguments
+     * @param Context $context
+     * @return CompiledExpression[]
+     */
+    protected function parseArgs(array $arguments, Context $context)
+    {
+        $compiled = [];
+
+        if ($arguments) {
+            foreach ($arguments as $argument) {
+                $compiled[] = $context->getExpressionCompiler()->compile($argument->value);
+            }
+        }
+
+        return $compiled;
     }
 }
