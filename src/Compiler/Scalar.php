@@ -70,8 +70,9 @@ class Scalar
 
             // @todo Review this and implement support
             case Node\Scalar\EncapsedStringPart::class:
-            case Node\Scalar\Encapsed::class:
                 return new CompiledExpression(CompiledExpression::STRING);
+            case Node\Scalar\Encapsed::class:
+                return $this->compileUncapsedString($scalar);
 
             /**
              * Fake scalars for testing
@@ -107,5 +108,18 @@ class Scalar
             default:
                 throw new RuntimeException('Unknown scalar: ' . get_class($scalar));
         }
+    }
+
+    /**
+     * @param Node\Scalar\Encapsed $scalar
+     * @return CompiledExpression
+     */
+    protected function compileUncapsedString(Node\Scalar\Encapsed $scalar)
+    {
+        foreach ($scalar->parts as $part) {
+            $this->context->getExpressionCompiler()->compile($part);
+        }
+
+        return new CompiledExpression(CompiledExpression::STRING);
     }
 }
