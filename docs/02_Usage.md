@@ -4,7 +4,7 @@ You can change the configuration by editing .phpsa.yml in the root directory. He
 
 ```sh
 $ ./bin/phpsa
-PHP Smart Analyzer version 0.6.1
+PHP Smart Analyzer version 0.6.2
 
 Usage:
   command [options] [arguments]
