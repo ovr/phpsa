@@ -8,7 +8,7 @@ The Core component contains all the things that are used by multiple other compo
 
 ### Compiler
 
-The Compiler can compile your PHP Code version 5.2 to 7.0 and can notice every syntax error (and in the future language level errors).
+The Compiler can compile your PHP Code version 5.2 to 7.1 and can notice every syntax error and some language level errors (those can be turned off via configuration).
 
 ### Analyzer
 

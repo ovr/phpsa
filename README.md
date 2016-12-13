@@ -59,7 +59,7 @@ Notice:  Missing docblock for callStaticMethodBySelf() method in fixtures/Compil
 
 ### Requirements
 
-PHP >= 5.5 (compatible up to version 7.0 && hhvm), but you can check files for PHP >= 5.2 with this.
+PHP >= 5.6 (compatible up to version 7.1 && hhvm), but you can check files for PHP >= 5.2 with this.
 
 ### Documentation
 

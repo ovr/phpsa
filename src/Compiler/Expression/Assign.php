@@ -28,20 +28,23 @@ class Assign extends AbstractExpressionCompiler
         if ($expr->var instanceof Node\Expr\List_) {
             $isCorrectType = $compiledExpression->isArray();
 
-            foreach ($expr->var->vars as $key => $var) {
-                if (!$var instanceof Node\Expr\Variable) {
+            foreach ($expr->var->items as $var) {
+                if ($var === null) {
+                    continue;
+                }
+                if (!$var->value instanceof Node\Expr\Variable) {
                     continue;
                 }
 
-                if ($var->name instanceof Node\Expr\Variable) {
-                    $this->compileVariableDeclaration($compiler->compile($var->name), new CompiledExpression(), $context);
+                if ($var->value->name instanceof Node\Expr\Variable) {
+                    $this->compileVariableDeclaration($compiler->compile($var->value->name), new CompiledExpression(), $context);
                     continue;
                 }
 
-                $symbol = $context->getSymbol($var->name);
+                $symbol = $context->getSymbol($var->value->name);
                 if (!$symbol) {
                     $symbol = new \PHPSA\Variable(
-                        $var->name,
+                        $var->value->name,
                         null,
                         CompiledExpression::UNKNOWN,
                         $context->getCurrentBranch()

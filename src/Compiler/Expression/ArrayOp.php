@@ -29,6 +29,10 @@ class ArrayOp extends AbstractExpressionCompiler
         $resultArray = [];
 
         foreach ($expr->items as $item) {
+            if ($item === null) {
+                continue;
+            }
+
             $compiledValueResult = $compiler->compile($item->value);
             if ($item->key) {
                 $compiledKeyResult = $compiler->compile($item->key);
