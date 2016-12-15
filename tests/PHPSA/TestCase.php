@@ -22,17 +22,13 @@ class TestCase extends \PHPUnit_Framework_TestCase
     protected function getContext()
     {
         /** @var \PHPSA\Context $context */
-        $context = $this->getMock(
-            '\PHPSA\Context',
-            array(
-                'notice'
-            ),
-            array(
-                new ConsoleOutput(), new Application(), EventManager::getInstance()
-            )
-        );
-        $context->setScope(new ClassDefinition('MathTest', null, 0));
-
+        $context = $this->getMockBuilder(\PHPSA\Context::class)
+                        ->setConstructorArgs(array(
+                            new ConsoleOutput(), new Application(), EventManager::getInstance()
+                        ))
+                        ->setMethods(['notice'])
+                        ->getMock();
+        
         return $context;
     }
 
