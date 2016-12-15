@@ -51,6 +51,8 @@ class Statement
                 return new Statement\TryCatchSt();
             case Stmt\Catch_::class:
                 return new Statement\CatchSt();
+            case Stmt\Finally_::class:
+                return new Statement\FinallySt();
             case Stmt\Throw_::class:
                 return new Statement\ThrowSt();
             case Stmt\Global_::class:

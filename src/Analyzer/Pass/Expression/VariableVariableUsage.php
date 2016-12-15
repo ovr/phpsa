@@ -62,13 +62,13 @@ class VariableVariableUsage implements Pass\AnalyzerPassInterface
     {
         $result = false;
 
-        foreach ($expr->vars as $var) {
+        foreach ($expr->items as $var) {
             // list($a, ) = …
-            if (!$var) {
+            if ($var === null) {
                 continue;
             }
 
-            $result = $this->analyzeVar($var, $context) || $result;
+            $result = $this->analyzeVar($var->value, $context) || $result;
         }
 
         return $result;

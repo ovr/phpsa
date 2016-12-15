@@ -47,7 +47,7 @@ class ClassDefinition extends ParentDefinition
     /**
      * Class constants
      *
-     * @var Node\Stmt\Const_[]
+     * @var string[]
      */
     protected $constants = [];
 

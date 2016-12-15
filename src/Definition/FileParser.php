@@ -127,7 +127,7 @@ class FileParser
 
                 $this->compiler->addTrait($definition);
             } elseif ($statement instanceof Node\Stmt\Class_) {
-                $definition = new ClassDefinition($statement->name, $statement, $statement->type);
+                $definition = new ClassDefinition($statement->name, $statement, $statement->flags);
                 $definition->setFilepath($filepath);
                 $definition->setNamespace($aliasManager->getNamespace());
 
@@ -144,7 +144,7 @@ class FileParser
                 foreach ($statement->stmts as $stmt) {
                     if ($stmt instanceof Node\Stmt\ClassMethod) {
                         $definition->addMethod(
-                            new ClassMethod($stmt->name, $stmt, $stmt->type)
+                            new ClassMethod($stmt->name, $stmt, $stmt->flags)
                         );
                     } elseif ($stmt instanceof Node\Stmt\Property) {
                         $definition->addProperty($stmt);
