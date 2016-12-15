@@ -47,6 +47,7 @@ class Application extends \Symfony\Component\Console\Application
      * Returns the version as a string.
      *
      * @return string
+     * @codeCoverageIgnore
      */
     protected function getStringVersion()
     {
@@ -62,6 +63,7 @@ class Application extends \Symfony\Component\Console\Application
      * Returns CV Version.
      *
      * @return string
+     * @codeCoverageIgnore
      */
     protected function getCVVersion()
     {

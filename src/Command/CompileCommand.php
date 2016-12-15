@@ -118,6 +118,9 @@ class CompileCommand extends Command
          * Step 2 Recursive check ...
          */
         $application->compiler->compile($context);
+
+        $output->writeln('');
+        $output->writeln('Memory usage: ' . $this->getMemoryUsage(false) . ' (peak: ' . $this->getMemoryUsage(true) . ') MB');
     }
 
     /**
@@ -126,5 +129,14 @@ class CompileCommand extends Command
     protected function getCompiler()
     {
         return $this->getApplication()->compiler;
+    }
+
+    /**
+     * @param boolean $type
+     * @return float
+     */
+    protected function getMemoryUsage($type)
+    {
+        return round(memory_get_usage($type) / 1024 / 1024, 2);
     }
 }
