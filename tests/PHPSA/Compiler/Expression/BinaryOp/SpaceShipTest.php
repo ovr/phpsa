@@ -13,17 +13,17 @@ class SpaceShipTest extends \Tests\PHPSA\TestCase
      */
     public function getDataProvider()
     {
-        return array(
-            array(1, 1, 0),
-            array(1, 2, -1),
-            array(2, 1, 1),
-            array(true, false, 1),
-            array(true, 0, 1),
-            array(array(), array(), 0),
-            array(true, array(), 1),
-            array("a", "b", -1),
-            array("a", 2, -1),
-        );
+        return [
+            [1, 1, 0],
+            [1, 2, -1],
+            [2, 1, 1],
+            [true, false, 1],
+            [true, 0, 1],
+            [[], [], 0],
+            [true, [], 1],
+            ["a", "b", -1],
+            ["a", 2, -1],
+        ];
     }
 
     /**

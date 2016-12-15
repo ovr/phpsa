@@ -15,19 +15,19 @@ class MulTest extends \Tests\PHPSA\TestCase
      */
     public function mulResultIntDataProvider()
     {
-        return array(
-            array(2, 2, 4),
-            array(true, 2, 2),
-            array(3, true, 3),
-            array(true, true, 1),
-            array(2, 0, 0),
-            array(false, 3, 0),
-            array(2, false, 0),
-            array(false, false, 0),
-            array(0, 0, 0),
-            array(true, false, 0),
-            array(-1, 2, -2),
-        );
+        return [
+            [2, 2, 4],
+            [true, 2, 2],
+            [3, true, 3],
+            [true, true, 1],
+            [2, 0, 0],
+            [false, 3, 0],
+            [2, false, 0],
+            [false, false, 0],
+            [0, 0, 0],
+            [true, false, 0],
+            [-1, 2, -2],
+        ];
     }
 
     /**
@@ -56,15 +56,15 @@ class MulTest extends \Tests\PHPSA\TestCase
      */
     public function mulResultDoubleDataProvider()
     {
-        return array(
-            array(2, 1.5, 3.0),
-            array(1.5, 1.5, 2.25),
-            array(true, 1.5, 1.5),
-            array(false, 1.5, 0.0),
-            array(1.5, false, 0.0),
-            array(1.5, true, 1.5),
-            array(-1.5, true, -1.5),
-        );
+        return [
+            [2, 1.5, 3.0],
+            [1.5, 1.5, 2.25],
+            [true, 1.5, 1.5],
+            [false, 1.5, 0.0],
+            [1.5, false, 0.0],
+            [1.5, true, 1.5],
+            [-1.5, true, -1.5],
+        ];
     }
 
     /**

@@ -13,18 +13,18 @@ class BitwiseOrTest extends \Tests\PHPSA\TestCase
      */
     public function getDataProvider()
     {
-        return array(
-            array(0, 5, 5),
-            array(1, 5, 5),
-            array(4, 5, 5),
-            array(-1, 5, -1),
-            array(1.4, 5, 5),
-            array(-19.7, 1, -19),
-            array(true, true, 1),
-            array(false, true, 1),
-            array(true, false, 1),
-            array(false, false, 0),
-        );
+        return [
+            [0, 5, 5],
+            [1, 5, 5],
+            [4, 5, 5],
+            [-1, 5, -1],
+            [1.4, 5, 5],
+            [-19.7, 1, -19],
+            [true, true, 1],
+            [false, true, 1],
+            [true, false, 1],
+            [false, false, 0],
+        ];
     }
 
     /**

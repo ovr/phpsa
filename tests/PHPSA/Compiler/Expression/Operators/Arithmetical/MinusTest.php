@@ -15,24 +15,24 @@ class MinusTest extends \Tests\PHPSA\TestCase
      */
     public function intToIntDataProvider()
     {
-        return array(
-            array(-1, -1, 0),
-            array(-1, 0, -1),
-            array(0, -1, 1),
-            array(-1, 2, -3),
-            array(2, -1, 3),
-            array(0, 0, 0),
-            array(0, 1, -1),
-            array(1, 0, 1),
-            array(1, 2, -1),
-            array(2, 1, 1),
-            array(25, 25, 0),
-            array(50, 25, 25),
-            array(50, -25, 75),
-            array(50, 50, 0),
-            array(50, -50, 100),
-            array(-50, -50, 0),
-        );
+        return [
+            [-1, -1, 0],
+            [-1, 0, -1],
+            [0, -1, 1],
+            [-1, 2, -3],
+            [2, -1, 3],
+            [0, 0, 0],
+            [0, 1, -1],
+            [1, 0, 1],
+            [1, 2, -1],
+            [2, 1, 1],
+            [25, 25, 0],
+            [50, 25, 25],
+            [50, -25, 75],
+            [50, 50, 0],
+            [50, -50, 100],
+            [-50, -50, 0],
+        ];
     }
 
     /**
@@ -64,14 +64,14 @@ class MinusTest extends \Tests\PHPSA\TestCase
      */
     public function resultDoubleDataProvider()
     {
-        return array(
-            array(-1, -1.0, 0.0),
-            array(-1.0, -1.0, 0.0),
-            array(3, 1.5, 1.5),
-            array(4.0, 2.0, 2.0),
-            array(2, 3.5, -1.5),
-            array(2.5, 3.5, -1.0),
-        );
+        return [
+            [-1, -1.0, 0.0],
+            [-1.0, -1.0, 0.0],
+            [3, 1.5, 1.5],
+            [4.0, 2.0, 2.0],
+            [2, 3.5, -1.5],
+            [2.5, 3.5, -1.0],
+        ];
     }
 
     /**

@@ -15,20 +15,20 @@ class PlusTest extends \Tests\PHPSA\TestCase
      */
     public function intToIntDataProvider()
     {
-        return array(
-            array(-1, -1, -2),
-            array(-1, 0, -1),
-            array(0, -1, -1),
-            array(-1, 2, 1),
-            array(2, -1, 1),
-            array(0, 0, 0),
-            array(0, 1, 1),
-            array(1, 0, 1),
-            array(1, 2, 3),
-            array(2, 1, 3),
-            array(25, 25, 50),
-            array(50, 50, 100),
-        );
+        return [
+            [-1, -1, -2],
+            [-1, 0, -1],
+            [0, -1, -1],
+            [-1, 2, 1],
+            [2, -1, 1],
+            [0, 0, 0],
+            [0, 1, 1],
+            [1, 0, 1],
+            [1, 2, 3],
+            [2, 1, 3],
+            [25, 25, 50],
+            [50, 50, 100],
+        ];
     }
 
     /**
@@ -38,17 +38,17 @@ class PlusTest extends \Tests\PHPSA\TestCase
      */
     public function intToFloatDataProvider()
     {
-        return array(
-            array(1, -1.5, -0.5),
-            array(1, -1.0, 0.0),
-            array(-1, -1.0, -2.0),
-            array(-1, -2.55, -3.55),
-            array(1, 1.5, 2.5),
-            array(1, 2.5, 3.5),
-            array(1, 4.5, 5.5),
-            array(1, 4.75, 5.75),
-            array(25, 24.75, 49.75)
-        );
+        return [
+            [1, -1.5, -0.5],
+            [1, -1.0, 0.0],
+            [-1, -1.0, -2.0],
+            [-1, -2.55, -3.55],
+            [1, 1.5, 2.5],
+            [1, 2.5, 3.5],
+            [1, 4.5, 5.5],
+            [1, 4.75, 5.75],
+            [25, 24.75, 49.75]
+        ];
     }
 
     /**

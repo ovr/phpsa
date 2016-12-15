@@ -13,14 +13,14 @@ class BoolCastTest extends \Tests\PHPSA\TestCase
      */
     public function getDataProvider()
     {
-        return array(
-            array(true, true),
-            array(0, false),
-            array(-1, true),
-            array(1.4, true),
-            array("a", true),
-            array(array(), false),
-        );
+        return [
+            [true, true],
+            [0, false],
+            [-1, true],
+            [1.4, true],
+            ["a", true],
+            [[], false],
+        ];
     }
 
     /**

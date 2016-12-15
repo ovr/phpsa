@@ -17,14 +17,14 @@ class NotIndenticalTest extends \Tests\PHPSA\TestCase
      */
     public function providerForStaticIntToIntCases()
     {
-        return array(
-            array(-1, -2),
-            array(-1, 0),
-            array(-5, -4),
-            array(-150, -151),
-            array(150, 151),
-            array(151, 150),
-        );
+        return [
+            [-1, -2],
+            [-1, 0],
+            [-5, -4],
+            [-150, -151],
+            [150, 151],
+            [151, 150],
+        ];
     }
 
     /**
@@ -83,13 +83,13 @@ class NotIndenticalTest extends \Tests\PHPSA\TestCase
 
     public function providerForStaticIntToFloatCases()
     {
-        return array(
-            array(-1, -1.0),
-            array(-5, -5.0),
-            array(-150, -150.0),
-            array(150, 150.0),
-            array(150, 150.0),
-        );
+        return [
+            [-1, -1.0],
+            [-5, -5.0],
+            [-150, -150.0],
+            [150, 150.0],
+            [150, 150.0],
+        ];
     }
 
     /**

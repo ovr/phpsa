@@ -13,18 +13,18 @@ class NotEqualTest extends \Tests\PHPSA\TestCase
      */
     public function providerForStaticEqualsTrue()
     {
-        return array(
-            array(-1, -2),
+        return [
+            [-1, -2],
             //boolean true
-            array(true, false),
-            array(true, 0),
-            array(0, true),
+            [true, false],
+            [true, 0],
+            [0, true],
             // boolean false
-            array(false, true),
-            array(false, 1),
-            array(1, false)
+            [false, true],
+            [false, 1],
+            [1, false]
             //@todo arrays....
-        );
+        ];
     }
 
     /**
@@ -53,17 +53,17 @@ class NotEqualTest extends \Tests\PHPSA\TestCase
      */
     public function providerForStaticEqualsFalse()
     {
-        return array(
-            array(-1, -1),
-            array(1, 1),
-            array(1, 1),
-            array(0, 0),
-            array(true, 1),
-            array(1, true),
-            array(false, 0),
-            array(false, false)
+        return [
+            [-1, -1],
+            [1, 1],
+            [1, 1],
+            [0, 0],
+            [true, 1],
+            [1, true],
+            [false, 0],
+            [false, false]
             //@todo arrays....
-        );
+        ];
     }
 
     /**

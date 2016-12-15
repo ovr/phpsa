@@ -40,19 +40,19 @@ class DivTest extends AbstractDivMod
      */
     public function divIntResultDataProvider()
     {
-        return array(
-            array(-1, -1),
-            array(-1, 1),
-            array(1, 1),
-            array(true, 1),
-            array(true, true),
-            array(1, true),
-            array(0, 1),
-            array(25, 25),
-            array(50, 50),
-            array(500, 50),
-            array(5000, 50)
-        );
+        return [
+            [-1, -1],
+            [-1, 1],
+            [1, 1],
+            [true, 1],
+            [true, true],
+            [1, true],
+            [0, 1],
+            [25, 25],
+            [50, 50],
+            [500, 50],
+            [5000, 50]
+        ];
     }
 
     /**
@@ -81,16 +81,16 @@ class DivTest extends AbstractDivMod
      */
     public function divFloatResultDataProvider()
     {
-        return array(
-            array(-1, -1.25, 0.8),
-            array(-1, 1.25, -0.8),
-            array(1, 1.25, 0.8),
-            array(true, 1.25, 0.8),
-            array(0, 1.25, 0.0),
-            array(25, 12.5, 2.0),
-            array(25, 6.25, 4.0),
-            array(25, 3.125, 8.0),
-        );
+        return [
+            [-1, -1.25, 0.8],
+            [-1, 1.25, -0.8],
+            [1, 1.25, 0.8],
+            [true, 1.25, 0.8],
+            [0, 1.25, 0.0],
+            [25, 12.5, 2.0],
+            [25, 6.25, 4.0],
+            [25, 3.125, 8.0],
+        ];
     }
 
     /**
@@ -123,16 +123,16 @@ class DivTest extends AbstractDivMod
      */
     public function divDoubleToDoubleResultDataProvider()
     {
-        return array(
-            array(-1.25, -1, 1.25),
-            array(1.25, -1, -1.25),
-            array(1.25, 1, 1.25),
-            array(1.25, true, 1.25),
-            array(0.0, 1, 0.0),
-            array(12.5, 25, 1/2),
-            array(6.25, 25, 1/4),
-            array(3.125, 25, 1/8),
-        );
+        return [
+            [-1.25, -1, 1.25],
+            [1.25, -1, -1.25],
+            [1.25, 1, 1.25],
+            [1.25, true, 1.25],
+            [0.0, 1, 0.0],
+            [12.5, 25, 1/2],
+            [6.25, 25, 1/4],
+            [3.125, 25, 1/8],
+        ];
     }
 
     /**

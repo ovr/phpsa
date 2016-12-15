@@ -13,12 +13,12 @@ class BitwiseNotTest extends \Tests\PHPSA\TestCase
      */
     public function getDataProvider()
     {
-        return array(
-            array(1, -2),
-            array(-1, 0),
-            array(1.4,-2),
-            array(-2.7, 1),
-        );
+        return [
+            [1, -2],
+            [-1, 0],
+            [1.4,-2],
+            [-2.7, 1],
+        ];
     }
 
     /**

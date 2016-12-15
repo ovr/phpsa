@@ -18,12 +18,12 @@ class PreIncTest extends \Tests\PHPSA\TestCase
      */
     public function getDataProviderForSuccess()
     {
-        return array(
-            array(-1),
-            array(1),
-            array(99),
-            array(0),
-        );
+        return [
+            [-1],
+            [1],
+            [99],
+            [0],
+        ];
     }
 
     /**
@@ -53,12 +53,12 @@ class PreIncTest extends \Tests\PHPSA\TestCase
      */
     public function getDataProviderForSuccessDouble()
     {
-        return array(
-            array(-1.4),
-            array(1.4),
-            array(99.4),
-            array(0.4),
-        );
+        return [
+            [-1.4],
+            [1.4],
+            [99.4],
+            [0.4],
+        ];
     }
 
     /**

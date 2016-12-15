@@ -17,32 +17,32 @@ class EqualTest extends \Tests\PHPSA\TestCase
      */
     public function providerForStaticEqualsTrue()
     {
-        return array(
-            array(-1, -1),
-            array(-1, -1.0),
-            array(-5, -5),
-            array(-5, -5.0),
-            array(-5.0, -5),
-            array(-150, -150),
-            array(-150.0, -150),
-            array(-150, -150.0),
-            array(150, 150),
-            array(150, 150.0),
-            array(150.0, 150),
-            array(150.0, 150.0),
+        return [
+            [-1, -1],
+            [-1, -1.0],
+            [-5, -5],
+            [-5, -5.0],
+            [-5.0, -5],
+            [-150, -150],
+            [-150.0, -150],
+            [-150, -150.0],
+            [150, 150],
+            [150, 150.0],
+            [150.0, 150],
+            [150.0, 150.0],
             //boolean true
-            array(true, true),
-            array(true, 1),
-            array(1, true),
+            [true, true],
+            [true, 1],
+            [1, true],
             // boolean false
-            array(false, false),
-            array(false, 0),
-            array(0, false),
+            [false, false],
+            [false, 0],
+            [0, false],
             // empty arrays
-            array(array(), false),
-            array(false, array()),
-            array(array(), array()),
-        );
+            [[], false],
+            [false, []],
+            [[], []],
+        ];
     }
 
     /**
@@ -71,19 +71,19 @@ class EqualTest extends \Tests\PHPSA\TestCase
      */
     public function providerForStaticEqualsFalse()
     {
-        return array(
-            array(-1, 150),
-            array(-1, 1),
-            array(0, 1),
-            array(1, 0),
-            array(true, 0),
-            array(0, true),
-            array(false, true),
-            array(false, 1),
-            array(1, false),
-            array(true, array()),
-            array(array(), true),
-        );
+        return [
+            [-1, 150],
+            [-1, 1],
+            [0, 1],
+            [1, 0],
+            [true, 0],
+            [0, true],
+            [false, true],
+            [false, 1],
+            [1, false],
+            [true, []],
+            [[], true],
+        ];
     }
 
     /**

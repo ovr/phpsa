@@ -15,19 +15,19 @@ class MulTest extends \Tests\PHPSA\TestCase
      */
     public function divIntResultDataProvider()
     {
-        return array(
-            array(-1, -1, 1),
-            array(-1, 1, -1),
-            array(1, 1, 1),
-            array(true, 1, 1),
-            array(true, true, 1),
-            array(1, true, 1),
-            array(0, 1, 0),
-            array(25, 25, 25*25),
-            array(50, 50, 50*50),
-            array(500, 50, 25000),
-            array(5000, 50, 250000)
-        );
+        return [
+            [-1, -1, 1],
+            [-1, 1, -1],
+            [1, 1, 1],
+            [true, 1, 1],
+            [true, true, 1],
+            [1, true, 1],
+            [0, 1, 0],
+            [25, 25, 25*25],
+            [50, 50, 50*50],
+            [500, 50, 25000],
+            [5000, 50, 250000]
+        ];
     }
 
     /**
@@ -59,16 +59,16 @@ class MulTest extends \Tests\PHPSA\TestCase
      */
     public function floatResultDataProvider()
     {
-        return array(
-            array(-1, -1.25, 1*1.25),
-            array(-1, 1.25, -(1*1.25)),
-            array(1, 1.25, 1*1.25),
-            array(true, 1.25, 1.25),
-            array(0, 1.25, 0.0),
-            array(25, 12.5, 25*12.5),
-            array(25, 6.25, 25*6.25),
-            array(25, 3.125, 25*3.125),
-        );
+        return [
+            [-1, -1.25, 1*1.25],
+            [-1, 1.25, -(1*1.25)],
+            [1, 1.25, 1*1.25],
+            [true, 1.25, 1.25],
+            [0, 1.25, 0.0],
+            [25, 12.5, 25*12.5],
+            [25, 6.25, 25*6.25],
+            [25, 3.125, 25*3.125],
+        ];
     }
 
     /**
@@ -100,15 +100,15 @@ class MulTest extends \Tests\PHPSA\TestCase
      */
     public function doubleOnDoubleResultDataProvider()
     {
-        return array(
-            array(-1.25, -1, 1.25),
-            array(1.25, -1, -1.25),
-            array(1.25, 1, 1.25),
-            array(1.25, true, 1.25),
-            array(12.5, 25, 312.5),
-            array(6.25, 25, 156.25),
-            array(3.125, 25, 78.125),
-        );
+        return [
+            [-1.25, -1, 1.25],
+            [1.25, -1, -1.25],
+            [1.25, 1, 1.25],
+            [1.25, true, 1.25],
+            [12.5, 25, 312.5],
+            [6.25, 25, 156.25],
+            [3.125, 25, 78.125],
+        ];
     }
 
     /**

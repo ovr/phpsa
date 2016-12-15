@@ -13,9 +13,9 @@ class ArrayCastTest extends \Tests\PHPSA\TestCase
      */
     public function getDataProvider()
     {
-        return array(
-            array(array(), array()),
-        );
+        return [
+            [[], []],
+        ];
     }
 
     /**
