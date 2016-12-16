@@ -13,14 +13,14 @@ class DoubleCastTest extends \Tests\PHPSA\TestCase
      */
     public function getDataProvider()
     {
-        return array(
-            array(true, 1.0),
-            array(0, 0.0),
-            array(-1, -1.0),
-            array(1.4, 1.4),
-            array("a", 0.0),
-            array(array(), 0.0),
-        );
+        return [
+            [true, 1.0],
+            [0, 0.0],
+            [-1, -1.0],
+            [1.4, 1.4],
+            ["a", 0.0],
+            [[], 0.0],
+        ];
     }
 
     /**

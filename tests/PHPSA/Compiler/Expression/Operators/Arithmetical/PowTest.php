@@ -15,19 +15,19 @@ class PowTest extends \Tests\PHPSA\TestCase
      */
     public function powResultIntDataProvider()
     {
-        return array(
-            array(2, 2, 4),
-            array(true, 2, 1),
-            array(3, true, 3),
-            array(true, true, 1),
-            array(2, 0, 1),
-            array(false, 3, 0),
-            array(2, false, 1),
-            array(false, false, 1),
-            array(0, 0, 1),
-            array(0, 3, 0),
-            array(true, false, 1),
-        );
+        return [
+            [2, 2, 4],
+            [true, 2, 1],
+            [3, true, 3],
+            [true, true, 1],
+            [2, 0, 1],
+            [false, 3, 0],
+            [2, false, 1],
+            [false, false, 1],
+            [0, 0, 1],
+            [0, 3, 0],
+            [true, false, 1],
+        ];
     }
 
     /**
@@ -56,16 +56,16 @@ class PowTest extends \Tests\PHPSA\TestCase
      */
     public function powResultDoubleDataProvider()
     {
-        return array(
-            array(2, -2, 0.25),
-            array(1.5, 2, 2.25),
-            array(1, 1.5, 1.0),
-            array(100, 2.5, 100000.0),
-            array(true, 1.5, 1.0),
-            array(false, 1.5, 0.0),
-            array(1.5, false, 1.0),
-            array(1.5, true, 1.5),
-        );
+        return [
+            [2, -2, 0.25],
+            [1.5, 2, 2.25],
+            [1, 1.5, 1.0],
+            [100, 2.5, 100000.0],
+            [true, 1.5, 1.0],
+            [false, 1.5, 0.0],
+            [1.5, false, 1.0],
+            [1.5, true, 1.5],
+        ];
     }
 
     /**

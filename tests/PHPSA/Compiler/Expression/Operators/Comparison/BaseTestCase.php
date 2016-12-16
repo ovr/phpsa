@@ -13,18 +13,18 @@ abstract class BaseTestCase extends \Tests\PHPSA\TestCase
      */
     public function smallerDataProvider()
     {
-        return array(
-            array(-1, -1),
-            array(-2, -1),
-            array(-3, -1),
-            array(-50, -1),
-            array(1, 2),
-            array(1, 5),
-            array(6, 5),
-            array(6, 6),
-            array(5, 6),
-            array(5, 5),
-        );
+        return [
+            [-1, -1],
+            [-2, -1],
+            [-3, -1],
+            [-50, -1],
+            [1, 2],
+            [1, 5],
+            [6, 5],
+            [6, 6],
+            [5, 6],
+            [5, 5],
+        ];
     }
 
     /**

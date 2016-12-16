@@ -15,18 +15,18 @@ class DivTest extends \Tests\PHPSA\TestCase
      */
     public function divResultIntDataProvider()
     {
-        return array(
-            array(2, 2, 1),
-            array(true, 1, 1),
-            array(3, true, 3),
-            array(true, true, 1),
-            array(2, 1, 2),
-            array(-1, 1, -1),
-            array(false, -3, 0),
-            array(false, 1, 0),
-            array(0, 1, 0),
-            array(false, true, 0),
-        );
+        return [
+            [2, 2, 1],
+            [true, 1, 1],
+            [3, true, 3],
+            [true, true, 1],
+            [2, 1, 2],
+            [-1, 1, -1],
+            [false, -3, 0],
+            [false, 1, 0],
+            [0, 1, 0],
+            [false, true, 0],
+        ];
     }
 
     /**
@@ -55,14 +55,14 @@ class DivTest extends \Tests\PHPSA\TestCase
      */
     public function divResultDoubleDataProvider()
     {
-        return array(
-            array(2, 0.5, 4.0),
-            array(1.5, 0.5, 3.0),
-            array(true, 2, 0.5),
-            array(false, -5.5, 0.0),
-            array(1.5, true, 1.5),
-            array(-1.5, 1, -1.5),
-        );
+        return [
+            [2, 0.5, 4.0],
+            [1.5, 0.5, 3.0],
+            [true, 2, 0.5],
+            [false, -5.5, 0.0],
+            [1.5, true, 1.5],
+            [-1.5, 1, -1.5],
+        ];
     }
 
     /**

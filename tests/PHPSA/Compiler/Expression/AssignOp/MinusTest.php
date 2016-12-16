@@ -15,19 +15,19 @@ class MinusTest extends \Tests\PHPSA\TestCase
      */
     public function minusResultIntDataProvider()
     {
-        return array(
-            array(2, 2, 0),
-            array(true, 2, -1),
-            array(3, true, 2),
-            array(true, true, 0),
-            array(2, 0, 2),
-            array(-1, 1, -2),
-            array(false, 3, -3),
-            array(2, false, 2),
-            array(false, false, 0),
-            array(0, 0, 0),
-            array(true, false, 1),
-        );
+        return [
+            [2, 2, 0],
+            [true, 2, -1],
+            [3, true, 2],
+            [true, true, 0],
+            [2, 0, 2],
+            [-1, 1, -2],
+            [false, 3, -3],
+            [2, false, 2],
+            [false, false, 0],
+            [0, 0, 0],
+            [true, false, 1],
+        ];
     }
 
     /**
@@ -56,15 +56,15 @@ class MinusTest extends \Tests\PHPSA\TestCase
      */
     public function minusResultDoubleDataProvider()
     {
-        return array(
-            array(2, 1.5, 0.5),
-            array(1.5, 2, -0.5),
-            array(true, 1.5, -0.5),
-            array(false, 1.5, -1.5),
-            array(1.5, false, 1.5),
-            array(1.5, true, 0.5),
-            array(-1.5, 1, -2.5),
-        );
+        return [
+            [2, 1.5, 0.5],
+            [1.5, 2, -0.5],
+            [true, 1.5, -0.5],
+            [false, 1.5, -1.5],
+            [1.5, false, 1.5],
+            [1.5, true, 0.5],
+            [-1.5, 1, -2.5],
+        ];
     }
 
     /**

@@ -17,16 +17,16 @@ class BooleanNotTest extends \Tests\PHPSA\TestCase
      */
     public function getDataProvider()
     {
-        return array(
-            array(true, false),
-            array(false, true),
-            array(1, false),
-            array(-1, false),
-            array(1.4, false),
-            array(null, true),
-            array("a", false),
-            array(array(), true),
-        );
+        return [
+            [true, false],
+            [false, true],
+            [1, false],
+            [-1, false],
+            [1.4, false],
+            [null, true],
+            ["a", false],
+            [[], true],
+        ];
     }
 
     /**

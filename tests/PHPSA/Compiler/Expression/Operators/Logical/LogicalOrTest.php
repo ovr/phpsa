@@ -13,24 +13,24 @@ class LogicalOrTest extends \Tests\PHPSA\TestCase
      */
     public function getDataProvider()
     {
-        return array(
-            array(true, true, true),
-            array(true, false, true),
-            array(false, true, true),
-            array(false, false, false),
-            array(null, false, false),
-            array(false, null, false),
-            array(null, null, false),
-            array(true, null, true),
-            array(null, true, true),
-            array(1, true, true),
-            array(1.4, false, true),
-            array(1, false, true),
-            array(-1, false, true),
-            array("a", false, true),
-            array(array(), array(), false),
-            array(array(), "a", true),
-        );
+        return [
+            [true, true, true],
+            [true, false, true],
+            [false, true, true],
+            [false, false, false],
+            [null, false, false],
+            [false, null, false],
+            [null, null, false],
+            [true, null, true],
+            [null, true, true],
+            [1, true, true],
+            [1.4, false, true],
+            [1, false, true],
+            [-1, false, true],
+            ["a", false, true],
+            [[], [], false],
+            [[], "a", true],
+        ];
     }
 
     /**

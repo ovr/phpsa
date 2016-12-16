@@ -15,20 +15,20 @@ class ConcatTest extends \Tests\PHPSA\TestCase
      */
     public function concatResultDataProvider()
     {
-        return array(
-            array(2, 2, "22"),
-            array(true, "a", "1a"),
-            array("a", true, "a1"),
-            array(true, true, "11"),
-            array(-1, 1, "-11"),
-            array(false, 3, "3"), // 0 at beginning is dropped
-            array(false, true, "1"),
-            array(0, -1, "0-1"),
-            array(1.5, -1, "1.5-1"),
-            array(true, -0.5, "1-0.5"),
-            array(false, false, ""),
-            array(true, false, "1"),
-        );
+        return [
+            [2, 2, "22"],
+            [true, "a", "1a"],
+            ["a", true, "a1"],
+            [true, true, "11"],
+            [-1, 1, "-11"],
+            [false, 3, "3"], // 0 at beginning is dropped
+            [false, true, "1"],
+            [0, -1, "0-1"],
+            [1.5, -1, "1.5-1"],
+            [true, -0.5, "1-0.5"],
+            [false, false, ""],
+            [true, false, "1"],
+        ];
     }
 
     /**

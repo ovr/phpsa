@@ -17,16 +17,16 @@ class UnaryMinusTest extends \Tests\PHPSA\TestCase
      */
     public function getDataProviderForSuccess()
     {
-        return array(
-            array(-1),
-            array(1),
-            array(true),
-            array(false),
-            array("test string"),
-            array("10test string"),
-            array(""),
-            array(null),
-        );
+        return [
+            [-1],
+            [1],
+            [true],
+            [false],
+            ["test string"],
+            ["10test string"],
+            [""],
+            [null],
+        ];
     }
 
     /**
@@ -49,9 +49,9 @@ class UnaryMinusTest extends \Tests\PHPSA\TestCase
      */
     public function getDataProviderForUnsupported()
     {
-        return array(
-            array([]),
-        );
+        return [
+            [[]],
+        ];
     }
 
     /**

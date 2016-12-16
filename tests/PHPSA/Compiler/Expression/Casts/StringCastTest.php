@@ -13,13 +13,13 @@ class StringCastTest extends \Tests\PHPSA\TestCase
      */
     public function getDataProvider()
     {
-        return array(
-            array(true, "1"),
-            array(0, "0"),
-            array(-1, "-1"),
-            array(1.4, "1.4"),
-            array("a", "a"),
-        );
+        return [
+            [true, "1"],
+            [0, "0"],
+            [-1, "-1"],
+            [1.4, "1.4"],
+            ["a", "a"],
+        ];
     }
 
     /**

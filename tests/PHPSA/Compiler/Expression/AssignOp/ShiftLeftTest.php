@@ -13,18 +13,18 @@ class ShiftLeftTest extends \Tests\PHPSA\TestCase
      */
     public function getDataProvider()
     {
-        return array(
-            array(0, 5, 0),
-            array(1, 5, 32),
-            array(4, 5, 128),
-            array(-1, 5, -32),
-            array(1.4, 5, 32),
-            array(-19.7, 2, -76),
-            array(true, true, 2),
-            array(false, true, 0),
-            array(true, false, 1),
-            array(false, false, 0),
-        );
+        return [
+            [0, 5, 0],
+            [1, 5, 32],
+            [4, 5, 128],
+            [-1, 5, -32],
+            [1.4, 5, 32],
+            [-19.7, 2, -76],
+            [true, true, 2],
+            [false, true, 0],
+            [true, false, 1],
+            [false, false, 0],
+        ];
     }
 
     /**

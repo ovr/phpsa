@@ -15,17 +15,17 @@ class ModTest extends \Tests\PHPSA\TestCase
      */
     public function modDataProvider()
     {
-        return array(
-            array(2, 2, 0),
-            array(true, 2, 1),
-            array(3, true, 0),
-            array(true, true, 0),
-            array(-1, 1, 0),
-            array(false, 3, 0),
-            array(false, true, 0),
-            array(0, 1, 0),
-            array(1, -1, 0),
-        );
+        return [
+            [2, 2, 0],
+            [true, 2, 1],
+            [3, true, 0],
+            [true, true, 0],
+            [-1, 1, 0],
+            [false, 3, 0],
+            [false, true, 0],
+            [0, 1, 0],
+            [1, -1, 0],
+        ];
     }
 
     /**

@@ -13,18 +13,18 @@ class BitwiseXorTest extends \Tests\PHPSA\TestCase
      */
     public function getDataProvider()
     {
-        return array(
-            array(0, 5, 5),
-            array(1, 5, 4),
-            array(4, 5, 1),
-            array(-1, 5, -6),
-            array(1.4, 5, 4),
-            array(-19.7, 1, -20),
-            array(true, true, 0),
-            array(false, true, 1),
-            array(true, false, 1),
-            array(false, false, 0),
-        );
+        return [
+            [0, 5, 5],
+            [1, 5, 4],
+            [4, 5, 1],
+            [-1, 5, -6],
+            [1.4, 5, 4],
+            [-19.7, 1, -20],
+            [true, true, 0],
+            [false, true, 1],
+            [true, false, 1],
+            [false, false, 0],
+        ];
     }
 
     /**
