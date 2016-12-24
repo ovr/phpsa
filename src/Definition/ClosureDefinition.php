@@ -91,6 +91,12 @@ class ClosureDefinition extends ParentDefinition
         $this->compiled = true;
 
         $context->clearSymbols();
+
+        // @todo rewrite when we will use symbol table in all places!
+        foreach ($this->symbolTable->getVariables() as $variable) {
+            $context->addVariable($variable);
+        }
+
         $context->scopePointer = $this->getPointer();
         $context->setScope(null);
 

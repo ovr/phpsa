@@ -51,4 +51,12 @@ class SymbolTable implements Countable
     {
         $this->variables = [];
     }
+
+    /**
+     * @return Variable[]
+     */
+    public function getVariables()
+    {
+        return $this->variables;
+    }
 }
