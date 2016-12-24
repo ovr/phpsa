@@ -23,13 +23,21 @@ class FinalStaticUsage implements AnalyzerPassInterface
      */
     public function pass(Expr\StaticCall $expr, Context $context)
     {
-        $leftCompiledExpression = $context->getExpressionCompiler()->compile($expr->class);
-        if ($leftCompiledExpression->getValue() !== 'static') {
+        if (!$context->scope) {
             return false;
         }
 
-        $classObject = $context->scope->getPointer()->getObject();
+        $scopePointer = $context->scope->getPointer();
+        if (!$scopePointer) {
+            return false;
+        }
+
+        $classObject = $scopePointer->getObject();
         if (!$classObject instanceof ClassDefinition || !$classObject->isFinal()) {
+            return false;
+        }
+
+        if ($expr->class->getFirst() !== 'static') {
             return false;
         }
 
