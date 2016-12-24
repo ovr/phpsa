@@ -11,6 +11,7 @@ use PHPSA\Context;
 use PhpParser\Node;
 use PHPSA\Compiler\Parameter;
 use PHPSA\Compiler\Types;
+use PHPSA\Variable;
 
 /**
  * Closure Definition
@@ -95,6 +96,17 @@ class ClosureDefinition extends ParentDefinition
         // @todo rewrite when we will use symbol table in all places!
         foreach ($this->symbolTable->getVariables() as $variable) {
             $context->addVariable($variable);
+        }
+
+        if ($context->scopePointer && $context->scopePointer->isClassMethod()) {
+            /** @var \PHPSA\Definition\ClassMethod $method */
+            $method = $context->scopePointer->getObject();
+
+            if (!$method->isStatic()) {
+                $thisPtr = new Variable('this', $this, CompiledExpression::OBJECT);
+                $thisPtr->incGets();
+                $context->addVariable($thisPtr);
+            }
         }
 
         $context->scopePointer = $this->getPointer();
