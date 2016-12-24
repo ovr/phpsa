@@ -102,7 +102,7 @@ class CheckCommand extends Command
 
         $fileParser = new FileParser(
             $parser,
-            $this->getCompiler()
+            $application->compiler
         );
 
         $path = $input->getArgument('path');
@@ -171,14 +171,6 @@ class CheckCommand extends Command
     protected function getMemoryUsage($type)
     {
         return round(memory_get_usage($type) / 1024 / 1024, 2);
-    }
-
-    /**
-     * @return Compiler
-     */
-    protected function getCompiler()
-    {
-        return $this->getApplication()->compiler;
     }
 
     /**

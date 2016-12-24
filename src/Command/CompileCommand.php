@@ -71,7 +71,7 @@ class CompileCommand extends Command
 
         $fileParser = new FileParser(
             $parser,
-            $this->getCompiler()
+            $application->compiler
         );
 
         $path = $input->getArgument('path');
@@ -121,14 +121,6 @@ class CompileCommand extends Command
 
         $output->writeln('');
         $output->writeln('Memory usage: ' . $this->getMemoryUsage(false) . ' (peak: ' . $this->getMemoryUsage(true) . ') MB');
-    }
-
-    /**
-     * @return Compiler
-     */
-    protected function getCompiler()
-    {
-        return $this->getApplication()->compiler;
     }
 
     /**
