@@ -1,5 +1,5 @@
 
-FROM lowlci/php-ubuntu-1604:7.0.8
+FROM php:7.1.0-cli
 
 MAINTAINER Patsura Dmitry <talk@dmtry.me>
 

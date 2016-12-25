@@ -1,14 +1,14 @@
 ---
 engines:
   duplication:
-    enabled: true
+    enabled: false
     config:
       languages:
         - php
   fixme:
     enabled: false
   phpsa:
-    enabled: false
+    enabled: true
 ratings:
   paths:
     - "**.php"
