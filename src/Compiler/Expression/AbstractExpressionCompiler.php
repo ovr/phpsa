@@ -20,7 +20,7 @@ abstract class AbstractExpressionCompiler implements ExpressionCompilerInterface
 
     /**
      * @param $expression
-     * @throws RuntimeException when param does not match $this->name
+     * @throws InvalidArgumentException when param does not match $this->name
      */
     protected function assertExpression($expression)
     {
