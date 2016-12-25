@@ -4,8 +4,6 @@ namespace PHPSA\Compiler\Expression;
 
 use PHPSA\CompiledExpression;
 use PHPSA\Context;
-use PHPSA\Compiler\Expression;
-use PHPSA\Compiler\Expression\AbstractExpressionCompiler;
 
 class ArrayDimFetch extends AbstractExpressionCompiler
 {
@@ -32,6 +30,11 @@ class ArrayDimFetch extends AbstractExpressionCompiler
                 $expr
             );
             
+            return new CompiledExpression();
+        }
+
+        // When we know type, but no value
+        if (!$var->isCorrectValue()) {
             return new CompiledExpression();
         }
 
