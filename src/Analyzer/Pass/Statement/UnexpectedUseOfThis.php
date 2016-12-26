@@ -183,7 +183,7 @@ class UnexpectedUseOfThis implements Pass\AnalyzerPassInterface
         $result = false;
 
         foreach ($unsetStmt->vars as $var) {
-            if ($var->name === 'this') {
+            if ($var instanceof Node\Expr\Variable && $var->name === 'this') {
                 $result = true;
 
                 $context->notice(
