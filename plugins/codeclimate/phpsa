@@ -4,6 +4,8 @@
  * @author Patsura Dmitry http://github.com/ovr <talk@dmtry.me>
  */
 
+ini_set('memory_limit', '512M');
+
 $autoloadPath = dirname(__DIR__) . '/../vendor/autoload.php';;
 if (!file_exists($autoloadPath)) {
     fwrite(
