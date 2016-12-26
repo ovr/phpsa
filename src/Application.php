@@ -74,13 +74,18 @@ class Application extends \Symfony\Component\Console\Application
         $proc = proc_open(
             'git describe --always',
             [
+                // STDOUT
                 1 => ['pipe','w'],
+                // STDERR
+                2 => ['pipe','w']
             ],
             $pipes
         );
         if ($proc) {
             $stdout = stream_get_contents($pipes[1]);
+
             fclose($pipes[1]);
+            fclose($pipes[2]);
 
             $exitCode = proc_close($proc);
             if ($exitCode === 0) {
