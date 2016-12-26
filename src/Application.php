@@ -52,7 +52,7 @@ class Application extends \Symfony\Component\Console\Application
     protected function getStringVersion()
     {
         $hash = $this->getCVVersion();
-        if (!empty($hash)) {
+        if ($hash) {
             return self::VERSION . ' #' . $hash;
         }
 
@@ -62,14 +62,33 @@ class Application extends \Symfony\Component\Console\Application
     /**
      * Returns CV Version.
      *
-     * @return string
+     * @return string|null
      * @codeCoverageIgnore
      */
     protected function getCVVersion()
     {
-        exec('git describe --always', $version_mini_hash);
+        if (!extension_loaded('pcntl')) {
+            return null;
+        }
 
-        return $version_mini_hash ? $version_mini_hash[0] : '';
+        $proc = proc_open(
+            'git describe --always',
+            [
+                1 => ['pipe','w'],
+            ],
+            $pipes
+        );
+        if ($proc) {
+            $stdout = stream_get_contents($pipes[1]);
+            fclose($pipes[1]);
+
+            $exitCode = proc_close($proc);
+            if ($exitCode === 0) {
+                return $stdout;
+            }
+        }
+
+        return null;
     }
 
     /**
