@@ -110,13 +110,13 @@ class FileParser
             if ($statement instanceof Node\Stmt\Use_) {
                 if (count($statement->uses) > 0) {
                     foreach ($statement->uses as $use) {
-                        $aliasManager->add($use->name->parts);
+                        $aliasManager->add((string)$use->name);
                     }
                 }
             } elseif ($statement instanceof Node\Stmt\GroupUse) {
                 if (count($statement->uses) > 0) {
                     foreach ($statement->uses as $use) {
-                        $aliasManager->add($statement->prefix . $use->name->parts);
+                        $aliasManager->add($statement->prefix->toString() . '\\' . $use->name->toString());
                     }
                 }
             } elseif ($statement instanceof Node\Stmt\Trait_) {
