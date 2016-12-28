@@ -6,6 +6,7 @@ use PHPSA\CompiledExpression;
 use PHPSA\Context;
 use PHPSA\Compiler\Expression;
 use PHPSA\Compiler\Expression\AbstractExpressionCompiler;
+use PHPSA\Definition\ClassDefinition;
 
 class ClassConstFetch extends AbstractExpressionCompiler
 {
@@ -22,7 +23,7 @@ class ClassConstFetch extends AbstractExpressionCompiler
     {
         $compiler = $context->getExpressionCompiler();
 
-        if ($expr->name == "class") {
+        if ($expr->name == 'class') {
             // @todo return fully qualified classname
             return new CompiledExpression();
         }
