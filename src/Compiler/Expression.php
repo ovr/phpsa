@@ -400,8 +400,17 @@ class Expression
      */
     public function getFullyQualifiedNodeName(Node\Name\FullyQualified $expr)
     {
-        $this->context->debug('Unimplemented FullyQualified', $expr);
+        $compiler = $this->context->getApplication()->compiler;
 
+        $classDefinition = $compiler->getClass($expr->toString());
+        if ($classDefinition) {
+            return new CompiledExpression(
+                CompiledExpression::OBJECT,
+                $classDefinition
+            );
+        }
+
+        $this->context->debug('Unimplemented FullyQualified', $expr);
         return new CompiledExpression();
     }
 

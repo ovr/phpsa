@@ -147,6 +147,19 @@ class Compiler
 
     /**
      * @param string $name
+     * @return ClassDefinition|null
+     */
+    public function getClass($name)
+    {
+        if (isset($this->classes[$name])) {
+            return $this->classes[$name];
+        }
+
+        return null;
+    }
+
+    /**
+     * @param string $name
      * @return TraitDefinition|null
      */
     public function getTrait($name)

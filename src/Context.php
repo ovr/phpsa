@@ -359,4 +359,12 @@ class Context
     {
         return $this->eventManager;
     }
+
+    /**
+     * @return Application
+     */
+    public function getApplication()
+    {
+        return $this->application;
+    }
 }
