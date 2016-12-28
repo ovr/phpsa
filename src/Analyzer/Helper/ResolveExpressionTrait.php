@@ -80,6 +80,11 @@ trait ResolveExpressionTrait
      */
     protected function traverseNode(Node $node)
     {
+        // Skip inherits nodes
+        if ($node instanceof Node\FunctionLike || $node instanceof Node\Stmt\ClassLike) {
+            return;
+        }
+
         foreach ($node->getSubNodeNames() as $name) {
             $subNode = &$node->$name;
 

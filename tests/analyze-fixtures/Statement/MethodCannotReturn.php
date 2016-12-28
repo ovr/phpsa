@@ -17,17 +17,17 @@ class MethodCannotReturn
 
 class TestNoReturn
 {
-	public $a;
+    public function __construct()
+    {
+        array_filter([], function ($var) { return false; });
+        function TestNoReturnFunctionInConstruct() { return 1; }
+    }
 
-	public function __construct()
-	{
-		$a = 1;
-	}
-
-	public function __destruct()
-	{
-		$a = 0;
-	}
+    public function __destruct()
+    {
+        array_filter([], function ($var) { return false; });
+        function TestNoReturnFunctionInDestruct() { return 1; }
+    }
 }
 
 ?>

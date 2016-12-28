@@ -2,11 +2,12 @@
 
 namespace PHPSA\Analyzer\Pass\Statement;
 
+use PhpParser\Node;
+use PhpParser\Node\Expr;
 use PhpParser\Node\Stmt;
 use PHPSA\Analyzer\Helper\DefaultMetadataPassTrait;
 use PHPSA\Analyzer\Helper\ResolveExpressionTrait;
 use PHPSA\Analyzer\Pass;
-use PhpParser\Node\Expr;
 use PHPSA\Context;
 
 class ReturnAndYieldInOneMethod implements Pass\AnalyzerPassInterface
@@ -17,20 +18,24 @@ class ReturnAndYieldInOneMethod implements Pass\AnalyzerPassInterface
     use ResolveExpressionTrait;
 
     /**
-     * @param Stmt $stmt
+     * @param Node\FunctionLike $func
      * @param Context $context
      * @return bool
      */
-    public function pass(Stmt $stmt, Context $context)
+    public function pass(Node\FunctionLike $func, Context $context)
     {
-        $yieldExists = \PHPSA\generatorHasValue($this->findYieldExpression([$stmt]));
+        $stmts = $func->getStmts();
+        if ($stmts === null) {
+            return false;
+        }
+        $yieldExists = \PHPSA\generatorHasValue($this->findYieldExpression($stmts));
         if (!$yieldExists) {
             // YieldFrom is another expression
-            $yieldExists = \PHPSA\generatorHasValue($this->findNode([$stmt], Expr\YieldFrom::class));
+            $yieldExists = \PHPSA\generatorHasValue($this->findNode($stmts, Expr\YieldFrom::class));
         }
 
-        if ($yieldExists && \PHPSA\generatorHasValue($this->findReturnStatement([$stmt]))) {
-            $context->notice('return_and_yield_in_one_method', 'Do not use return and yield in a one method', $stmt);
+        if ($yieldExists && \PHPSA\generatorHasValue($this->findReturnStatement($stmts))) {
+            $context->notice('return_and_yield_in_one_method', 'Do not use return and yield in a one method', $func);
             return true;
         }
 
