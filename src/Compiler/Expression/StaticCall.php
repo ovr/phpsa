@@ -26,15 +26,16 @@ class StaticCall extends AbstractExpressionCompiler
     {
         $expressionCompiler = $context->getExpressionCompiler();
         $leftCE = $expressionCompiler->compile($expr->class);
+        $rightCE = $expressionCompiler->compile($expr->name);
 
         $this->parseArgs($expr->args, $context);
 
-        if ($leftCE->isObject()) {
+        if ($leftCE->isObject() && $rightCE->isString() && $rightCE->isCorrectValue()) {
             /** @var ClassDefinition|null $classDefinition */
             $classDefinition = $leftCE->getValue();
             if ($classDefinition instanceof ClassDefinition) {
-                $name = $expr->name;
-                
+                $name = $rightCE->getValue();
+
                 if (!$classDefinition->hasMethod($name, true)) {
                     $context->notice(
                         'language_error',
