@@ -83,13 +83,13 @@ class MissingDocblock implements AnalyzerPassInterface
             ->info(self::DESCRIPTION)
             ->canBeDisabled()
             ->children()
-                ->booleanNode("class")->defaultTrue()->end()
+                ->booleanNode("class")->defaultFalse()->end()
                 ->booleanNode("class_method")->defaultTrue()->end()
-                ->booleanNode("class_const")->defaultTrue()->end()
+                ->booleanNode("class_const")->defaultFalse()->end()
                 ->booleanNode("class_property")->defaultTrue()->end()
                 ->booleanNode("function")->defaultTrue()->end()
-                ->booleanNode("interface")->defaultTrue()->end()
-                ->booleanNode("trait")->defaultTrue()->end()
+                ->booleanNode("interface")->defaultFalse()->end()
+                ->booleanNode("trait")->defaultFalse()->end()
             ->end();
 
         return new Metadata("missing_docblock", $config, self::DESCRIPTION);
