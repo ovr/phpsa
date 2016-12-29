@@ -195,6 +195,10 @@ Checks if any Property Definition is done with a default null value (not needed)
 
 Checks for using return and yield statements in a one method and discourages it.
 
+#### return_void
+
+Checks for return void statements.
+
 #### check_l_number_kind
 
 Using octal, hexadecimal or binary integers is discouraged.

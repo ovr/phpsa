@@ -211,6 +211,10 @@ phpsa:
         return_and_yield_in_one_method:
             enabled:              true
 
+        # Checks for return void statements.
+        return_void:
+            enabled:              true
+
         # Using octal, hexadecimal or binary integers is discouraged.
         check_l_number_kind:
             enabled:              true

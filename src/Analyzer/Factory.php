@@ -133,6 +133,7 @@ class Factory
             AnalyzerPass\Statement\ForCondition::class,
             AnalyzerPass\Statement\PropertyDefinitionDefaultValue::class,
             AnalyzerPass\Statement\ReturnAndYieldInOneMethod::class,
+            AnalyzerPass\Statement\ReturnVoid::class,
         ];
     }
 
