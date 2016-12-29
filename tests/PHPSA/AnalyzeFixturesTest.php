@@ -131,12 +131,13 @@ class AnalyzeFixturesTest extends TestCase
                 )
             );
         }
-        
+
+        /** @var \Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition $analyzerConfiguration */
         $analyzerConfiguration = $metaData->getConfiguration();
         $analyzerConfiguration->attribute('enabled', true);
 
         $config = [
-            $analyzerName::getMetadata()->getConfiguration()
+            $analyzerConfiguration
         ];
 
         $em = EventManager::getInstance();

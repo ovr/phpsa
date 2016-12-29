@@ -22,25 +22,31 @@ class MissingDocblock implements AnalyzerPassInterface
      */
     public function __construct(array $config)
     {
-        if ($config["class"] == true) {
+        if ($config['class'] == true) {
             $this->register[] = Stmt\Class_::class;
         }
-        if ($config["class_method"] == true) {
+
+        if ($config['class_method'] == true) {
             $this->register[] = Stmt\ClassMethod::class;
         }
-        if ($config["class_const"] == true) {
+
+        if ($config['class_const'] == true) {
             $this->register[] = Stmt\ClassConst::class;
         }
-        if ($config["class_property"] == true) {
+
+        if ($config['class_property'] == true) {
             $this->register[] = Stmt\Property::class;
         }
-        if ($config["function"] == true) {
+
+        if ($config['function'] == true) {
             $this->register[] = Stmt\Function_::class;
         }
-        if ($config["interface"] == true) {
+
+        if ($config['interface'] == true) {
             $this->register[] = Stmt\Interface_::class;
         }
-        if ($config["trait"] == true) {
+
+        if ($config['trait'] == true) {
             $this->register[] = Stmt\Trait_::class;
         }
     }
@@ -79,19 +85,19 @@ class MissingDocblock implements AnalyzerPassInterface
     public static function getMetadata()
     {
         $treebuilder = new TreeBuilder();
-        $config = $treebuilder->root("missing_docblock")
+        $config = $treebuilder->root('missing_docblock')
             ->info(self::DESCRIPTION)
             ->canBeDisabled()
             ->children()
-                ->booleanNode("class")->defaultFalse()->end()
-                ->booleanNode("class_method")->defaultTrue()->end()
-                ->booleanNode("class_const")->defaultFalse()->end()
-                ->booleanNode("class_property")->defaultTrue()->end()
-                ->booleanNode("function")->defaultTrue()->end()
-                ->booleanNode("interface")->defaultFalse()->end()
-                ->booleanNode("trait")->defaultFalse()->end()
+                ->booleanNode('class')->defaultFalse()->end()
+                ->booleanNode('class_method')->defaultTrue()->end()
+                ->booleanNode('class_const')->defaultFalse()->end()
+                ->booleanNode('class_property')->defaultTrue()->end()
+                ->booleanNode('function')->defaultTrue()->end()
+                ->booleanNode('interface')->defaultFalse()->end()
+                ->booleanNode('trait')->defaultFalse()->end()
             ->end();
 
-        return new Metadata("missing_docblock", $config, self::DESCRIPTION);
+        return new Metadata('missing_docblock', $config, self::DESCRIPTION);
     }
 }
