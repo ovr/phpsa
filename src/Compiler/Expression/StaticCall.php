@@ -30,27 +30,29 @@ class StaticCall extends AbstractExpressionCompiler
         $this->parseArgs($expr->args, $context);
 
         if ($leftCE->isObject()) {
-            $name = $expr->name;
+            /** @var ClassDefinition|null $classDefinition */
+            $classDefinition = $leftCE->getValue();
+            if ($classDefinition instanceof ClassDefinition) {
+                $name = $expr->name;
+                
+                if (!$classDefinition->hasMethod($name, true)) {
+                    $context->notice(
+                        'language_error',
+                        sprintf('Static method %s() does not exist in %s scope', $name, $expr->class),
+                        $expr
+                    );
 
-            /** @var ClassDefinition $classDefinition */
-            $classDefinition = $context->scope;
-            if (!$classDefinition->hasMethod($name, true)) {
-                $context->notice(
-                    'language_error',
-                    sprintf('Static method %s() does not exist in %s scope', $name, $expr->class),
-                    $expr
-                );
+                    return new CompiledExpression();
+                }
 
-                return new CompiledExpression();
-            }
-
-            $method = $classDefinition->getMethod($name, true);
-            if ($expr->class->parts[0] !== 'parent' && !$method->isStatic()) {
-                $context->notice(
-                    'language_error',
-                    sprintf('Method %s() is not static but was called in a static way', $name),
-                    $expr
-                );
+                $method = $classDefinition->getMethod($name, true);
+                if ($expr->class->toString() !== 'parent' && !$method->isStatic()) {
+                    $context->notice(
+                        'language_error',
+                        sprintf('Method %s() is not static but was called in a static way', $name),
+                        $expr
+                    );
+                }
             }
 
             return new CompiledExpression();
