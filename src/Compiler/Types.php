@@ -67,6 +67,7 @@ class Types
             case 'integer':
             case 'int':
                 return CompiledExpression::INTEGER;
+            case 'float':
             case 'double':
                 return CompiledExpression::DOUBLE;
             case 'string':
