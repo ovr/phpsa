@@ -288,15 +288,27 @@ class ClassDefinition extends ParentDefinition
     /**
      * @param $name
      * @param bool $inherit
+     * @param bool $isParent It's an internal parameter
      * @return bool
      */
-    public function hasProperty($name, $inherit = false)
+    public function hasProperty($name, $inherit = false, $isParent = true)
     {
         if (isset($this->properties[$name])) {
-            return isset($this->properties[$name]);
+            if (!$isParent) {
+                $property = $this->propertyStatements[$name];
+                if ($property->isPrivate()) {
+                    return false;
+                }
+            }
+
+            return true;
         }
 
-        return $inherit && $this->extendsClassDefinition && $this->extendsClassDefinition->hasProperty($name, true);
+        if ($inherit && $this->extendsClassDefinition) {
+            return $this->extendsClassDefinition->hasProperty($name, true, false);
+        }
+
+        return false;
     }
 
     /**
