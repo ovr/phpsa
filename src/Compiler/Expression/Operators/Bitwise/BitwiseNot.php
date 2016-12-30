@@ -21,11 +21,14 @@ class BitwiseNot extends AbstractExpressionCompiler
     protected function compile($expr, Context $context)
     {
         $compiledExpression = $context->getExpressionCompiler()->compile($expr->expr);
-        switch ($compiledExpression->getType()) {
-            case CompiledExpression::INTEGER:
-            case CompiledExpression::DOUBLE:
-            case CompiledExpression::STRING:
-                return CompiledExpression::fromZvalValue(~$compiledExpression->getValue());
+        if ($compiledExpression->isCorrectValue()) {
+            switch ($compiledExpression->getType()) {
+                case CompiledExpression::NUMBER:
+                case CompiledExpression::INTEGER:
+                case CompiledExpression::DOUBLE:
+                case CompiledExpression::STRING:
+                    return CompiledExpression::fromZvalValue(~$compiledExpression->getValue());
+            }
         }
 
         return new CompiledExpression();
