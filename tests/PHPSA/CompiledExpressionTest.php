@@ -113,16 +113,35 @@ class CompiledExpressionTest extends TestCase
         ];
     }
 
+    public function isTypeKnownProvider()
+    {
+        return [
+            [ CompiledExpression::INTEGER ],
+            [ CompiledExpression::DOUBLE ],
+            [ CompiledExpression::NUMBER ],
+            [ CompiledExpression::STRING ],
+            [ CompiledExpression::ARR ],
+            [ CompiledExpression::BOOLEAN ],
+            [ CompiledExpression::RESOURCE ],
+            [ CompiledExpression::CALLABLE_TYPE ],
+            [ CompiledExpression::NULL ],
+        ];
+    }
+
+    /**
+     * @dataProvider isTypeKnownProvider
+     * @param int $type
+     */
+    public function testIsTypeKnownTrue($type)
+    {
+        $compiledExpression = new CompiledExpression($type);
+        parent::assertTrue($compiledExpression->isTypeKnown());
+    }
+
     public function testIsTypeKnownWithUnknownType()
     {
         $compiledExpression = new CompiledExpression(CompiledExpression::UNKNOWN);
         parent::assertFalse($compiledExpression->isTypeKnown());
-    }
-
-    public function testIsTypeKnownWithKnownType()
-    {
-        $compiledExpression = new CompiledExpression(CompiledExpression::BOOLEAN);
-        parent::assertTrue($compiledExpression->isTypeKnown());
     }
 
     public function testHasValueWithAValue()

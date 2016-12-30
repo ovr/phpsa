@@ -226,11 +226,9 @@ class CompiledExpression
         ];
     }
 
-    //@codeCoverageIgnoreStart
     /**
      * Check that $this->value is correct for $this->type
      *
-     * @todo Implement it ;)
      * @return boolean
      */
     public function isCorrectValue()
@@ -248,11 +246,16 @@ class CompiledExpression
                 return $type == 'boolean';
             case CompiledExpression::ARR:
                 return $type == 'array';
+            case CompiledExpression::STRING:
+                return $type == 'string';
+            case CompiledExpression::NULL:
+                return $type == 'NULL';
+            case CompiledExpression::RESOURCE:
+                return $type == 'resource';
         }
 
         return true;
     }
-    //@codeCoverageIgnoreEnd
 
     /**
      * @return Variable|null
