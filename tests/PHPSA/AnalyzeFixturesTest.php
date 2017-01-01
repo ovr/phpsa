@@ -136,12 +136,29 @@ class AnalyzeFixturesTest extends TestCase
         $analyzerConfiguration = $metaData->getConfiguration();
         $analyzerConfiguration->attribute('enabled', true);
 
-        $config = [
-            $analyzerConfiguration
-        ];
+        $configuration = new Configuration(
+            [],
+            [
+                $analyzerConfiguration
+            ]
+        );
+
+        $analyzersConfig = $configuration->getValue('analyzers');
+        $analyzersConfig = array_merge(
+            $analyzersConfig,
+            [
+                $metaData->getName() => array_map(
+                    function () {
+                        return true;
+                    },
+                    $analyzersConfig[$metaData->getName()]
+                )
+            ]
+        );
+
+        $configuration->setValue('analyzers', $analyzersConfig);
 
         $em = EventManager::getInstance();
-        $configuration = new Configuration([], $config);
         \PHPSA\Analyzer\Factory::factory($em, $configuration);
 
         return $em;
