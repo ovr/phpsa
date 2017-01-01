@@ -13,6 +13,11 @@ class ReturnVoid
     {
         return;
     }
+
+    public function returnVoidWithStrictVoid(): void
+    {
+        return;
+    }
 }
 
 ?>

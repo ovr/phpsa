@@ -5,6 +5,7 @@ namespace PHPSA\Analyzer\Pass\Statement;
 use PhpParser\Node\Stmt\Return_;
 use PHPSA\Analyzer\Helper\DefaultMetadataPassTrait;
 use PHPSA\Analyzer\Pass;
+use PHPSA\CompiledExpression;
 use PHPSA\Context;
 
 class ReturnVoid implements Pass\AnalyzerPassInterface
@@ -22,6 +23,16 @@ class ReturnVoid implements Pass\AnalyzerPassInterface
     {
         // this is not the value null but "no value"
         if ($stmt->expr === null) {
+            $scopePointer = $context->scopePointer;
+            if ($scopePointer && $scopePointer->isClassMethod()) {
+                /** @var \PHPSA\Definition\ClassMethod $method */
+                $method = $scopePointer->getObject();
+                if ($method->getReturnType() == CompiledExpression::VOID) {
+                    return false;
+                }
+            }
+
+
             $context->notice(
                 'return.void',
                 'You are trying to return void',

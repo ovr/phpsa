@@ -34,7 +34,7 @@ class ClassMethod extends AbstractDefinition
      *
      * @var int
      */
-    protected $returnType = CompiledExpression::VOID;
+    protected $returnType = CompiledExpression::UNKNOWN;
 
     /**
      * Array of possible return values
@@ -53,6 +53,12 @@ class ClassMethod extends AbstractDefinition
         $this->name = $name;
         $this->statement = $statement;
         $this->type = $type;
+
+        // @todo Better support...
+        $returnType = $statement->getReturnType();
+        if ($returnType == 'void') {
+            $this->returnType = CompiledExpression::VOID;
+        }
     }
 
     /**
