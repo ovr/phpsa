@@ -5,10 +5,15 @@
 
 namespace PHPSA\ControlFlow\Node;
 
-class Return_ extends AbstractNode
+abstract class AbstractNode
 {
+    /**
+     * Can this node exit?
+     *
+     * @return bool
+     */
     public function willExit()
     {
-        return true;
+        return false;
     }
 }

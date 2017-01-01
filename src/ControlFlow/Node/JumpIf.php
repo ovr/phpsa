@@ -5,7 +5,7 @@
 
 namespace PHPSA\ControlFlow\Node;
 
-class JumpIf extends \PHPSA\ControlFlow\Graph\Block
+class JumpIf extends AbstractNode
 {
     protected $if;
 

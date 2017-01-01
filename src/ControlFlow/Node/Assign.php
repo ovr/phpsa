@@ -5,7 +5,7 @@
 
 namespace PHPSA\ControlFlow\Node;
 
-class Assign
+class Assign extends AbstractNode
 {
 
 }
