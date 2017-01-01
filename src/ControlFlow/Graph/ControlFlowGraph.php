@@ -9,6 +9,7 @@ namespace PHPSA\ControlFlow\Graph;
 use PhpParser\Node\Stmt\Function_;
 use PHPSA\ControlFlow\Node\Assign;
 use PHPSA\ControlFlow\Node\Condition;
+use PHPSA\ControlFlow\Node\Exit_;
 use PHPSA\ControlFlow\Node\JumpIf;
 use PHPSA\ControlFlow\Node\Return_;
 
@@ -46,6 +47,12 @@ class ControlFlowGraph
                     break;
                 case \PhpParser\Node\Stmt\If_::class:
                     $block = $this->passIf($stmt, $block);
+                    break;
+                case \PhpParser\Node\Expr\Exit_::class:
+                    $block->addChildren(new Exit_());
+                    break;
+                default:
+                    echo 'Unimplemented ' . get_class($stmt);
                     break;
             }
         }

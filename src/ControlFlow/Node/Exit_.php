@@ -1,0 +1,14 @@
+<?php
+/**
+ * @author Patsura Dmitry https://github.com/ovr <talk@dmtry.me>
+ */
+
+namespace PHPSA\ControlFlow\Node;
+
+class Exit_ extends AbstractNode
+{
+    public function willExit()
+    {
+        return true;
+    }
+}
