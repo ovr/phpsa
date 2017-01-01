@@ -93,7 +93,7 @@ class Configuration implements ConfigurationInterface
      * Sets a configuration setting.
      *
      * @param string $key
-     * @param string $value
+     * @param mixed $value
      */
     public function setValue($key, $value)
     {
