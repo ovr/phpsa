@@ -59,7 +59,7 @@ class DebugText
             $childrens = $block->getChildrens();
             if ($childrens) {
                 foreach ($childrens as $children) {
-                    echo '  ' . get_class($children) . ($children->willExit() ? ' CAN EXIT!! ' : '') . PHP_EOL;
+                    echo '  ' . get_class($children) . ($children->willExit() ? ' WILL EXIT!! ' : '') . PHP_EOL;
 
                     if ($children instanceof JumpIf) {
                         $blocks = $children->getSubBlocks();

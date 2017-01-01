@@ -8,7 +8,6 @@ namespace PHPSA\ControlFlow\Graph;
 
 use PhpParser\Node\Stmt\Function_;
 use PHPSA\ControlFlow\Node\Assign;
-use PHPSA\ControlFlow\Node\Condition;
 use PHPSA\ControlFlow\Node\Exit_;
 use PHPSA\ControlFlow\Node\JumpIf;
 use PHPSA\ControlFlow\Node\Return_;
@@ -43,7 +42,7 @@ class ControlFlowGraph
                     $this->passReturn($stmt, $block);
                     break;
                 case \PhpParser\Node\Stmt\For_::class:
-                    $this->passFor($stmt, $block);
+                    $block = $this->passFor($stmt, $block);
                     break;
                 case \PhpParser\Node\Stmt\If_::class:
                     $block = $this->passIf($stmt, $block);
@@ -52,7 +51,7 @@ class ControlFlowGraph
                     $block->addChildren(new Exit_());
                     break;
                 default:
-                    echo 'Unimplemented ' . get_class($stmt);
+                    echo 'Unimplemented ' . get_class($stmt) . PHP_EOL;
                     break;
             }
         }
@@ -95,7 +94,17 @@ class ControlFlowGraph
 
     protected function passFor(\PhpParser\Node\Stmt\For_ $for, Block $block)
     {
-//        dump($for);
+        $this->passNodes($for->init, $block);
+
+        $block->setExit(
+            $loop = new Block($this->lastBlockId++)
+        );
+        $this->passNodes($for->stmts, $loop);
+
+        $loop->setExit(
+            $after = new Block($this->lastBlockId++)
+        );
+        return $after;
     }
 
     protected function passAssign(\PhpParser\Node\Expr\Assign $assign, Block $block)
