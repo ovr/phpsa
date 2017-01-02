@@ -124,7 +124,7 @@ class PrintCFGCommand extends Command
         foreach ($functions as $function) {
             $cfg = $function->getCFG();
             if ($cfg) {
-                $printer->printGraph($cfg->getRootNode());
+                $printer->printGraph($cfg->getRoot());
             }
         }
 

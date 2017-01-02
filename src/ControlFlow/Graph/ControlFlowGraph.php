@@ -14,19 +14,20 @@ use PHPSA\ControlFlow\Node\Throw_;
 
 class ControlFlowGraph
 {
-    protected $root;
-
     protected $lastBlockId = 1;
 
-    protected $rootNode;
+    /**
+     * @var Block
+     */
+    protected $root;
 
     public function __construct($statement)
     {
-        $this->rootNode = new Block($this->lastBlockId++);
+        $this->root = new Block($this->lastBlockId++);
 
         if ($statement instanceof Function_) {
             if ($statement->stmts) {
-                $this->passNodes($statement->stmts, $this->rootNode);
+                $this->passNodes($statement->stmts, $this->root);
             }
         }
     }
@@ -128,8 +129,8 @@ class ControlFlowGraph
     /**
      * @return Block
      */
-    public function getRootNode()
+    public function getRoot()
     {
-        return $this->rootNode;
+        return $this->root;
     }
 }
