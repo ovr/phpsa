@@ -48,6 +48,9 @@ class ControlFlowGraph
                 case \PhpParser\Node\Stmt\If_::class:
                     $block = $this->passIf($stmt, $block);
                     break;
+                case \PhpParser\Node\Stmt\While_::class:
+                    $block = $this->passWhile($stmt, $block);
+                    break;
                 case \PhpParser\Node\Stmt\Throw_::class:
                     $this->passThrow($stmt, $block);
                     break;
@@ -95,7 +98,6 @@ class ControlFlowGraph
         return $exitBlock;
     }
 
-
     protected function passFor(\PhpParser\Node\Stmt\For_ $for, Block $block)
     {
         $this->passNodes($for->init, $block);
@@ -104,6 +106,19 @@ class ControlFlowGraph
             $loop = new Block($this->lastBlockId++)
         );
         $this->passNodes($for->stmts, $loop);
+
+        $loop->setExit(
+            $after = new Block($this->lastBlockId++)
+        );
+        return $after;
+    }
+
+    protected function passWhile(\PhpParser\Node\Stmt\While_ $while, Block $block)
+    {
+        $block->setExit(
+            $loop = new Block($this->lastBlockId++)
+        );
+        $this->passNodes($while->stmts, $loop);
 
         $loop->setExit(
             $after = new Block($this->lastBlockId++)
