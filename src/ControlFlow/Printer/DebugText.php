@@ -12,8 +12,12 @@ class DebugText
 {
     protected $blocks = [];
 
-    protected function visitBlock(Block $parent)
+    protected function visitBlock(Block $parent, $level = 0)
     {
+        if ($level > 1) {
+            return false;
+        }
+
         $this->blocks[$parent->getId()] = $parent;
 
         $childrens = $parent->getChildrens();
@@ -28,7 +32,7 @@ class DebugText
 
                             $blockExit = $block->getExit();
                             if ($blockExit) {
-                                $this->visitBlock($blockExit);
+                                $this->visitBlock($blockExit, $level + 1);
                             }
                         }
                     }
@@ -38,7 +42,7 @@ class DebugText
 
         $exit = $parent->getExit();
         if ($exit) {
-            $this->visitBlock($exit);
+            $this->visitBlock($exit, 0);
         }
     }
 
