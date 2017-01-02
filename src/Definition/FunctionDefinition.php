@@ -11,7 +11,7 @@ use PHPSA\Compiler\Parameter;
 use PHPSA\Compiler\Types;
 use PhpParser\Node;
 use PHPSA\Compiler\Event;
-use PHPSA\ControlFlow\Graph\ControlFlowGraph;
+use PHPSA\ControlFlow\ControlFlowGraph;
 
 /**
  * Function Definition

@@ -3,7 +3,7 @@
  * @author Patsura Dmitry https://github.com/ovr <talk@dmtry.me>
  */
 
-namespace PHPSA\ControlFlow\Graph;
+namespace PHPSA\ControlFlow;
 
 use PHPSA\ControlFlow\Node\AbstractNode;
 

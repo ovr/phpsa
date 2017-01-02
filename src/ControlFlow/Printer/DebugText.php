@@ -5,7 +5,7 @@
 
 namespace PHPSA\ControlFlow\Printer;
 
-use PHPSA\ControlFlow\Graph\Block;
+use PHPSA\ControlFlow\Block;
 use PHPSA\ControlFlow\Node\JumpIf;
 
 class DebugText

@@ -7,6 +7,8 @@ use PhpParser\ParserFactory;
 use PHPSA\Application;
 use PHPSA\Compiler;
 use PHPSA\Context;
+use PHPSA\ControlFlow\BlockTraverser;
+use PHPSA\ControlFlow\Visitor;
 use PHPSA\Definition\FileParser;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
@@ -118,12 +120,18 @@ class PrintCFGCommand extends Command
          * Step 2 Recursive check ...
          */
         $application->compiler->compile($context);
+
+        $traverser = new BlockTraverser();
+        //$traverser->addVisitor(new Visitor\DebugTextVisitor());
+        $traverser->addVisitor(new Visitor\UnreachableVisitor());
+
         $printer = new \PHPSA\ControlFlow\Printer\DebugText();
 
         $functions = $application->compiler->getFunctions();
         foreach ($functions as $function) {
             $cfg = $function->getCFG();
             if ($cfg) {
+                $traverser->traverse($cfg);
                 $printer->printGraph($cfg->getRoot());
             }
         }

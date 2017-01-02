@@ -18,7 +18,7 @@ abstract class ParentDefinition extends AbstractDefinition
     protected $namespace;
 
     /**
-     * @var \PHPSA\ControlFlow\Graph\ControlFlowGraph
+     * @var \PHPSA\ControlFlow\ControlFlowGraph
      */
     protected $cfg;
 
@@ -39,7 +39,7 @@ abstract class ParentDefinition extends AbstractDefinition
     }
 
     /**
-     * @return \PHPSA\ControlFlow\Graph\ControlFlowGraph
+     * @return \PHPSA\ControlFlow\ControlFlowGraph
      */
     public function getCFG()
     {
