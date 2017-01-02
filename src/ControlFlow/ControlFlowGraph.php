@@ -115,14 +115,26 @@ class ControlFlowGraph
 
     protected function passWhile(\PhpParser\Node\Stmt\While_ $while, Block $block)
     {
+        $cond = new Block($this->lastBlockId++);
+        $jumpIf = new JumpIf($this->lastBlockId++);
+        $cond->addChildren($jumpIf);
+
         $block->setExit(
-            $loop = new Block($this->lastBlockId++)
+            $cond
         );
+
+        $loop = new Block($this->lastBlockId++);
+        $jumpIf->setIf($loop);
+
         $this->passNodes($while->stmts, $loop);
 
         $loop->setExit(
-            $after = new Block($this->lastBlockId++)
+            $cond
         );
+
+        $after = new Block($this->lastBlockId++);
+        $jumpIf->setElse($after);
+
         return $after;
     }
 

@@ -129,6 +129,8 @@ class PrintCFGCommand extends Command
 
         $functions = $application->compiler->getFunctions();
         foreach ($functions as $function) {
+            $output->writeln('Function: ' . $function->getName());
+
             $cfg = $function->getCFG();
             if ($cfg) {
                 $traverser->traverse($cfg);
