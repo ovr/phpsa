@@ -64,7 +64,7 @@ class FunctionDefinition extends ParentDefinition
             return true;
         }
 
-        $cfg = new ControlFlowGraph(
+        $this->cfg = new ControlFlowGraph(
             $this->statement
         );
 

@@ -36,6 +36,7 @@ class Application extends \Symfony\Component\Console\Application
 
         $this->add(new Command\CheckCommand());
         $this->add(new Command\CompileCommand());
+        $this->add(new Command\PrintCFGCommand());
         $this->add(new Command\DumpReferenceCommand());
         $this->add(new Command\DumpDocumentationCommand());
 

@@ -2,6 +2,7 @@
 
 namespace PHPSA\Command;
 
+use FilesystemIterator;
 use PhpParser\ParserFactory;
 use PHPSA\Application;
 use PHPSA\Compiler;
@@ -10,7 +11,6 @@ use PHPSA\Definition\FileParser;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
 use SplFileInfo;
-use FilesystemIterator;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -18,9 +18,9 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Webiny\Component\EventManager\EventManager;
 
 /**
- * Command to run compiler on files (no analyzer)
+ * Command to dump the analyzer documentation as markdown
  */
-class CompileCommand extends Command
+class PrintCFGCommand extends Command
 {
     /**
      * {@inheritdoc}
@@ -28,9 +28,10 @@ class CompileCommand extends Command
     protected function configure()
     {
         $this
-            ->setName('compile')
-            ->setDescription('Runs compiler on all files in path')
+            ->setName('print-cfg')
+            ->setDescription('Dumps Control Flow Graph')
             ->addArgument('path', InputArgument::OPTIONAL, 'Path to check file or directory', '.');
+        ;
     }
 
     /**
@@ -117,6 +118,15 @@ class CompileCommand extends Command
          * Step 2 Recursive check ...
          */
         $application->compiler->compile($context);
+        $printer = new \PHPSA\ControlFlow\Printer\DebugText();
+
+        $functions = $application->compiler->getFunctions();
+        foreach ($functions as $function) {
+            $cfg = $function->getCFG();
+            if ($cfg) {
+                $printer->printGraph($cfg->getRootNode());
+            }
+        }
 
         $output->writeln('');
         $output->writeln('Memory usage: ' . $this->getMemoryUsage(false) . ' (peak: ' . $this->getMemoryUsage(true) . ') MB');

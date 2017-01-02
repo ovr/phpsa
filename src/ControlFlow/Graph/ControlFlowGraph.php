@@ -18,18 +18,17 @@ class ControlFlowGraph
 
     protected $lastBlockId = 1;
 
+    protected $rootNode;
+
     public function __construct($statement)
     {
-        $block = new Block($this->lastBlockId++);
+        $this->rootNode = new Block($this->lastBlockId++);
 
         if ($statement instanceof Function_) {
             if ($statement->stmts) {
-                $this->passNodes($statement->stmts, $block);
+                $this->passNodes($statement->stmts, $this->rootNode);
             }
         }
-
-        $printer = new \PHPSA\ControlFlow\Printer\DebugText();
-        $printer->printGraph($block);
     }
 
     protected function passNodes(array $nodes, Block $block)
@@ -124,5 +123,13 @@ class ControlFlowGraph
     protected function passReturn(\PhpParser\Node\Stmt\Return_ $return_, Block $block)
     {
         $block->addChildren(new Return_());
+    }
+
+    /**
+     * @return Block
+     */
+    public function getRootNode()
+    {
+        return $this->rootNode;
     }
 }
