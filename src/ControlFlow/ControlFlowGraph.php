@@ -8,6 +8,7 @@ namespace PHPSA\ControlFlow;
 use PhpParser\Node\Stmt\Function_;
 use PHPSA\ControlFlow\Node\Assign;
 use PHPSA\ControlFlow\Node\Exit_;
+use PHPSA\ControlFlow\Node\Jump;
 use PHPSA\ControlFlow\Node\JumpIf;
 use PHPSA\ControlFlow\Node\Return_;
 use PHPSA\ControlFlow\Node\Throw_;
@@ -125,9 +126,8 @@ class ControlFlowGraph
 
         $this->passNodes($while->stmts, $loop);
 
-        $loop->setExit(
-            $cond
-        );
+        $loop->addChildren(new Jump($cond));
+        //$loop->setExit($cond);
 
         $after = new Block($this->lastBlockId++);
         $jumpIf->setElse($after);
