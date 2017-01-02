@@ -10,6 +10,7 @@ use PHPSA\ControlFlow\Node\Assign;
 use PHPSA\ControlFlow\Node\Exit_;
 use PHPSA\ControlFlow\Node\JumpIf;
 use PHPSA\ControlFlow\Node\Return_;
+use PHPSA\ControlFlow\Node\Throw_;
 
 class ControlFlowGraph
 {
@@ -46,6 +47,9 @@ class ControlFlowGraph
                     break;
                 case \PhpParser\Node\Stmt\If_::class:
                     $block = $this->passIf($stmt, $block);
+                    break;
+                case \PhpParser\Node\Stmt\Throw_::class:
+                    $this->passThrow($stmt, $block);
                     break;
                 case \PhpParser\Node\Expr\Exit_::class:
                     $block->addChildren(new Exit_());
@@ -105,6 +109,11 @@ class ControlFlowGraph
             $after = new Block($this->lastBlockId++)
         );
         return $after;
+    }
+
+    protected function passThrow(\PhpParser\Node\Stmt\Throw_ $throw_, Block $block)
+    {
+        $block->addChildren(new Throw_());
     }
 
     protected function passAssign(\PhpParser\Node\Expr\Assign $assign, Block $block)

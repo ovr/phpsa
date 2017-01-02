@@ -7,6 +7,9 @@ namespace PHPSA\ControlFlow\Node;
 
 class Exit_ extends AbstractNode
 {
+    /**
+     * {@inheritdoc}
+     */
     public function willExit()
     {
         return true;
