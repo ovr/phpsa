@@ -187,4 +187,12 @@ class Compiler
 
         return false;
     }
+
+    /**
+     * @return FunctionDefinition[]
+     */
+    public function getFunctions()
+    {
+        return $this->functions;
+    }
 }
