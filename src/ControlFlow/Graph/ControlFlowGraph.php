@@ -5,7 +5,6 @@
 
 namespace PHPSA\ControlFlow\Graph;
 
-
 use PhpParser\Node\Stmt\Function_;
 use PHPSA\ControlFlow\Node\Assign;
 use PHPSA\ControlFlow\Node\Exit_;
@@ -32,7 +31,8 @@ class ControlFlowGraph
         $printer->printGraph($block);
     }
 
-    protected function passNodes(array $nodes, Block $block) {
+    protected function passNodes(array $nodes, Block $block)
+    {
         foreach ($nodes as $stmt) {
             switch (get_class($stmt)) {
                 case \PhpParser\Node\Expr\Assign::class:

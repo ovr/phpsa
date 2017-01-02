@@ -12,11 +12,6 @@ class DebugText
 {
     protected $blocks = [];
 
-    public function __construct()
-    {
-
-    }
-
     protected function visitBlock(Block $parent)
     {
         $this->blocks[$parent->getId()] = $parent;
@@ -80,45 +75,5 @@ class DebugText
 
             echo PHP_EOL . PHP_EOL;
         }
-
-//        $childrenSubBlocks = new \SplQueue();
-//        $childrenSubBlocks->setIteratorMode(\SplQueue::IT_MODE_DELETE);
-//
-//
-//        echo 'Block #' . $parent->getId() . PHP_EOL;
-//
-//        $childrens = $parent->getChildrens();
-//        if ($childrens) {
-//            foreach ($childrens as $children) {
-//                echo '  ' . get_class($children) . PHP_EOL;
-//
-//                if ($children instanceof JumpIf) {
-//                    $blocks = $children->getSubBlocks();
-//
-//                    foreach ($blocks as $name => $block) {
-//                        if ($block) {
-//                            echo "\t" . $name . ' -> ' . $block->getId() . PHP_EOL;
-//                            $childrenSubBlocks->push($block);
-//                        }
-//                    }
-//                }
-//            }
-//        }
-//
-//        $exit = $parent->getExit();
-//        if ($exit) {
-//            echo '-> ' . $exit->getId() . PHP_EOL;
-//        }
-
-//        echo PHP_EOL . PHP_EOL;
-//
-//        if ($exit) {
-//            $this->printBlock($exit);
-//        }
-//
-//        foreach ($childrenSubBlocks as $block) {
-//            $this->printBlock($block);
-//        }
     }
 }
-

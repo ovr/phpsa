@@ -5,20 +5,37 @@
 
 namespace PHPSA\ControlFlow\Graph;
 
+use PHPSA\ControlFlow\Node\AbstractNode;
+
 class Block
 {
+    /**
+     * @var AbstractNode[]
+     */
     protected $childrens = [];
 
+    /**
+     * @var Block|null
+     */
     protected $exit;
 
+    /**
+     * @var int
+     */
     protected $id;
 
+    /**
+     * @param int $id
+     */
     public function __construct($id)
     {
         $this->id = $id;
     }
 
-    public function addChildren($node)
+    /**
+     * @param AbstractNode $node
+     */
+    public function addChildren(AbstractNode $node)
     {
         $this->childrens[] = $node;
     }
@@ -32,7 +49,7 @@ class Block
     }
 
     /**
-     * @return array
+     * @return AbstractNode[]
      */
     public function getChildrens()
     {
@@ -40,7 +57,7 @@ class Block
     }
 
     /**
-     * @return Block
+     * @return Block|null
      */
     public function getExit()
     {
@@ -48,7 +65,7 @@ class Block
     }
 
     /**
-     * @return mixed
+     * @return int
      */
     public function getId()
     {
