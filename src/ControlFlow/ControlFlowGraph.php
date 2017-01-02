@@ -66,12 +66,10 @@ class ControlFlowGraph
 
     protected function passIf(\PhpParser\Node\Stmt\If_ $if, Block $block)
     {
-        $jumpIf = new JumpIf($this->lastBlockId++);
-
         $trueBlock = new Block($this->lastBlockId++);
         $this->passNodes($if->stmts, $trueBlock);
 
-        $jumpIf->setIf($trueBlock);
+        $jumpIf = new JumpIf($trueBlock);
 
         $elseBlock = null;
 
@@ -116,15 +114,14 @@ class ControlFlowGraph
     protected function passWhile(\PhpParser\Node\Stmt\While_ $while, Block $block)
     {
         $cond = new Block($this->lastBlockId++);
-        $jumpIf = new JumpIf($this->lastBlockId++);
-        $cond->addChildren($jumpIf);
-
         $block->setExit(
             $cond
         );
 
         $loop = new Block($this->lastBlockId++);
-        $jumpIf->setIf($loop);
+
+        $jumpIf = new JumpIf($loop);
+        $cond->addChildren($jumpIf);
 
         $this->passNodes($while->stmts, $loop);
 

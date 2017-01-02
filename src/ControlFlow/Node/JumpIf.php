@@ -5,24 +5,37 @@
 
 namespace PHPSA\ControlFlow\Node;
 
+use PHPSA\ControlFlow\Block;
+
 class JumpIf extends AbstractNode
 {
+    /**
+     * @var Block
+     */
     protected $if;
 
+    /**
+     * @var Block|null
+     */
     protected $else;
 
-    /**
-     * @param mixed $if
-     */
-    public function setIf($if)
+    public function __construct(Block $if)
     {
         $this->if = $if;
     }
 
     /**
-     * @param mixed $else
+     * @param Block $if
      */
-    public function setElse($else)
+    public function setIf(Block $if)
+    {
+        $this->if = $if;
+    }
+
+    /**
+     * @param Block $else
+     */
+    public function setElse(Block $else)
     {
         $this->else = $else;
     }
