@@ -27,5 +27,7 @@ class UnreachableVisitor extends AbstractVisitor
     /**
      * @param Block $block
      */
-    public function leaveBlock(Block $block) {}
+    public function leaveBlock(Block $block)
+    {
+    }
 }

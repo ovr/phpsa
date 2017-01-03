@@ -6,12 +6,7 @@
 namespace PHPSA\ControlFlow;
 
 use PhpParser\Node\Stmt\Function_;
-use PHPSA\ControlFlow\Node\Assign;
-use PHPSA\ControlFlow\Node\Exit_;
-use PHPSA\ControlFlow\Node\Jump;
-use PHPSA\ControlFlow\Node\JumpIf;
-use PHPSA\ControlFlow\Node\Return_;
-use PHPSA\ControlFlow\Node\Throw_;
+use PHPSA\ControlFlow\Node;
 
 class ControlFlowGraph
 {
@@ -56,7 +51,7 @@ class ControlFlowGraph
                     $this->passThrow($stmt, $block);
                     break;
                 case \PhpParser\Node\Expr\Exit_::class:
-                    $block->addChildren(new Exit_());
+                    $block->addChildren(new Node\ExitNode());
                     break;
                 case \PhpParser\Node\Stmt\Label::class:
                     $block->setExit(
@@ -76,7 +71,7 @@ class ControlFlowGraph
         $trueBlock = new Block($this->lastBlockId++);
         $this->passNodes($if->stmts, $trueBlock);
 
-        $jumpIf = new JumpIf($trueBlock);
+        $jumpIf = new Node\JumpIfNode($trueBlock);
 
         $elseBlock = null;
 
@@ -127,12 +122,12 @@ class ControlFlowGraph
 
         $loop = new Block($this->lastBlockId++);
 
-        $jumpIf = new JumpIf($loop);
+        $jumpIf = new Node\JumpIfNode($loop);
         $cond->addChildren($jumpIf);
 
         $this->passNodes($while->stmts, $loop);
 
-        $loop->addChildren(new Jump($cond));
+        $loop->addChildren(new Node\JumpNode($cond));
         //$loop->setExit($cond);
 
         $after = new Block($this->lastBlockId++);
@@ -143,17 +138,17 @@ class ControlFlowGraph
 
     protected function passThrow(\PhpParser\Node\Stmt\Throw_ $throw_, Block $block)
     {
-        $block->addChildren(new Throw_());
+        $block->addChildren(new Node\ThrowNode());
     }
 
     protected function passAssign(\PhpParser\Node\Expr\Assign $assign, Block $block)
     {
-        $block->addChildren(new Assign());
+        $block->addChildren(new Node\AssignNode());
     }
 
     protected function passReturn(\PhpParser\Node\Stmt\Return_ $return_, Block $block)
     {
-        $block->addChildren(new Return_());
+        $block->addChildren(new Node\ReturnNode());
     }
 
     /**

@@ -5,7 +5,7 @@
 
 namespace PHPSA\ControlFlow\Node;
 
-class Exit_ extends AbstractNode
+class ExitNode extends AbstractNode
 {
     /**
      * {@inheritdoc}

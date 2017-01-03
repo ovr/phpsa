@@ -5,7 +5,7 @@
 
 namespace PHPSA\ControlFlow\Node;
 
-class Return_ extends AbstractNode
+class ReturnNode extends AbstractNode
 {
     /**
      * {@inheritdoc}

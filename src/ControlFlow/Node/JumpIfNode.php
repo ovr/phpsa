@@ -7,7 +7,7 @@ namespace PHPSA\ControlFlow\Node;
 
 use PHPSA\ControlFlow\Block;
 
-class JumpIf extends AbstractNode
+class JumpIfNode extends AbstractNode
 {
     /**
      * @var Block

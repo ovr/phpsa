@@ -5,7 +5,7 @@
 
 namespace PHPSA\ControlFlow\Node;
 
-class Throw_ extends AbstractNode
+class ThrowNode extends AbstractNode
 {
     /**
      * {@inheritdoc}
