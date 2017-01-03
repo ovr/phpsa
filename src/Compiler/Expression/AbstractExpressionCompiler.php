@@ -5,7 +5,7 @@
 
 namespace PHPSA\Compiler\Expression;
 
-use Doctrine\Instantiator\Exception\InvalidArgumentException;
+use InvalidArgumentException;
 use PHPSA\CompiledExpression;
 use PHPSA\Context;
 use PHPSA\Compiler\ExpressionCompilerInterface;

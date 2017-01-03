@@ -4,8 +4,7 @@ namespace PHPSA\Compiler\Expression;
 
 use PHPSA\CompiledExpression;
 use PHPSA\Context;
-use PHPSA\Compiler\Expression;
-use PHPSA\Compiler\Expression\AbstractExpressionCompiler;
+use PhpParser\Node;
 
 class ConstFetch extends AbstractExpressionCompiler
 {
