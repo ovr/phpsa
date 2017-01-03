@@ -58,6 +58,12 @@ class ControlFlowGraph
                 case \PhpParser\Node\Expr\Exit_::class:
                     $block->addChildren(new Exit_());
                     break;
+                case \PhpParser\Node\Stmt\Label::class:
+                    $block->setExit(
+                        $block = new Block($this->lastBlockId++)
+                    );
+                    $block->label = $stmt->name;
+                    break;
                 default:
                     echo 'Unimplemented ' . get_class($stmt) . PHP_EOL;
                     break;

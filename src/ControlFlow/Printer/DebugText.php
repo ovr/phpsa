@@ -10,6 +10,9 @@ use PHPSA\ControlFlow\Node\JumpIf;
 
 class DebugText
 {
+    /**
+     * @var Block[]
+     */
     protected $blocks = [];
 
     protected function visitBlock(Block $parent, $level = 0)
@@ -53,7 +56,7 @@ class DebugText
         ksort($this->blocks);
 
         foreach ($this->blocks as $id => $block) {
-            echo 'Block #' . $id . PHP_EOL;
+            echo 'Block #' . $id . ($block->label ? ' Label: ' . $block->label : '') . PHP_EOL;
 
             $childrens = $block->getChildrens();
             if ($childrens) {

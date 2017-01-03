@@ -15,6 +15,11 @@ class Block
     protected $childrens = [];
 
     /**
+     * @var Block[]
+     */
+    public $parents = [];
+
+    /**
      * @var Block|null
      */
     protected $exit;
@@ -23,6 +28,11 @@ class Block
      * @var int
      */
     protected $id;
+
+    /**
+     * @var string|null
+     */
+    public $label;
 
     /**
      * @param int $id
@@ -70,5 +80,13 @@ class Block
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * @param Block
+     */
+    public function addParent(Block $parent)
+    {
+        $this->parents[] = $parent;
     }
 }
