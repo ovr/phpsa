@@ -35,26 +35,6 @@ trait ResolveExpressionTrait
     }
 
     /**
-     * Return \Generator with Yield_ expression(s)
-     *
-     * @param \PhpParser\Node[] $nodes
-     * @return \Generator
-     */
-    protected function findYieldExpression(array $nodes)
-    {
-        return $this->findNode($nodes, Yield_::class);
-    }
-
-    /**
-     * @param \PhpParser\Node[] $nodes
-     * @return \Generator
-     */
-    protected function findReturnStatement(array $nodes)
-    {
-        return $this->findNode($nodes, Return_::class);
-    }
-
-    /**
      * @param array $nodes
      * @param string $nodeName Class name of Node(s) what We should return
      * @return \Generator

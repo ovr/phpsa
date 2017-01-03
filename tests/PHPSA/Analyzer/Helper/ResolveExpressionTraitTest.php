@@ -5,6 +5,7 @@
 
 namespace Tests\PHPSA\Analyzer\Helper;
 
+use PhpParser\Node;
 use PHPSA\Analyzer\Helper\ResolveExpressionTrait;
 use PHPSA\CompiledExpression;
 
@@ -83,10 +84,11 @@ class ResolveExpressionTraitTest extends \Tests\PHPSA\TestCase
             [$returnStatement],
             // findReturnStatement will return \Generator, We should iterate it
             iterator_to_array(
-                $this->findReturnStatement(
+                $this->findNode(
                     [
                         $returnStatement
-                    ]
+                    ],
+                    Node\Stmt\Return_::class
                 )
             )
         );
@@ -100,10 +102,11 @@ class ResolveExpressionTraitTest extends \Tests\PHPSA\TestCase
             [$returnStatement],
             // findReturnStatement will return \Generator, We should iterate it
             iterator_to_array(
-                $this->findYieldExpression(
+                $this->findNode(
                     [
                         $returnStatement
-                    ]
+                    ],
+                    Node\Expr\Yield_::class
                 )
             )
         );

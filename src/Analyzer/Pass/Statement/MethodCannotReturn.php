@@ -5,6 +5,7 @@
 
 namespace PHPSA\Analyzer\Pass\Statement;
 
+use PhpParser\Node;
 use PhpParser\Node\Stmt\ClassMethod;
 use PHPSA\Analyzer\Helper\DefaultMetadataPassTrait;
 use PHPSA\Analyzer\Helper\ResolveExpressionTrait;
@@ -36,7 +37,7 @@ class MethodCannotReturn implements Pass\AnalyzerPassInterface
         $result = false;
 
         if ($methodStmt->name == '__construct' || $methodStmt->name == '__destruct') {
-            foreach ($this->findReturnStatement($methodStmt->stmts) as $returnStmt) {
+            foreach ($this->findNode($methodStmt->stmts, Node\Stmt\Return_::class) as $returnStmt) {
                 if (!$returnStmt->expr) {
                     continue;
                 }

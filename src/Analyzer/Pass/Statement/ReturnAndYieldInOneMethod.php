@@ -3,8 +3,6 @@
 namespace PHPSA\Analyzer\Pass\Statement;
 
 use PhpParser\Node;
-use PhpParser\Node\Expr;
-use PhpParser\Node\Stmt;
 use PHPSA\Analyzer\Helper\DefaultMetadataPassTrait;
 use PHPSA\Analyzer\Helper\ResolveExpressionTrait;
 use PHPSA\Analyzer\Pass;
@@ -28,13 +26,14 @@ class ReturnAndYieldInOneMethod implements Pass\AnalyzerPassInterface
         if ($stmts === null) {
             return false;
         }
-        $yieldExists = \PHPSA\generatorHasValue($this->findYieldExpression($stmts));
+
+        $yieldExists = \PHPSA\generatorHasValue($this->findNode($stmts, Node\Expr\Yield_::class));
         if (!$yieldExists) {
             // YieldFrom is another expression
-            $yieldExists = \PHPSA\generatorHasValue($this->findNode($stmts, Expr\YieldFrom::class));
+            $yieldExists = \PHPSA\generatorHasValue($this->findNode($stmts, Node\Expr\YieldFrom::class));
         }
 
-        if ($yieldExists && \PHPSA\generatorHasValue($this->findReturnStatement($stmts))) {
+        if ($yieldExists && \PHPSA\generatorHasValue($this->findNode($stmts, Node\Stmt\Return_::class))) {
             $context->notice('return_and_yield_in_one_method', 'Do not use return and yield in a one method', $func);
             return true;
         }
@@ -48,7 +47,7 @@ class ReturnAndYieldInOneMethod implements Pass\AnalyzerPassInterface
     public function getRegister()
     {
         return [
-            Stmt\ClassMethod::class,
+            Node\Stmt\ClassMethod::class,
         ];
     }
 }
