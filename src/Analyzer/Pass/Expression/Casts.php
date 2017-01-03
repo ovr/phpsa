@@ -2,7 +2,7 @@
 
 namespace PHPSA\Analyzer\Pass\Expression;
 
-use PhpParser\Node\Expr;
+use PhpParser\Node\Expr\Cast;
 use PHPSA\Analyzer\Helper\DefaultMetadataPassTrait;
 use PHPSA\Analyzer\Pass\AnalyzerPassInterface;
 use PHPSA\Context;
@@ -15,31 +15,31 @@ class Casts implements AnalyzerPassInterface
     const DESCRIPTION = 'Checks for casts that try to cast a type to itself.';
 
     /**
-     * @param Expr $expr
+     * @param Cast $expr
      * @param Context $context
      * @return bool
      */
-    public function pass(Expr $expr, Context $context)
+    public function pass(Cast $expr, Context $context)
     {
         $castType = CompiledExpression::UNKNOWN;
 
         switch (get_class($expr)) {
-            case Expr\Cast\Array_::class:
+            case Cast\Array_::class:
                 $castType = CompiledExpression::ARR;
                 break;
-            case Expr\Cast\Bool_::class:
+            case Cast\Bool_::class:
                 $castType = CompiledExpression::BOOLEAN;
                 break;
-            case Expr\Cast\Int_::class:
+            case Cast\Int_::class:
                 $castType = CompiledExpression::INTEGER;
                 break;
-            case Expr\Cast\Double::class:
+            case Cast\Double::class:
                 $castType = CompiledExpression::DOUBLE;
                 break;
-            case Expr\Cast\Object_::class:
+            case Cast\Object_::class:
                 $castType = CompiledExpression::OBJECT;
                 break;
-            case Expr\Cast\String_::class:
+            case Cast\String_::class:
                 $castType = CompiledExpression::STRING;
                 break;
         }
@@ -55,7 +55,7 @@ class Casts implements AnalyzerPassInterface
                 $expr
             );
             return true;
-        } elseif (get_class($expr) == Expr\Cast\Unset_::class && $exprType === CompiledExpression::NULL) {
+        } elseif (get_class($expr) == Cast\Unset_::class && $exprType === CompiledExpression::NULL) {
             $context->notice(
                 'stupid.cast',
                 "You are trying to cast 'null' to 'unset' (null)",
@@ -73,13 +73,13 @@ class Casts implements AnalyzerPassInterface
     public function getRegister()
     {
         return [
-            Expr\Cast\Array_::class,
-            Expr\Cast\Bool_::class,
-            Expr\Cast\Int_::class,
-            Expr\Cast\Double::class,
-            Expr\Cast\Object_::class,
-            Expr\Cast\String_::class,
-            Expr\Cast\Unset_::class,
+            Cast\Array_::class,
+            Cast\Bool_::class,
+            Cast\Int_::class,
+            Cast\Double::class,
+            Cast\Object_::class,
+            Cast\String_::class,
+            Cast\Unset_::class,
         ];
     }
 }
