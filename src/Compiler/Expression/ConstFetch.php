@@ -22,11 +22,11 @@ class ConstFetch extends AbstractExpressionCompiler
         $compiler = $context->getExpressionCompiler();
 
         if ($expr->name instanceof Node\Name) {
-            if ($expr->name->parts[0] === 'true') {
+            if ($expr->name->toString() === 'true') {
                 return new CompiledExpression(CompiledExpression::BOOLEAN, true);
             }
 
-            if ($expr->name->parts[0] === 'false') {
+            if ($expr->name->toString() === 'false') {
                 return new CompiledExpression(CompiledExpression::BOOLEAN, false);
             }
         }
