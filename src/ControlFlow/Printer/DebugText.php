@@ -6,7 +6,6 @@
 namespace PHPSA\ControlFlow\Printer;
 
 use PHPSA\ControlFlow\Block;
-use PHPSA\ControlFlow\Node\JumpIf;
 
 class DebugText
 {
@@ -26,10 +25,9 @@ class DebugText
         $childrens = $parent->getChildrens();
         if ($childrens) {
             foreach ($childrens as $children) {
-                if ($children instanceof JumpIf) {
-                    $blocks = $children->getSubBlocks();
-
-                    foreach ($blocks as $name => $block) {
+                $subBlocks = $children->getSubBlocks();
+                if ($subBlocks) {
+                    foreach ($subBlocks as $name => $block) {
                         if ($block) {
                             $this->blocks[$block->getId()] = $block;
 
@@ -63,12 +61,13 @@ class DebugText
                 foreach ($childrens as $children) {
                     echo '  ' . get_class($children) . ($children->willExit() ? ' WILL EXIT!! ' : '') . PHP_EOL;
 
-                    if ($children instanceof JumpIf) {
-                        $blocks = $children->getSubBlocks();
-
-                        foreach ($blocks as $name => $subBlock) {
+                    $subBlocks = $children->getSubBlocks();
+                    if ($subBlocks) {
+                        foreach ($subBlocks as $name => $subBlock) {
                             if ($subBlock) {
                                 echo "\t" . $name . ' -> ' . $subBlock->getId() . PHP_EOL;
+                            } else {
+                                echo "\t" . $name . ' -> NOTHING';
                             }
                         }
                     }

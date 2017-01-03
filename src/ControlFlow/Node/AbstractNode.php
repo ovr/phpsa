@@ -16,4 +16,12 @@ abstract class AbstractNode
     {
         return false;
     }
+
+    /**
+     * @return \PHPSA\ControlFlow\Block[]
+     */
+    public function getSubBlocks()
+    {
+        return [];
+    }
 }
