@@ -31,44 +31,49 @@ class ControlFlowGraph
     protected function passNodes(array $nodes, Block $block)
     {
         foreach ($nodes as $stmt) {
-            switch (get_class($stmt)) {
-                case \PhpParser\Node\Expr\Assign::class:
-                    $this->passAssign($stmt, $block);
-                    break;
-                case \PhpParser\Node\Stmt\Return_::class:
-                    $this->passReturn($stmt, $block);
-                    break;
-                case \PhpParser\Node\Stmt\For_::class:
-                    $block = $this->passFor($stmt, $block);
-                    break;
-                case \PhpParser\Node\Stmt\If_::class:
-                    $block = $this->passIf($stmt, $block);
-                    break;
-                case \PhpParser\Node\Stmt\While_::class:
-                    $block = $this->passWhile($stmt, $block);
-                    break;
-                case \PhpParser\Node\Stmt\Do_::class:
-                    $block = $this->passDo($stmt, $block);
-                    break;
-                case \PhpParser\Node\Stmt\Throw_::class:
-                    $this->passThrow($stmt, $block);
-                    break;
-                case \PhpParser\Node\Expr\Exit_::class:
-                    $block->addChildren(new Node\ExitNode());
-                    break;
-                case \PhpParser\Node\Stmt\Label::class:
-                    $block->setExit(
-                        $block = new Block($this->lastBlockId++)
-                    );
-                    $block->label = $stmt->name;
-                    break;
-                case \PhpParser\Node\Stmt\Nop::class:
-                    // ignore commented code
-                    break;
-                default:
-                    echo 'Unimplemented ' . get_class($stmt) . PHP_EOL;
-                    break;
-            }
+            $this->passNode($stmt, $block);
+        }
+    }
+
+    protected function passNode(g$stmt, Block $block)
+    {
+        switch (get_class($stmt)) {
+            case \PhpParser\Node\Expr\Assign::class:
+                $this->passAssign($stmt, $block);
+                break;
+            case \PhpParser\Node\Stmt\Return_::class:
+                $this->passReturn($stmt, $block);
+                break;
+            case \PhpParser\Node\Stmt\For_::class:
+                $block = $this->passFor($stmt, $block);
+                break;
+            case \PhpParser\Node\Stmt\If_::class:
+                $block = $this->passIf($stmt, $block);
+                break;
+            case \PhpParser\Node\Stmt\While_::class:
+                $block = $this->passWhile($stmt, $block);
+                break;
+            case \PhpParser\Node\Stmt\Do_::class:
+                $block = $this->passDo($stmt, $block);
+                break;
+            case \PhpParser\Node\Stmt\Throw_::class:
+                $this->passThrow($stmt, $block);
+                break;
+            case \PhpParser\Node\Expr\Exit_::class:
+                $block->addChildren(new Node\ExitNode());
+                break;
+            case \PhpParser\Node\Stmt\Label::class:
+                $block->setExit(
+                    $block = new Block($this->lastBlockId++)
+                );
+                $block->label = $stmt->name;
+                break;
+            case \PhpParser\Node\Stmt\Nop::class:
+                // ignore commented code
+                break;
+            default:
+                echo 'Unimplemented ' . get_class($stmt) . PHP_EOL;
+                break;
         }
     }
 
