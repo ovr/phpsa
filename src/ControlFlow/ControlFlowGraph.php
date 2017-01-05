@@ -95,12 +95,25 @@ class ControlFlowGraph
         return $block;
     }
 
+    protected function passExpr(\PhpParser\Node\Expr $expr)
+    {
+        switch (get_class($expr)) {
+            case \PhpParser\Node\Expr\BinaryOp\Greater::class:
+                return new Node\Expr\Greater();
+            case \PhpParser\Node\Expr\BinaryOp\GreaterOrEqual::class:
+                return new Node\Expr\GreaterOrEqual();
+            default:
+                echo 'Unimplemented ' . get_class($expr) . PHP_EOL;
+                break;
+        }
+    }
+
     protected function passIf(\PhpParser\Node\Stmt\If_ $if, Block $block)
     {
         $trueBlock = new Block($this->lastBlockId++);
         $this->passNodes($if->stmts, $trueBlock);
 
-        $jumpIf = new Node\JumpIfNode($trueBlock);
+        $jumpIf = new Node\JumpIfNode($this->passExpr($if->cond), $trueBlock);
 
         $elseBlock = null;
 
@@ -152,7 +165,7 @@ class ControlFlowGraph
         $cond = new Block($this->lastBlockId++);
         $loop->setExit($cond);
 
-        $jumpIf = new Node\JumpIfNode($loop);
+        $jumpIf = new Node\JumpIfNode($this->passExpr($do->cond), $loop);
         $cond->addChildren($jumpIf);
 
         $exitBlock = new Block($this->lastBlockId++);
@@ -170,7 +183,7 @@ class ControlFlowGraph
 
         $loop = new Block($this->lastBlockId++);
 
-        $jumpIf = new Node\JumpIfNode($loop);
+        $jumpIf = new Node\JumpIfNode($this->passExpr($while->cond), $loop);
         $cond->addChildren($jumpIf);
 
         $this->passNodes($while->stmts, $loop);

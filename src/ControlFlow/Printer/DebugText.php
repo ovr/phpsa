@@ -61,6 +61,17 @@ class DebugText
                 foreach ($childrens as $children) {
                     echo '  ' . get_class($children) . ($children->willExit() ? ' WILL EXIT!! ' : '') . PHP_EOL;
 
+                    $subVariables = $children->getSubVariables();
+                    if ($subVariables) {
+                        foreach ($subVariables as $name => $subVariable) {
+                            if ($subVariable) {
+                                echo "\t" . $name . ' -> ' . get_class($subVariable) . PHP_EOL;
+                            } else {
+                                echo "\t" . $name . ' -> NOTHING';
+                            }
+                        }
+                    }
+
                     $subBlocks = $children->getSubBlocks();
                     if ($subBlocks) {
                         foreach ($subBlocks as $name => $subBlock) {

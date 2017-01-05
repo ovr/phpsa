@@ -10,6 +10,11 @@ use PHPSA\ControlFlow\Block;
 class JumpIfNode extends AbstractNode
 {
     /**
+     * @var AbstractNode
+     */
+    protected $cond;
+
+    /**
      * @var Block
      */
     protected $if;
@@ -19,9 +24,10 @@ class JumpIfNode extends AbstractNode
      */
     protected $else;
 
-    public function __construct(Block $if)
+    public function __construct(AbstractNode $cond, Block $if)
     {
         $this->if = $if;
+        $this->cond = $cond;
     }
 
     /**
@@ -38,6 +44,13 @@ class JumpIfNode extends AbstractNode
     public function setElse(Block $else)
     {
         $this->else = $else;
+    }
+
+    public function getSubVariables()
+    {
+        return [
+            'cond' => $this->cond
+        ];
     }
 
     public function getSubBlocks()
