@@ -1,6 +1,6 @@
 {
   "name": "phpsa",
-  "description": "PHP Smart Analyzer.",
+  "description": "PHPSA aimed at bringing complex analysis for PHP applications and libraries.",
   "maintainer": {
     "name": "Patsura Dmitry",
     "email": "talk@dmtry.me"

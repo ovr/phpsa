@@ -1,6 +1,6 @@
 {
     "name": "ovr/phpsa",
-    "description": "Static Analysis for PHP",
+    "description": "PHPSA aimed at bringing complex analysis for PHP applications and libraries.",
     "type": "util",
     "bin": [
         "bin/phpsa"
