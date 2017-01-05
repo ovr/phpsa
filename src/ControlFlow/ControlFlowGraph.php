@@ -66,6 +66,9 @@ class ControlFlowGraph
                 $block = $this->createNewBlockIfNeeded($block);
                 $block->label = $stmt->name;
                 break;
+            case \PhpParser\Node\Stmt\TryCatch::class:
+                $block = $this->passTryCatch($stmt, $block);
+                break;
             case \PhpParser\Node\Stmt\Nop::class:
                 // ignore commented code
                 break;
@@ -194,6 +197,24 @@ class ControlFlowGraph
     protected function passReturn(\PhpParser\Node\Stmt\Return_ $return_, Block $block)
     {
         $block->addChildren(new Node\ReturnNode());
+    }
+
+    protected function passTryCatch(\PhpParser\Node\Stmt\TryCatch $stmt, Block $block)
+    {
+        $try = new Block($this->lastBlockId++);
+        $this->passNodes($stmt->stmts, $try);
+
+        $block->setExit($try);
+
+        if ($stmt->finally) {
+            $finally = new Block($this->lastBlockId++);
+            $this->passNodes($stmt->finally->stmts, $finally);
+
+            $try->setExit($finally);
+            return $finally;
+        }
+
+        return $try;
     }
 
     /**
