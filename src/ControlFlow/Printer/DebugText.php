@@ -54,7 +54,7 @@ class DebugText
         ksort($this->blocks);
 
         foreach ($this->blocks as $id => $block) {
-            echo 'Block #' . $id . ($block->label ? ' Label: ' . $block->label : '') . PHP_EOL;
+            echo 'Block#' . $id . ($block->label ? ' Label: ' . $block->label : '') . PHP_EOL;
 
             $childrens = $block->getChildrens();
             if ($childrens) {
@@ -76,7 +76,7 @@ class DebugText
                     if ($subBlocks) {
                         foreach ($subBlocks as $name => $subBlock) {
                             if ($subBlock) {
-                                echo "\t" . $name . ' -> ' . $subBlock->getId() . PHP_EOL;
+                                echo "\t" . $name . ' -> Block#' . $subBlock->getId() . PHP_EOL;
                             } else {
                                 echo "\t" . $name . ' -> NOTHING';
                             }
@@ -87,7 +87,7 @@ class DebugText
 
             $exit = $block->getExit();
             if ($exit) {
-                echo '  -> ' . $exit->getId() . PHP_EOL;
+                echo '  -> Block#' . $exit->getId() . PHP_EOL;
             }
 
             echo PHP_EOL . PHP_EOL;
