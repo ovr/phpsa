@@ -107,12 +107,24 @@ class ControlFlowGraph
     protected function passExpr(\PhpParser\Node\Expr $expr)
     {
         switch (get_class($expr)) {
+            case \PhpParser\Node\Expr\BinaryOp\Equal::class:
+                return new Node\Expr\BinaryOp\Equal();
+
+            case \PhpParser\Node\Expr\BinaryOp\Smaller::class:
+                return new Node\Expr\BinaryOp\Smaller();
+
+            case \PhpParser\Node\Expr\BinaryOp\SmallerOrEqual::class:
+                return new Node\Expr\BinaryOp\SmallerOrEqual();
+
             case \PhpParser\Node\Expr\BinaryOp\Greater::class:
-                return new Node\Expr\Greater();
+                return new Node\Expr\BinaryOp\Greater();
+
             case \PhpParser\Node\Expr\BinaryOp\GreaterOrEqual::class:
-                return new Node\Expr\GreaterOrEqual();
+                return new Node\Expr\BinaryOp\GreaterOrEqual();
+
             case \PhpParser\Node\Expr\Instanceof_::class:
                 return new Node\Expr\InstanceOfExpr();
+
             default:
                 echo 'Unimplemented ' . get_class($expr) . PHP_EOL;
         }

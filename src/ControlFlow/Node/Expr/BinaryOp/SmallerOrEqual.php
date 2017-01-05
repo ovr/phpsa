@@ -3,11 +3,11 @@
  * @author Patsura Dmitry https://github.com/ovr <talk@dmtry.me>
  */
 
-namespace PHPSA\ControlFlow\Node\Expr;
+namespace PHPSA\ControlFlow\Node\Expr\BinaryOp;
 
 use PHPSA\ControlFlow\Node\AbstractNode;
 
-class Greater extends AbstractNode
+class SmallerOrEqual extends AbstractNode
 {
     public $left;
 
