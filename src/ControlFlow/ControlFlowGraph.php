@@ -102,10 +102,13 @@ class ControlFlowGraph
                 return new Node\Expr\Greater();
             case \PhpParser\Node\Expr\BinaryOp\GreaterOrEqual::class:
                 return new Node\Expr\GreaterOrEqual();
+            case \PhpParser\Node\Expr\Instanceof_::class:
+                return new Node\Expr\InstanceOfExpr();
             default:
                 echo 'Unimplemented ' . get_class($expr) . PHP_EOL;
-                break;
         }
+
+        return new Node\UnknownNode();
     }
 
     protected function passIf(\PhpParser\Node\Stmt\If_ $if, Block $block)
