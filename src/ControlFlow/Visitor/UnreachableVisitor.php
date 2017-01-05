@@ -6,6 +6,7 @@
 namespace PHPSA\ControlFlow\Visitor;
 
 use PHPSA\ControlFlow\Block;
+use PHPSA\ControlFlow\Node\AbstractNode;
 
 /**
  *
@@ -43,6 +44,13 @@ class UnreachableVisitor extends AbstractVisitor
      * @param Block $block
      */
     public function leaveBlock(Block $block)
+    {
+    }
+
+    /**
+     * @param AbstractNode $block
+     */
+    public function enterNode(AbstractNode $block)
     {
     }
 }

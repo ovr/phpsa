@@ -28,6 +28,15 @@ class BlockTraverser
             $visitor->enterBlock($rootBlock);
         }
 
+        $childrens = $rootBlock->getChildrens();
+        if ($childrens) {
+            foreach ($childrens as $children) {
+                foreach ($this->visitors as $visitor) {
+                    $visitor->enterNode($children);
+                }
+            }
+        }
+
         /** @var AbstractVisitor $visitor */
         foreach ($this->visitors as $visitor) {
             $visitor->leaveBlock($rootBlock);

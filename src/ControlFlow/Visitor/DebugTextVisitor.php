@@ -6,6 +6,7 @@
 namespace PHPSA\ControlFlow\Visitor;
 
 use PHPSA\ControlFlow\Block;
+use PHPSA\ControlFlow\Node\AbstractNode;
 
 class DebugTextVisitor extends AbstractVisitor
 {
@@ -23,5 +24,13 @@ class DebugTextVisitor extends AbstractVisitor
     public function leaveBlock(Block $block)
     {
         echo 'Leave Block ' . $block->getId() . PHP_EOL;
+    }
+
+    /**
+     * @param AbstractNode $block
+     */
+    public function enterNode(AbstractNode $block)
+    {
+        echo 'Enter Node ' . PHP_EOL;
     }
 }
