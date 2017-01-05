@@ -11,8 +11,11 @@ COPY . /usr/src/app/
 #RUN git clone https://github.com/ovr/phpsa.git .
 #COPY phpsa /usr/src/app/plugins/codeclimate/phpsa
 
-RUN curl -sS https://getcomposer.org/installer | php && \
-    /usr/src/app/composer.phar install --no-dev --optimize-autoloader
+RUN apt-get update && apt-get install -y git unzip && \
+    curl -sS https://getcomposer.org/installer | php && \
+    /usr/src/app/composer.phar update --no-dev --optimize-autoloader && \
+    apt-get purge -y git unzip && \
+    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 RUN useradd -u 9000 -r -s /bin/false app
 
