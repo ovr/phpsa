@@ -10,6 +10,9 @@ use PHPSA\ControlFlow\Node;
 
 class ControlFlowGraph
 {
+    /**
+     * @var int
+     */
     protected $lastBlockId = 1;
 
     /**
@@ -17,6 +20,9 @@ class ControlFlowGraph
      */
     protected $root;
 
+    /**
+     * @param $statement
+     */
     public function __construct($statement)
     {
         $this->root = new Block($this->lastBlockId++);
@@ -28,6 +34,10 @@ class ControlFlowGraph
         }
     }
 
+    /**
+     * @param array $nodes
+     * @param Block $block
+     */
     protected function passNodes(array $nodes, Block $block)
     {
         foreach ($nodes as $stmt) {
@@ -90,6 +100,10 @@ class ControlFlowGraph
         return $block;
     }
 
+    /**
+     * @param \PhpParser\Node\Expr $expr
+     * @return Node\AbstractNode
+     */
     protected function passExpr(\PhpParser\Node\Expr $expr)
     {
         switch (get_class($expr)) {
@@ -106,6 +120,11 @@ class ControlFlowGraph
         return new Node\UnknownNode();
     }
 
+    /**
+     * @param \PhpParser\Node\Stmt\If_ $if
+     * @param Block $block
+     * @return Block
+     */
     protected function passIf(\PhpParser\Node\Stmt\If_ $if, Block $block)
     {
         $trueBlock = new Block($this->lastBlockId++);
@@ -138,6 +157,11 @@ class ControlFlowGraph
         return $exitBlock;
     }
 
+    /**
+     * @param \PhpParser\Node\Stmt\For_ $for
+     * @param Block $block
+     * @return Block
+     */
     protected function passFor(\PhpParser\Node\Stmt\For_ $for, Block $block)
     {
         $this->passNodes($for->init, $block);
@@ -153,6 +177,11 @@ class ControlFlowGraph
         return $after;
     }
 
+    /**
+     * @param \PhpParser\Node\Stmt\Do_ $do
+     * @param Block $block
+     * @return Block
+     */
     protected function passDo(\PhpParser\Node\Stmt\Do_ $do, Block $block)
     {
         $loop = new Block($this->lastBlockId++);
@@ -172,6 +201,11 @@ class ControlFlowGraph
         return $exitBlock;
     }
 
+    /**
+     * @param \PhpParser\Node\Stmt\While_ $while
+     * @param Block $block
+     * @return Block
+     */
     protected function passWhile(\PhpParser\Node\Stmt\While_ $while, Block $block)
     {
         $cond = new Block($this->lastBlockId++);
@@ -195,21 +229,38 @@ class ControlFlowGraph
         return $after;
     }
 
+    /**
+     * @param \PhpParser\Node\Stmt\Throw_ $throw_
+     * @param Block $block
+     */
     protected function passThrow(\PhpParser\Node\Stmt\Throw_ $throw_, Block $block)
     {
         $block->addChildren(new Node\ThrowNode());
     }
 
+    /**
+     * @param \PhpParser\Node\Expr\Assign $assign
+     * @param Block $block
+     */
     protected function passAssign(\PhpParser\Node\Expr\Assign $assign, Block $block)
     {
         $block->addChildren(new Node\AssignNode());
     }
 
+    /**
+     * @param \PhpParser\Node\Stmt\Return_ $return_
+     * @param Block $block
+     */
     protected function passReturn(\PhpParser\Node\Stmt\Return_ $return_, Block $block)
     {
         $block->addChildren(new Node\ReturnNode());
     }
 
+    /**
+     * @param \PhpParser\Node\Stmt\TryCatch $stmt
+     * @param Block $block
+     * @return Block
+     */
     protected function passTryCatch(\PhpParser\Node\Stmt\TryCatch $stmt, Block $block)
     {
         $try = new Block($this->lastBlockId++);
