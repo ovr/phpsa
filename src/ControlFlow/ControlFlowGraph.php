@@ -35,7 +35,7 @@ class ControlFlowGraph
         }
     }
 
-    protected function passNode(g$stmt, Block $block)
+    protected function passNode($stmt, Block $block)
     {
         switch (get_class($stmt)) {
             case \PhpParser\Node\Expr\Assign::class:
@@ -63,9 +63,7 @@ class ControlFlowGraph
                 $block->addChildren(new Node\ExitNode());
                 break;
             case \PhpParser\Node\Stmt\Label::class:
-                $block->setExit(
-                    $block = new Block($this->lastBlockId++)
-                );
+                $block = $this->createNewBlockIfNeeded($block);
                 $block->label = $stmt->name;
                 break;
             case \PhpParser\Node\Stmt\Nop::class:
@@ -75,6 +73,23 @@ class ControlFlowGraph
                 echo 'Unimplemented ' . get_class($stmt) . PHP_EOL;
                 break;
         }
+    }
+
+    /**
+     * If current block is not empty, lets create a new one
+     *
+     * @param Block $block
+     * @return Block
+     */
+    protected function createNewBlockIfNeeded(Block $block)
+    {
+        if ($block->getChildrens()) {
+            $block->setExit(
+                $block = new Block($this->lastBlockId++)
+            );
+        }
+
+        return $block;
     }
 
     protected function passIf(\PhpParser\Node\Stmt\If_ $if, Block $block)
