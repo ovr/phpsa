@@ -67,7 +67,7 @@ class FunctionCall extends AbstractExpressionCompiler
         if (!$exists) {
             $context->notice(
                 'language_error',
-                sprintf('Function %s() does not exist', $expr->name->parts[0]),
+                sprintf('Function %s() does not exist', (string)$expr->name),
                 $expr
             );
         } else {

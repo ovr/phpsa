@@ -83,7 +83,7 @@ class TraitDefinition extends ParentDefinition
     {
         foreach ($this->statement->stmts as $stmt) {
             if ($stmt instanceof Stmt\ClassMethod) {
-                $this->addMethod(new ClassMethod($stmt->name, $stmt, $stmt->type));
+                $this->addMethod(new ClassMethod($stmt->name, $stmt, $stmt->flags));
             }
         }
 

@@ -7,7 +7,6 @@ use PHPSA\Context;
 use PHPSA\Compiler\Expression;
 use PHPSA\Compiler\Expression\AbstractExpressionCompiler;
 use PhpParser\Node\Expr\Variable;
-use PhpParser\Node\Name;
 
 class Coalesce extends AbstractExpressionCompiler
 {
@@ -23,13 +22,7 @@ class Coalesce extends AbstractExpressionCompiler
     protected function compile($expr, Context $context)
     {
         if ($expr->left instanceof Variable) {
-            $varName = $expr->left->name;
-
-            if ($varName instanceof Name) {
-                $varName = $varName->parts[0];
-            }
-
-            $variable = $context->getSymbol($varName);
+            $variable = $context->getSymbol((string)$expr->left->name);
 
             if ($variable) {
                 $variable->incUse();
