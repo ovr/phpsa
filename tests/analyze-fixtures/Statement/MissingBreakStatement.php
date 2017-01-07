@@ -103,6 +103,38 @@ class MissingBreakStatement
 
         return $value;
     }
+
+    /**
+     * @return string
+     */
+    public function testValidSwitchWithThrowContinue()
+    {
+        switch (30) {
+            case 1:
+                $value = 'bar';
+                break;
+            case 2:
+                {
+                    $value = 'baz';
+                    break;
+                }
+            case 3:
+                $value = 'missing "break" statement here';
+                if (mt_rand() % 2) {
+                    break;
+                }
+            case 4:
+                $value = 'throw';
+                throw new \Exception();
+            case 5:
+                $value = 'continue';
+                continue 1;
+            default:
+                $value = 'default';
+        }
+
+        return $value;
+    }
 }
 ?>
 ----------------------------
@@ -120,5 +152,11 @@ PHPSA\Analyzer\Pass\Statement\MissingBreakStatement
         "message":"Missing \"break\" statement",
         "file":"MissingBreakStatement.php",
         "line":97
+    },
+    {
+        "type":"missing_break_statement",
+        "message":"Missing \"break\" statement",
+        "file":"MissingBreakStatement.php",
+        "line":120
     }
 ]
