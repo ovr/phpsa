@@ -25,8 +25,6 @@ class NewOp extends AbstractExpressionCompiler
     protected function compile($expr, Context $context)
     {
         if ($expr->class instanceof Node\Name) {
-            $name = $expr->class->parts[0];
-
             $arguments = [];
 
             if (count($expr->args) > 0) {
@@ -34,6 +32,7 @@ class NewOp extends AbstractExpressionCompiler
                     $arguments[] = $context->getExpressionCompiler()->compile($argument->value);
                 }
             } else {
+                $name = (string)$expr->class;
                 if (class_exists($name, true)) {
                     return new CompiledExpression(CompiledExpression::OBJECT, new $name());
                 }

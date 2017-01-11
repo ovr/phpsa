@@ -7,7 +7,6 @@ use PHPSA\Context;
 use PHPSA\Compiler\Expression;
 use PHPSA\Compiler\Expression\AbstractExpressionCompiler;
 use PhpParser\Node\Expr\Variable as VariableNode;
-use PhpParser\Node\Name;
 
 class IssetOp extends AbstractExpressionCompiler
 {
@@ -26,13 +25,7 @@ class IssetOp extends AbstractExpressionCompiler
 
         foreach ($expr->vars as $var) {
             if ($var instanceof VariableNode) {
-                $varName = $var->name;
-
-                if ($varName instanceof Name) {
-                    $varName = $varName->parts[0];
-                }
-
-                $variable = $context->getSymbol($varName);
+                $variable = $context->getSymbol((string)$var->name);
 
                 if ($variable) {
                     $variable->incUse();

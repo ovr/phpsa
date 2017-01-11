@@ -2,7 +2,6 @@
 
 namespace PHPSA\Compiler\Expression\Operators;
 
-use PhpParser\Node\Name;
 use PHPSA\CompiledExpression;
 use PHPSA\Context;
 use PHPSA\Compiler\Expression;
@@ -22,11 +21,7 @@ class PreDec extends AbstractExpressionCompiler
     protected function compile($expr, Context $context)
     {
         if ($expr->var instanceof \PHPParser\Node\Expr\Variable) {
-            $variableName = $expr->var->name;
-            if ($variableName instanceof Name) {
-                $variableName = $variableName->parts[0];
-            }
-
+            $variableName = (string)$expr->var->name;
             $variable = $context->getSymbol($variableName);
             if ($variable) {
                 $variable->incUse();
