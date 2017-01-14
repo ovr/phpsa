@@ -280,12 +280,24 @@ class ControlFlowGraph
     }
 
     /**
-     * @param \PhpParser\Node\Stmt\Return_ $return_
+     * @param \PhpParser\Node\Stmt\Return_ $return
      * @param Block $block
      */
-    protected function passReturn(\PhpParser\Node\Stmt\Return_ $return_, Block $block)
+    protected function passReturn(\PhpParser\Node\Stmt\Return_ $return, Block $block)
     {
-        $block->addChildren(new Node\ReturnNode());
+        if ($return->expr) {
+            $block->addChildren(
+                new Node\ReturnNode(
+                    $this->passExpr(
+                        $return->expr
+                    )
+                )
+            );
+        } else {
+            $block->addChildren(
+                new Node\ReturnNode()
+            );
+        }
     }
 
     /**
