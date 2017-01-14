@@ -127,6 +127,15 @@ class ControlFlowGraph
     protected function passExpr(\PhpParser\Node\Expr $expr)
     {
         switch (get_class($expr)) {
+            case \PhpParser\Node\Expr\BinaryOp\NotIdentical::class:
+                return new Node\Expr\BinaryOp\NotIdentical();
+
+            case \PhpParser\Node\Expr\BinaryOp\Identical::class:
+                return new Node\Expr\BinaryOp\Identical();
+
+            case \PhpParser\Node\Expr\BinaryOp\NotEqual::class:
+                return new Node\Expr\BinaryOp\NotEqual();
+
             case \PhpParser\Node\Expr\BinaryOp\Equal::class:
                 return new Node\Expr\BinaryOp\Equal();
 
