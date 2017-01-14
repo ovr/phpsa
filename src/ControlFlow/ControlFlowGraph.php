@@ -21,6 +21,16 @@ class ControlFlowGraph
     protected $root;
 
     /**
+     * @var array
+     */
+    protected $labels;
+
+    /**
+     * @var array
+     */
+    protected $unresolvedGotos;
+
+    /**
      * @param $statement
      */
     public function __construct($statement)
@@ -42,6 +52,15 @@ class ControlFlowGraph
     {
         foreach ($nodes as $stmt) {
             switch (get_class($stmt)) {
+                case \PhpParser\Node\Stmt\Goto_::class:
+                    if (isset($this->labels[$stmt->name])) {
+                        $block->addChildren(
+                            new Node\JumpNode($this->labels[$stmt->name])
+                        );
+                    } else {
+                        $this->unresolvedGotos[] = $stmt;
+                    }
+                    break;
                 case \PhpParser\Node\Expr\Assign::class:
                     $this->passAssign($stmt, $block);
                     break;
@@ -69,6 +88,7 @@ class ControlFlowGraph
                 case \PhpParser\Node\Stmt\Label::class:
                     $block = $this->createNewBlockIfNeeded($block);
                     $block->label = $stmt->name;
+                    $this->labels[$block->label] = $block;
                     break;
                 case \PhpParser\Node\Stmt\TryCatch::class:
                     $block = $this->passTryCatch($stmt, $block);
