@@ -294,4 +294,14 @@ class Variable
         ];
     }
     //@codeCoverageIgnoreEnd
+
+    /**
+     * Is global variable?
+     *
+     * @return bool
+     */
+    public function isGlobal()
+    {
+        return false;
+    }
 }

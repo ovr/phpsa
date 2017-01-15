@@ -152,6 +152,8 @@ class Context
     {
         unset($this->symbols);
         $this->symbols = [];
+
+        $this->initGlobals();
     }
 
     /**

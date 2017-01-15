@@ -216,7 +216,7 @@ class ClassDefinition extends ParentDefinition
             $symbols = $context->getSymbols();
             if (count($symbols) > 0) {
                 foreach ($symbols as $name => $variable) {
-                    if ($variable->isUnused()) {
+                    if (!$variable->isGlobal() && $variable->isUnused()) {
                         $context->warning(
                             'unused-' . $variable->getSymbolType(),
                             sprintf(

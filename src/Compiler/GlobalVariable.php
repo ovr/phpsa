@@ -27,4 +27,12 @@ class GlobalVariable extends Variable
     {
         return 'global-variable';
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function isGlobal()
+    {
+        return true;
+    }
 }
