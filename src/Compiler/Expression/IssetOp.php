@@ -21,24 +21,14 @@ class IssetOp extends AbstractExpressionCompiler
      */
     protected function compile($expr, Context $context)
     {
-        $result = false;
+        $expressionCompiler = $context->getExpressionCompiler();
 
         foreach ($expr->vars as $var) {
-            if ($var instanceof VariableNode) {
-                $variable = $context->getSymbol((string)$var->name);
-
-                if ($variable) {
-                    $variable->incUse();
-
-                    if ($variable->getValue() !== null) {
-                        $result = true;
-                        continue; // this variable is set, continue
-                    }
-                }
-                return CompiledExpression::fromZvalValue(false); // one of the vars is not set
-            }
+            $expressionCompiler->compile($var);
         }
 
-        return CompiledExpression::fromZvalValue($result); // if all are set return true, else false
+        return new CompiledExpression(
+            CompiledExpression::BOOLEAN
+        );
     }
 }
