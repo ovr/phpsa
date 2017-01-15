@@ -24,24 +24,22 @@ class NewOp extends AbstractExpressionCompiler
      */
     protected function compile($expr, Context $context)
     {
-        if ($expr->class instanceof Node\Name) {
-            $arguments = [];
+        $expressionCompile = $context->getExpressionCompiler();
+        $expressionCompile->compile($expr->class);
 
-            if (count($expr->args) > 0) {
-                foreach ($expr->args as $argument) {
-                    $arguments[] = $context->getExpressionCompiler()->compile($argument->value);
-                }
-            } else {
-                $name = (string)$expr->class;
-                if (class_exists($name, true)) {
-                    return new CompiledExpression(CompiledExpression::OBJECT, new $name());
-                }
+        if (count($expr->args) > 0) {
+            foreach ($expr->args as $argument) {
+                $expressionCompile->compile($argument->value);
             }
-
-            return new CompiledExpression(CompiledExpression::OBJECT);
         }
 
-        $context->debug('Unknown how to pass new', $expr);
-        return new CompiledExpression();
+        $context->debug(
+            '@todo We should support UnionTypes with FCQN assert...',
+            $expr
+        );
+
+        return new CompiledExpression(
+            CompiledExpression::OBJECT
+        );
     }
 }
