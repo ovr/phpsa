@@ -39,6 +39,8 @@ class Types
                 return 'boolean';
             case CompiledExpression::NULL:
                 return 'null';
+            case CompiledExpression::MIXED:
+                return 'mixed';
             default:
                 return 'unknown';
         }
