@@ -386,7 +386,9 @@ class Expression
     public function declareVariable(Node\Expr\Variable $expr, $value = null, $type = CompiledExpression::UNKNOWN)
     {
         $variable = $this->context->getSymbol($expr->name);
-        if (!$variable) {
+        if ($variable) {
+            $variable->modify($type, $value);
+        } else {
             $variable = new Variable($expr->name, $value, $type, $this->context->getCurrentBranch());
             $this->context->addVariable($variable);
         }
