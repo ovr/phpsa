@@ -21,12 +21,14 @@ class ControlFlowGraph
     protected $root;
 
     /**
-     * @var array
+     * @var Block[]
      */
     protected $labels;
 
     /**
-     * @var array
+     * @todo
+     *
+     * @var \PhpParser\Node\Stmt\Goto_[]
      */
     protected $unresolvedGotos;
 
@@ -45,7 +47,7 @@ class ControlFlowGraph
     }
 
     /**
-     * @param array $nodes
+     * @param \PhpParser\Node[] $nodes
      * @param Block $block
      */
     protected function passNodes(array $nodes, Block $block)
@@ -111,7 +113,7 @@ class ControlFlowGraph
      */
     protected function createNewBlockIfNeeded(Block $block)
     {
-        if ($block->getChildrens()) {
+        if ($block->getChildren()) {
             $block->setExit(
                 $block = new Block($this->lastBlockId++)
             );

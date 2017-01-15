@@ -8,7 +8,7 @@ namespace PHPSA\ControlFlow\Node;
 abstract class AbstractNode
 {
     /**
-     * Can this node exit?
+     * Will this node exit?
      *
      * @return bool
      */

@@ -28,11 +28,11 @@ class BlockTraverser
             $visitor->enterBlock($rootBlock);
         }
 
-        $childrens = $rootBlock->getChildrens();
-        if ($childrens) {
-            foreach ($childrens as $children) {
+        $children = $rootBlock->getChildren();
+        if ($children) {
+            foreach ($children as $child) {
                 foreach ($this->visitors as $visitor) {
-                    $visitor->enterNode($children);
+                    $visitor->enterNode($child);
                 }
             }
         }

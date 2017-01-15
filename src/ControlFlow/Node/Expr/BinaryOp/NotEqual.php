@@ -5,22 +5,6 @@
 
 namespace PHPSA\ControlFlow\Node\Expr\BinaryOp;
 
-use PHPSA\ControlFlow\Node\AbstractNode;
-
-class NotEqual extends AbstractNode
+class NotEqual extends AbstractBinaryOp
 {
-    public $left;
-
-    public $right;
-
-    public $result;
-
-    public function getSubVariables()
-    {
-        return [
-            'left' => $this->left,
-            'right' => $this->right,
-            'result' => $this->result
-        ];
-    }
 }

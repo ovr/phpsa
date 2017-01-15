@@ -12,7 +12,7 @@ class Block
     /**
      * @var AbstractNode[]
      */
-    protected $childrens = [];
+    protected $children = [];
 
     /**
      * @var Block[]
@@ -47,7 +47,7 @@ class Block
      */
     public function addChildren(AbstractNode $node)
     {
-        $this->childrens[] = $node;
+        $this->children[] = $node;
     }
 
     /**
@@ -61,9 +61,9 @@ class Block
     /**
      * @return AbstractNode[]
      */
-    public function getChildrens()
+    public function getChildren()
     {
-        return $this->childrens;
+        return $this->children;
     }
 
     /**

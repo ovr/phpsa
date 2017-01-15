@@ -24,16 +24,16 @@ class UnreachableVisitor extends AbstractVisitor
      */
     public function enterBlock(Block $block)
     {
-        $childrens = $block->getChildrens();
-        if ($childrens) {
-            $childrensCount = count($childrens);
-            if ($childrensCount <= 1) {
+        $children = $block->getChildren();
+        if ($children) {
+            $childrenCount = count($children);
+            if ($childrenCount <= 1) {
                 return;
             }
 
-            foreach ($childrens as $index => $children) {
+            foreach ($children as $index => $child) {
                 // Check that exit node is not the latest
-                if ($children->willExit() && ($index + 1) != $childrensCount) {
+                if ($child->willExit() && ($index + 1) != $childrenCount) {
                     echo 'Unreacheable block ' . $block->getId() . PHP_EOL;
                 }
             }

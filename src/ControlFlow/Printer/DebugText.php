@@ -22,10 +22,10 @@ class DebugText
 
         $this->blocks[$parent->getId()] = $parent;
 
-        $childrens = $parent->getChildrens();
-        if ($childrens) {
-            foreach ($childrens as $children) {
-                $subBlocks = $children->getSubBlocks();
+        $children = $parent->getChildren();
+        if ($children) {
+            foreach ($children as $child) {
+                $subBlocks = $child->getSubBlocks();
                 if ($subBlocks) {
                     foreach ($subBlocks as $name => $block) {
                         if ($block) {
@@ -56,12 +56,12 @@ class DebugText
         foreach ($this->blocks as $id => $block) {
             echo 'Block#' . $id . ($block->label ? ' Label: ' . $block->label : '') . PHP_EOL;
 
-            $childrens = $block->getChildrens();
-            if ($childrens) {
-                foreach ($childrens as $children) {
-                    echo '  ' . get_class($children) . ($children->willExit() ? ' WILL EXIT!! ' : '') . PHP_EOL;
+            $children = $block->getChildren();
+            if ($children) {
+                foreach ($children as $child) {
+                    echo '  ' . get_class($child) . ($child->willExit() ? ' WILL EXIT!! ' : '') . PHP_EOL;
 
-                    $subVariables = $children->getSubVariables();
+                    $subVariables = $child->getSubVariables();
                     if ($subVariables) {
                         foreach ($subVariables as $name => $subVariable) {
                             if ($subVariable) {
@@ -72,7 +72,7 @@ class DebugText
                         }
                     }
 
-                    $subBlocks = $children->getSubBlocks();
+                    $subBlocks = $child->getSubBlocks();
                     if ($subBlocks) {
                         foreach ($subBlocks as $name => $subBlock) {
                             if ($subBlock) {
