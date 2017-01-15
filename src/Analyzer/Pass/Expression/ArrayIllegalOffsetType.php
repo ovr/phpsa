@@ -83,9 +83,6 @@ class ArrayIllegalOffsetType implements AnalyzerPassInterface
         }
 
         $keyType = $compiledKey->getTypeName();
-        if ($compiledKey->isObject() && $compiledKey->getValue()) {
-            $keyType = get_class($compiledKey->getValue());
-        }
 
         if ($expr instanceof Expr\Variable) {
             $message = sprintf('Illegal array offset type %s for key %s.', $keyType, '$'.$expr->name);

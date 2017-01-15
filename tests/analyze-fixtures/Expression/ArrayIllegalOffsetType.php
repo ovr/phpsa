@@ -106,43 +106,43 @@ PHPSA\Analyzer\Pass\Expression\ArrayIllegalOffsetType
 [
     {
         "type":"array.illegal_offset_type",
-        "message":"Illegal array offset type stdClass.",
+        "message":"Illegal array offset type object.",
         "file":"ArrayIllegalOffsetType.php",
         "line":13
     },
     {
         "type":"array.illegal_offset_type",
-        "message":"Illegal array offset type DateTime for key $variable.",
+        "message":"Illegal array offset type object for key $variable.",
         "file":"ArrayIllegalOffsetType.php",
         "line":26
     },
     {
         "type":"array.illegal_offset_type",
-        "message":"Illegal array offset type DateTime.",
+        "message":"Illegal array offset type object.",
         "file":"ArrayIllegalOffsetType.php",
         "line":37
     },
     {
         "type":"array.illegal_offset_type",
-        "message":"Illegal array offset type DateTime for key $variable.",
+        "message":"Illegal array offset type object for key $variable.",
         "file":"ArrayIllegalOffsetType.php",
         "line":51
     },
     {
         "type":"array.illegal_offset_type",
-        "message":"Illegal array offset type stdClass.",
+        "message":"Illegal array offset type object.",
         "file":"ArrayIllegalOffsetType.php",
         "line": 73
     },
     {
         "type":"array.illegal_offset_type",
-        "message":"Illegal array offset type DateTime for key $variable.",
+        "message":"Illegal array offset type object for key $variable.",
         "file":"ArrayIllegalOffsetType.php",
         "line":86
     },
     {
         "type":"array.illegal_offset_type",
-        "message":"Illegal array offset type DateTime.",
+        "message":"Illegal array offset type object.",
         "file":"ArrayIllegalOffsetType.php",
         "line":97
     }
