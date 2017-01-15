@@ -22,11 +22,19 @@ class ForeachSt extends AbstractCompiler
         $context->getExpressionCompiler()->compile($stmt->expr);
 
         if ($stmt->keyVar) {
-            $context->getExpressionCompiler()->declareVariable($stmt->keyVar, null, CompiledExpression::MIXED);
+            $context->getExpressionCompiler()->declareVariable(
+                $stmt->keyVar,
+                null,
+                CompiledExpression::UNKNOWN
+            );
         }
 
         if ($stmt->valueVar) {
-            $context->getExpressionCompiler()->declareVariable($stmt->valueVar, null, CompiledExpression::MIXED);
+            $context->getExpressionCompiler()->declareVariable(
+                $stmt->valueVar,
+                null,
+                CompiledExpression::UNKNOWN
+            );
         }
 
         foreach ($stmt->stmts as $statement) {
