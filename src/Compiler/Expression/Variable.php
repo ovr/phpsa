@@ -12,7 +12,7 @@ class Variable extends AbstractExpressionCompiler
     protected $name = 'PhpParser\Node\Expr\Variable';
 
     /**
-     * $a
+     * $a or $$a
      *
      * @param \PhpParser\Node\Expr\Variable $expr
      * @param Context $context
@@ -20,17 +20,20 @@ class Variable extends AbstractExpressionCompiler
      */
     protected function compile($expr, Context $context)
     {
-        $variable = $context->getSymbol($expr->name);
-        if ($variable) {
-            $variable->incGets();
-            return new CompiledExpression($variable->getType(), $variable->getValue(), $variable);
-        }
+        $nameCE = $context->getExpressionCompiler()->compile($expr->name);
+        if ($nameCE->isString() && $nameCE->isCorrectValue()) {
+            $variable = $context->getSymbol($nameCE->getValue());
+            if ($variable) {
+                $variable->incGets();
+                return new CompiledExpression($variable->getType(), $variable->getValue(), $variable);
+            }
 
-        $context->notice(
-            'undefined-variable',
-            sprintf('You are trying to use an undefined variable $%s', $expr->name),
-            $expr
-        );
+            $context->notice(
+                'undefined-variable',
+                sprintf('You are trying to use an undefined variable $%s', $nameCE->getValue()),
+                $expr
+            );
+        }
 
         return new CompiledExpression();
     }
