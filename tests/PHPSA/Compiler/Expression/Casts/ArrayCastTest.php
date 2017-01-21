@@ -10,30 +10,26 @@ use Tests\PHPSA\Compiler\Expression\AbstractUnaryOp;
 class ArrayCastTest extends AbstractUnaryOp
 {
     /**
+     * @param $a
      * @return array
      */
-    public function getDataProvider()
+    protected function process($a)
     {
-        return [
-            [[], []],
-        ];
+        return (array) $a;
     }
 
     /**
-     * Tests (array) {expr} = {expr}
-     *
-     * @dataProvider getDataProvider
+     * @return array
      */
-    public function testArrayCastCompile($a, $b)
+    protected function getSupportedTypes()
     {
-        $baseExpression = new Node\Expr\Cast\Array_(
-            $this->newScalarExpr($a)
-        );
-        $compiledExpression = $this->compileExpression($baseExpression);
-
-        $this->assertInstanceOfCompiledExpression($compiledExpression);
-        $this->assertSame(CompiledExpression::ARR, $compiledExpression->getType());
-        $this->assertSame($b, $compiledExpression->getValue());
+        return [
+            CompiledExpression::INTEGER,
+            CompiledExpression::DOUBLE,
+            CompiledExpression::STRING,
+            CompiledExpression::BOOLEAN,
+            CompiledExpression::NULL,
+        ];
     }
 
     /**

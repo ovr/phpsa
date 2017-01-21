@@ -10,33 +10,24 @@ use Tests\PHPSA\Compiler\Expression\AbstractUnaryOp;
 class BitwiseNotTest extends AbstractUnaryOp
 {
     /**
+     * @param $a
      * @return array
      */
-    public function getDataProvider()
+    protected function process($a)
     {
-        return [
-            [1, -2],
-            [-1, 0],
-            [1.4,-2],
-            [-2.7, 1],
-        ];
+        return ~$a;
     }
 
     /**
-     * Tests ~{expr}
-     *
-     * @dataProvider getDataProvider
+     * @return array
      */
-    public function testSimpleSuccessCompile($a, $b)
+    protected function getSupportedTypes()
     {
-        $baseExpression = new Node\Expr\BitwiseNot(
-            $this->newScalarExpr($a)
-        );
-        $compiledExpression = $this->compileExpression($baseExpression);
-
-        $this->assertInstanceOfCompiledExpression($compiledExpression);
-        $this->assertSame(CompiledExpression::INTEGER, $compiledExpression->getType());
-        $this->assertSame($b, $compiledExpression->getValue());
+        return [
+            CompiledExpression::INTEGER,
+            CompiledExpression::DOUBLE,
+            CompiledExpression::STRING,
+        ];
     }
 
     /**

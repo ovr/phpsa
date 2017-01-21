@@ -14,38 +14,26 @@ use Tests\PHPSA\Compiler\Expression\AbstractUnaryOp;
 class BooleanNotTest extends AbstractUnaryOp
 {
     /**
+     * @param $a
      * @return array
      */
-    public function getDataProvider()
+    protected function process($a)
     {
-        return [
-            [true, false],
-            [false, true],
-            [1, false],
-            [-1, false],
-            [1.4, false],
-            [null, true],
-            ["a", false],
-            [[], true],
-        ];
+        return !$a;
     }
 
     /**
-     * Tests !{expr}
-     *
-     * @see \PHPSA\Compiler\Expression\Operators\Logical\BooleanNot
-     * @dataProvider getDataProvider
+     * @return array
      */
-    public function testSimpleSuccessCompile($a, $b)
+    protected function getSupportedTypes()
     {
-        $baseExpression = new Node\Expr\BooleanNot(
-            $this->newScalarExpr($a)
-        );
-        $compiledExpression = $this->compileExpression($baseExpression);
-
-        $this->assertInstanceOfCompiledExpression($compiledExpression);
-        $this->assertSame(CompiledExpression::BOOLEAN, $compiledExpression->getType());
-        $this->assertSame($b, $compiledExpression->getValue());
+        return [
+            CompiledExpression::INTEGER,
+            CompiledExpression::DOUBLE,
+            CompiledExpression::STRING,
+            CompiledExpression::BOOLEAN,
+            CompiledExpression::NULL,
+        ];
     }
 
     /**

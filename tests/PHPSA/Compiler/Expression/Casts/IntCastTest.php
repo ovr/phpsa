@@ -10,35 +10,26 @@ use Tests\PHPSA\Compiler\Expression\AbstractUnaryOp;
 class IntCastTest extends AbstractUnaryOp
 {
     /**
-     * @return array
+     * @param $a
+     * @return int
      */
-    public function getDataProvider()
+    protected function process($a)
     {
-        return [
-            [true, 1],
-            [0, 0],
-            [-1, -1],
-            [1.4, 1],
-            ["a", 0],
-            [[], 0],
-        ];
+        return (int) $a;
     }
 
     /**
-     * Tests (int) {expr} = {expr}
-     *
-     * @dataProvider getDataProvider
+     * @return array
      */
-    public function testIntCastCompile($a, $b)
+    protected function getSupportedTypes()
     {
-        $baseExpression = new Node\Expr\Cast\Int_(
-            $this->newScalarExpr($a)
-        );
-        $compiledExpression = $this->compileExpression($baseExpression);
-
-        $this->assertInstanceOfCompiledExpression($compiledExpression);
-        $this->assertSame(CompiledExpression::INTEGER, $compiledExpression->getType());
-        $this->assertSame($b, $compiledExpression->getValue());
+        return [
+            CompiledExpression::INTEGER,
+            CompiledExpression::DOUBLE,
+            CompiledExpression::STRING,
+            CompiledExpression::BOOLEAN,
+            CompiledExpression::NULL,
+        ];
     }
 
     /**

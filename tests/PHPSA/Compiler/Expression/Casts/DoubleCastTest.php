@@ -10,35 +10,26 @@ use Tests\PHPSA\Compiler\Expression\AbstractUnaryOp;
 class DoubleCastTest extends AbstractUnaryOp
 {
     /**
-     * @return array
+     * @param $a
+     * @return double
      */
-    public function getDataProvider()
+    protected function process($a)
     {
-        return [
-            [true, 1.0],
-            [0, 0.0],
-            [-1, -1.0],
-            [1.4, 1.4],
-            ["a", 0.0],
-            [[], 0.0],
-        ];
+        return (double) $a;
     }
 
     /**
-     * Tests (double) {expr} = {expr}
-     *
-     * @dataProvider getDataProvider
+     * @return array
      */
-    public function testDoubleCastCompile($a, $b)
+    protected function getSupportedTypes()
     {
-        $baseExpression = new Node\Expr\Cast\Double(
-            $this->newScalarExpr($a)
-        );
-        $compiledExpression = $this->compileExpression($baseExpression);
-
-        $this->assertInstanceOfCompiledExpression($compiledExpression);
-        $this->assertSame(CompiledExpression::DOUBLE, $compiledExpression->getType());
-        $this->assertSame($b, $compiledExpression->getValue());
+        return [
+            CompiledExpression::INTEGER,
+            CompiledExpression::DOUBLE,
+            CompiledExpression::STRING,
+            CompiledExpression::BOOLEAN,
+            CompiledExpression::NULL,
+        ];
     }
 
     /**

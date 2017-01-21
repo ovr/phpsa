@@ -10,35 +10,26 @@ use Tests\PHPSA\Compiler\Expression\AbstractUnaryOp;
 class BoolCastTest extends AbstractUnaryOp
 {
     /**
-     * @return array
+     * @param $a
+     * @return bool
      */
-    public function getDataProvider()
+    protected function process($a)
     {
-        return [
-            [true, true],
-            [0, false],
-            [-1, true],
-            [1.4, true],
-            ["a", true],
-            [[], false],
-        ];
+        return (bool) $a;
     }
 
     /**
-     * Tests (bool) {expr} = {expr}
-     *
-     * @dataProvider getDataProvider
+     * @return array
      */
-    public function testBoolCastCompile($a, $b)
+    protected function getSupportedTypes()
     {
-        $baseExpression = new Node\Expr\Cast\Bool_(
-            $this->newScalarExpr($a)
-        );
-        $compiledExpression = $this->compileExpression($baseExpression);
-
-        $this->assertInstanceOfCompiledExpression($compiledExpression);
-        $this->assertSame(CompiledExpression::BOOLEAN, $compiledExpression->getType());
-        $this->assertSame($b, $compiledExpression->getValue());
+        return [
+            CompiledExpression::INTEGER,
+            CompiledExpression::DOUBLE,
+            CompiledExpression::STRING,
+            CompiledExpression::BOOLEAN,
+            CompiledExpression::NULL,
+        ];
     }
 
     /**

@@ -9,6 +9,17 @@ use PHPSA\Compiler\Expression;
 abstract class AbstractBinaryOp extends \Tests\PHPSA\TestCase
 {
     /**
+     * Data provider for tests
+     */
+    public $data = [
+            CompiledExpression::INTEGER => 6,
+            CompiledExpression::DOUBLE => 2.5,
+            CompiledExpression::STRING => "test",
+            CompiledExpression::BOOLEAN => true,
+            CompiledExpression::NULL => null,
+        ];
+
+    /**
      * @param $a
      * @param $b
      * @return Node\Expr
@@ -28,17 +39,6 @@ abstract class AbstractBinaryOp extends \Tests\PHPSA\TestCase
     abstract protected function getSupportedTypes();
 
     /**
-     * Data provider for tests
-     */
-    public $data = [
-            CompiledExpression::INTEGER => 6,
-            CompiledExpression::DOUBLE => 2.5,
-            CompiledExpression::STRING => "test",
-            CompiledExpression::BOOLEAN => true,
-            CompiledExpression::NULL => null,
-        ];
-
-    /**
      * Tests {left-expr} $operator {right-expr}
      */
     public function testOperatorCompile()
@@ -53,7 +53,7 @@ abstract class AbstractBinaryOp extends \Tests\PHPSA\TestCase
 
                 $this->assertInstanceOfCompiledExpression($compiledExpression);
                 //$this->assertSame($this->getExpressionType($a, $b), $compiledExpression->getType());
-                $this->assertSame($this->process($this->data[$type1], $this->data[$type2]), $compiledExpression->getValue());
+                $this->assertEquals($this->process($this->data[$type1], $this->data[$type2]), $compiledExpression->getValue());
             }
         }
     }

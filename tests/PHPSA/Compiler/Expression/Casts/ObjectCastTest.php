@@ -9,81 +9,26 @@ use Tests\PHPSA\Compiler\Expression\AbstractUnaryOp;
 class ObjectCastTest extends AbstractUnaryOp
 {
     /**
-     * Tests (object) {expr} = {expr}
+     * @param $a
+     * @return object
      */
-    public function objectCastDataProvider()
+    protected function process($a)
     {
-        return [
-            [
-                CompiledExpression::INTEGER,
-                1
-            ],
-            [
-                CompiledExpression::DOUBLE,
-                1.0
-            ],
-            [
-                CompiledExpression::ARR,
-                [
-                    1,
-                    2,
-                    3,
-                    4,
-                    5
-                ]
-            ],
-            [
-                CompiledExpression::ARR,
-                []
-            ],
-            [
-                CompiledExpression::ARR,
-                [
-                    1,
-                    2,
-                    3,
-                    4,
-                    5
-                ]
-            ],
-            [
-                CompiledExpression::BOOLEAN,
-                true
-            ],
-            [
-                CompiledExpression::RESOURCE,
-                STDIN
-            ],
-            [
-                CompiledExpression::STRING,
-                'test str'
-            ],
-            [
-                CompiledExpression::NULL,
-                null
-            ],
-        ];
+        return (object) $a;
     }
 
     /**
-     * @dataProvider objectCastDataProvider
-     *
-     * @param int $type
-     * @param mixed $value
+     * @return array
      */
-    public function testObjectCastCompile($type, $value)
+    protected function getSupportedTypes()
     {
-        $baseExpression = new Node\Expr\Cast\Object_(
-            $this->newFakeScalarExpr(
-                $type,
-                $value
-            )
-        );
-        $compiledExpression = $this->compileExpression($baseExpression);
-
-        $this->assertInstanceOfCompiledExpression($compiledExpression);
-        $this->assertSame(CompiledExpression::OBJECT, $compiledExpression->getType());
-        $this->assertEquals((object) $value, $compiledExpression->getValue());
+        return [
+            CompiledExpression::INTEGER,
+            CompiledExpression::DOUBLE,
+            CompiledExpression::STRING,
+            CompiledExpression::BOOLEAN,
+            CompiledExpression::NULL,
+        ];
     }
 
     /**
