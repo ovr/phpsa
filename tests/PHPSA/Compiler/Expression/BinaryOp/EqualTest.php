@@ -5,12 +5,13 @@ namespace Tests\PHPSA\Compiler\Expression\BinaryOp;
 use PhpParser\Node;
 use PHPSA\CompiledExpression;
 use PHPSA\Compiler\Expression;
+use Tests\PHPSA\Compiler\Expression\AbstractBinaryOp;
 
 /**
  * Class EqualTest
  * @package Tests\PHPSA\Expression\BinaryOp
  */
-class EqualTest extends \Tests\PHPSA\TestCase
+class EqualTest extends AbstractBinaryOp
 {
     /**
      * @return array
@@ -108,34 +109,12 @@ class EqualTest extends \Tests\PHPSA\TestCase
     }
 
     /**
-     * Tests {left-expr::UNKNOWN} == {right-expr}
+     * @param Node\Scalar $a
+     * @param Node\Scalar $b
+     * @return Node\Expr\BinaryOp\Equal
      */
-    public function testFirstUnexpectedTypes()
+    protected function buildExpression($a, $b)
     {
-        $baseExpression = new Node\Expr\BinaryOp\Equal(
-            $this->newFakeScalarExpr(),
-            $this->newScalarExpr(1)
-        );
-        $compiledExpression = $this->compileExpression($baseExpression, $this->getContext());
-
-        $this->assertInstanceOfCompiledExpression($compiledExpression);
-        $this->assertSame(CompiledExpression::UNKNOWN, $compiledExpression->getType());
-        $this->assertSame(null, $compiledExpression->getValue());
-    }
-
-    /**
-     * Tests {left-expr} == {right-expr::UNKNOWN}
-     */
-    public function testSecondUnexpectedTypes()
-    {
-        $baseExpression = new Node\Expr\BinaryOp\Equal(
-            $this->newScalarExpr(1),
-            $this->newFakeScalarExpr()
-        );
-        $compiledExpression = $this->compileExpression($baseExpression, $this->getContext());
-
-        $this->assertInstanceOfCompiledExpression($compiledExpression);
-        $this->assertSame(CompiledExpression::UNKNOWN, $compiledExpression->getType());
-        $this->assertSame(null, $compiledExpression->getValue());
+        return new Node\Expr\BinaryOp\Equal($a, $b);
     }
 }

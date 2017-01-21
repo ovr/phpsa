@@ -5,8 +5,9 @@ namespace Tests\PHPSA\Compiler\Expression\Operators\Arithmetical;
 use PhpParser\Node;
 use PHPSA\CompiledExpression;
 use PHPSA\Compiler\Expression;
+use Tests\PHPSA\Compiler\Expression\AbstractBinaryOp;
 
-abstract class AbstractDivMod extends \Tests\PHPSA\TestCase
+abstract class AbstractDivMod extends AbstractBinaryOp
 {
     /**
      * @param $a
@@ -14,13 +15,6 @@ abstract class AbstractDivMod extends \Tests\PHPSA\TestCase
      * @return float
      */
     abstract protected function process($a, $b);
-
-    /**
-     * @param $a
-     * @param $b
-     * @return Node\Expr\BinaryOp
-     */
-    abstract protected function buildExpression($a, $b);
 
     /**
      * Data provider for Div {int} / {int} = {int}
@@ -169,37 +163,5 @@ abstract class AbstractDivMod extends \Tests\PHPSA\TestCase
         $this->assertInstanceOfCompiledExpression($compiledExpression);
         $this->assertSame($this->getAssertType(), $compiledExpression->getType());
         $this->assertSame($this->process($a, $b), $compiledExpression->getValue());
-    }
-
-    /**
-     * Tests {left-expr::UNKNOWN} $operator {right-expr}
-     */
-    public function testFirstUnexpectedTypes()
-    {
-        $baseExpression = $this->buildExpression(
-            $this->newFakeScalarExpr(),
-            $this->newScalarExpr(1)
-        );
-        $compiledExpression = $this->compileExpression($baseExpression);
-
-        $this->assertInstanceOfCompiledExpression($compiledExpression);
-        $this->assertSame(CompiledExpression::UNKNOWN, $compiledExpression->getType());
-        $this->assertSame(null, $compiledExpression->getValue());
-    }
-
-    /**
-     * Tests {left-expr} $operator {right-expr::UNKNOWN}
-     */
-    public function testSecondUnexpectedTypes()
-    {
-        $baseExpression = $this->buildExpression(
-            $this->newScalarExpr(1),
-            $this->newFakeScalarExpr()
-        );
-        $compiledExpression = $this->compileExpression($baseExpression);
-
-        $this->assertInstanceOfCompiledExpression($compiledExpression);
-        $this->assertSame(CompiledExpression::UNKNOWN, $compiledExpression->getType());
-        $this->assertSame(null, $compiledExpression->getValue());
     }
 }

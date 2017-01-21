@@ -5,8 +5,9 @@ namespace Tests\PHPSA\Compiler\Expression\AssignOp;
 use PhpParser\Node;
 use PHPSA\CompiledExpression;
 use PHPSA\Compiler\Expression;
+use Tests\PHPSA\Compiler\Expression\AbstractBinaryOp;
 
-class BitwiseAndTest extends \Tests\PHPSA\TestCase
+class BitwiseAndTest extends AbstractBinaryOp
 {
     /**
      * @return array
@@ -46,31 +47,12 @@ class BitwiseAndTest extends \Tests\PHPSA\TestCase
     }
 
     /**
-     * tests variable type unknown
+     * @param Node\Scalar $a
+     * @param Node\Scalar $b
+     * @return Node\Expr\AssignOp\BitwiseAnd
      */
-    public function testUnexpectedTypeFirstArg()
+    protected function buildExpression($a, $b)
     {
-        $baseExpression = new Node\Expr\AssignOp\BitwiseAnd(
-            $this->newFakeScalarExpr(),
-            $this->newScalarExpr(1)
-        );
-        $compiledExpression = $this->compileExpression($baseExpression);
-
-        $this->assertInstanceOfCompiledExpression($compiledExpression);
-        $this->assertSame(CompiledExpression::UNKNOWN, $compiledExpression->getType());
-        $this->assertSame(null, $compiledExpression->getValue());
-    }
-
-    public function testUnexpectedTypeSecondArg()
-    {
-        $baseExpression = new Node\Expr\AssignOp\BitwiseAnd(
-            $this->newScalarExpr(1),
-            $this->newFakeScalarExpr()
-        );
-        $compiledExpression = $this->compileExpression($baseExpression);
-
-        $this->assertInstanceOfCompiledExpression($compiledExpression);
-        $this->assertSame(CompiledExpression::UNKNOWN, $compiledExpression->getType());
-        $this->assertSame(null, $compiledExpression->getValue());
+        return new Node\Expr\AssignOp\BitwiseAnd($a, $b);
     }
 }

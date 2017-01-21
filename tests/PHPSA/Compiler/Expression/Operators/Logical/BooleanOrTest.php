@@ -5,8 +5,9 @@ namespace Tests\PHPSA\Compiler\Expression\Operators\Logical;
 use PhpParser\Node;
 use PHPSA\CompiledExpression;
 use PHPSA\Compiler\Expression;
+use Tests\PHPSA\Compiler\Expression\AbstractBinaryOp;
 
-class BooleanOrTest extends \Tests\PHPSA\TestCase
+class BooleanOrTest extends AbstractBinaryOp
 {
     /**
      * @return array
@@ -51,16 +52,13 @@ class BooleanOrTest extends \Tests\PHPSA\TestCase
         $this->assertSame($c, $compiledExpression->getValue());
     }
 
-    public function testUnexpectedTypes()
+    /**
+     * @param Node\Scalar $a
+     * @param Node\Scalar $b
+     * @return Node\Expr\BinaryOp\BooleanOr
+     */
+    protected function buildExpression($a, $b)
     {
-        $baseExpression = new Node\Expr\BinaryOp\BooleanOr(
-            $this->newScalarExpr(1),
-            $this->newFakeScalarExpr()
-        );
-        $compiledExpression = $this->compileExpression($baseExpression);
-
-        $this->assertInstanceOfCompiledExpression($compiledExpression);
-        $this->assertSame(CompiledExpression::UNKNOWN, $compiledExpression->getType());
-        $this->assertSame(null, $compiledExpression->getValue());
+        return new Node\Expr\BinaryOp\BooleanOr($a, $b);
     }
 }

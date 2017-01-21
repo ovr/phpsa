@@ -5,12 +5,14 @@ namespace Tests\PHPSA\Compiler\Expression\BinaryOp;
 use PhpParser\Node;
 use PHPSA\CompiledExpression;
 use PHPSA\Compiler\Expression;
+use Tests\PHPSA\Compiler\Expression\AbstractBinaryOp;
+
 
 /**
- * Class IndenticalTest
+ * Class NotIndenticalTest
  * @package Tests\PHPSA\Expression\BinaryOp
  */
-class NotIndenticalTest extends \Tests\PHPSA\TestCase
+class NotIndenticalTest extends AbstractBinaryOp
 {
     /**
      * @return array
@@ -98,16 +100,16 @@ class NotIndenticalTest extends \Tests\PHPSA\TestCase
      * @param int $a
      * @param int $b
      *
-     * @dataProvider providerForStaticIntToIntCases
+     * @dataProvider providerForStaticIntToFloatCases
      */
-    public function testStaticFailIntToFloat($a, $b)
+    public function testStaticIntToFloat($a, $b)
     {
         $b = (float) $b;
 
         $this->assertInternalType('int', $a);
         $this->assertInternalType('double', $b);
 
-        $baseExpression = new Node\Expr\BinaryOp\Identical(
+        $baseExpression = new Node\Expr\BinaryOp\NotIdentical(
             new Node\Scalar\LNumber($a),
             new Node\Scalar\DNumber($b)
         );
@@ -115,38 +117,16 @@ class NotIndenticalTest extends \Tests\PHPSA\TestCase
 
         $this->assertInstanceOfCompiledExpression($compiledExpression);
         $this->assertSame(CompiledExpression::BOOLEAN, $compiledExpression->getType());
-        $this->assertSame(false, $compiledExpression->getValue());
+        $this->assertSame(true, $compiledExpression->getValue());
     }
 
     /**
-     * Tests {left-expr::UNKNOWN} !== {right-expr}
+     * @param Node\Scalar $a
+     * @param Node\Scalar $b
+     * @return Node\Expr\BinaryOp\NotIdentical
      */
-    public function testFirstUnexpectedTypes()
+    protected function buildExpression($a, $b)
     {
-        $baseExpression = new Node\Expr\BinaryOp\NotIdentical(
-            $this->newFakeScalarExpr(),
-            $this->newScalarExpr(1)
-        );
-        $compiledExpression = $this->compileExpression($baseExpression, $this->getContext());
-
-        $this->assertInstanceOfCompiledExpression($compiledExpression);
-        $this->assertSame(CompiledExpression::UNKNOWN, $compiledExpression->getType());
-        $this->assertSame(null, $compiledExpression->getValue());
-    }
-
-    /**
-     * Tests {left-expr} !== {right-expr::UNKNOWN}
-     */
-    public function testSecondUnexpectedTypes()
-    {
-        $baseExpression = new Node\Expr\BinaryOp\NotIdentical(
-            $this->newScalarExpr(1),
-            $this->newFakeScalarExpr()
-        );
-        $compiledExpression = $this->compileExpression($baseExpression, $this->getContext());
-
-        $this->assertInstanceOfCompiledExpression($compiledExpression);
-        $this->assertSame(CompiledExpression::UNKNOWN, $compiledExpression->getType());
-        $this->assertSame(null, $compiledExpression->getValue());
+        return new Node\Expr\BinaryOp\NotIdentical($a, $b);
     }
 }

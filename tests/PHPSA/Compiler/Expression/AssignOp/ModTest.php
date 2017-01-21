@@ -5,8 +5,9 @@ namespace Tests\PHPSA\Compiler\Expression\AssignOp;
 use PhpParser\Node;
 use PHPSA\CompiledExpression;
 use PHPSA\Compiler\Expression;
+use Tests\PHPSA\Compiler\Expression\AbstractBinaryOp;
 
-class ModTest extends \Tests\PHPSA\TestCase
+class ModTest extends AbstractBinaryOp
 {
     /**
      * Data provider for {var} %= {expr} with result type = int
@@ -48,34 +49,12 @@ class ModTest extends \Tests\PHPSA\TestCase
     }
 
     /**
-     * Tests {var-type::UNKNOWN} %= {right-expr}
+     * @param Node\Scalar $a
+     * @param Node\Scalar $b
+     * @return Node\Expr\AssignOp\Mod
      */
-    public function testFirstUnexpectedType()
+    protected function buildExpression($a, $b)
     {
-        $baseExpression = new Node\Expr\AssignOp\Mod(
-            $this->newFakeScalarExpr(),
-            $this->newScalarExpr(1)
-        );
-        $compiledExpression = $this->compileExpression($baseExpression);
-
-        $this->assertInstanceOfCompiledExpression($compiledExpression);
-        $this->assertSame(CompiledExpression::UNKNOWN, $compiledExpression->getType());
-        $this->assertSame(null, $compiledExpression->getValue());
-    }
-
-    /**
-     * Tests {var} %= {right-expr::UNKNOWN}
-     */
-    public function testSecondUnexpectedType()
-    {
-        $baseExpression = new Node\Expr\AssignOp\Mod(
-            $this->newScalarExpr(1),
-            $this->newFakeScalarExpr()
-        );
-        $compiledExpression = $this->compileExpression($baseExpression);
-
-        $this->assertInstanceOfCompiledExpression($compiledExpression);
-        $this->assertSame(CompiledExpression::UNKNOWN, $compiledExpression->getType());
-        $this->assertSame(null, $compiledExpression->getValue());
+        return new Node\Expr\AssignOp\Mod($a, $b);
     }
 }

@@ -5,8 +5,10 @@ namespace Tests\PHPSA\Compiler\Expression\BinaryOp;
 use PhpParser\Node;
 use PHPSA\CompiledExpression;
 use PHPSA\Compiler\Expression;
+use Tests\PHPSA\Compiler\Expression\AbstractBinaryOp;
 
-class NotEqualTest extends \Tests\PHPSA\TestCase
+
+class NotEqualTest extends AbstractBinaryOp
 {
     /**
      * @return array
@@ -88,34 +90,12 @@ class NotEqualTest extends \Tests\PHPSA\TestCase
     }
 
     /**
-     * Tests {left-expr::UNKNOWN} == {right-expr}
+     * @param Node\Scalar $a
+     * @param Node\Scalar $b
+     * @return Node\Expr\BinaryOp\NotEqual
      */
-    public function testFirstUnexpectedTypes()
+    protected function buildExpression($a, $b)
     {
-        $baseExpression = new Node\Expr\BinaryOp\NotEqual(
-            $this->newFakeScalarExpr(),
-            $this->newScalarExpr(1)
-        );
-        $compiledExpression = $this->compileExpression($baseExpression, $this->getContext());
-
-        $this->assertInstanceOfCompiledExpression($compiledExpression);
-        $this->assertSame(CompiledExpression::UNKNOWN, $compiledExpression->getType());
-        $this->assertSame(null, $compiledExpression->getValue());
-    }
-
-    /**
-     * Tests {left-expr} == {right-expr::UNKNOWN}
-     */
-    public function testSecondUnexpectedTypes()
-    {
-        $baseExpression = new Node\Expr\BinaryOp\NotEqual(
-            $this->newScalarExpr(1),
-            $this->newFakeScalarExpr()
-        );
-        $compiledExpression = $this->compileExpression($baseExpression, $this->getContext());
-
-        $this->assertInstanceOfCompiledExpression($compiledExpression);
-        $this->assertSame(CompiledExpression::UNKNOWN, $compiledExpression->getType());
-        $this->assertSame(null, $compiledExpression->getValue());
+        return new Node\Expr\BinaryOp\NotEqual($a, $b);
     }
 }
