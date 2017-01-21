@@ -5,8 +5,10 @@ namespace Tests\PHPSA\Compiler\Expression\Operators\Bitwise;
 use PhpParser\Node;
 use PHPSA\CompiledExpression;
 use PHPSA\Compiler\Expression;
+use Tests\PHPSA\Compiler\Expression\AbstractUnaryOp;
 
-class BitwiseNotTest extends \Tests\PHPSA\TestCase
+
+class BitwiseNotTest extends AbstractUnaryOp
 {
     /**
      * @return array
@@ -38,15 +40,12 @@ class BitwiseNotTest extends \Tests\PHPSA\TestCase
         $this->assertSame($b, $compiledExpression->getValue());
     }
 
-    public function testUnexpectedTypes()
+    /**
+     * @param Node\Scalar $a
+     * @return Node\Expr\BitwiseNot
+     */
+    protected function buildExpression($a)
     {
-        $baseExpression = new Node\Expr\BitwiseNot(
-            $this->newFakeScalarExpr()
-        );
-        $compiledExpression = $this->compileExpression($baseExpression);
-
-        $this->assertInstanceOfCompiledExpression($compiledExpression);
-        $this->assertSame(CompiledExpression::UNKNOWN, $compiledExpression->getType());
-        $this->assertSame(null, $compiledExpression->getValue());
+        return new Node\Expr\BitwiseNot($a);
     }
 }

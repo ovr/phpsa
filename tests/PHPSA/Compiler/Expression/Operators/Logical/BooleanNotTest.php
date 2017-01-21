@@ -5,12 +5,14 @@ namespace Tests\PHPSA\Compiler\Expression\Operators\Logical;
 use PhpParser\Node;
 use PHPSA\CompiledExpression;
 use PHPSA\Compiler\Expression;
+use Tests\PHPSA\Compiler\Expression\AbstractUnaryOp;
+
 
 /**
  * Class BooleanNotTest
  * @package Tests\PHPSA\Expression\Operators\Logical
  */
-class BooleanNotTest extends \Tests\PHPSA\TestCase
+class BooleanNotTest extends AbstractUnaryOp
 {
     /**
      * @return array
@@ -47,15 +49,12 @@ class BooleanNotTest extends \Tests\PHPSA\TestCase
         $this->assertSame($b, $compiledExpression->getValue());
     }
 
-    public function testUnexpectedType()
+    /**
+     * @param Node\Scalar $a
+     * @return Node\Expr\Cast\Bool_
+     */
+    protected function buildExpression($a)
     {
-        $baseExpression = new Node\Expr\BooleanNot(
-            $this->newFakeScalarExpr()
-        );
-        $compiledExpression = $this->compileExpression($baseExpression);
-
-        $this->assertInstanceOfCompiledExpression($compiledExpression);
-        $this->assertSame(CompiledExpression::UNKNOWN, $compiledExpression->getType());
-        $this->assertSame(null, $compiledExpression->getValue());
+        return new Node\Expr\BooleanNot($a);
     }
 }

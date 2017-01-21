@@ -5,8 +5,9 @@ namespace Tests\PHPSA\Compiler\Expression\Casts;
 use PhpParser\Node;
 use PHPSA\CompiledExpression;
 use PHPSA\Compiler\Expression;
+use Tests\PHPSA\Compiler\Expression\AbstractUnaryOp;
 
-class BoolCastTest extends \Tests\PHPSA\TestCase
+class BoolCastTest extends AbstractUnaryOp
 {
     /**
      * @return array
@@ -28,7 +29,7 @@ class BoolCastTest extends \Tests\PHPSA\TestCase
      *
      * @dataProvider getDataProvider
      */
-    public function testSimpleSuccessCompile($a, $b)
+    public function testBoolCastCompile($a, $b)
     {
         $baseExpression = new Node\Expr\Cast\Bool_(
             $this->newScalarExpr($a)
@@ -40,15 +41,12 @@ class BoolCastTest extends \Tests\PHPSA\TestCase
         $this->assertSame($b, $compiledExpression->getValue());
     }
 
-    public function testUnexpectedType()
+    /**
+     * @param Node\Scalar $a
+     * @return Node\Expr\Cast\Bool_
+     */
+    protected function buildExpression($a)
     {
-        $baseExpression = new Node\Expr\Cast\Bool_(
-            $this->newFakeScalarExpr()
-        );
-        $compiledExpression = $this->compileExpression($baseExpression);
-
-        $this->assertInstanceOfCompiledExpression($compiledExpression);
-        $this->assertSame(CompiledExpression::UNKNOWN, $compiledExpression->getType());
-        $this->assertSame(null, $compiledExpression->getValue());
+        return new Node\Expr\Cast\Bool_($a);
     }
 }

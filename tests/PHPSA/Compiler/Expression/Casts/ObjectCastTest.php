@@ -4,8 +4,9 @@ namespace Tests\PHPSA\Compiler\Expression\Casts;
 
 use PhpParser\Node;
 use PHPSA\CompiledExpression;
+use Tests\PHPSA\Compiler\Expression\AbstractUnaryOp;
 
-class ObjectCastTest extends \Tests\PHPSA\TestCase
+class ObjectCastTest extends AbstractUnaryOp
 {
     /**
      * Tests (object) {expr} = {expr}
@@ -70,7 +71,7 @@ class ObjectCastTest extends \Tests\PHPSA\TestCase
      * @param int $type
      * @param mixed $value
      */
-    public function testSuccessObjectCast($type, $value)
+    public function testObjectCastCompile($type, $value)
     {
         $baseExpression = new Node\Expr\Cast\Object_(
             $this->newFakeScalarExpr(
@@ -85,15 +86,12 @@ class ObjectCastTest extends \Tests\PHPSA\TestCase
         $this->assertEquals((object) $value, $compiledExpression->getValue());
     }
 
-    public function testUnknownType()
+    /**
+     * @param Node\Scalar $a
+     * @return Node\Expr\Cast\Object_
+     */
+    protected function buildExpression($a)
     {
-        $baseExpression = new Node\Expr\Cast\Object_(
-            $this->newFakeScalarExpr()
-        );
-        $compiledExpression = $this->compileExpression($baseExpression);
-
-        $this->assertInstanceOfCompiledExpression($compiledExpression);
-        $this->assertSame(CompiledExpression::UNKNOWN, $compiledExpression->getType());
-        $this->assertSame(null, $compiledExpression->getValue());
+        return new Node\Expr\Cast\Object_($a);
     }
 }
