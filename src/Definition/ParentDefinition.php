@@ -20,22 +20,6 @@ abstract class ParentDefinition extends AbstractDefinition
     /**
      * @return string
      */
-    public function getName()
-    {
-        return $this->name;
-    }
-
-    /**
-     * @return ScopePointer
-     */
-    public function getPointer()
-    {
-        return new ScopePointer($this);
-    }
-
-    /**
-     * @return string
-     */
     public function getNamespace()
     {
         return $this->namespace;

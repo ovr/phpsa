@@ -120,14 +120,6 @@ class FunctionDefinition extends ParentDefinition
     }
 
     /**
-     * @return string
-     */
-    public function getNamespace()
-    {
-        return $this->namespace;
-    }
-
-    /**
     * @return Node\Param[]
     */
     public function getParams()
