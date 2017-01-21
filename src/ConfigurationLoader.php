@@ -19,12 +19,11 @@ class ConfigurationLoader extends FileLoader
     public function load($resource, $type = null)
     {
         try {
-            $this->locator->locate($resource);
+            $path = $this->locator->locate($resource);
+            return Yaml::parse(file_get_contents($path));
         } catch (\InvalidArgumentException $e) {
             return [];
         }
-
-        return Yaml::parse(file_get_contents($resource));
     }
 
     /**
