@@ -10,40 +10,25 @@ use Tests\PHPSA\Compiler\Expression\AbstractBinaryOp;
 class ShiftLeftTest extends AbstractBinaryOp
 {
     /**
-     * @return array
+     * @param $a
+     * @param $b
+     * @return mixed
      */
-    public function getDataProvider()
+    protected function process($a, $b)
     {
-        return [
-            [0, 5, 0],
-            [1, 5, 32],
-            [4, 5, 128],
-            [-1, 5, -32],
-            [1.4, 5, 32],
-            [-19.7, 2, -76],
-            [true, true, 2],
-            [false, true, 0],
-            [true, false, 1],
-            [false, false, 0],
-        ];
+        return $a << $b;
     }
 
     /**
-     * Tests {var} <<= {expr}
-     *
-     * @dataProvider getDataProvider
+     * @return array
      */
-    public function testSimpleSuccessCompile($a, $b, $c)
+    protected function getSupportedTypes()
     {
-        $baseExpression = new Node\Expr\AssignOp\ShiftLeft(
-            $this->newScalarExpr($a),
-            $this->newScalarExpr($b)
-        );
-        $compiledExpression = $this->compileExpression($baseExpression);
-
-        $this->assertInstanceOfCompiledExpression($compiledExpression);
-        $this->assertSame(CompiledExpression::INTEGER, $compiledExpression->getType());
-        $this->assertSame($c, $compiledExpression->getValue());
+        return [
+            CompiledExpression::INTEGER,
+            CompiledExpression::DOUBLE,
+            CompiledExpression::BOOLEAN,
+        ];
     }
 
     /**

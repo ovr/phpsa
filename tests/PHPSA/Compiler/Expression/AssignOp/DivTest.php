@@ -10,79 +10,25 @@ use Tests\PHPSA\Compiler\Expression\AbstractBinaryOp;
 class DivTest extends AbstractBinaryOp
 {
     /**
-     * Data provider for {var} /= {expr} with result type = int
-     *
+     * @param $a
+     * @param $b
+     * @return mixed
+     */
+    protected function process($a, $b)
+    {
+        return $a / $b;
+    }
+
+    /**
      * @return array
      */
-    public function divResultIntDataProvider()
+    protected function getSupportedTypes()
     {
         return [
-            [2, 2, 1],
-            [true, 1, 1],
-            [3, true, 3],
-            [true, true, 1],
-            [2, 1, 2],
-            [-1, 1, -1],
-            [false, -3, 0],
-            [false, 1, 0],
-            [0, 1, 0],
-            [false, true, 0],
+            CompiledExpression::INTEGER,
+            CompiledExpression::DOUBLE,
+            CompiledExpression::BOOLEAN,
         ];
-    }
-
-    /**
-     * Tests {var} /= {expr} with result type = int
-     *
-     * @dataProvider divResultIntDataProvider
-     */
-    public function testDivResultInt($a, $b, $c)
-    {
-
-        $baseExpression = new Node\Expr\AssignOp\Div(
-            $this->newScalarExpr($a),
-            $this->newScalarExpr($b)
-        );
-        $compiledExpression = $this->compileExpression($baseExpression);
-
-        $this->assertInstanceOfCompiledExpression($compiledExpression);
-        $this->assertSame(CompiledExpression::INTEGER, $compiledExpression->getType());
-        $this->assertSame($c, $compiledExpression->getValue());
-    }
-
-    /**
-     * Data provider for {var} /= {expr} with result type = double
-     *
-     * @return array
-     */
-    public function divResultDoubleDataProvider()
-    {
-        return [
-            [2, 0.5, 4.0],
-            [1.5, 0.5, 3.0],
-            [true, 2, 0.5],
-            [false, -5.5, 0.0],
-            [1.5, true, 1.5],
-            [-1.5, 1, -1.5],
-        ];
-    }
-
-    /**
-     * Tests {var} /= {expr} with result type = double
-     *
-     * @dataProvider divResultDoubleDataProvider
-     */
-    public function testDivResultDouble($a, $b, $c)
-    {
-
-        $baseExpression = new Node\Expr\AssignOp\Div(
-            $this->newScalarExpr($a),
-            $this->newScalarExpr($b)
-        );
-        $compiledExpression = $this->compileExpression($baseExpression);
-
-        $this->assertInstanceOfCompiledExpression($compiledExpression);
-        $this->assertSame(CompiledExpression::DOUBLE, $compiledExpression->getType());
-        $this->assertSame($c, $compiledExpression->getValue());
     }
 
     /**

@@ -27,9 +27,4 @@ class DivTest extends AbstractDivMod
     {
         return new Node\Expr\BinaryOp\Div($a, $b);
     }
-
-    protected function getAssertType()
-    {
-        return CompiledExpression::DOUBLE;
-    }
 }

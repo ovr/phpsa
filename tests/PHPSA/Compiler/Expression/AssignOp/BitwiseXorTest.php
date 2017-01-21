@@ -10,40 +10,25 @@ use Tests\PHPSA\Compiler\Expression\AbstractBinaryOp;
 class BitwiseXorTest extends AbstractBinaryOp
 {
     /**
-     * @return array
+     * @param $a
+     * @param $b
+     * @return integer
      */
-    public function getDataProvider()
+    protected function process($a, $b)
     {
-        return [
-            [0, 5, 5],
-            [1, 5, 4],
-            [4, 5, 1],
-            [-1, 5, -6],
-            [1.4, 5, 4],
-            [-19.7, 1, -20],
-            [true, true, 0],
-            [false, true, 1],
-            [true, false, 1],
-            [false, false, 0],
-        ];
+        return $a ^ $b;
     }
 
     /**
-     * Tests {var} ^= {expr}
-     *
-     * @dataProvider getDataProvider
+     * @return array
      */
-    public function testSimpleSuccessCompile($a, $b, $c)
+    protected function getSupportedTypes()
     {
-        $baseExpression = new Node\Expr\AssignOp\BitwiseXor(
-            $this->newScalarExpr($a),
-            $this->newScalarExpr($b)
-        );
-        $compiledExpression = $this->compileExpression($baseExpression);
-
-        $this->assertInstanceOfCompiledExpression($compiledExpression);
-        $this->assertSame(CompiledExpression::INTEGER, $compiledExpression->getType());
-        $this->assertSame($c, $compiledExpression->getValue());
+        return [
+            CompiledExpression::INTEGER,
+            CompiledExpression::DOUBLE,
+            CompiledExpression::BOOLEAN,
+        ];
     }
 
     /**

@@ -10,42 +10,25 @@ use Tests\PHPSA\Compiler\Expression\AbstractBinaryOp;
 class ModTest extends AbstractBinaryOp
 {
     /**
-     * Data provider for {var} %= {expr} with result type = int
-     *
-     * @return array
+     * @param $a
+     * @param $b
+     * @return mixed
      */
-    public function modDataProvider()
+    protected function process($a, $b)
     {
-        return [
-            [2, 2, 0],
-            [true, 2, 1],
-            [3, true, 0],
-            [true, true, 0],
-            [-1, 1, 0],
-            [false, 3, 0],
-            [false, true, 0],
-            [0, 1, 0],
-            [1, -1, 0],
-        ];
+        return $a % $b;
     }
 
     /**
-     * Tests {var} %= {expr} with result type = int
-     *
-     * @dataProvider modDataProvider
+     * @return array
      */
-    public function testModResultInt($a, $b, $c)
+    protected function getSupportedTypes()
     {
-
-        $baseExpression = new Node\Expr\AssignOp\Mod(
-            $this->newScalarExpr($a),
-            $this->newScalarExpr($b)
-        );
-        $compiledExpression = $this->compileExpression($baseExpression);
-
-        $this->assertInstanceOfCompiledExpression($compiledExpression);
-        $this->assertSame(CompiledExpression::INTEGER, $compiledExpression->getType());
-        $this->assertSame($c, $compiledExpression->getValue());
+        return [
+            CompiledExpression::INTEGER,
+            CompiledExpression::DOUBLE,
+            CompiledExpression::BOOLEAN,
+        ];
     }
 
     /**

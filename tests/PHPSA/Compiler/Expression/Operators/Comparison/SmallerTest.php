@@ -29,7 +29,7 @@ class SmallerTest extends BaseTestCase
      * @param $b
      * @return bool
      */
-    protected function operator($a, $b)
+    protected function process($a, $b)
     {
         return $a < $b;
     }

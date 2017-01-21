@@ -16,6 +16,49 @@ abstract class AbstractBinaryOp extends \Tests\PHPSA\TestCase
     abstract protected function buildExpression($a, $b);
 
     /**
+     * @param $a
+     * @param $b
+     * @return mixed
+     */
+    abstract protected function process($a, $b);
+
+    /**
+     * @return array
+     */
+    abstract protected function getSupportedTypes();
+
+    /**
+     * Data provider for tests
+     */
+    public $data = [
+            CompiledExpression::INTEGER => 6,
+            CompiledExpression::DOUBLE => 2.5,
+            CompiledExpression::STRING => "test",
+            CompiledExpression::BOOLEAN => true,
+            CompiledExpression::NULL => null,
+        ];
+
+    /**
+     * Tests {left-expr} $operator {right-expr}
+     */
+    public function testOperatorCompile()
+    {
+        foreach ($this->getSupportedTypes() as $type1) {
+            foreach ($this->getSupportedTypes() as $type2) {
+                $baseExpression = $this->buildExpression(
+                    $this->newScalarExpr($this->data[$type1]),
+                    $this->newScalarExpr($this->data[$type2])
+                );
+                $compiledExpression = $this->compileExpression($baseExpression);
+
+                $this->assertInstanceOfCompiledExpression($compiledExpression);
+                //$this->assertSame($this->getExpressionType($a, $b), $compiledExpression->getType());
+                $this->assertSame($this->process($this->data[$type1], $this->data[$type2]), $compiledExpression->getValue());
+            }
+        }
+    }
+
+    /**
      * Tests {left-expr::UNKNOWN} $operator {right-expr}
      */
     public function testFirstArgUnexpectedType()

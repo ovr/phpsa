@@ -10,45 +10,26 @@ use Tests\PHPSA\Compiler\Expression\AbstractBinaryOp;
 class ConcatTest extends AbstractBinaryOp
 {
     /**
-     * Data provider for {var} .= {expr} with result type = string
-     *
-     * @return array
+     * @param $a
+     * @param $b
+     * @return string
      */
-    public function concatDataProvider()
+    protected function process($a, $b)
     {
-        return [
-            [2, 2, "22"],
-            [true, "a", "1a"],
-            ["a", true, "a1"],
-            [true, true, "11"],
-            [-1, 1, "-11"],
-            [false, 3, "3"], // 0 at beginning is dropped
-            [false, true, "1"],
-            [0, -1, "0-1"],
-            [1.5, -1, "1.5-1"],
-            [true, -0.5, "1-0.5"],
-            [false, false, ""],
-            [true, false, "1"],
-        ];
+        return $a . $b;
     }
 
     /**
-     * Tests {var} .= {expr} with result type = string
-     *
-     * @dataProvider concatDataProvider
+     * @return array
      */
-    public function testConcatResultString($a, $b, $c)
+    protected function getSupportedTypes()
     {
-
-        $baseExpression = new Node\Expr\AssignOp\Concat(
-            $this->newScalarExpr($a),
-            $this->newScalarExpr($b)
-        );
-        $compiledExpression = $this->compileExpression($baseExpression);
-
-        $this->assertInstanceOfCompiledExpression($compiledExpression);
-        $this->assertSame(CompiledExpression::STRING, $compiledExpression->getType());
-        $this->assertSame($c, $compiledExpression->getValue());
+        return [
+            CompiledExpression::INTEGER,
+            CompiledExpression::DOUBLE,
+            CompiledExpression::STRING,
+            CompiledExpression::BOOLEAN,
+        ];
     }
 
     /**

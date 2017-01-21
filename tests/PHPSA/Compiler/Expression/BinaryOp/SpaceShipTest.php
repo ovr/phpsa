@@ -46,6 +46,26 @@ class SpaceShipTest extends AbstractBinaryOp
     }
 
     /**
+     * @param $a
+     * @param $b
+     * @return bool
+     */
+    protected function process($a, $b)
+    {
+        return 0; //currently no spaceship support so we just return 0
+    }
+
+    /**
+     * @return array
+     */
+    protected function getSupportedTypes()
+    {
+        return [
+            CompiledExpression::INTEGER,
+        ];
+    }
+
+    /**
      * @param Node\Scalar $a
      * @param Node\Scalar $b
      * @return Node\Expr\BinaryOp\Spaceship

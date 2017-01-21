@@ -10,40 +10,25 @@ use Tests\PHPSA\Compiler\Expression\AbstractBinaryOp;
 class BitwiseOrTest extends AbstractBinaryOp
 {
     /**
-     * @return array
+     * @param $a
+     * @param $b
+     * @return integer
      */
-    public function getDataProvider()
+    protected function process($a, $b)
     {
-        return [
-            [0, 5, 5],
-            [1, 5, 5],
-            [4, 5, 5],
-            [-1, 5, -1],
-            [1.4, 5, 5],
-            [-19.7, 1, -19],
-            [true, true, 1],
-            [false, true, 1],
-            [true, false, 1],
-            [false, false, 0],
-        ];
+        return $a | $b;
     }
 
     /**
-     * Tests {var} |= {expr}
-     *
-     * @dataProvider getDataProvider
+     * @return array
      */
-    public function testSimpleSuccessCompile($a, $b, $c)
+    protected function getSupportedTypes()
     {
-        $baseExpression = new Node\Expr\AssignOp\BitwiseOr(
-            $this->newScalarExpr($a),
-            $this->newScalarExpr($b)
-        );
-        $compiledExpression = $this->compileExpression($baseExpression);
-
-        $this->assertInstanceOfCompiledExpression($compiledExpression);
-        $this->assertSame(CompiledExpression::INTEGER, $compiledExpression->getType());
-        $this->assertSame($c, $compiledExpression->getValue());
+        return [
+            CompiledExpression::INTEGER,
+            CompiledExpression::DOUBLE,
+            CompiledExpression::BOOLEAN,
+        ];
     }
 
     /**

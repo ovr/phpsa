@@ -10,46 +10,27 @@ use Tests\PHPSA\Compiler\Expression\AbstractBinaryOp;
 class LogicalXorTest extends AbstractBinaryOp
 {
     /**
-     * @return array
+     * @param $a
+     * @param $b
+     * @return bool
      */
-    public function getDataProvider()
+    protected function process($a, $b)
     {
-        return [
-            [true, true, false],
-            [true, false, true],
-            [false, true, true],
-            [false, false, false],
-            [null, false, false],
-            [false, null, false],
-            [null, null, false],
-            [true, null, true],
-            [null, true, true],
-            [1, true, false],
-            [1.4, false, true],
-            [1, false, true],
-            [-1, false, true],
-            ["a", false, true],
-            [[], [], false],
-            [[], "a", true],
-        ];
+        return $a xor $b;
     }
 
     /**
-     * Tests {expr} xor {expr} = {expr}
-     *
-     * @dataProvider getDataProvider
+     * @return array
      */
-    public function testSimpleSuccessCompile($a, $b, $c)
+    protected function getSupportedTypes()
     {
-        $baseExpression = new Node\Expr\BinaryOp\LogicalXor(
-            $this->newScalarExpr($a),
-            $this->newScalarExpr($b)
-        );
-        $compiledExpression = $this->compileExpression($baseExpression);
-
-        $this->assertInstanceOfCompiledExpression($compiledExpression);
-        $this->assertSame(CompiledExpression::BOOLEAN, $compiledExpression->getType());
-        $this->assertSame($c, $compiledExpression->getValue());
+        return [
+            CompiledExpression::INTEGER,
+            CompiledExpression::DOUBLE,
+            CompiledExpression::STRING,
+            CompiledExpression::BOOLEAN,
+            CompiledExpression::NULL,
+        ];
     }
 
     /**

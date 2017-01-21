@@ -10,44 +10,27 @@ use Tests\PHPSA\Compiler\Expression\AbstractBinaryOp;
 class BooleanAndTest extends AbstractBinaryOp
 {
     /**
-     * @return array
+     * @param $a
+     * @param $b
+     * @return bool
      */
-    public function getDataProvider()
+    protected function process($a, $b)
     {
-        return [
-            [true, true, true],
-            [false, true, false],
-            [true, false, false],
-            [false, false, false],
-            [null, null, false],
-            [true, null, false],
-            [null, true, false],
-            [1, true, true],
-            [1.4, true, true],
-            [1, false, false],
-            [-1, true, true],
-            ["a", true, true],
-            [[], [], false],
-            [[], "a", false],
-        ];
+        return $a && $b;
     }
 
     /**
-     * Tests {expr} && {expr} = {expr}
-     *
-     * @dataProvider getDataProvider
+     * @return array
      */
-    public function testSimpleSuccessCompile($a, $b, $c)
+    protected function getSupportedTypes()
     {
-        $baseExpression = new Node\Expr\BinaryOp\BooleanAnd(
-            $this->newScalarExpr($a),
-            $this->newScalarExpr($b)
-        );
-        $compiledExpression = $this->compileExpression($baseExpression);
-
-        $this->assertInstanceOfCompiledExpression($compiledExpression);
-        $this->assertSame(CompiledExpression::BOOLEAN, $compiledExpression->getType());
-        $this->assertSame($c, $compiledExpression->getValue());
+        return [
+            CompiledExpression::INTEGER,
+            CompiledExpression::DOUBLE,
+            CompiledExpression::STRING,
+            CompiledExpression::BOOLEAN,
+            CompiledExpression::NULL,
+        ];
     }
 
     /**
