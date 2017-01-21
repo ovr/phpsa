@@ -7,7 +7,6 @@ use PHPSA\CompiledExpression;
 use PHPSA\Compiler\Expression;
 use Tests\PHPSA\Compiler\Expression\AbstractUnaryOp;
 
-
 /**
  * Class BooleanNotTest
  * @package Tests\PHPSA\Expression\Operators\Logical

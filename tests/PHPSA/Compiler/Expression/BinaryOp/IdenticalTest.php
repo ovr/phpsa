@@ -7,7 +7,6 @@ use PHPSA\CompiledExpression;
 use PHPSA\Compiler\Expression;
 use Tests\PHPSA\Compiler\Expression\AbstractBinaryOp;
 
-
 /**
  * Class IndenticalTest
  * @package Tests\PHPSA\Expression\BinaryOp
