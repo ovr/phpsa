@@ -11,6 +11,7 @@ use PHPSA\Compiler\Parameter;
 use PHPSA\Compiler\Types;
 use PhpParser\Node;
 use PHPSA\Compiler\Event;
+use PHPSA\ControlFlow\ControlFlowGraph;
 
 /**
  * Function Definition
@@ -62,6 +63,10 @@ class FunctionDefinition extends ParentDefinition
         if ($this->compiled) {
             return true;
         }
+
+        $this->cfg = new ControlFlowGraph(
+            $this->statement
+        );
 
         $context->setFilepath($this->filepath);
         $this->compiled = true;
