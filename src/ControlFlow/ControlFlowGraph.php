@@ -113,10 +113,14 @@ class ControlFlowGraph
      */
     protected function createNewBlockIfNeeded(Block $block)
     {
-        if ($block->getChildren()) {
-            $block->setExit(
-                $block = new Block($this->lastBlockId++)
+        if (!$block->getChildren()) {
+            $next = new Block($this->lastBlockId++);
+
+            $next->setExit(
+                $block
             );
+
+            return $next;
         }
 
         return $block;
