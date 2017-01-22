@@ -1,3 +1,4 @@
+
 # Analyzers
 This doc gives an overview about what the different analyzers do.
 
@@ -56,6 +57,10 @@ Discourages the use of `exit()` and `die()`.
 #### nested_ternary
 
 Discourages the use of nested ternaries.
+
+#### assign_ref_new
+
+Protection of usage & and new.
 
 #### array_short_definition
 
