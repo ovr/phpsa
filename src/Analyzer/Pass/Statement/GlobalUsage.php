@@ -27,6 +27,7 @@ class GlobalUsage implements Pass\AnalyzerPassInterface
             'Do not use globals',
             $stmt
         );
+
         return true;
     }
 

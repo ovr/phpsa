@@ -1,3 +1,4 @@
+
 phpsa:
     blame:                false
 
@@ -64,6 +65,10 @@ phpsa:
 
         # Discourages the use of nested ternaries.
         nested_ternary:
+            enabled:              true
+
+        # Protection of usage & and new.
+        assign_ref_new:
             enabled:              true
 
         # Recommends the use of [] short syntax for arrays.
