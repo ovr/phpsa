@@ -158,6 +158,7 @@ class Factory
             AnalyzerPass\Expression\LogicInversion::class,
             AnalyzerPass\Expression\ExitUsage::class,
             AnalyzerPass\Expression\NestedTernary::class,
+            AnalyzerPass\Expression\AssignRefNew::class,
             // Arrays
             AnalyzerPass\Expression\ArrayShortDefinition::class,
             AnalyzerPass\Expression\ArrayDuplicateKeys::class,
