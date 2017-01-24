@@ -34,7 +34,7 @@ This is not that hard, you only have to create a new file in tests/analyze-fixtu
 
 At the top of your test you write a class/function/trait/interface with an example of what your analyzer should notice and one where it should not notice anything (if there is a reasonable case for this)
 
-Now you split that file by: `----------------------------` (it has to be exactly this long) and below it add a JSON with all the notices of one type (the one of your analyzer) that should occur when checking the file at the top. (Look at existing ones)
+Now you split that file by: `----------------------------` (it has to be exactly this long) and put the name of the analyzer you want to test here. Now split again with the line and add a JSON below with all notices of one type (the one of your analyzer) that should occur when checking the file at the top. (Look at existing ones)
 
 You can run the tests by typing `make ci` in the project root directory. This will automatically run all tests Travis runs.
 
