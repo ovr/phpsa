@@ -10,7 +10,7 @@ class ArrayDimFetch extends AbstractExpressionCompiler
     protected $name = 'PhpParser\Node\Expr\ArrayDimFetch';
 
     /**
-     * $array[1], $array[$var], $array["string"]
+     * $array[1], $array[$var], $array["string"], "string"[1]
      *
      * @param \PhpParser\Node\Expr\ArrayDimFetch $expr
      * @param Context $context
@@ -23,7 +23,7 @@ class ArrayDimFetch extends AbstractExpressionCompiler
         $var = $compiler->compile($expr->var);
         $dim = $compiler->compile($expr->dim);
 
-        if (!$var->isArray()) {
+        if (!$var->isArray() && !$var->isString()) {
             $context->notice(
                 'language_error',
                 "It's not possible to fetch an array element on a non array",
@@ -34,7 +34,7 @@ class ArrayDimFetch extends AbstractExpressionCompiler
         }
 
         // When we know type, but no value
-        if (!$var->isCorrectValue()) {
+        if (!$var->isCorrectValue() || $var->isString()) {
             return new CompiledExpression();
         }
 
