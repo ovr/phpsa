@@ -204,7 +204,7 @@ class Context
         $filepath = $this->filepath;
         $code = file($filepath);
 
-        $this->output->writeln('<comment>Notice:  ' . $message . " in {$filepath} on {$expr->getLine()} [{$type}]</comment>");
+        $this->output->writeln('<comment>Notice:  ' . $message . " in {$filepath} on line {$expr->getLine()} [{$type}]</comment>");
         $this->output->writeln('');
 
         if ($this->application->getConfiguration()->valueIsTrue('blame')) {
