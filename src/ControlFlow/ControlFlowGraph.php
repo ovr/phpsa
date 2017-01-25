@@ -6,6 +6,7 @@
 namespace PHPSA\ControlFlow;
 
 use PhpParser\Node\Stmt\Function_;
+use PHPSA\Context;
 use PHPSA\ControlFlow\Node;
 
 class ControlFlowGraph
@@ -33,10 +34,16 @@ class ControlFlowGraph
     protected $unresolvedGotos;
 
     /**
+     * @var Context
+     */
+    protected $context;
+
+    /**
      * @param $statement
      */
-    public function __construct($statement)
+    public function __construct($statement, Context $context)
     {
+        $this->context = $context;
         $this->root = new Block($this->lastBlockId++);
 
         if ($statement instanceof Function_) {
@@ -161,7 +168,7 @@ class ControlFlowGraph
                 return new Node\Expr\InstanceOfExpr();
 
             default:
-                echo 'Unimplemented ' . get_class($expr) . PHP_EOL;
+                $this->context->debug('[CFG] Unimplemented ' . get_class($expr), $expr);
         }
 
         return new Node\UnknownNode();

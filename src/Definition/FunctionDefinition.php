@@ -65,7 +65,8 @@ class FunctionDefinition extends ParentDefinition
         }
 
         $this->cfg = new ControlFlowGraph(
-            $this->statement
+            $this->statement,
+            $context
         );
 
         $context->setFilepath($this->filepath);
