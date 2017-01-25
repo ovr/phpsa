@@ -21,19 +21,11 @@ class Coalesce extends AbstractExpressionCompiler
      */
     protected function compile($expr, Context $context)
     {
-        if ($expr->left instanceof Variable) {
-            $variable = $context->getSymbol((string)$expr->left->name);
+        $expressionCompiler = $context->getExpressionCompiler();
 
-            if ($variable) {
-                $variable->incUse();
+        $expressionCompiler->compile($expr->left);
+        $expressionCompiler->compile($expr->right);
 
-                if ($variable->getValue() !== null) {
-                    $leftCompiled = $context->getExpressionCompiler()->compile($expr->left);
-                    return CompiledExpression::fromZvalValue($leftCompiled->getValue());
-                }
-            }
-        }
-        $rightCompiled = $context->getExpressionCompiler()->compile($expr->right);
-        return CompiledExpression::fromZvalValue($rightCompiled->getValue());
+        return new CompiledExpression();
     }
 }
