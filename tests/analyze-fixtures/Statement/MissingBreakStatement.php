@@ -135,6 +135,38 @@ class MissingBreakStatement
 
         return $value;
     }
+
+    /**
+     * @return string
+     */
+    public function testValidSwitchWithComments()
+    {
+        switch (30) {
+            case 1: //< 001 comment
+            case 2:
+                $value = 'bar';
+                break;
+            // 002 comment
+            case 3:
+                {
+                    $value = 'baz';
+                    break;
+                }
+
+            /**
+             * 003 comment
+             */
+
+            case 4:
+            /*
+             * 004 comment
+             */
+            case 5:
+                $value = 'foo';
+        }
+
+        return $value;
+    }
 }
 ?>
 ----------------------------

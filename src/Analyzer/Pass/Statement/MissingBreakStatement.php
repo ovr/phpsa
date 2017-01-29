@@ -65,23 +65,30 @@ class MissingBreakStatement implements Pass\AnalyzerPassInterface
          *         return 'the truth, or almost.';
          * }
          */
-        $stmtsCount = count($case->stmts);
-        if ($stmtsCount === 0) {
+        if ($case->stmts === null) {
             return false;
         }
 
-        $last = $case->stmts[$stmtsCount - 1];
-        if ($last instanceof Stmt\Break_ || $last instanceof Stmt\Return_
-        || $last instanceof Stmt\Throw_ || $last instanceof Stmt\Continue_) {
-            return false;
+        $stmt = end($case->stmts);
+        while ($stmt !== false) {
+            if ($stmt instanceof Stmt\Break_ || $stmt instanceof Stmt\Return_
+            || $stmt instanceof Stmt\Throw_ || $stmt instanceof Stmt\Continue_) {
+                break;
+            }
+
+            if (!$stmt instanceof Stmt\Nop) {
+                $context->notice(
+                    'missing_break_statement',
+                    'Missing "break" statement',
+                    $case
+                );
+
+                return true;
+            }
+
+            $stmt = prev($case->stmts);
         }
 
-        $context->notice(
-            'missing_break_statement',
-            'Missing "break" statement',
-            $case
-        );
-
-        return true;
+        return false;
     }
 }
