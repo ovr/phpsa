@@ -8,6 +8,11 @@ php:
   - hhvm
 #  - hhvm-nightly - not supported now
 
+matrix:
+    fast_finish: false
+    allow_failures:
+        - php: nightly
+        
 sudo: false
 
 # Disabled via unexpected fail on TravisCI
