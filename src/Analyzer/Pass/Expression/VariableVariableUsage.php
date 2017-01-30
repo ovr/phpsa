@@ -86,7 +86,7 @@ class VariableVariableUsage implements Pass\AnalyzerPassInterface
         // $array[] = …
         if ($expr->var instanceof Expr\Variable) {
             $result = $this->analyzeVar($expr->var, $context);
-        } else if ($expr->var instanceof Expr\PropertyFetch) {
+        } elseif ($expr->var instanceof Expr\PropertyFetch) {
             // $this->array[] = …
             $result = $this->analyzePropertyFetch($expr->var, $context);
         }

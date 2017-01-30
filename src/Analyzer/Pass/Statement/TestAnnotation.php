@@ -53,6 +53,7 @@ class TestAnnotation implements AnalyzerPassInterface
                 return true;
             }
         }
+
         return false;
     }
 

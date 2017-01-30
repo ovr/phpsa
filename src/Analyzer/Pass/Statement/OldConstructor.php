@@ -24,6 +24,7 @@ class OldConstructor implements AnalyzerPassInterface
             if (!($statement instanceof Stmt\ClassMethod) || $statement->name !== $classStmt->name) {
                 continue;
             }
+
             $context->notice(
                 'deprecated.constructor',
                 sprintf('Class %s uses a PHP4 constructor.', $classStmt->name),

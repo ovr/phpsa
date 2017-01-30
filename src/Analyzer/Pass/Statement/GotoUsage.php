@@ -38,6 +38,7 @@ class GotoUsage implements Pass\AnalyzerPassInterface
             );
             return true;
         }
+
         return false;
     }
 
