@@ -7,5 +7,4 @@ namespace PHPSA\ControlFlow\Node\Expr\BinaryOp;
 
 class Equal extends AbstractBinaryOp
 {
-
 }

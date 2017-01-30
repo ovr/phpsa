@@ -14,7 +14,7 @@ class RegularExpressions extends AbstractFunctionCallAnalyzer
 {
     const DESCRIPTION = 'Checks that regular expressions are syntactically correct.';
 
-    static public $map = [
+    public static $map = [
         'preg_filter' => 0,
         'preg_grep' => 0,
         'preg_match_all' => 0,
