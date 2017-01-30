@@ -25,6 +25,7 @@ class UnsafeUnserialize extends AbstractFunctionCallAnalyzer
             );
             return true;
         }
+
         return false;
     }
 

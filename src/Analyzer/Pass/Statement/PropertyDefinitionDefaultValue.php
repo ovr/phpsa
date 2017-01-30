@@ -35,6 +35,7 @@ class PropertyDefinitionDefaultValue implements Pass\AnalyzerPassInterface
                 return true;
             }
         }
+
         return false;
     }
 

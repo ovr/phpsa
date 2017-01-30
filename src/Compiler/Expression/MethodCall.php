@@ -61,6 +61,7 @@ class MethodCall extends AbstractExpressionCompiler
                     return $method->run(clone $context, $compiledArguments);
                 }
             }
+
             return new CompiledExpression();
         } else {
             $context->notice(

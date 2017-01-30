@@ -29,6 +29,7 @@ class OptionalParamBeforeRequired implements Pass\AnalyzerPassInterface
                 $context->notice('optional-param-before-required', 'Optional parameter before required one is always required.', $func);
                 return true;
             }
+
             $prevIsOptional = $param->default !== null;
         }
 

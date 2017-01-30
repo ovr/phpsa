@@ -31,6 +31,7 @@ class Assign extends AbstractExpressionCompiler
                 if ($var === null) {
                     continue;
                 }
+
                 if (!$var->value instanceof Node\Expr\Variable) {
                     continue;
                 }
