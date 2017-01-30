@@ -13,5 +13,4 @@ namespace PHPSA\Exception;
  */
 class NotImplementedException extends RuntimeException
 {
-
 }

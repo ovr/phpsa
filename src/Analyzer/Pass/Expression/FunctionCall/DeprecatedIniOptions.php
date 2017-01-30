@@ -12,14 +12,14 @@ class DeprecatedIniOptions extends AbstractFunctionCallAnalyzer
 {
     const DESCRIPTION = 'Checks for use of deprecated php.ini options and gives alternatives if available.';
 
-    static protected $functions = [
+    protected static $functions = [
         'ini_set' => 'ini_set',
         'ini_get' => 'ini_get',
         'ini_alter' => 'ini_alter',
         'ini_restore' => 'ini_restore'
     ];
 
-    static protected $deprecatedOptions = [
+    protected static $deprecatedOptions = [
         'asp_tags' => 'is a deprecated option since PHP 7.0.0',
         'always_populate_raw_post_data' => 'is a deprecated option since PHP 7.0.0',
         //

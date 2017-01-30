@@ -12,5 +12,4 @@ use PHPSA\Exception;
  */
 class RuntimeException extends Exception
 {
-
 }

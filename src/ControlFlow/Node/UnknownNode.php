@@ -7,5 +7,4 @@ namespace PHPSA\ControlFlow\Node;
 
 class UnknownNode extends AbstractNode
 {
-
 }

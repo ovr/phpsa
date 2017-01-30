@@ -7,5 +7,4 @@ namespace PHPSA\ControlFlow\Node;
 
 class AssignNode extends AbstractNode
 {
-
 }
