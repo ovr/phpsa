@@ -106,7 +106,7 @@ class ControlFlowGraph
                     // ignore commented code
                     break;
                 default:
-                    echo 'Unimplemented ' . get_class($stmt) . PHP_EOL;
+                    $this->context->debug('[CFG] Unimplemented ' . get_class($stmt), $stmt);
                     break;
             }
         }
