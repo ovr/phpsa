@@ -54,10 +54,10 @@ class DefinitionVisitor extends NodeVisitorAbstract
         $definition = new TraitDefinition($statement->name, $statement);
         $definition->setFilepath($this->filepath);
 
-        if (isset($statement->namespacedName)) {
-            /** @var \PhpParser\Node\Name $namespacedName */
-            $namespacedName = $statement->namespacedName;
-            $definition->setNamespace($namespacedName->toString());
+        if (isset($statement->namespace)) {
+            /** @var \PhpParser\Node\Name $namespace */
+            $namespace = $statement->namespace;
+            $definition->setNamespace($namespace->toString());
         }
 
         $definition->precompile();
@@ -72,10 +72,10 @@ class DefinitionVisitor extends NodeVisitorAbstract
         $definition = new FunctionDefinition($statement->name, $statement);
         $definition->setFilepath($this->filepath);
 
-        if (isset($statement->namespacedName)) {
-            /** @var \PhpParser\Node\Name $namespacedName */
-            $namespacedName = $statement->namespacedName;
-            $definition->setNamespace($namespacedName->toString());
+        if (isset($statement->namespace)) {
+            /** @var \PhpParser\Node\Name $namespace */
+            $namespace = $statement->namespace;
+            $definition->setNamespace($namespace->toString());
         }
 
         $this->compiler->addFunction($definition);
@@ -89,10 +89,10 @@ class DefinitionVisitor extends NodeVisitorAbstract
         $definition = new ClassDefinition($statement->name, $statement, $statement->flags);
         $definition->setFilepath($this->filepath);
 
-        if (isset($statement->namespacedName)) {
-            /** @var \PhpParser\Node\Name $namespacedName */
-            $namespacedName = $statement->namespacedName;
-            $definition->setNamespace($namespacedName->toString());
+        if (isset($statement->namespace)) {
+            /** @var \PhpParser\Node\Name $namespace */
+            $namespace = $statement->namespace;
+            $definition->setNamespace($namespace->toString());
         }
 
         if ($statement->extends) {
@@ -115,6 +115,10 @@ class DefinitionVisitor extends NodeVisitorAbstract
             } elseif ($stmt instanceof Node\Stmt\TraitUse) {
                 foreach ($stmt->traits as $traitPart) {
                     $traitDefinition = $this->compiler->getTrait($traitPart->toString());
+                    if (!$traitDefinition && $definition->getNamespace()) {
+                        $traitDefinition = $this->compiler->getTrait($definition->getNamespace() . '\\' . $traitPart);
+                    }
+
                     if ($traitDefinition) {
                         $definition->mergeTrait($traitDefinition, $stmt->adaptations);
                     }

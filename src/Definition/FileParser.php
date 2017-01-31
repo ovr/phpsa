@@ -38,7 +38,7 @@ class FileParser
     public function __construct(\PhpParser\Parser $parser, Compiler $compiler)
     {
         $this->nodeTraverser = new \PhpParser\NodeTraverser();
-        $this->nodeTraverser->addVisitor(new \PhpParser\NodeVisitor\NameResolver);
+        $this->nodeTraverser->addVisitor(new \PHPSA\Compiler\NameResolveVisitor);
         $this->nodeTraverser->addVisitor(
             $this->definitionVisitor = new \PHPSA\Compiler\DefinitionVisitor($compiler)
         );
