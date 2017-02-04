@@ -1,6 +1,6 @@
 
 cs:
-	./vendor/bin/phpcs --standard=PSR2 --report=emacs --extensions=php --warning-severity=0 src/ tests/PHPSA/
+	./vendor/bin/phpcs --report=emacs
 
 check-src:
 	./bin/phpsa check -vvv ./src
