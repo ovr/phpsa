@@ -188,6 +188,7 @@ class NameResolveVisitor extends NodeVisitorAbstract
                 $param->type = $this->resolveClassName($param->type);
             }
         }
+        
         if ($node->returnType instanceof Name) {
             $node->returnType = $this->resolveClassName($node->returnType);
         }
