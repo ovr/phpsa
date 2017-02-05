@@ -19,37 +19,38 @@ class ArrayDimFetch extends AbstractExpressionCompiler
     protected function compile($expr, Context $context)
     {
         $compiler = $context->getExpressionCompiler();
-
         $var = $compiler->compile($expr->var);
         $dim = $compiler->compile($expr->dim);
 
-        if (!$var->isArray() && !$var->isString()) {
-            $context->notice(
-                'language_error',
-                "It's not possible to fetch an array element on a non array",
-                $expr
-            );
-            
+        if ($var->getType() === CompiledExpression::UNIMPLEMENTED
+         || $dim->getType() === CompiledExpression::UNIMPLEMENTED
+        ) {
+            return new CompiledExpression(CompiledExpression::UNIMPLEMENTED);
+        }
+
+        if (!$var->isTypeKnown() || !$dim->isTypeKnown()
+         || !$var->isCorrectValue() || !$dim->isCorrectValue()
+        ) {
             return new CompiledExpression();
         }
 
-        // When we know type, but no value
-        if (!$var->isCorrectValue() || $var->isString()) {
-            return new CompiledExpression();
-        }
-
-        if (!in_array($dim->getValue(), $var->getValue())) {
-            $context->notice(
-                'language_error',
-                "The array does not contain this value",
-                $expr
-            );
-
-            return new CompiledExpression();
+        switch ($var->getType()) {
+            case CompiledExpression::STRING:
+            case CompiledExpression::ARR:
+                if ($dim->isArray()) {
+                    $context->notice(
+                        'language_error',
+                        'Illegal offset type',
+                        $expr
+                    );
+                    return new CompiledExpression();
+                }
+                break;
+            default:
+                break;
         }
 
         $resultArray = $var->getValue();
-
         return CompiledExpression::fromZvalValue($resultArray[$dim->getValue()]);
     }
 }
