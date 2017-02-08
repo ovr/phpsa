@@ -98,14 +98,27 @@ class ClosureDefinition extends ParentDefinition
             $context->addVariable($variable);
         }
 
-        if ($context->scopePointer && $context->scopePointer->isClassMethod()) {
-            /** @var \PHPSA\Definition\ClassMethod $method */
-            $method = $context->scopePointer->getObject();
+        if ($context->scopePointer) {
+            if ($context->scopePointer->isClassMethod()) {
+                /** @var \PHPSA\Definition\ClassMethod $method */
+                $method = $context->scopePointer->getObject();
 
-            if (!$method->isStatic()) {
-                $thisPtr = new Variable('this', $this, CompiledExpression::OBJECT);
-                $thisPtr->incGets();
-                $context->addVariable($thisPtr);
+                if (!$method->isStatic()) {
+                    $thisPtr = new Variable('this', $this, CompiledExpression::OBJECT);
+                    $thisPtr->incGets();
+
+                    $this->symbolTable->add($thisPtr);
+                    $context->addVariable($thisPtr);
+                }
+            } elseif ($context->scopePointer->isClosure()) {
+                /** @var \PHPSA\Definition\ClosureDefinition $closure */
+                $closure = $context->scopePointer->getObject();
+
+                $thisPtr = $closure->getSymbolTable()->get('this');
+                if ($thisPtr) {
+                    $thisPtr->incGets();
+                    $context->addVariable($thisPtr);
+                }
             }
         }
 
@@ -178,5 +191,13 @@ class ClosureDefinition extends ParentDefinition
     public function getNamespace()
     {
         return $this->namespace;
+    }
+
+    /**
+     * @return SymbolTable
+     */
+    public function getSymbolTable()
+    {
+        return $this->symbolTable;
     }
 }

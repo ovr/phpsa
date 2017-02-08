@@ -6,6 +6,7 @@
 namespace PHPSA;
 
 use PHPSA\Definition\ClassMethod;
+use PHPSA\Definition\ClosureDefinition;
 use PHPSA\Definition\FunctionDefinition;
 
 /**
@@ -36,6 +37,16 @@ class ScopePointer
     public function isClassMethod()
     {
         return $this->object instanceof ClassMethod;
+    }
+
+    /**
+     * Is the object a closure?
+     *
+     * @return bool
+     */
+    public function isClosure()
+    {
+        return $this->object instanceof ClosureDefinition;
     }
 
     /**
