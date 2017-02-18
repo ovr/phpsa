@@ -12,12 +12,12 @@ abstract class AbstractUnaryOp extends \Tests\PHPSA\TestCase
      * Data provider for tests
      */
     public $data = [
-            CompiledExpression::INTEGER => 6,
-            CompiledExpression::DOUBLE => 2.5,
-            CompiledExpression::STRING => "test",
-            CompiledExpression::BOOLEAN => true,
-            CompiledExpression::NULL => null,
-        ];
+        CompiledExpression::INTEGER => 6,
+        CompiledExpression::DOUBLE => 2.5,
+        CompiledExpression::STRING => "test",
+        CompiledExpression::BOOLEAN => true,
+        CompiledExpression::NULL => null,
+    ];
 
     /**
      * @param $a
