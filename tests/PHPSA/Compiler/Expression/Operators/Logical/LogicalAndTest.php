@@ -5,60 +5,41 @@ namespace Tests\PHPSA\Compiler\Expression\Operators\Logical;
 use PhpParser\Node;
 use PHPSA\CompiledExpression;
 use PHPSA\Compiler\Expression;
+use Tests\PHPSA\Compiler\Expression\AbstractBinaryOp;
 
-class LogicalAndTest extends \Tests\PHPSA\TestCase
+class LogicalAndTest extends AbstractBinaryOp
 {
+    /**
+     * @param $a
+     * @param $b
+     * @return bool
+     */
+    protected function process($a, $b)
+    {
+        return $a and $b;
+    }
+
     /**
      * @return array
      */
-    public function getDataProvider()
+    protected function getSupportedTypes()
     {
         return [
-            [true, true, true],
-            [false, true, false],
-            [true, false, false],
-            [false, false, false],
-            [null, null, false],
-            [true, null, false],
-            [null, true, false],
-            [1, true, true],
-            [1.4, true, true],
-            [1, false, false],
-            [-1, true, true],
-            ["a", true, true],
-            [[], [], false],
-            [[], "a", false],
+            CompiledExpression::INTEGER,
+            CompiledExpression::DOUBLE,
+            CompiledExpression::STRING,
+            CompiledExpression::BOOLEAN,
+            CompiledExpression::NULL,
         ];
     }
 
     /**
-     * Tests {expr} and {expr} = {expr}
-     *
-     * @dataProvider getDataProvider
+     * @param Node\Scalar $a
+     * @param Node\Scalar $b
+     * @return Node\Expr\BinaryOp\LogicalAnd
      */
-    public function testSimpleSuccessCompile($a, $b, $c)
+    protected function buildExpression($a, $b)
     {
-        $baseExpression = new Node\Expr\BinaryOp\LogicalAnd(
-            $this->newScalarExpr($a),
-            $this->newScalarExpr($b)
-        );
-        $compiledExpression = $this->compileExpression($baseExpression);
-
-        $this->assertInstanceOfCompiledExpression($compiledExpression);
-        $this->assertSame(CompiledExpression::BOOLEAN, $compiledExpression->getType());
-        $this->assertSame($c, $compiledExpression->getValue());
-    }
-
-    public function testUnexpectedTypes()
-    {
-        $baseExpression = new Node\Expr\BinaryOp\LogicalAnd(
-            $this->newScalarExpr(1),
-            $this->newFakeScalarExpr()
-        );
-        $compiledExpression = $this->compileExpression($baseExpression);
-
-        $this->assertInstanceOfCompiledExpression($compiledExpression);
-        $this->assertSame(CompiledExpression::UNKNOWN, $compiledExpression->getType());
-        $this->assertSame(null, $compiledExpression->getValue());
+        return new Node\Expr\BinaryOp\LogicalAnd($a, $b);
     }
 }

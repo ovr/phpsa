@@ -5,8 +5,9 @@ namespace Tests\PHPSA\Compiler\Expression\BinaryOp;
 use PhpParser\Node;
 use PHPSA\CompiledExpression;
 use PHPSA\Compiler\Expression;
+use Tests\PHPSA\Compiler\Expression\AbstractBinaryOp;
 
-class SpaceShipTest extends \Tests\PHPSA\TestCase
+class SpaceShipTest extends AbstractBinaryOp
 {
     /**
      * @return array
@@ -44,29 +45,33 @@ class SpaceShipTest extends \Tests\PHPSA\TestCase
         $this->assertSame($c, $compiledExpression->getValue());
     }
 
-    public function testUnexpectedTypeFirstArg()
+    /**
+     * @param $a
+     * @param $b
+     * @return bool
+     */
+    protected function process($a, $b)
     {
-        $baseExpression = new Node\Expr\BinaryOp\Spaceship(
-            $this->newFakeScalarExpr(),
-            $this->newScalarExpr(1)
-        );
-        $compiledExpression = $this->compileExpression($baseExpression);
-
-        $this->assertInstanceOfCompiledExpression($compiledExpression);
-        $this->assertSame(CompiledExpression::UNKNOWN, $compiledExpression->getType());
-        $this->assertSame(null, $compiledExpression->getValue());
+        return 0; //currently no spaceship support so we just return 0
     }
 
-    public function testUnexpectedTypeSecondArg()
+    /**
+     * @return array
+     */
+    protected function getSupportedTypes()
     {
-        $baseExpression = new Node\Expr\BinaryOp\Spaceship(
-            $this->newScalarExpr(1),
-            $this->newFakeScalarExpr()
-        );
-        $compiledExpression = $this->compileExpression($baseExpression);
+        return [
+            CompiledExpression::INTEGER,
+        ];
+    }
 
-        $this->assertInstanceOfCompiledExpression($compiledExpression);
-        $this->assertSame(CompiledExpression::UNKNOWN, $compiledExpression->getType());
-        $this->assertSame(null, $compiledExpression->getValue());
+    /**
+     * @param Node\Scalar $a
+     * @param Node\Scalar $b
+     * @return Node\Expr\BinaryOp\Spaceship
+     */
+    protected function buildExpression($a, $b)
+    {
+        return new Node\Expr\BinaryOp\Spaceship($a, $b);
     }
 }

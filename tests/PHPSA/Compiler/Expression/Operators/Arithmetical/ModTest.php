@@ -27,9 +27,4 @@ class ModTest extends AbstractDivMod
     {
         return new Node\Expr\BinaryOp\Mod($a, $b);
     }
-
-    protected function getAssertType()
-    {
-        return CompiledExpression::INTEGER;
-    }
 }

@@ -5,57 +5,43 @@ namespace Tests\PHPSA\Compiler\Expression\Operators\Logical;
 use PhpParser\Node;
 use PHPSA\CompiledExpression;
 use PHPSA\Compiler\Expression;
+use Tests\PHPSA\Compiler\Expression\AbstractUnaryOp;
 
 /**
  * Class BooleanNotTest
  * @package Tests\PHPSA\Expression\Operators\Logical
  */
-class BooleanNotTest extends \Tests\PHPSA\TestCase
+class BooleanNotTest extends AbstractUnaryOp
 {
+    /**
+     * @param $a
+     * @return array
+     */
+    protected function process($a)
+    {
+        return !$a;
+    }
+
     /**
      * @return array
      */
-    public function getDataProvider()
+    protected function getSupportedTypes()
     {
         return [
-            [true, false],
-            [false, true],
-            [1, false],
-            [-1, false],
-            [1.4, false],
-            [null, true],
-            ["a", false],
-            [[], true],
+            CompiledExpression::INTEGER,
+            CompiledExpression::DOUBLE,
+            CompiledExpression::STRING,
+            CompiledExpression::BOOLEAN,
+            CompiledExpression::NULL,
         ];
     }
 
     /**
-     * Tests !{expr}
-     *
-     * @see \PHPSA\Compiler\Expression\Operators\Logical\BooleanNot
-     * @dataProvider getDataProvider
+     * @param Node\Scalar $a
+     * @return Node\Expr\Cast\Bool_
      */
-    public function testSimpleSuccessCompile($a, $b)
+    protected function buildExpression($a)
     {
-        $baseExpression = new Node\Expr\BooleanNot(
-            $this->newScalarExpr($a)
-        );
-        $compiledExpression = $this->compileExpression($baseExpression);
-
-        $this->assertInstanceOfCompiledExpression($compiledExpression);
-        $this->assertSame(CompiledExpression::BOOLEAN, $compiledExpression->getType());
-        $this->assertSame($b, $compiledExpression->getValue());
-    }
-
-    public function testUnexpectedType()
-    {
-        $baseExpression = new Node\Expr\BooleanNot(
-            $this->newFakeScalarExpr()
-        );
-        $compiledExpression = $this->compileExpression($baseExpression);
-
-        $this->assertInstanceOfCompiledExpression($compiledExpression);
-        $this->assertSame(CompiledExpression::UNKNOWN, $compiledExpression->getType());
-        $this->assertSame(null, $compiledExpression->getValue());
+        return new Node\Expr\BooleanNot($a);
     }
 }

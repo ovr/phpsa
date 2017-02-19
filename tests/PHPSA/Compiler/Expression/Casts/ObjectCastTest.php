@@ -4,96 +4,39 @@ namespace Tests\PHPSA\Compiler\Expression\Casts;
 
 use PhpParser\Node;
 use PHPSA\CompiledExpression;
+use Tests\PHPSA\Compiler\Expression\AbstractUnaryOp;
 
-class ObjectCastTest extends \Tests\PHPSA\TestCase
+class ObjectCastTest extends AbstractUnaryOp
 {
     /**
-     * Tests (object) {expr} = {expr}
+     * @param $a
+     * @return object
      */
-    public function objectCastDataProvider()
+    protected function process($a)
+    {
+        return (object) $a;
+    }
+
+    /**
+     * @return array
+     */
+    protected function getSupportedTypes()
     {
         return [
-            [
-                CompiledExpression::INTEGER,
-                1
-            ],
-            [
-                CompiledExpression::DOUBLE,
-                1.0
-            ],
-            [
-                CompiledExpression::ARR,
-                [
-                    1,
-                    2,
-                    3,
-                    4,
-                    5
-                ]
-            ],
-            [
-                CompiledExpression::ARR,
-                []
-            ],
-            [
-                CompiledExpression::ARR,
-                [
-                    1,
-                    2,
-                    3,
-                    4,
-                    5
-                ]
-            ],
-            [
-                CompiledExpression::BOOLEAN,
-                true
-            ],
-            [
-                CompiledExpression::RESOURCE,
-                STDIN
-            ],
-            [
-                CompiledExpression::STRING,
-                'test str'
-            ],
-            [
-                CompiledExpression::NULL,
-                null
-            ],
+            CompiledExpression::INTEGER,
+            CompiledExpression::DOUBLE,
+            CompiledExpression::STRING,
+            CompiledExpression::BOOLEAN,
+            CompiledExpression::NULL,
         ];
     }
 
     /**
-     * @dataProvider objectCastDataProvider
-     *
-     * @param int $type
-     * @param mixed $value
+     * @param Node\Scalar $a
+     * @return Node\Expr\Cast\Object_
      */
-    public function testSuccessObjectCast($type, $value)
+    protected function buildExpression($a)
     {
-        $baseExpression = new Node\Expr\Cast\Object_(
-            $this->newFakeScalarExpr(
-                $type,
-                $value
-            )
-        );
-        $compiledExpression = $this->compileExpression($baseExpression);
-
-        $this->assertInstanceOfCompiledExpression($compiledExpression);
-        $this->assertSame(CompiledExpression::OBJECT, $compiledExpression->getType());
-        $this->assertEquals((object) $value, $compiledExpression->getValue());
-    }
-
-    public function testUnknownType()
-    {
-        $baseExpression = new Node\Expr\Cast\Object_(
-            $this->newFakeScalarExpr()
-        );
-        $compiledExpression = $this->compileExpression($baseExpression);
-
-        $this->assertInstanceOfCompiledExpression($compiledExpression);
-        $this->assertSame(CompiledExpression::UNKNOWN, $compiledExpression->getType());
-        $this->assertSame(null, $compiledExpression->getValue());
+        return new Node\Expr\Cast\Object_($a);
     }
 }

@@ -5,50 +5,39 @@ namespace Tests\PHPSA\Compiler\Expression\Casts;
 use PhpParser\Node;
 use PHPSA\CompiledExpression;
 use PHPSA\Compiler\Expression;
+use Tests\PHPSA\Compiler\Expression\AbstractUnaryOp;
 
-class DoubleCastTest extends \Tests\PHPSA\TestCase
+class DoubleCastTest extends AbstractUnaryOp
 {
+    /**
+     * @param $a
+     * @return double
+     */
+    protected function process($a)
+    {
+        return (double) $a;
+    }
+
     /**
      * @return array
      */
-    public function getDataProvider()
+    protected function getSupportedTypes()
     {
         return [
-            [true, 1.0],
-            [0, 0.0],
-            [-1, -1.0],
-            [1.4, 1.4],
-            ["a", 0.0],
-            [[], 0.0],
+            CompiledExpression::INTEGER,
+            CompiledExpression::DOUBLE,
+            CompiledExpression::STRING,
+            CompiledExpression::BOOLEAN,
+            CompiledExpression::NULL,
         ];
     }
 
     /**
-     * Tests (double) {expr} = {expr}
-     *
-     * @dataProvider getDataProvider
+     * @param Node\Scalar $a
+     * @return Node\Expr\Cast\Double
      */
-    public function testSimpleSuccessCompile($a, $b)
+    protected function buildExpression($a)
     {
-        $baseExpression = new Node\Expr\Cast\Double(
-            $this->newScalarExpr($a)
-        );
-        $compiledExpression = $this->compileExpression($baseExpression);
-
-        $this->assertInstanceOfCompiledExpression($compiledExpression);
-        $this->assertSame(CompiledExpression::DOUBLE, $compiledExpression->getType());
-        $this->assertSame($b, $compiledExpression->getValue());
-    }
-
-    public function testUnexpectedType()
-    {
-        $baseExpression = new Node\Expr\Cast\Double(
-            $this->newFakeScalarExpr()
-        );
-        $compiledExpression = $this->compileExpression($baseExpression);
-
-        $this->assertInstanceOfCompiledExpression($compiledExpression);
-        $this->assertSame(CompiledExpression::UNKNOWN, $compiledExpression->getType());
-        $this->assertSame(null, $compiledExpression->getValue());
+        return new Node\Expr\Cast\Double($a);
     }
 }

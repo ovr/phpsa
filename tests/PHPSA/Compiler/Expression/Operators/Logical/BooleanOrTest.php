@@ -5,62 +5,41 @@ namespace Tests\PHPSA\Compiler\Expression\Operators\Logical;
 use PhpParser\Node;
 use PHPSA\CompiledExpression;
 use PHPSA\Compiler\Expression;
+use Tests\PHPSA\Compiler\Expression\AbstractBinaryOp;
 
-class BooleanOrTest extends \Tests\PHPSA\TestCase
+class BooleanOrTest extends AbstractBinaryOp
 {
+    /**
+     * @param $a
+     * @param $b
+     * @return bool
+     */
+    protected function process($a, $b)
+    {
+        return $a || $b;
+    }
+
     /**
      * @return array
      */
-    public function getDataProvider()
+    protected function getSupportedTypes()
     {
         return [
-            [true, true, true],
-            [true, false, true],
-            [false, true, true],
-            [false, false, false],
-            [null, false, false],
-            [false, null, false],
-            [null, null, false],
-            [true, null, true],
-            [null, true, true],
-            [1, true, true],
-            [1.4, false, true],
-            [1, false, true],
-            [-1, false, true],
-            ["a", false, true],
-            [[], [], false],
-            [[], "a", true],
+            CompiledExpression::INTEGER,
+            CompiledExpression::DOUBLE,
+            CompiledExpression::STRING,
+            CompiledExpression::BOOLEAN,
+            CompiledExpression::NULL,
         ];
     }
 
     /**
-     * Tests {expr} || {expr} = {expr}
-     *
-     * @dataProvider getDataProvider
+     * @param Node\Scalar $a
+     * @param Node\Scalar $b
+     * @return Node\Expr\BinaryOp\BooleanOr
      */
-    public function testSimpleSuccessCompile($a, $b, $c)
+    protected function buildExpression($a, $b)
     {
-        $baseExpression = new Node\Expr\BinaryOp\BooleanOr(
-            $this->newScalarExpr($a),
-            $this->newScalarExpr($b)
-        );
-        $compiledExpression = $this->compileExpression($baseExpression);
-
-        $this->assertInstanceOfCompiledExpression($compiledExpression);
-        $this->assertSame(CompiledExpression::BOOLEAN, $compiledExpression->getType());
-        $this->assertSame($c, $compiledExpression->getValue());
-    }
-
-    public function testUnexpectedTypes()
-    {
-        $baseExpression = new Node\Expr\BinaryOp\BooleanOr(
-            $this->newScalarExpr(1),
-            $this->newFakeScalarExpr()
-        );
-        $compiledExpression = $this->compileExpression($baseExpression);
-
-        $this->assertInstanceOfCompiledExpression($compiledExpression);
-        $this->assertSame(CompiledExpression::UNKNOWN, $compiledExpression->getType());
-        $this->assertSame(null, $compiledExpression->getValue());
+        return new Node\Expr\BinaryOp\BooleanOr($a, $b);
     }
 }

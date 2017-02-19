@@ -5,50 +5,39 @@ namespace Tests\PHPSA\Compiler\Expression\Casts;
 use PhpParser\Node;
 use PHPSA\CompiledExpression;
 use PHPSA\Compiler\Expression;
+use Tests\PHPSA\Compiler\Expression\AbstractUnaryOp;
 
-class BoolCastTest extends \Tests\PHPSA\TestCase
+class BoolCastTest extends AbstractUnaryOp
 {
+    /**
+     * @param $a
+     * @return bool
+     */
+    protected function process($a)
+    {
+        return (bool) $a;
+    }
+
     /**
      * @return array
      */
-    public function getDataProvider()
+    protected function getSupportedTypes()
     {
         return [
-            [true, true],
-            [0, false],
-            [-1, true],
-            [1.4, true],
-            ["a", true],
-            [[], false],
+            CompiledExpression::INTEGER,
+            CompiledExpression::DOUBLE,
+            CompiledExpression::STRING,
+            CompiledExpression::BOOLEAN,
+            CompiledExpression::NULL,
         ];
     }
 
     /**
-     * Tests (bool) {expr} = {expr}
-     *
-     * @dataProvider getDataProvider
+     * @param Node\Scalar $a
+     * @return Node\Expr\Cast\Bool_
      */
-    public function testSimpleSuccessCompile($a, $b)
+    protected function buildExpression($a)
     {
-        $baseExpression = new Node\Expr\Cast\Bool_(
-            $this->newScalarExpr($a)
-        );
-        $compiledExpression = $this->compileExpression($baseExpression);
-
-        $this->assertInstanceOfCompiledExpression($compiledExpression);
-        $this->assertSame(CompiledExpression::BOOLEAN, $compiledExpression->getType());
-        $this->assertSame($b, $compiledExpression->getValue());
-    }
-
-    public function testUnexpectedType()
-    {
-        $baseExpression = new Node\Expr\Cast\Bool_(
-            $this->newFakeScalarExpr()
-        );
-        $compiledExpression = $this->compileExpression($baseExpression);
-
-        $this->assertInstanceOfCompiledExpression($compiledExpression);
-        $this->assertSame(CompiledExpression::UNKNOWN, $compiledExpression->getType());
-        $this->assertSame(null, $compiledExpression->getValue());
+        return new Node\Expr\Cast\Bool_($a);
     }
 }

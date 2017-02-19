@@ -5,80 +5,40 @@ namespace Tests\PHPSA\Compiler\Expression\Operators;
 use PhpParser\Node;
 use PHPSA\CompiledExpression;
 use PHPSA\Compiler\Expression;
+use Tests\PHPSA\Compiler\Expression\AbstractBinaryOp;
 
-class ConcatTest extends \Tests\PHPSA\TestCase
+class ConcatTest extends AbstractBinaryOp
 {
     /**
-     * Data provider for {expr} . {expr} = {expr}
-     *
+     * @param $a
+     * @param $b
+     * @return string
+     */
+    protected function process($a, $b)
+    {
+        return $a . $b;
+    }
+
+    /**
      * @return array
      */
-    public function concatResultDataProvider()
+    protected function getSupportedTypes()
     {
         return [
-            [2, 2, "22"],
-            [true, "a", "1a"],
-            ["a", true, "a1"],
-            [true, true, "11"],
-            [-1, 1, "-11"],
-            [false, 3, "3"], // 0 at beginning is dropped
-            [false, true, "1"],
-            [0, -1, "0-1"],
-            [1.5, -1, "1.5-1"],
-            [true, -0.5, "1-0.5"],
-            [false, false, ""],
-            [true, false, "1"],
+            CompiledExpression::INTEGER,
+            CompiledExpression::DOUBLE,
+            CompiledExpression::STRING,
+            CompiledExpression::BOOLEAN,
         ];
     }
 
     /**
-     * Tests {expr} . {expr} = {expr}
-     *
-     * @dataProvider concatResultDataProvider
+     * @param Node\Scalar $a
+     * @param Node\Scalar $b
+     * @return Node\Expr\BinaryOp\Concat
      */
-    public function testConcatResult($a, $b, $c)
+    protected function buildExpression($a, $b)
     {
-
-        $baseExpression = new Node\Expr\BinaryOp\Concat(
-            $this->newScalarExpr($a),
-            $this->newScalarExpr($b)
-        );
-        $compiledExpression = $this->compileExpression($baseExpression);
-
-        $this->assertInstanceOfCompiledExpression($compiledExpression);
-        $this->assertSame(CompiledExpression::STRING, $compiledExpression->getType());
-        $this->assertSame($c, $compiledExpression->getValue());
-    }
-
-    /**
-     * Tests {left-expr::UNKNOWN} . {right-expr}
-     */
-    public function testFirstUnexpectedType()
-    {
-        $baseExpression = new Node\Expr\BinaryOp\Concat(
-            $this->newFakeScalarExpr(),
-            $this->newScalarExpr(1)
-        );
-        $compiledExpression = $this->compileExpression($baseExpression);
-
-        $this->assertInstanceOfCompiledExpression($compiledExpression);
-        $this->assertSame(CompiledExpression::UNKNOWN, $compiledExpression->getType());
-        $this->assertSame(null, $compiledExpression->getValue());
-    }
-
-    /**
-     * Tests {left-expr} . {right-expr::UNKNOWN}
-     */
-    public function testSecondUnexpectedType()
-    {
-        $baseExpression = new Node\Expr\BinaryOp\Concat(
-            $this->newScalarExpr(1),
-            $this->newFakeScalarExpr()
-        );
-        $compiledExpression = $this->compileExpression($baseExpression);
-
-        $this->assertInstanceOfCompiledExpression($compiledExpression);
-        $this->assertSame(CompiledExpression::UNKNOWN, $compiledExpression->getType());
-        $this->assertSame(null, $compiledExpression->getValue());
+        return new Node\Expr\BinaryOp\Concat($a, $b);
     }
 }

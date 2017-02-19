@@ -5,72 +5,39 @@ namespace Tests\PHPSA\Compiler\Expression\AssignOp;
 use PhpParser\Node;
 use PHPSA\CompiledExpression;
 use PHPSA\Compiler\Expression;
+use Tests\PHPSA\Compiler\Expression\AbstractBinaryOp;
 
-class ShiftRightTest extends \Tests\PHPSA\TestCase
+class ShiftRightTest extends AbstractBinaryOp
 {
+    /**
+     * @param $a
+     * @param $b
+     * @return mixed
+     */
+    protected function process($a, $b)
+    {
+        return $a >> $b;
+    }
+
     /**
      * @return array
      */
-    public function getDataProvider()
+    protected function getSupportedTypes()
     {
         return [
-            [0, 5, 0],
-            [1, 5, 0],
-            [5, 2, 1],
-            [-1, 5, -1],
-            [1.4, 5, 0],
-            [-19.7, 1, -10],
-            [true, true, 0],
-            [false, true, 0],
-            [true, false, 1],
-            [false, false, 0],
+            CompiledExpression::INTEGER,
+            CompiledExpression::DOUBLE,
+            CompiledExpression::BOOLEAN,
         ];
     }
 
     /**
-     * Tests {var} >>= {expr}
-     *
-     * @dataProvider getDataProvider
+     * @param Node\Scalar $a
+     * @param Node\Scalar $b
+     * @return Node\Expr\AssignOp\ShiftRight
      */
-    public function testSimpleSuccessCompile($a, $b, $c)
+    protected function buildExpression($a, $b)
     {
-        $baseExpression = new Node\Expr\AssignOp\ShiftRight(
-            $this->newScalarExpr($a),
-            $this->newScalarExpr($b)
-        );
-        $compiledExpression = $this->compileExpression($baseExpression);
-
-        $this->assertInstanceOfCompiledExpression($compiledExpression);
-        $this->assertSame(CompiledExpression::INTEGER, $compiledExpression->getType());
-        $this->assertSame($c, $compiledExpression->getValue());
-    }
-
-    /**
-     * tests variable type unknown
-     */
-    public function testUnexpectedTypeFirstArg()
-    {
-        $baseExpression = new Node\Expr\AssignOp\ShiftRight(
-            $this->newFakeScalarExpr(),
-            $this->newScalarExpr(1)
-        );
-        $compiledExpression = $this->compileExpression($baseExpression);
-
-        $this->assertInstanceOfCompiledExpression($compiledExpression);
-        $this->assertSame(CompiledExpression::UNKNOWN, $compiledExpression->getType());
-        $this->assertSame(null, $compiledExpression->getValue());
-    }
-
-    public function testUnexpectedTypeSecondArg()
-    {
-        $baseExpression = new Node\Expr\AssignOp\ShiftRight(
-            $this->newScalarExpr(1),
-            $this->newFakeScalarExpr()
-        );
-        $compiledExpression = $this->compileExpression($baseExpression);
-
-        $this->assertInstanceOfCompiledExpression($compiledExpression);
-        $this->assertSame(CompiledExpression::UNKNOWN, $compiledExpression->getType());
-        $this->assertSame(null, $compiledExpression->getValue());
+        return new Node\Expr\AssignOp\ShiftRight($a, $b);
     }
 }

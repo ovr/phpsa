@@ -30,18 +30,13 @@ class Minus extends AbstractExpressionCompiler
 
         switch ($left->getType()) {
             case CompiledExpression::INTEGER:
-                switch ($right->getType()) {
-                    case CompiledExpression::INTEGER:
-                        return new CompiledExpression(CompiledExpression::INTEGER, $left->getValue() - $right->getValue());
-                    case CompiledExpression::DOUBLE:
-                        return new CompiledExpression(CompiledExpression::DOUBLE, $left->getValue() - $right->getValue());
-                }
-                break;
             case CompiledExpression::DOUBLE:
+            case CompiledExpression::BOOLEAN:
                 switch ($right->getType()) {
                     case CompiledExpression::INTEGER:
                     case CompiledExpression::DOUBLE:
-                        return new CompiledExpression(CompiledExpression::DOUBLE, $left->getValue() - $right->getValue());
+                    case CompiledExpression::BOOLEAN:
+                        return CompiledExpression::fromZvalValue($left->getValue() - $right->getValue());
                 }
         }
 
