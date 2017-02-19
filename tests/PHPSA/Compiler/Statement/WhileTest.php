@@ -27,7 +27,7 @@ class WhileTest extends \Tests\PHPSA\TestCase
 
         $variable = $context->getSymbol("stmtTest");
 
-        parent::assertTrue($variable instanceof Variable);
+        self::assertTrue($variable instanceof Variable);
     }
 
     /**
@@ -52,6 +52,6 @@ class WhileTest extends \Tests\PHPSA\TestCase
 
         $variable = $context->getSymbol("stmtTest");
 
-        parent::assertTrue($variable instanceof Variable);
+        self::assertTrue($variable instanceof Variable);
     }
 }

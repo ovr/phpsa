@@ -9,65 +9,65 @@ class CompiledExpressionTest extends TestCase
     public function testToVariableMethod()
     {
         $compiledExpression = new CompiledExpression(CompiledExpression::INTEGER, 1);
-        $this->assertInstanceOfCompiledExpression($compiledExpression);
+        self::assertInstanceOfCompiledExpression($compiledExpression);
 
         $resultVariable = $compiledExpression->toVariable('test');
-        parent::assertInstanceOf('PHPSA\Variable', $resultVariable);
-        parent::assertSame($compiledExpression->getType(), $resultVariable->getType());
-        parent::assertSame($compiledExpression->getValue(), $resultVariable->getValue());
+        self::assertInstanceOf('PHPSA\Variable', $resultVariable);
+        self::assertSame($compiledExpression->getType(), $resultVariable->getType());
+        self::assertSame($compiledExpression->getValue(), $resultVariable->getValue());
     }
 
     public function testFromZvalInteger()
     {
         $result = CompiledExpression::fromZvalValue(1);
-        parent::assertInstanceOfCompiledExpression($result);
-        parent::assertSame(CompiledExpression::INTEGER, $result->getType());
-        parent::assertSame(1, $result->getValue());
+        self::assertInstanceOfCompiledExpression($result);
+        self::assertSame(CompiledExpression::INTEGER, $result->getType());
+        self::assertSame(1, $result->getValue());
     }
 
     public function testFromZvalBoolean()
     {
         $result = CompiledExpression::fromZvalValue(true);
-        parent::assertInstanceOfCompiledExpression($result);
-        parent::assertSame(CompiledExpression::BOOLEAN, $result->getType());
-        parent::assertSame(true, $result->getValue());
+        self::assertInstanceOfCompiledExpression($result);
+        self::assertSame(CompiledExpression::BOOLEAN, $result->getType());
+        self::assertSame(true, $result->getValue());
 
         $result = CompiledExpression::fromZvalValue(false);
-        parent::assertInstanceOfCompiledExpression($result);
-        parent::assertSame(CompiledExpression::BOOLEAN, $result->getType());
-        parent::assertSame(false, $result->getValue());
+        self::assertInstanceOfCompiledExpression($result);
+        self::assertSame(CompiledExpression::BOOLEAN, $result->getType());
+        self::assertSame(false, $result->getValue());
     }
 
     public function testFromZvalArray()
     {
         $result = CompiledExpression::fromZvalValue([]);
-        parent::assertInstanceOfCompiledExpression($result);
-        parent::assertSame(CompiledExpression::ARR, $result->getType());
-        parent::assertSame([], $result->getValue());
+        self::assertInstanceOfCompiledExpression($result);
+        self::assertSame(CompiledExpression::ARR, $result->getType());
+        self::assertSame([], $result->getValue());
     }
 
     public function testFromZvalString()
     {
         $result = CompiledExpression::fromZvalValue('test string');
-        parent::assertInstanceOfCompiledExpression($result);
-        parent::assertSame(CompiledExpression::STRING, $result->getType());
-        parent::assertSame('test string', $result->getValue());
+        self::assertInstanceOfCompiledExpression($result);
+        self::assertSame(CompiledExpression::STRING, $result->getType());
+        self::assertSame('test string', $result->getValue());
     }
 
     public function testFromZvalDouble()
     {
         $result = CompiledExpression::fromZvalValue(1.0);
-        parent::assertInstanceOfCompiledExpression($result);
-        parent::assertSame(CompiledExpression::DOUBLE, $result->getType());
-        parent::assertSame(1.0, $result->getValue());
+        self::assertInstanceOfCompiledExpression($result);
+        self::assertSame(CompiledExpression::DOUBLE, $result->getType());
+        self::assertSame(1.0, $result->getValue());
     }
 
     public function testFromZvalNull()
     {
         $result = CompiledExpression::fromZvalValue(null);
-        parent::assertInstanceOfCompiledExpression($result);
-        parent::assertSame(CompiledExpression::NULL, $result->getType());
-        parent::assertSame(null, $result->getValue());
+        self::assertInstanceOfCompiledExpression($result);
+        self::assertSame(CompiledExpression::NULL, $result->getType());
+        self::assertSame(null, $result->getValue());
     }
 
     /**
@@ -76,7 +76,7 @@ class CompiledExpressionTest extends TestCase
     public function testIsScalarWithScalarTypes($expressionType)
     {
         $compiledExpression = new CompiledExpression($expressionType);
-        parent::assertTrue($compiledExpression->isScalar());
+        self::assertTrue($compiledExpression->isScalar());
     }
 
     public function scalarTypeProvider()
@@ -96,7 +96,7 @@ class CompiledExpressionTest extends TestCase
     public function testIsScalarWithNonScalarTypes($expressionType)
     {
         $compiledExpression = new CompiledExpression($expressionType);
-        parent::assertFalse($compiledExpression->isScalar());
+        self::assertFalse($compiledExpression->isScalar());
     }
 
     public function nonScalarTypeProvider()
@@ -135,64 +135,64 @@ class CompiledExpressionTest extends TestCase
     public function testIsTypeKnownTrue($type)
     {
         $compiledExpression = new CompiledExpression($type);
-        parent::assertTrue($compiledExpression->isTypeKnown());
+        self::assertTrue($compiledExpression->isTypeKnown());
     }
 
     public function testIsTypeKnownWithUnknownType()
     {
         $compiledExpression = new CompiledExpression(CompiledExpression::UNKNOWN);
-        parent::assertFalse($compiledExpression->isTypeKnown());
+        self::assertFalse($compiledExpression->isTypeKnown());
     }
 
     public function testHasValueWithAValue()
     {
         $compiledExpression = new CompiledExpression(CompiledExpression::BOOLEAN, false);
-        parent::assertTrue($compiledExpression->hasValue());
+        self::assertTrue($compiledExpression->hasValue());
     }
 
     public function testHasValueWithAScalarTypeAndNoValue()
     {
         $compiledExpression = new CompiledExpression(CompiledExpression::BOOLEAN, /* just to be explicit */ null);
-        parent::assertFalse($compiledExpression->hasValue());
+        self::assertFalse($compiledExpression->hasValue());
     }
 
     public function testHasValueWithANullType()
     {
         $compiledExpression = new CompiledExpression(CompiledExpression::NULL);
-        parent::assertTrue($compiledExpression->hasValue());
+        self::assertTrue($compiledExpression->hasValue());
     }
 
     public function testCanBeObject()
     {
         // Mixed type can be object
         $expr = new CompiledExpression(CompiledExpression::MIXED, null);
-        parent::assertTrue($expr->canBeObject());
+        self::assertTrue($expr->canBeObject());
 
         // Integer type can't be object
         $expr2 = new CompiledExpression(CompiledExpression::INTEGER, 1);
-        parent::assertFalse($expr2->canBeObject());
+        self::assertFalse($expr2->canBeObject());
     }
 
     public function testIsObject()
     {
         // Mixed type could be object but it's unclear
         $expr = new CompiledExpression(CompiledExpression::MIXED, null);
-        parent::assertFalse($expr->isObject());
+        self::assertFalse($expr->isObject());
 
         // Object type is object
         $expr2 = new CompiledExpression(CompiledExpression::OBJECT, null);
-        parent::assertTrue($expr2->isObject());
+        self::assertTrue($expr2->isObject());
     }
 
     public function testIsArray()
     {
         $compiledExpression = new CompiledExpression(CompiledExpression::ARR);
-        parent::assertTrue($compiledExpression->isArray());
+        self::assertTrue($compiledExpression->isArray());
     }
 
     public function testIsArrayWhenFalse()
     {
         $compiledExpression = new CompiledExpression(CompiledExpression::BOOLEAN);
-        parent::assertFalse($compiledExpression->isArray());
+        self::assertFalse($compiledExpression->isArray());
     }
 }

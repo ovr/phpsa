@@ -16,6 +16,6 @@ class DumpConfigurationTest extends TestCase
         $commandTester = new CommandTester($command);
         $commandTester->execute(['command'  => $command->getName()]);
 
-        $this->assertContains('Next:', $commandTester->getDisplay());
+        self::assertContains('Next:', $commandTester->getDisplay());
     }
 }

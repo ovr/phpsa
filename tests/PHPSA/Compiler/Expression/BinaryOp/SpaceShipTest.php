@@ -40,9 +40,9 @@ class SpaceShipTest extends AbstractBinaryOp
         );
         $compiledExpression = $this->compileExpression($baseExpression);
 
-        $this->assertInstanceOfCompiledExpression($compiledExpression);
-        $this->assertSame(CompiledExpression::INTEGER, $compiledExpression->getType());
-        $this->assertSame($c, $compiledExpression->getValue());
+        self::assertInstanceOfCompiledExpression($compiledExpression);
+        self::assertSame(CompiledExpression::INTEGER, $compiledExpression->getType());
+        self::assertSame($c, $compiledExpression->getValue());
     }
 
     /**

@@ -18,9 +18,9 @@ class TernaryTest extends \Tests\PHPSA\TestCase
         );
         $compiledExpression = $this->compileExpression($baseExpression);
 
-        parent::assertInstanceOfCompiledExpression($compiledExpression);
-        parent::assertSame(CompiledExpression::STRING, $compiledExpression->getType());
-        parent::assertSame("if", $compiledExpression->getValue());
+        self::assertInstanceOfCompiledExpression($compiledExpression);
+        self::assertSame(CompiledExpression::STRING, $compiledExpression->getType());
+        self::assertSame("if", $compiledExpression->getValue());
     }
 
     public function testTernaryFalse()
@@ -33,8 +33,8 @@ class TernaryTest extends \Tests\PHPSA\TestCase
         );
         $compiledExpression = $this->compileExpression($baseExpression);
 
-        parent::assertInstanceOfCompiledExpression($compiledExpression);
-        parent::assertSame(CompiledExpression::STRING, $compiledExpression->getType());
-        parent::assertSame("else", $compiledExpression->getValue());
+        self::assertInstanceOfCompiledExpression($compiledExpression);
+        self::assertSame(CompiledExpression::STRING, $compiledExpression->getType());
+        self::assertSame("else", $compiledExpression->getValue());
     }
 }

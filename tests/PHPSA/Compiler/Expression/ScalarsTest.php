@@ -17,59 +17,59 @@ class ScalarCompilerTest extends \Tests\PHPSA\TestCase
     {
         $scalar = $this->newScalarExpr(1);
         $compiledExpression = $this->compileExpression($scalar, $this->getContext());
-        $this->assertInstanceOfCompiledExpression($compiledExpression);
+        self::assertInstanceOfCompiledExpression($compiledExpression);
 
-        $this->assertSame(CompiledExpression::INTEGER, $compiledExpression->getType());
-        $this->assertSame($scalar->value, $compiledExpression->getValue());
+        self::assertSame(CompiledExpression::INTEGER, $compiledExpression->getType());
+        self::assertSame($scalar->value, $compiledExpression->getValue());
     }
 
     public function testPassDouble()
     {
         $scalar = $this->newScalarExpr(1.0);
         $compiledExpression = $this->compileExpression($scalar, $this->getContext());
-        $this->assertInstanceOfCompiledExpression($compiledExpression);
+        self::assertInstanceOfCompiledExpression($compiledExpression);
 
-        $this->assertSame(CompiledExpression::DOUBLE, $compiledExpression->getType());
-        $this->assertSame($scalar->value, $compiledExpression->getValue());
+        self::assertSame(CompiledExpression::DOUBLE, $compiledExpression->getType());
+        self::assertSame($scalar->value, $compiledExpression->getValue());
     }
 
     public function testPassBooleanTrue()
     {
         $scalar = $this->newScalarExpr(true);
         $compiledExpression = $this->compileExpression($scalar, $this->getContext());
-        $this->assertInstanceOfCompiledExpression($compiledExpression);
+        self::assertInstanceOfCompiledExpression($compiledExpression);
 
-        $this->assertSame(CompiledExpression::BOOLEAN, $compiledExpression->getType());
-        $this->assertSame($scalar->value, $compiledExpression->getValue());
+        self::assertSame(CompiledExpression::BOOLEAN, $compiledExpression->getType());
+        self::assertSame($scalar->value, $compiledExpression->getValue());
     }
 
     public function testPassBooleanFalse()
     {
         $scalar = $this->newScalarExpr(false);
         $compiledExpression = $this->compileExpression($scalar, $this->getContext());
-        $this->assertInstanceOfCompiledExpression($compiledExpression);
+        self::assertInstanceOfCompiledExpression($compiledExpression);
 
-        $this->assertSame(CompiledExpression::BOOLEAN, $compiledExpression->getType());
-        $this->assertSame($scalar->value, $compiledExpression->getValue());
+        self::assertSame(CompiledExpression::BOOLEAN, $compiledExpression->getType());
+        self::assertSame($scalar->value, $compiledExpression->getValue());
     }
 
     public function testPassString()
     {
         $scalar = $this->newScalarExpr("test string");
         $compiledExpression = $this->compileExpression($scalar, $this->getContext());
-        $this->assertInstanceOfCompiledExpression($compiledExpression);
+        self::assertInstanceOfCompiledExpression($compiledExpression);
 
-        $this->assertSame(CompiledExpression::STRING, $compiledExpression->getType());
-        $this->assertSame($scalar->value, $compiledExpression->getValue());
+        self::assertSame(CompiledExpression::STRING, $compiledExpression->getType());
+        self::assertSame($scalar->value, $compiledExpression->getValue());
     }
 
     public function testPassNull()
     {
         $scalar = $this->newScalarExpr(null);
         $compiledExpression = $this->compileExpression($scalar, $this->getContext());
-        $this->assertInstanceOfCompiledExpression($compiledExpression);
+        self::assertInstanceOfCompiledExpression($compiledExpression);
 
-        $this->assertSame(CompiledExpression::NULL, $compiledExpression->getType());
-        $this->assertSame($scalar->value, $compiledExpression->getValue());
+        self::assertSame(CompiledExpression::NULL, $compiledExpression->getType());
+        self::assertSame($scalar->value, $compiledExpression->getValue());
     }
 }

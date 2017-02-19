@@ -24,9 +24,9 @@ class CoalesceTest extends \Tests\PHPSA\TestCase
         $baseExpression = new Node\Expr\BinaryOp\Coalesce($variable, $else);
         $compiledExpression = $this->compileExpression($baseExpression, $context);
 
-        parent::assertInstanceOfCompiledExpression($compiledExpression);
-        parent::assertSame(CompiledExpression::INTEGER, $compiledExpression->getType());
-        parent::assertSame(10, $compiledExpression->getValue());
+        self::assertInstanceOfCompiledExpression($compiledExpression);
+        self::assertSame(CompiledExpression::INTEGER, $compiledExpression->getType());
+        self::assertSame(10, $compiledExpression->getValue());
     }
 
     public function testCoalesceVarNull()
@@ -42,9 +42,9 @@ class CoalesceTest extends \Tests\PHPSA\TestCase
         $baseExpression = new Node\Expr\BinaryOp\Coalesce($variable, $else);
         $compiledExpression = $this->compileExpression($baseExpression, $context);
 
-        parent::assertInstanceOfCompiledExpression($compiledExpression);
-        parent::assertSame(CompiledExpression::STRING, $compiledExpression->getType());
-        parent::assertSame("else", $compiledExpression->getValue());
+        self::assertInstanceOfCompiledExpression($compiledExpression);
+        self::assertSame(CompiledExpression::STRING, $compiledExpression->getType());
+        self::assertSame("else", $compiledExpression->getValue());
     }
 
     public function testCoalesceVarNotExisting()
@@ -59,8 +59,8 @@ class CoalesceTest extends \Tests\PHPSA\TestCase
         $baseExpression = new Node\Expr\BinaryOp\Coalesce($variable, $else);
         $compiledExpression = $this->compileExpression($baseExpression, $context);
 
-        parent::assertInstanceOfCompiledExpression($compiledExpression);
-        parent::assertSame(CompiledExpression::STRING, $compiledExpression->getType());
-        parent::assertSame("else", $compiledExpression->getValue());
+        self::assertInstanceOfCompiledExpression($compiledExpression);
+        self::assertSame(CompiledExpression::STRING, $compiledExpression->getType());
+        self::assertSame("else", $compiledExpression->getValue());
     }
 }

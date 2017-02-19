@@ -47,9 +47,9 @@ abstract class AbstractUnaryOp extends \Tests\PHPSA\TestCase
             );
             $compiledExpression = $this->compileExpression($baseExpression);
 
-            $this->assertInstanceOfCompiledExpression($compiledExpression);
-            //$this->assertSame($this->getExpressionType($a), $compiledExpression->getType());
-            $this->assertEquals($this->process($this->data[$type]), $compiledExpression->getValue());
+            self::assertInstanceOfCompiledExpression($compiledExpression);
+            //self::assertSame($this->getExpressionType($a), $compiledExpression->getType());
+            self::assertEquals($this->process($this->data[$type]), $compiledExpression->getValue());
         }
     }
 
@@ -63,8 +63,8 @@ abstract class AbstractUnaryOp extends \Tests\PHPSA\TestCase
         );
         $compiledExpression = $this->compileExpression($baseExpression);
 
-        $this->assertInstanceOfCompiledExpression($compiledExpression);
-        $this->assertSame(CompiledExpression::UNKNOWN, $compiledExpression->getType());
-        $this->assertSame(null, $compiledExpression->getValue());
+        self::assertInstanceOfCompiledExpression($compiledExpression);
+        self::assertSame(CompiledExpression::UNKNOWN, $compiledExpression->getType());
+        self::assertSame(null, $compiledExpression->getValue());
     }
 }

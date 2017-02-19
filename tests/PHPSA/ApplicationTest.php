@@ -13,10 +13,10 @@ class ApplicationTest extends TestCase
     {
         $application = new Application();
         
-        $this->assertTrue($application->has("check"));
-        $this->assertTrue($application->has("compile"));
-        $this->assertTrue($application->has("config:dump-reference"));
-        $this->assertTrue($application->has("config:dump-documentation"));
+        self::assertTrue($application->has("check"));
+        self::assertTrue($application->has("compile"));
+        self::assertTrue($application->has("config:dump-reference"));
+        self::assertTrue($application->has("config:dump-documentation"));
     }
 
    /**
@@ -26,7 +26,7 @@ class ApplicationTest extends TestCase
     {
         $application = new Application();
 
-        $this->assertInstanceOf('\PHPSA\Configuration', $application->getConfiguration());
+        self::assertInstanceOf('\PHPSA\Configuration', $application->getConfiguration());
     }
 
     /**
@@ -36,6 +36,6 @@ class ApplicationTest extends TestCase
     {
         $application = new Application();
 
-        $this->assertInstanceOf('\PHPSA\IssuesCollector', $application->getIssuesCollector());
+        self::assertInstanceOf('\PHPSA\IssuesCollector', $application->getIssuesCollector());
     }
 }

@@ -15,8 +15,8 @@ class EvalTest extends \Tests\PHPSA\TestCase
         );
         $compiledExpression = $this->compileExpression($baseExpression);
 
-        parent::assertInstanceOfCompiledExpression($compiledExpression);
-        parent::assertSame(CompiledExpression::NULL, $compiledExpression->getType());
-        parent::assertSame(null, $compiledExpression->getValue());
+        self::assertInstanceOfCompiledExpression($compiledExpression);
+        self::assertSame(CompiledExpression::NULL, $compiledExpression->getType());
+        self::assertSame(null, $compiledExpression->getValue());
     }
 }

@@ -21,9 +21,9 @@ class EmptyTest extends \Tests\PHPSA\TestCase
         );
         $compiledExpression = $this->compileExpression($baseExpression, $context);
 
-        parent::assertInstanceOfCompiledExpression($compiledExpression);
-        parent::assertSame(CompiledExpression::BOOLEAN, $compiledExpression->getType());
-        parent::assertTrue($compiledExpression->getValue());
+        self::assertInstanceOfCompiledExpression($compiledExpression);
+        self::assertSame(CompiledExpression::BOOLEAN, $compiledExpression->getType());
+        self::assertTrue($compiledExpression->getValue());
     }
 
     public function testEmptyVarFalse()
@@ -38,9 +38,9 @@ class EmptyTest extends \Tests\PHPSA\TestCase
         );
         $compiledExpression = $this->compileExpression($baseExpression, $context);
 
-        parent::assertInstanceOfCompiledExpression($compiledExpression);
-        parent::assertSame(CompiledExpression::BOOLEAN, $compiledExpression->getType());
-        parent::assertFalse($compiledExpression->getValue());
+        self::assertInstanceOfCompiledExpression($compiledExpression);
+        self::assertSame(CompiledExpression::BOOLEAN, $compiledExpression->getType());
+        self::assertFalse($compiledExpression->getValue());
     }
 
     public function testEmptyVarZero()
@@ -55,9 +55,9 @@ class EmptyTest extends \Tests\PHPSA\TestCase
         );
         $compiledExpression = $this->compileExpression($baseExpression, $context);
 
-        parent::assertInstanceOfCompiledExpression($compiledExpression);
-        parent::assertSame(CompiledExpression::BOOLEAN, $compiledExpression->getType());
-        parent::assertFalse($compiledExpression->getValue());
+        self::assertInstanceOfCompiledExpression($compiledExpression);
+        self::assertSame(CompiledExpression::BOOLEAN, $compiledExpression->getType());
+        self::assertFalse($compiledExpression->getValue());
     }
 
     public function testEmptyVarNull()
@@ -72,9 +72,9 @@ class EmptyTest extends \Tests\PHPSA\TestCase
         );
         $compiledExpression = $this->compileExpression($baseExpression, $context);
 
-        parent::assertInstanceOfCompiledExpression($compiledExpression);
-        parent::assertSame(CompiledExpression::BOOLEAN, $compiledExpression->getType());
-        parent::assertFalse($compiledExpression->getValue());
+        self::assertInstanceOfCompiledExpression($compiledExpression);
+        self::assertSame(CompiledExpression::BOOLEAN, $compiledExpression->getType());
+        self::assertFalse($compiledExpression->getValue());
     }
 
     public function testEmptyVarNotExisting()
@@ -88,8 +88,8 @@ class EmptyTest extends \Tests\PHPSA\TestCase
         );
         $compiledExpression = $this->compileExpression($baseExpression, $context);
 
-        parent::assertInstanceOfCompiledExpression($compiledExpression);
-        parent::assertSame(CompiledExpression::BOOLEAN, $compiledExpression->getType());
-        parent::assertFalse($compiledExpression->getValue());
+        self::assertInstanceOfCompiledExpression($compiledExpression);
+        self::assertSame(CompiledExpression::BOOLEAN, $compiledExpression->getType());
+        self::assertFalse($compiledExpression->getValue());
     }
 }

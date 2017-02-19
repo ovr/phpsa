@@ -20,9 +20,9 @@ class ArrayTest extends \Tests\PHPSA\TestCase
         $baseExpression = new Node\Expr\Array_();
         $compiledExpression = $this->compileExpression($baseExpression, $this->getContext());
 
-        $this->assertInstanceOfCompiledExpression($compiledExpression);
-        $this->assertSame(CompiledExpression::ARR, $compiledExpression->getType());
-        $this->assertSame(array(), $compiledExpression->getValue());
+        self::assertInstanceOfCompiledExpression($compiledExpression);
+        self::assertSame(CompiledExpression::ARR, $compiledExpression->getType());
+        self::assertSame(array(), $compiledExpression->getValue());
     }
 
     /**
@@ -56,9 +56,9 @@ class ArrayTest extends \Tests\PHPSA\TestCase
             $this->getContext()
         );
 
-        $this->assertInstanceOfCompiledExpression($compiledExpression);
-        $this->assertSame(CompiledExpression::ARR, $compiledExpression->getType());
-        $this->assertSame(array(1, 2, 3, 4, 5, 6), $compiledExpression->getValue());
+        self::assertInstanceOfCompiledExpression($compiledExpression);
+        self::assertSame(CompiledExpression::ARR, $compiledExpression->getType());
+        self::assertSame(array(1, 2, 3, 4, 5, 6), $compiledExpression->getValue());
     }
 
     /**
@@ -80,9 +80,9 @@ class ArrayTest extends \Tests\PHPSA\TestCase
             $this->getContext()
         );
 
-        $this->assertInstanceOfCompiledExpression($compiledExpression);
-        $this->assertSame(CompiledExpression::ARR, $compiledExpression->getType());
-        $this->assertSame(array(1, 2), $compiledExpression->getValue());
+        self::assertInstanceOfCompiledExpression($compiledExpression);
+        self::assertSame(CompiledExpression::ARR, $compiledExpression->getType());
+        self::assertSame(array(1, 2), $compiledExpression->getValue());
     }
 
     /**
@@ -106,9 +106,9 @@ class ArrayTest extends \Tests\PHPSA\TestCase
             $this->getContext()
         );
 
-        $this->assertInstanceOfCompiledExpression($compiledExpression);
-        $this->assertSame(CompiledExpression::ARR, $compiledExpression->getType());
-        $this->assertSame(
+        self::assertInstanceOfCompiledExpression($compiledExpression);
+        self::assertSame(CompiledExpression::ARR, $compiledExpression->getType());
+        self::assertSame(
             array(
                 'key1' => 1,
                 'key2' => 2

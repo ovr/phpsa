@@ -23,9 +23,9 @@ class IssetTest extends \Tests\PHPSA\TestCase
         ]);
         $compiledExpression = $this->compileExpression($baseExpression, $context);
 
-        parent::assertInstanceOfCompiledExpression($compiledExpression);
-        parent::assertSame(CompiledExpression::BOOLEAN, $compiledExpression->getType());
-        parent::assertTrue($compiledExpression->getValue());
+        self::assertInstanceOfCompiledExpression($compiledExpression);
+        self::assertSame(CompiledExpression::BOOLEAN, $compiledExpression->getType());
+        self::assertTrue($compiledExpression->getValue());
     }
 
     public function testIssetVarNull()
@@ -42,9 +42,9 @@ class IssetTest extends \Tests\PHPSA\TestCase
         ]);
         $compiledExpression = $this->compileExpression($baseExpression, $context);
 
-        parent::assertInstanceOfCompiledExpression($compiledExpression);
-        parent::assertSame(CompiledExpression::BOOLEAN, $compiledExpression->getType());
-        parent::assertFalse($compiledExpression->getValue());
+        self::assertInstanceOfCompiledExpression($compiledExpression);
+        self::assertSame(CompiledExpression::BOOLEAN, $compiledExpression->getType());
+        self::assertFalse($compiledExpression->getValue());
     }
 
     public function testIssetVarNotExisting()
@@ -60,8 +60,8 @@ class IssetTest extends \Tests\PHPSA\TestCase
         ]);
         $compiledExpression = $this->compileExpression($baseExpression, $context);
 
-        parent::assertInstanceOfCompiledExpression($compiledExpression);
-        parent::assertSame(CompiledExpression::BOOLEAN, $compiledExpression->getType());
-        parent::assertFalse($compiledExpression->getValue());
+        self::assertInstanceOfCompiledExpression($compiledExpression);
+        self::assertSame(CompiledExpression::BOOLEAN, $compiledExpression->getType());
+        self::assertFalse($compiledExpression->getValue());
     }
 }

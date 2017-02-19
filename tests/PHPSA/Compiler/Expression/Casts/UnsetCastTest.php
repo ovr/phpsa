@@ -18,8 +18,8 @@ class UnsetCastTest extends \Tests\PHPSA\TestCase
         );
         $compiledExpression = $this->compileExpression($baseExpression);
 
-        $this->assertInstanceOfCompiledExpression($compiledExpression);
-        $this->assertSame(CompiledExpression::NULL, $compiledExpression->getType());
-        $this->assertSame(null, $compiledExpression->getValue());
+        self::assertInstanceOfCompiledExpression($compiledExpression);
+        self::assertSame(CompiledExpression::NULL, $compiledExpression->getType());
+        self::assertSame(null, $compiledExpression->getValue());
     }
 }

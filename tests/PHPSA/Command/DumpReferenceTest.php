@@ -16,6 +16,6 @@ class DumpReferenceTest extends TestCase
         $commandTester = new CommandTester($command);
         $commandTester->execute(['command'  => $command->getName()]);
 
-        $this->assertContains('language_error', $commandTester->getDisplay());
+        self::assertContains('language_error', $commandTester->getDisplay());
     }
 }
