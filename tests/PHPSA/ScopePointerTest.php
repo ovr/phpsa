@@ -14,7 +14,7 @@ class ScopePointerTest extends TestCase
         $object = new \stdClass;
         $scopePointer = new ScopePointer($object);
 
-        $this->assertSame($object, $scopePointer->getObject());
+        self::assertSame($object, $scopePointer->getObject());
     }
 
     /**
@@ -27,7 +27,7 @@ class ScopePointerTest extends TestCase
             ->getMock();
         $scopePointer = new ScopePointer($class);
 
-        $this->assertTrue($scopePointer->isClassMethod());
+        self::assertTrue($scopePointer->isClassMethod());
     }
 
     /**
@@ -38,7 +38,7 @@ class ScopePointerTest extends TestCase
     {
         $scopePointer = new ScopePointer($object);
 
-        $this->assertFalse($scopePointer->isClassMethod());
+        self::assertFalse($scopePointer->isClassMethod());
     }
 
     /**
@@ -51,7 +51,7 @@ class ScopePointerTest extends TestCase
             ->getMock();
         $scopePointer = new ScopePointer($function);
 
-        $this->assertTrue($scopePointer->isFunction());
+        self::assertTrue($scopePointer->isFunction());
     }
 
     /**
@@ -62,7 +62,7 @@ class ScopePointerTest extends TestCase
     {
         $scopePointer = new ScopePointer($object);
 
-        $this->assertFalse($scopePointer->isFunction());
+        self::assertFalse($scopePointer->isFunction());
     }
 
     public function notClassMethodDataProvider()

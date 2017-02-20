@@ -65,7 +65,7 @@ class ResolveExpressionTraitTest extends \Tests\PHPSA\TestCase
      */
     public function testResolveFunctionName($nameExpr, $expectedFunctionName, $context)
     {
-        parent::assertSame(
+        self::assertSame(
             $expectedFunctionName,
             $this->resolveFunctionName(
                 new \PhpParser\Node\Expr\FuncCall(
@@ -80,7 +80,7 @@ class ResolveExpressionTraitTest extends \Tests\PHPSA\TestCase
     {
         $returnStatement = new \PhpParser\Node\Stmt\Return_();
 
-        parent::assertSame(
+        self::assertSame(
             [$returnStatement],
             // findReturnStatement will return \Generator, We should iterate it
             iterator_to_array(
@@ -98,7 +98,7 @@ class ResolveExpressionTraitTest extends \Tests\PHPSA\TestCase
     {
         $returnStatement = new \PhpParser\Node\Expr\Yield_();
 
-        parent::assertSame(
+        self::assertSame(
             [$returnStatement],
             // findReturnStatement will return \Generator, We should iterate it
             iterator_to_array(

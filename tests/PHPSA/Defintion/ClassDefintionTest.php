@@ -21,8 +21,8 @@ class ClassDefintionTest extends TestCase
     public function testSimpleInstance()
     {
         $classDefinition = $this->getSimpleInstance();
-        $this->assertSame('MyTestClass', $classDefinition->getName());
-        $this->assertFalse($classDefinition->isCompiled());
+        self::assertSame('MyTestClass', $classDefinition->getName());
+        self::assertFalse($classDefinition->isCompiled());
     }
 
     public function testScopePointer()
@@ -30,15 +30,15 @@ class ClassDefintionTest extends TestCase
         $classDefinition = $this->getSimpleInstance();
 
         $pointer = $classDefinition->getPointer();
-        $this->assertInstanceOf('PHPSA\ScopePointer', $pointer);
-        $this->assertEquals($classDefinition, $pointer->getObject());
+        self::assertInstanceOf('PHPSA\ScopePointer', $pointer);
+        self::assertEquals($classDefinition, $pointer->getObject());
     }
 
     public function testSetGetHasForClassProperty()
     {
         $classDefinition = $this->getSimpleInstance();
-        $this->assertFalse($classDefinition->hasProperty('test1'));
-        $this->assertFalse($classDefinition->hasProperty('test2'));
+        self::assertFalse($classDefinition->hasProperty('test1'));
+        self::assertFalse($classDefinition->hasProperty('test2'));
 
         $property = new \PhpParser\Node\Stmt\Property(
             0,
@@ -53,8 +53,8 @@ class ClassDefintionTest extends TestCase
         );
         $classDefinition->addProperty($property);
 
-        $this->assertTrue($classDefinition->hasProperty('test1'));
-        $this->assertFalse($classDefinition->hasProperty('test2'));
+        self::assertTrue($classDefinition->hasProperty('test1'));
+        self::assertFalse($classDefinition->hasProperty('test2'));
 
         $property = new \PhpParser\Node\Stmt\Property(
             0,
@@ -69,8 +69,8 @@ class ClassDefintionTest extends TestCase
         );
         $classDefinition->addProperty($property);
 
-        $this->assertTrue($classDefinition->hasProperty('test1'));
-        $this->assertTrue($classDefinition->hasProperty('test2'));
+        self::assertTrue($classDefinition->hasProperty('test1'));
+        self::assertTrue($classDefinition->hasProperty('test2'));
 
         $property = new \PhpParser\Node\Stmt\Property(0, [
             new \PhpParser\Node\Stmt\PropertyProperty(
@@ -84,8 +84,8 @@ class ClassDefintionTest extends TestCase
         ]);
         $classDefinition->addProperty($property);
 
-        $this->assertTrue($classDefinition->hasProperty('foo'));
-        $this->assertTrue($classDefinition->hasProperty('bar'));
+        self::assertTrue($classDefinition->hasProperty('foo'));
+        self::assertTrue($classDefinition->hasProperty('bar'));
     }
 
     public function testMethodSetGet()
@@ -94,8 +94,8 @@ class ClassDefintionTest extends TestCase
         $methodName = 'method1';
         $nonExistsMethodName = 'method2';
 
-        $this->assertFalse($classDefinition->hasMethod($methodName));
-        $this->assertFalse($classDefinition->hasMethod($nonExistsMethodName));
+        self::assertFalse($classDefinition->hasMethod($methodName));
+        self::assertFalse($classDefinition->hasMethod($nonExistsMethodName));
 
         $classDefinition->addMethod(
             new \PHPSA\Definition\ClassMethod(
@@ -107,12 +107,12 @@ class ClassDefintionTest extends TestCase
             )
         );
 
-        $this->assertTrue($classDefinition->hasMethod($methodName));
-        $this->assertFalse($classDefinition->hasMethod($nonExistsMethodName));
+        self::assertTrue($classDefinition->hasMethod($methodName));
+        self::assertFalse($classDefinition->hasMethod($nonExistsMethodName));
 
         $method = $classDefinition->getMethod($methodName);
-        $this->assertInstanceOf('PHPSA\Definition\ClassMethod', $method);
-        $this->assertSame($methodName, $method->getName());
+        self::assertInstanceOf('PHPSA\Definition\ClassMethod', $method);
+        self::assertSame($methodName, $method->getName());
 
         return $classDefinition;
     }
@@ -124,8 +124,8 @@ class ClassDefintionTest extends TestCase
             new Const_('FOO', new String_('bar'))
         ]));
 
-        $this->assertTrue($classDefinition->hasConst('FOO'));
-        $this->assertFalse($classDefinition->hasConst('BAR'));
+        self::assertTrue($classDefinition->hasConst('FOO'));
+        self::assertFalse($classDefinition->hasConst('BAR'));
     }
 
     public function testHasConstWithParent()
@@ -142,8 +142,8 @@ class ClassDefintionTest extends TestCase
             new Const_('FOO', new String_('bar'))
         ]));
 
-        $this->assertTrue($classDefinition->hasConst('FOO'));
-        $this->assertFalse($classDefinition->hasConst('BAR'));
-        $this->assertTrue($classDefinition->hasConst('BAR', true));
+        self::assertTrue($classDefinition->hasConst('FOO'));
+        self::assertFalse($classDefinition->hasConst('BAR'));
+        self::assertTrue($classDefinition->hasConst('BAR', true));
     }
 }

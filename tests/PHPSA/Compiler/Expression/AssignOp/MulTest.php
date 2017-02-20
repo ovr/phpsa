@@ -63,9 +63,9 @@ class MulTest extends AbstractBinaryOp
         );
         $compiledExpression = $this->compileExpression($baseExpression);
 
-        $this->assertInstanceOfCompiledExpression($compiledExpression);
-        $this->assertSame(CompiledExpression::DOUBLE, $compiledExpression->getType());
-        $this->assertSame($c, $compiledExpression->getValue());
+        self::assertInstanceOfCompiledExpression($compiledExpression);
+        self::assertSame(CompiledExpression::DOUBLE, $compiledExpression->getType());
+        self::assertSame($c, $compiledExpression->getValue());
     }
 
     /**

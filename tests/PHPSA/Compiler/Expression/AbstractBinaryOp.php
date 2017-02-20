@@ -51,9 +51,9 @@ abstract class AbstractBinaryOp extends \Tests\PHPSA\TestCase
                 );
                 $compiledExpression = $this->compileExpression($baseExpression);
 
-                $this->assertInstanceOfCompiledExpression($compiledExpression);
-                //$this->assertSame($this->getExpressionType($a, $b), $compiledExpression->getType());
-                $this->assertEquals($this->process($this->data[$type1], $this->data[$type2]), $compiledExpression->getValue());
+                self::assertInstanceOfCompiledExpression($compiledExpression);
+                //self::assertSame($this->getExpressionType($a, $b), $compiledExpression->getType());
+                self::assertEquals($this->process($this->data[$type1], $this->data[$type2]), $compiledExpression->getValue());
             }
         }
     }
@@ -69,9 +69,9 @@ abstract class AbstractBinaryOp extends \Tests\PHPSA\TestCase
         );
         $compiledExpression = $this->compileExpression($baseExpression);
 
-        $this->assertInstanceOfCompiledExpression($compiledExpression);
-        $this->assertSame(CompiledExpression::UNKNOWN, $compiledExpression->getType());
-        $this->assertSame(null, $compiledExpression->getValue());
+        self::assertInstanceOfCompiledExpression($compiledExpression);
+        self::assertSame(CompiledExpression::UNKNOWN, $compiledExpression->getType());
+        self::assertSame(null, $compiledExpression->getValue());
     }
 
     /**
@@ -85,8 +85,8 @@ abstract class AbstractBinaryOp extends \Tests\PHPSA\TestCase
         );
         $compiledExpression = $this->compileExpression($baseExpression);
 
-        $this->assertInstanceOfCompiledExpression($compiledExpression);
-        $this->assertSame(CompiledExpression::UNKNOWN, $compiledExpression->getType());
-        $this->assertSame(null, $compiledExpression->getValue());
+        self::assertInstanceOfCompiledExpression($compiledExpression);
+        self::assertSame(CompiledExpression::UNKNOWN, $compiledExpression->getType());
+        self::assertSame(null, $compiledExpression->getValue());
     }
 }

@@ -17,8 +17,8 @@ class IssuesCollectorTest extends \PHPUnit_Framework_TestCase
         $collector = new IssuesCollector();
         $issue = new Issue(__FUNCTION__, 'Test issue', new IssueLocation(__FILE__, 26));
 
-        $this->assertNull($collector->addIssue($issue));
-        $this->assertCount(1, $collector->getIssues());
-        $this->assertSame([$issue], $collector->getIssues());
+        self::assertNull($collector->addIssue($issue));
+        self::assertCount(1, $collector->getIssues());
+        self::assertSame([$issue], $collector->getIssues());
     }
 }

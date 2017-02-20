@@ -13,7 +13,7 @@ class TypesTest extends TestCase
      */
     public function testGetType($typeAsString, $expectedType)
     {
-        parent::assertSame($expectedType, Types::getType($typeAsString));
+        self::assertSame($expectedType, Types::getType($typeAsString));
     }
 
     /**

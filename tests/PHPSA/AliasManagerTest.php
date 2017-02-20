@@ -13,8 +13,8 @@ class AliasManagerTest extends TestCase
     {
         $manager = new AliasManager('\Some\Deep\Namespace');
 
-        $this->assertInstanceOf('\PHPSA\AliasManager', $manager);
-        $this->assertEquals('\Some\Deep\Namespace', $manager->getNamespace());
+        self::assertInstanceOf('\PHPSA\AliasManager', $manager);
+        self::assertEquals('\Some\Deep\Namespace', $manager->getNamespace());
     }
 
     /**
@@ -24,8 +24,8 @@ class AliasManagerTest extends TestCase
     {
         $manager = new AliasManager();
 
-        $this->assertInstanceOf('\PHPSA\AliasManager', $manager);
-        $this->assertNull($manager->getNamespace());
+        self::assertInstanceOf('\PHPSA\AliasManager', $manager);
+        self::assertNull($manager->getNamespace());
     }
 
     /**
@@ -37,8 +37,8 @@ class AliasManagerTest extends TestCase
     {
         $manager = new AliasManager('\Some\Initial\Namespace');
 
-        $this->assertNull($manager->setNamespace('\New\GoneWithTheOld'));
-        $this->assertEquals('\New\GoneWithTheOld', $manager->getNamespace());
+        self::assertNull($manager->setNamespace('\New\GoneWithTheOld'));
+        self::assertEquals('\New\GoneWithTheOld', $manager->getNamespace());
     }
 
     /**
@@ -48,7 +48,7 @@ class AliasManagerTest extends TestCase
     {
         $manager = new AliasManager();
 
-        $this->assertNull($manager->add('WebThings'));
+        self::assertNull($manager->add('WebThings'));
     }
 
     /**
@@ -59,9 +59,9 @@ class AliasManagerTest extends TestCase
     {
         $manager = new AliasManager();
 
-        $this->assertNull($manager->add('WebThings'));
+        self::assertNull($manager->add('WebThings'));
 
-        $this->assertTrue($manager->isClassImported('WebThings'));
-        $this->assertFalse($manager->isClassImported('AnalogStuff'));
+        self::assertTrue($manager->isClassImported('WebThings'));
+        self::assertFalse($manager->isClassImported('AnalogStuff'));
     }
 }

@@ -43,9 +43,9 @@ class PreIncTest extends \Tests\PHPSA\TestCase
         );
         $compiledExpression = $this->compileExpression($baseExpression, $context);
 
-        $this->assertInstanceOfCompiledExpression($compiledExpression);
-        $this->assertSame(CompiledExpression::INTEGER, $compiledExpression->getType());
-        $this->assertSame(++$value, $compiledExpression->getValue());
+        self::assertInstanceOfCompiledExpression($compiledExpression);
+        self::assertSame(CompiledExpression::INTEGER, $compiledExpression->getType());
+        self::assertSame(++$value, $compiledExpression->getValue());
     }
 
     /**
@@ -78,8 +78,8 @@ class PreIncTest extends \Tests\PHPSA\TestCase
         );
         $compiledExpression = $this->compileExpression($baseExpression, $context);
 
-        $this->assertInstanceOfCompiledExpression($compiledExpression);
-        $this->assertSame(CompiledExpression::DOUBLE, $compiledExpression->getType());
-        $this->assertSame(++$value, $compiledExpression->getValue());
+        self::assertInstanceOfCompiledExpression($compiledExpression);
+        self::assertSame(CompiledExpression::DOUBLE, $compiledExpression->getType());
+        self::assertSame(++$value, $compiledExpression->getValue());
     }
 }

@@ -17,10 +17,10 @@ class RuntimeClassDefintionTest extends TestCase
         $definition = new RuntimeClassDefinition($reflection);
 
         foreach ($reflection->getMethods() as $method) {
-            static::assertTrue($definition->hasMethod($method->getName()));
+            self::assertTrue($definition->hasMethod($method->getName()));
         }
 
-        static::assertFalse($definition->hasMethod('XXXXXXXXXXXXXX'));
+        self::assertFalse($definition->hasMethod('XXXXXXXXXXXXXX'));
     }
 
     public function testHasConst()
@@ -29,10 +29,10 @@ class RuntimeClassDefintionTest extends TestCase
         $definition = new RuntimeClassDefinition($reflection);
 
         foreach ($reflection->getConstants() as $constant) {
-            static::assertTrue($definition->hasConst($constant));
+            self::assertTrue($definition->hasConst($constant));
         }
 
-        static::assertFalse($definition->hasConst('XXXXXXXXX'));
+        self::assertFalse($definition->hasConst('XXXXXXXXX'));
     }
 
     public function testHasConstWithParent()
@@ -40,8 +40,8 @@ class RuntimeClassDefintionTest extends TestCase
         $reflection = new ReflectionClass(Parameter::class);
         $definition = new RuntimeClassDefinition($reflection);
 
-        static::assertFalse($definition->hasConst('BRANCH_ROOT'));
-        static::assertTrue($definition->hasConst('BRANCH_ROOT', true));
+        self::assertFalse($definition->hasConst('BRANCH_ROOT'));
+        self::assertTrue($definition->hasConst('BRANCH_ROOT', true));
     }
 
     public function testHasProperty()
@@ -50,9 +50,9 @@ class RuntimeClassDefintionTest extends TestCase
         $definition = new RuntimeClassDefinition($reflection);
 
         foreach ($reflection->getProperties() as $property) {
-            static::assertTrue($definition->hasProperty($property->getName()));
+            self::assertTrue($definition->hasProperty($property->getName()));
         }
 
-        static::assertFalse($definition->hasProperty('XXXXX'));
+        self::assertFalse($definition->hasProperty('XXXXX'));
     }
 }

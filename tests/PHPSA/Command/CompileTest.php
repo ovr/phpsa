@@ -16,6 +16,6 @@ class CompileTest extends TestCase
         $commandTester = new CommandTester($command);
         $commandTester->execute(['command'  => $command->getName(), 'path' => 'tests/PHPSA/Command/']);
 
-        $this->assertContains('Memory usage:', $commandTester->getDisplay());
+        self::assertContains('Memory usage:', $commandTester->getDisplay());
     }
 }

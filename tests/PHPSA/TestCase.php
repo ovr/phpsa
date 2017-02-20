@@ -38,7 +38,7 @@ class TestCase extends \PHPUnit_Framework_TestCase
      */
     protected function assertInstanceOfCompiledExpression($actual, $message = '')
     {
-        parent::assertInstanceOf(
+        self::assertInstanceOf(
             CompiledExpression::class,
             $actual,
             $message

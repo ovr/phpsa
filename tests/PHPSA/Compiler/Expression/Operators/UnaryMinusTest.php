@@ -39,9 +39,9 @@ class UnaryMinusTest extends \Tests\PHPSA\TestCase
         );
         $compiledExpression = $this->compileExpression($baseExpression);
 
-        $this->assertInstanceOfCompiledExpression($compiledExpression);
-        $this->assertSame(CompiledExpression::INTEGER, $compiledExpression->getType());
-        $this->assertSame(- (int) $value, $compiledExpression->getValue());
+        self::assertInstanceOfCompiledExpression($compiledExpression);
+        self::assertSame(CompiledExpression::INTEGER, $compiledExpression->getType());
+        self::assertSame(- (int) $value, $compiledExpression->getValue());
     }
 
     /**
@@ -64,8 +64,8 @@ class UnaryMinusTest extends \Tests\PHPSA\TestCase
         );
         $compiledExpression = $this->compileExpression($baseExpression);
 
-        $this->assertInstanceOfCompiledExpression($compiledExpression);
-        $this->assertSame(CompiledExpression::UNKNOWN, $compiledExpression->getType());
-        $this->assertSame(null, $compiledExpression->getValue());
+        self::assertInstanceOfCompiledExpression($compiledExpression);
+        self::assertSame(CompiledExpression::UNKNOWN, $compiledExpression->getType());
+        self::assertSame(null, $compiledExpression->getValue());
     }
 }

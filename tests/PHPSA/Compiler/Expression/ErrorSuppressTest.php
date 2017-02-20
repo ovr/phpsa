@@ -15,8 +15,8 @@ class ErrorSuppressTest extends \Tests\PHPSA\TestCase
         ));
         $compiledExpression = $this->compileExpression($baseExpression);
 
-        parent::assertInstanceOfCompiledExpression($compiledExpression);
-        parent::assertSame(CompiledExpression::INTEGER, $compiledExpression->getType());
-        parent::assertSame(1, $compiledExpression->getValue());
+        self::assertInstanceOfCompiledExpression($compiledExpression);
+        self::assertSame(CompiledExpression::INTEGER, $compiledExpression->getType());
+        self::assertSame(1, $compiledExpression->getValue());
     }
 }

@@ -15,8 +15,8 @@ class CloneTest extends \Tests\PHPSA\TestCase
         );
         $compiledExpression = $this->compileExpression($baseExpression);
 
-        parent::assertInstanceOfCompiledExpression($compiledExpression);
-        parent::assertSame(CompiledExpression::STRING, $compiledExpression->getType());
-        parent::assertSame("test", $compiledExpression->getValue());
+        self::assertInstanceOfCompiledExpression($compiledExpression);
+        self::assertSame(CompiledExpression::STRING, $compiledExpression->getType());
+        self::assertSame("test", $compiledExpression->getValue());
     }
 }
