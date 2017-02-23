@@ -89,14 +89,15 @@ class ArrayIllegalOffsetType
     }
 
     /**
-     * @return array
+     * @return \SplObjectStorage
      */
-    public function arrayPropertyAssignationWithObject()
+    public function arrayAssignationWithSplObjectStorage()
     {
-        $this->array = [];
+        $array = new \SplObjectStorage;
 
-        $this->array[new \DateTime()] = 'foo';
-        $this->array[] = 'bar';
+        $array[new \DateTime()] = 'foo';
+
+        return $array;
     }
 }
 ?>
@@ -139,11 +140,5 @@ PHPSA\Analyzer\Pass\Expression\ArrayIllegalOffsetType
         "message":"Illegal array offset type object for key $variable.",
         "file":"ArrayIllegalOffsetType.php",
         "line":86
-    },
-    {
-        "type":"array.illegal_offset_type",
-        "message":"Illegal array offset type object.",
-        "file":"ArrayIllegalOffsetType.php",
-        "line":97
     }
 ]

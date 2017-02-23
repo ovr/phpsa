@@ -43,8 +43,13 @@ class ArrayIllegalOffsetType implements AnalyzerPassInterface
             return false;
         }
 
-        // $array[…]
-        return $this->analyzeExpression($expr->dim, $context);
+        $var = $context->getExpressionCompiler()->compile($expr->var);
+        if ($var->isCorrectValue() && $var->isArray()) {
+            // $array[…]
+            return $this->analyzeExpression($expr->dim, $context);
+        }
+
+        return false;
     }
 
     /**
