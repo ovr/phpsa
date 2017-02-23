@@ -47,7 +47,7 @@ class ClassDefinition extends ParentDefinition
     /**
      * Class constants
      *
-     * @var string[]
+     * @var Node\Stmt\ClassConst[]
      */
     protected $constants = [];
 
@@ -137,7 +137,7 @@ class ClassDefinition extends ParentDefinition
     public function compile(Context $context)
     {
         if ($this->compiled) {
-            return true;
+            return $this;
         }
 
         $this->compiled = true;
@@ -313,12 +313,10 @@ class ClassDefinition extends ParentDefinition
     /**
      * @param string $name
      * @param bool $inherit
-     * @return Node\Stmt\PropertyProperty
+     * @return Node\Stmt\PropertyProperty|null
      */
     public function getProperty($name, $inherit = false)
     {
-        assert($this->hasProperty($name, $inherit));
-
         if (isset($this->properties[$name])) {
             return $this->properties[$name];
         }
@@ -333,7 +331,7 @@ class ClassDefinition extends ParentDefinition
     /**
      * @param string $name
      * @param bool $inherit
-     * @return Node\Stmt\Property
+     * @return Node\Stmt\Property|null
      */
     public function getPropertyStatement($name, $inherit = false)
     {
