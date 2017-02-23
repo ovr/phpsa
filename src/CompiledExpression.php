@@ -210,7 +210,7 @@ class CompiledExpression
      */
     public function canBeObject()
     {
-        return (boolean) ($this->type == self::OBJECT || $this->type & self::OBJECT);
+        return ($this->type == self::OBJECT || $this->type & self::OBJECT);
     }
 
     /**
