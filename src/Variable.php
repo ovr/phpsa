@@ -79,7 +79,7 @@ class Variable
             $this->value = $defaultValue;
         }
 
-        $this->type = (int) $type;
+        $this->type = $type;
         $this->branch = $branch;
     }
 
@@ -162,7 +162,7 @@ class Variable
      */
     public function modifyType($type)
     {
-        $this->type = (int) $type;
+        $this->type = $type;
     }
 
     /**
@@ -173,7 +173,7 @@ class Variable
      */
     public function modify($type, $value)
     {
-        $this->type = (int) $type;
+        $this->type = $type;
         $this->value = $value;
 
         if ($this->referencedTo) {
