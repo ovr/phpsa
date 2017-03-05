@@ -17,12 +17,12 @@ class Context
     /**
      * For FunctionDefinition it's null, use scopePointer
      *
-     * @var ParentDefinition|null
+     * @var AbstractDefinition|null
      */
     public $scope;
 
     /**
-     * @var AliasManager
+     * @var AliasManager|null
      */
     public $aliasManager;
 
@@ -32,7 +32,7 @@ class Context
     public $application;
 
     /**
-     * @var string|integer
+     * @var string|integer|null
      */
     public $currentBranch;
 
@@ -320,7 +320,7 @@ class Context
     }
 
     /**
-     * @return integer
+     * @return string|integer|null
      */
     public function getCurrentBranch()
     {

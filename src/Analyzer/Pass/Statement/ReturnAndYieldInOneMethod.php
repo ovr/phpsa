@@ -3,6 +3,7 @@
 namespace PHPSA\Analyzer\Pass\Statement;
 
 use PhpParser\Node;
+use PhpParser\Node\Stmt\ClassMethod;
 use PHPSA\Analyzer\Helper\DefaultMetadataPassTrait;
 use PHPSA\Analyzer\Helper\ResolveExpressionTrait;
 use PHPSA\Analyzer\Pass;
@@ -16,11 +17,11 @@ class ReturnAndYieldInOneMethod implements Pass\AnalyzerPassInterface
     use ResolveExpressionTrait;
 
     /**
-     * @param Node\FunctionLike $func
+     * @param ClassMethod $func
      * @param Context $context
      * @return bool
      */
-    public function pass(Node\FunctionLike $func, Context $context)
+    public function pass(ClassMethod $func, Context $context)
     {
         $stmts = $func->getStmts();
         if ($stmts === null) {
@@ -47,7 +48,7 @@ class ReturnAndYieldInOneMethod implements Pass\AnalyzerPassInterface
     public function getRegister()
     {
         return [
-            Node\Stmt\ClassMethod::class,
+            ClassMethod::class,
         ];
     }
 }

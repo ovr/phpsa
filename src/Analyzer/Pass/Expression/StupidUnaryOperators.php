@@ -14,11 +14,11 @@ class StupidUnaryOperators implements AnalyzerPassInterface
     const DESCRIPTION = 'Checks for use of UnaryPlus `+$a` and suggests to use an int or float cast instead.';
 
     /**
-     * @param Expr $expr
+     * @param Expr\UnaryPlus $expr
      * @param Context $context
      * @return bool
      */
-    public function pass(Expr $expr, Context $context)
+    public function pass(Expr\UnaryPlus $expr, Context $context)
     {
         if (get_class($expr->expr) != get_class($expr)) {
             $context->notice(

@@ -17,7 +17,7 @@ class OptionalParamBeforeRequired implements Pass\AnalyzerPassInterface
     const DESCRIPTION = 'Checks if any optional parameters are before a required one. For example: `function ($a = 1, $b)`';
 
     /**
-     * @param Stmt $func
+     * @param Stmt\Function|Stmt\ClassMethod $func
      * @param Context $context
      * @return bool
      */

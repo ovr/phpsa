@@ -17,7 +17,7 @@ class MissingVisibility implements AnalyzerPassInterface
     const DESCRIPTION = 'Checks for missing visibility modifiers for properties and methods.';
 
     /**
-     * @param Stmt $stmt
+     * @param Property|ClassMethod $stmt
      * @param Context $context
      * @return bool
      */

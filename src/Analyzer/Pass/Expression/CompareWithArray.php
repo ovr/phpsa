@@ -14,11 +14,11 @@ class CompareWithArray implements AnalyzerPassInterface
     const DESCRIPTION = 'Checks for `{type array} > 1` and similar and suggests use of `count()`.';
 
     /**
-     * @param Expr $expr
+     * @param Expr\BinaryOp $expr
      * @param Context $context
      * @return bool
      */
-    public function pass(Expr $expr, Context $context)
+    public function pass(Expr\BinaryOp $expr, Context $context)
     {
         $compiler = $context->getExpressionCompiler();
         $left = $compiler->compile($expr->left);

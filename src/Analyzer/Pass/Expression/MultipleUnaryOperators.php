@@ -14,7 +14,7 @@ class MultipleUnaryOperators implements AnalyzerPassInterface
     const DESCRIPTION = 'Checks for use of multiple unary operators that cancel each other out. For example `!!boolean` or `- -int`. (there is a space between the two minus)';
 
     /**
-     * @param Expr $expr
+     * @param Expr\UnaryPlus|Expr\UnaryMinus|Expr\BitwiseNot|Expr\BooleanNot $expr
      * @param Context $context
      * @return bool
      */
