@@ -138,6 +138,23 @@ class PrintCFGCommand extends Command
             }
         }
 
+        $classess = $application->compiler->getClasses();
+        foreach ($classess as $class) {
+            $output->writeln('Class: ' . $class->getName());
+
+            $methods = $class->getMethods();
+
+            foreach ($methods as $method) {
+                $output->writeln('Method: ' . $method->getName());
+
+                $cfg = $method->getCFG();
+                if ($cfg) {
+                    $traverser->traverse($cfg);
+                    $printer->printGraph($cfg->getRoot());
+                }
+            }
+        }
+
         $output->writeln('');
         $output->writeln('Memory usage: ' . $this->getMemoryUsage(false) . ' (peak: ' . $this->getMemoryUsage(true) . ') MB');
     }

@@ -195,4 +195,12 @@ class Compiler
     {
         return $this->functions;
     }
+
+    /**
+     * @return ClassDefinition[]
+     */
+    public function getClasses()
+    {
+        return $this->classes;
+    }
 }
