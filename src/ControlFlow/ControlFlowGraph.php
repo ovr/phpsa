@@ -83,6 +83,9 @@ class ControlFlowGraph
                 case \PhpParser\Node\Stmt\Return_::class:
                     $block = $this->passReturn($stmt, $block);
                     break;
+                case \PhpParser\Node\Stmt\Foreach_::class:
+                    $block = $this->passForeach($stmt, $block);
+                    break;
                 case \PhpParser\Node\Stmt\For_::class:
                     $block = $this->passFor($stmt, $block);
                     break;
@@ -216,6 +219,32 @@ class ControlFlowGraph
         }
 
         return $exitBlock;
+    }
+
+    /**
+     * @param \PhpParser\Node\Stmt\Foreach_ $foreach
+     * @param Block $block
+     * @return Block
+     */
+    protected function passForeach(\PhpParser\Node\Stmt\Foreach_ $foreach, Block $block)
+    {
+        $block->setExit(
+            $next = new Block($this->lastBlockId++)
+        );
+
+        $next->setExit(
+            $loop = new Block($this->lastBlockId++)
+        );
+
+        $this->passNodes($foreach->stmts, $loop);
+
+        $loop->addChildren(new Node\JumpNode($next));
+
+        $loop->setExit(
+            $after = new Block($this->lastBlockId++)
+        );
+
+        return $after;
     }
 
     /**
