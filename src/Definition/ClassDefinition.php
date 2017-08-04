@@ -213,21 +213,22 @@ class ClassDefinition extends ParentDefinition
 
             $method->compile($context);
 
-            $symbols = $context->getSymbols();
-            if (count($symbols) > 0) {
-                foreach ($symbols as $name => $variable) {
-                    if (!$variable->isGlobal() && $variable->isUnused()) {
-                        $context->warning(
-                            'unused-' . $variable->getSymbolType(),
-                            sprintf(
-                                'Unused ' . $variable->getSymbolType() . ' $%s in method %s()',
-                                $variable->getName(),
-                                $method->getName()
-                            )
-                        );
-                    }
-                }
-            }
+//            Disabled because We stop compiling all code, only what we need
+//            $symbols = $context->getSymbols();
+//            if (count($symbols) > 0) {
+//                foreach ($symbols as $name => $variable) {
+//                    if (!$variable->isGlobal() && $variable->isUnused()) {
+//                        $context->warning(
+//                            'unused-' . $variable->getSymbolType(),
+//                            sprintf(
+//                                'Unused ' . $variable->getSymbolType() . ' $%s in method %s()',
+//                                $variable->getName(),
+//                                $method->getName()
+//                            )
+//                        );
+//                    }
+//                }
+//            }
         }
 
         return $this;

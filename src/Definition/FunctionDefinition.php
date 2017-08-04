@@ -107,9 +107,10 @@ class FunctionDefinition extends ParentDefinition
             }
         }
 
-        foreach ($this->statement->stmts as $st) {
-            \PHPSA\nodeVisitorFactory($st, $context);
-        }
+//        Disabled because We stop compiling all code, only what we need
+//        foreach ($this->statement->stmts as $st) {
+//            \PHPSA\nodeVisitorFactory($st, $context);
+//        }
 
         return true;
     }
