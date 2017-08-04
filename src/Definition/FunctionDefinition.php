@@ -33,6 +33,11 @@ class FunctionDefinition extends ParentDefinition
     protected $statement;
 
     /**
+     * @var \PHPSA\ControlFlow\ControlFlowGraph
+     */
+    protected $cfg;
+
+    /**
      * @var int
      */
     protected $returnTypes = CompiledExpression::MIXED;
@@ -131,5 +136,13 @@ class FunctionDefinition extends ParentDefinition
     public function getParams()
     {
         return $this->statement->params;
+    }
+
+    /**
+     * @return \PHPSA\ControlFlow\ControlFlowGraph
+     */
+    public function getCFG()
+    {
+        return $this->cfg;
     }
 }

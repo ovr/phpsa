@@ -451,4 +451,12 @@ class ClassDefinition extends ParentDefinition
             }
         }
     }
+
+    /**
+     * @return ClassMethod[]
+     */
+    public function getMethods()
+    {
+        return $this->methods;
+    }
 }

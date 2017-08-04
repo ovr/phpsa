@@ -18,11 +18,6 @@ abstract class ParentDefinition extends AbstractDefinition
     protected $namespace;
 
     /**
-     * @var \PHPSA\ControlFlow\ControlFlowGraph
-     */
-    protected $cfg;
-
-    /**
      * @return string
      */
     public function getNamespace()
@@ -36,13 +31,5 @@ abstract class ParentDefinition extends AbstractDefinition
     public function setNamespace($namespace)
     {
         $this->namespace = $namespace;
-    }
-
-    /**
-     * @return \PHPSA\ControlFlow\ControlFlowGraph
-     */
-    public function getCFG()
-    {
-        return $this->cfg;
     }
 }

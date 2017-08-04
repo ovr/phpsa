@@ -11,6 +11,7 @@ use PHPSA\Compiler\Parameter;
 use PHPSA\Compiler\Types;
 use PHPSA\Compiler\Event;
 use PHPSA\Context;
+use PHPSA\ControlFlow\ControlFlowGraph;
 
 /**
  * Class Method Definition
@@ -28,6 +29,11 @@ class ClassMethod extends AbstractDefinition
      * @var Node\Stmt\ClassMethod
      */
     protected $statement;
+
+    /**
+     * @var \PHPSA\ControlFlow\ControlFlowGraph
+     */
+    protected $cfg;
 
     /**
      * Return type
@@ -116,6 +122,11 @@ class ClassMethod extends AbstractDefinition
         foreach ($this->statement->stmts as $st) {
             \PHPSA\nodeVisitorFactory($st, $context);
         }
+
+        $this->cfg = new ControlFlowGraph(
+            $this->statement,
+            $context
+        );
     }
 
     /**
@@ -227,5 +238,13 @@ class ClassMethod extends AbstractDefinition
     public function setModifier($type)
     {
         $this->type = $type;
+    }
+
+    /**
+     * @return \PHPSA\ControlFlow\ControlFlowGraph
+     */
+    public function getCFG()
+    {
+        return $this->cfg;
     }
 }
