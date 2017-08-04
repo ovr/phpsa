@@ -5,6 +5,7 @@
 
 namespace PHPSA\ControlFlow;
 
+use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\Function_;
 use PHPSA\Context;
 use PHPSA\ControlFlow\Node;
@@ -47,6 +48,12 @@ class ControlFlowGraph
         $this->root = new Block($this->lastBlockId++);
 
         if ($statement instanceof Function_) {
+            if ($statement->stmts) {
+                $this->passNodes($statement->stmts, $this->root);
+            }
+        }
+
+        if ($statement instanceof ClassMethod) {
             if ($statement->stmts) {
                 $this->passNodes($statement->stmts, $this->root);
             }
