@@ -81,7 +81,7 @@ class ControlFlowGraph
                     $this->passAssign($stmt, $block);
                     break;
                 case \PhpParser\Node\Stmt\Return_::class:
-                    $this->passReturn($stmt, $block);
+                    $block = $this->passReturn($stmt, $block);
                     break;
                 case \PhpParser\Node\Stmt\For_::class:
                     $block = $this->passFor($stmt, $block);
@@ -327,6 +327,11 @@ class ControlFlowGraph
                 new Node\ReturnNode()
             );
         }
+
+        $unreachableBlock = new Block($this->lastBlockId++, true);
+        $block->setExit($unreachableBlock);
+
+        return $unreachableBlock;
     }
 
     /**
