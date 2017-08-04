@@ -50,7 +50,11 @@ class ArrayDimFetch extends AbstractExpressionCompiler
                 break;
         }
 
-        $resultArray = $var->getValue();
-        return CompiledExpression::fromZvalValue($resultArray[$dim->getValue()]);
+        if ($var->isArray() && $var->isCorrectValue()) {
+            $resultArray = $var->getValue();
+            return CompiledExpression::fromZvalValue($resultArray[$dim->getValue()]);
+        }
+
+        return new CompiledExpression();
     }
 }
