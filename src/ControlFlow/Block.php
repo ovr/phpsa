@@ -10,6 +10,11 @@ use PHPSA\ControlFlow\Node\AbstractNode;
 class Block
 {
     /**
+     * @var bool
+     */
+    protected $unreachable = false;
+
+    /**
      * @var AbstractNode[]
      */
     protected $children = [];
@@ -35,11 +40,13 @@ class Block
     public $label;
 
     /**
-     * @param int $id
+     * @param int  $id
+     * @param bool $unreachable
      */
-    public function __construct($id)
+    public function __construct($id, $unreachable = false)
     {
         $this->id = $id;
+        $this->unreachable = $unreachable;
     }
 
     /**
@@ -88,5 +95,13 @@ class Block
     public function addParent(Block $parent)
     {
         $this->parents[] = $parent;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isUnreachable()
+    {
+        return $this->unreachable;
     }
 }
