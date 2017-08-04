@@ -90,7 +90,7 @@ class ControlFlowGraph
                     $block = $this->passIf($stmt, $block);
                     break;
                 case \PhpParser\Node\Stmt\While_::class:
-                    $block = $this->passWhile($stmt, $block);
+                    $block = $this->passWhile($stmt, $this->createNewBlockIfNeeded($block));
                     break;
                 case \PhpParser\Node\Stmt\Do_::class:
                     $block = $this->passDo($stmt, $block);
@@ -264,16 +264,11 @@ class ControlFlowGraph
 
     /**
      * @param \PhpParser\Node\Stmt\While_ $while
-     * @param Block $block
+     * @param Block $cond
      * @return Block
      */
-    protected function passWhile(\PhpParser\Node\Stmt\While_ $while, Block $block)
+    protected function passWhile(\PhpParser\Node\Stmt\While_ $while, Block $cond)
     {
-        $cond = new Block($this->lastBlockId++);
-        $block->setExit(
-            $cond
-        );
-
         $loop = new Block($this->lastBlockId++);
 
         $jumpIf = new Node\JumpIfNode($this->passExpr($while->cond), $loop);
