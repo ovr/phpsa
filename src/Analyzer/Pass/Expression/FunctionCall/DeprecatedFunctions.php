@@ -24,6 +24,9 @@ class DeprecatedFunctions extends AbstractFunctionCallAnalyzer
         'session_is_registered' => ['5.3','$_SESSION'],
         'session_unregister' => ['5.3','$_SESSION'],
         'session_register' => ['5.3','$_SESSION'],
+        'gmp_random' => ['7.2','_'],
+        'each' => ['7.2','_'],
+        'create_function' => ['7.2','_'],
     ];
 
     public function pass(FuncCall $funcCall, Context $context)
