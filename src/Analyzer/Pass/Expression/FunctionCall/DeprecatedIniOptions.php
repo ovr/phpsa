@@ -20,6 +20,8 @@ class DeprecatedIniOptions extends AbstractFunctionCallAnalyzer
     ];
 
     protected static $deprecatedOptions = [
+        'mbstring.func_overload' => 'is a deprecated option since PHP 7.2.0',
+        //
         'asp_tags' => 'is a deprecated option since PHP 7.0.0',
         'always_populate_raw_post_data' => 'is a deprecated option since PHP 7.0.0',
         //
