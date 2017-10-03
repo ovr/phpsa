@@ -27,6 +27,8 @@ class DeprecatedFunctions extends AbstractFunctionCallAnalyzer
         'gmp_random' => ['7.2','_'],
         'each' => ['7.2','_'],
         'create_function' => ['7.2','_'],
+        'jpeg2wbmp' => ['7.2','_'],
+        'png2wbmp' => ['7.2','_'],
     ];
 
     public function pass(FuncCall $funcCall, Context $context)
