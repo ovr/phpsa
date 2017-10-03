@@ -1,6 +1,7 @@
 {
     "name": "ovr/phpsa",
-    "description": "PHPSA aimed at bringing complex analysis for PHP applications and libraries.",
+    "description": "PHPSA aims to bring complex static analysis for PHP applications and libraries.",
+    "keywords": ["phpsa","analysis","qa","quality","static analysis"],
     "type": "util",
     "bin": [
         "bin/phpsa"
@@ -17,6 +18,11 @@
             "homepage": "https://github.com/ovr/phpsa/graphs/contributors"
         }
     ],
+    "support": {
+        "issues": "https://github.com/ovr/phpsa/issues",
+        "source": "https://github.com/ovr/phpsa",
+        "docs": "https://github.com/ovr/phpsa/tree/master/docs"
+    },
     "require": {
         "php": ">=5.6",
         "ovr/phpreflection": "^0.3.1",
