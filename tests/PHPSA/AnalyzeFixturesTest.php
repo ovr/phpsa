@@ -96,7 +96,7 @@ class AnalyzeFixturesTest extends TestCase
             },
             $application->getIssuesCollector()->getIssues()
         );
-        
+
         foreach ($expectedArray as $check) {
             self::assertContains($check, $issues, $file); // every expected Issue is in the collector
         }
@@ -116,7 +116,7 @@ class AnalyzeFixturesTest extends TestCase
     protected function getEventManager($analyzerName)
     {
         if (!class_exists($analyzerName, true)) {
-            throw new \InvalidArgumentException("Analyzer with name: {$analyzerName} doesnot exist");
+            throw new \InvalidArgumentException("Analyzer with name: {$analyzerName} does not exist");
         }
 
         /** @var \PHPSA\Analyzer\Pass\Metadata $metaData */

@@ -87,7 +87,7 @@ class Factory
 
         $instanciate = function ($passClass) use ($analyzersConfig) {
             $passName = $passClass::getMetadata()->getName();
-
+            
             return new $passClass($analyzersConfig[$passName]);
         };
 
@@ -174,6 +174,7 @@ class Factory
             AnalyzerPass\Expression\FunctionCall\ArgumentUnpacking::class,
             AnalyzerPass\Expression\FunctionCall\UnsafeUnserialize::class,
             AnalyzerPass\Expression\FunctionCall\DeprecatedFunctions::class,
+            AnalyzerPass\Expression\FunctionCall\FunctionStringFormater::class,
         ];
     }
 
