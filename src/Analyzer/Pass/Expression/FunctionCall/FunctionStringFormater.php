@@ -15,7 +15,7 @@ class FunctionStringFormater extends AbstractFunctionCallAnalyzer
 {
     use DefaultMetadataPassTrait;
 
-    const DESCRIPTION = 'Format string has same number of placeholders as parameters are passed into it';
+    const DESCRIPTION = 'Format string has same number of placeholders as parameters are passed into and forbid invalid type formats.';
 
     /**
      * @var array different sleep functions
@@ -35,7 +35,7 @@ class FunctionStringFormater extends AbstractFunctionCallAnalyzer
         $functionName = $this->resolveFunctionName($funcCall, $context);
         $args = $funcCall->args;
 
-        if( ! ($args[0]->value instanceof String_)) {
+        if (! ($args[0]->value instanceof String_)) {
             $context->notice(
                 'function_argument_invalid',
                 sprintf('First parameter of %s must be string', $functionName),
@@ -43,11 +43,11 @@ class FunctionStringFormater extends AbstractFunctionCallAnalyzer
             );
         }
 
-        if(($args[0]->value instanceof String_)) {
+        if (($args[0]->value instanceof String_)) {
             $string = $args[0]->value->value;
             // get invalid placeholders
             preg_match_all("/%[^bcdeEfFgGosuxX]/", $string, $placeholders);
-            if(count($placeholders[0]) > 0) {
+            if (count($placeholders[0]) > 0) {
                 $context->notice(
                     'function_format_type_invalid',
                     sprintf('Unexpected type format in %s function string', $functionName),
@@ -56,8 +56,8 @@ class FunctionStringFormater extends AbstractFunctionCallAnalyzer
             } else {
                 // get valid placesholders
                 preg_match_all("/%[bcdeEfFgGosuxX]/", $string, $placeholders);
-                if($args[1]->value instanceof Array_) {
-                    if(count($placeholders[0]) !== count($args[1]->value->items)) {
+                if ($args[1]->value instanceof Array_) {
+                    if (count($placeholders[0]) !== count($args[1]->value->items)) {
                         $context->notice(
                             'function_array_length_invalid',
                             sprintf('Unexpected length of array passed to %s', $functionName),
@@ -65,7 +65,7 @@ class FunctionStringFormater extends AbstractFunctionCallAnalyzer
                         );
                     }
                 } else {
-                    if(count($placeholders[0]) !== (count($args) - 1)) {
+                    if (count($placeholders[0]) !== (count($args) - 1)) {
                         $context->notice(
                             'function_arguments_length_invalid',
                             sprintf('Unexpected length of arguments passed to %s', $functionName),

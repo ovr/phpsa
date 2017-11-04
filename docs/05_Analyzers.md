@@ -1,4 +1,3 @@
-
 # Analyzers
 This doc gives an overview about what the different analyzers do.
 
@@ -115,6 +114,10 @@ Checks for use of `unserialize()` without a 2nd parameter defining the allowed c
 #### deprecated_functions
 
 Checks for use of deprecated functions and gives alternatives if available.
+
+#### function_string_formater
+
+Format string has same number of placeholders as parameters are passed into and forbid invalid type formats.
 
 #### magic_method_parameters
 

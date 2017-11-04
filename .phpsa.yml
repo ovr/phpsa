@@ -1,9 +1,8 @@
-
 phpsa:
     blame:                false
 
     # Will be used to automatically disable the analyzers that require a greater version of PHP.
-    language_level:       '7.0' # Example: 5.3
+    language_level:       '7.1' # Example: 5.3
     parser:               prefer-7 # One of "prefer-7"; "prefer-5"; "only-7"; "only-5"
     analyzers:
 
@@ -123,6 +122,10 @@ phpsa:
 
         # Checks for use of deprecated functions and gives alternatives if available.
         deprecated_functions:
+            enabled:              true
+
+        # Format string has same number of placeholders as parameters are passed into and forbid invalid type formats.
+        function_string_formater:
             enabled:              true
 
         # Checks that magic methods have the right amount of parameters.
