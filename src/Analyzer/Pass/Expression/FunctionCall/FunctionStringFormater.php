@@ -18,12 +18,17 @@ class FunctionStringFormater extends AbstractFunctionCallAnalyzer
     const DESCRIPTION = 'Format string has same number of placeholders as parameters are passed into and forbid invalid type formats.';
 
     /**
-     * @var array different sleep functions
+     * @var array functions
      */
-    protected $map = [
+    protected static $functions = [
         'printf' => 'printf',
         'sprintf' => 'sprintf'
     ];
+    /**
+     * Placeholders for type format
+     * @var array
+     */
+    protected $placeholders = [];
 
     /**
      * @param FuncCall $funcCall
@@ -33,44 +38,48 @@ class FunctionStringFormater extends AbstractFunctionCallAnalyzer
     public function pass(FuncCall $funcCall, Context $context)
     {
         $functionName = $this->resolveFunctionName($funcCall, $context);
-        $args = $funcCall->args;
+        if ($functionName && isset(self::$functions[$functionName])) {
+            if ($funcCall->args) {
+                $args = $funcCall->args;
 
-        if (! ($args[0]->value instanceof String_)) {
-            $context->notice(
-                'function_argument_invalid',
-                sprintf('First parameter of %s must be string', $functionName),
-                $funcCall
-            );
-        }
+                if (! ($args[0]->value instanceof String_)) {
+                    $context->notice(
+                        'function_argument_invalid',
+                        sprintf('First parameter of %s must be string', $functionName),
+                        $funcCall
+                    );
+                }
 
-        if (($args[0]->value instanceof String_)) {
-            $string = $args[0]->value->value;
-            // get invalid placeholders
-            preg_match_all("/%[^bcdeEfFgGosuxX]/", $string, $placeholders);
-            if (count($placeholders[0]) > 0) {
-                $context->notice(
-                    'function_format_type_invalid',
-                    sprintf('Unexpected type format in %s function string', $functionName),
-                    $funcCall
-                );
-            } else {
-                // get valid placesholders
-                preg_match_all("/%[bcdeEfFgGosuxX]/", $string, $placeholders);
-                if ($args[1]->value instanceof Array_) {
-                    if (count($placeholders[0]) !== count($args[1]->value->items)) {
+                if (($args[0]->value instanceof String_)) {
+                    $string = $args[0]->value->value;
+                    // get invalid placeholders
+                    preg_match_all("/%[^bcdeEfFgGosuxX]/", $string, $this->placeholders);
+                    if (count($this->placeholders[0]) > 0) {
                         $context->notice(
-                            'function_array_length_invalid',
-                            sprintf('Unexpected length of array passed to %s', $functionName),
+                            'function_format_type_invalid',
+                            sprintf('Unexpected type format in %s function string', $functionName),
                             $funcCall
                         );
-                    }
-                } else {
-                    if (count($placeholders[0]) !== (count($args) - 1)) {
-                        $context->notice(
-                            'function_arguments_length_invalid',
-                            sprintf('Unexpected length of arguments passed to %s', $functionName),
-                            $funcCall
-                        );
+                    } else {
+                        // get valid placesholders
+                        preg_match_all("/%[bcdeEfFgGosuxX]/", $string, $this->placeholders);
+                        if ($args[1]->value instanceof Array_) {
+                            if (count($this->placeholders[0]) !== count($args[1]->value->items)) {
+                                $context->notice(
+                                    'function_array_length_invalid',
+                                    sprintf('Unexpected length of array passed to %s', $functionName),
+                                    $funcCall
+                                );
+                            }
+                        } else {
+                            if (count($this->placeholders[0]) !== (count($args) - 1)) {
+                                $context->notice(
+                                    'function_arguments_length_invalid',
+                                    sprintf('Unexpected length of arguments passed to %s', $functionName),
+                                    $funcCall
+                                );
+                            }
+                        }
                     }
                 }
             }
