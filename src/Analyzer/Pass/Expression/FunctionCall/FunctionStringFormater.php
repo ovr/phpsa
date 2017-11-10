@@ -22,7 +22,9 @@ class FunctionStringFormater extends AbstractFunctionCallAnalyzer
      */
     protected static $functions = [
         'printf' => 'printf',
-        'sprintf' => 'sprintf'
+        'sprintf' => 'sprintf',
+        'vprintf' => 'vprintf',
+        'vsprintf' => 'vsprintf'
     ];
     /**
      * Placeholders for type format
@@ -53,7 +55,7 @@ class FunctionStringFormater extends AbstractFunctionCallAnalyzer
                 if (($args[0]->value instanceof String_)) {
                     $string = $args[0]->value->value;
                     // get invalid placeholders
-                    preg_match_all("/%[^bcdeEfFgGosuxX]/", $string, $this->placeholders);
+                    preg_match_all("/(?<!\x25)\x25(?:([1-9]\d*)\$|\(([^\)]+)\))?(\+)?(0|'[^$])?(-)?(\d+)?(?:\.(\d+))?[^bcdeEufFgGosxX(%)]/", $string, $this->placeholders);
                     if (count($this->placeholders[0]) > 0) {
                         $context->notice(
                             'function_format_type_invalid',
@@ -62,7 +64,7 @@ class FunctionStringFormater extends AbstractFunctionCallAnalyzer
                         );
                     } else {
                         // get valid placesholders
-                        preg_match_all("/%[bcdeEfFgGosuxX]/", $string, $this->placeholders);
+                        preg_match_all("/(?<!\x25)\x25(?:([1-9]\d*)\$|\(([^\)]+)\))?(\+)?(0|'[^$])?(-)?(\d+)?(?:\.(\d+))?([bcdeEufFgGosxX])/", $string, $this->placeholders);
                         if ($args[1]->value instanceof Array_) {
                             if (count($this->placeholders[0]) !== count($args[1]->value->items)) {
                                 $context->notice(
