@@ -84,6 +84,10 @@ phpsa:
         array_illegal_offset_type:
             enabled:              true
 
+        # Check for duplicate variables in use statement
+        duplicated_variables_in_use_closure:
+            enabled:              true
+
         # Checks for use of alias functions and suggests the use of the originals.
         alias_check:
             enabled:              true

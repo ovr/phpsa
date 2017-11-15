@@ -87,7 +87,7 @@ class Factory
 
         $instanciate = function ($passClass) use ($analyzersConfig) {
             $passName = $passClass::getMetadata()->getName();
-            
+
             return new $passClass($analyzersConfig[$passName]);
         };
 
@@ -163,6 +163,8 @@ class Factory
             AnalyzerPass\Expression\ArrayShortDefinition::class,
             AnalyzerPass\Expression\ArrayDuplicateKeys::class,
             AnalyzerPass\Expression\ArrayIllegalOffsetType::class,
+            // Closures
+            AnalyzerPass\Expression\DuplicatedVariablesInUseClosure::class,
             // Function call
             AnalyzerPass\Expression\FunctionCall\AliasCheck::class,
             AnalyzerPass\Expression\FunctionCall\DebugCode::class,

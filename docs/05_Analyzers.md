@@ -75,6 +75,10 @@ one will be used as all others are overwritten.
 
 Checks for illegal array key types (for example objects).
 
+#### duplicated_variables_in_use_closure
+
+Check for duplicate variables in use statement
+
 #### alias_check
 
 Checks for use of alias functions and suggests the use of the originals.
