@@ -17,7 +17,7 @@ class DuplicatedVariablesInUseClosure implements AnalyzerPassInterface
     const DESCRIPTION = 'Check for duplicate variables in use statement';
 
     /**
-     * @param Closure $funcCall
+     * @param Closure $expr
      * @param Context $context
      * @return bool
      */
