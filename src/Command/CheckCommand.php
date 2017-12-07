@@ -38,7 +38,6 @@ class CheckCommand extends AbstractCommand
         $this
             ->setName('check')
             ->setDescription('Runs compiler and analyzers on all files in path')
-            ->addOption('blame', null, InputOption::VALUE_NONE, 'Git blame author for bad code ;)')
             ->addOption('config-file', null, InputOption::VALUE_REQUIRED, 'Path to the configuration file.')
             ->addArgument('path', InputArgument::OPTIONAL, 'Path to check file or directory', '.')
             ->addOption(
@@ -82,13 +81,6 @@ class CheckCommand extends AbstractCommand
         $em = EventManager::getInstance();
         Analyzer\Factory::factory($em, $application->configuration);
         $context = new Context($output, $application, $em);
-
-        /**
-         * Store option's in application's configuration
-         */
-        if ($input->getOption('blame')) {
-            $application->configuration->setValue('blame', true);
-        }
 
         $fileParser = new FileParser(
             $parser,
