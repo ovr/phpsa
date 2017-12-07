@@ -20,7 +20,7 @@ class ConfigurationLoader extends FileLoader
     {
         try {
             $path = $this->locator->locate($resource);
-            return Yaml::parse(file_get_contents($path));
+            return [Yaml::parse(file_get_contents($path)), $path];
         } catch (\InvalidArgumentException $e) {
             return [];
         }

@@ -13,6 +13,7 @@ use SplFileInfo;
 use FilesystemIterator;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Webiny\Component\EventManager\EventManager;
 
@@ -29,6 +30,7 @@ class CompileCommand extends AbstractCommand
         $this
             ->setName('compile')
             ->setDescription('Runs compiler on all files in path')
+            ->addOption('config-file', null, InputOption::VALUE_REQUIRED, 'Path to the configuration file.')
             ->addArgument('path', InputArgument::OPTIONAL, 'Path to check file or directory', '.');
     }
 
@@ -50,19 +52,17 @@ class CompileCommand extends AbstractCommand
             $output->writeln('<error>It is highly recommended to disable the XDebug extension before invoking this command.</error>');
         }
 
-        $parser = (new ParserFactory())->create(ParserFactory::PREFER_PHP7, new \PhpParser\Lexer\Emulative([
-            'usedAttributes' => [
-                'comments',
-                'startLine',
-                'endLine',
-                'startTokenPos',
-                'endTokenPos'
-            ]
-        ]));
-
         /** @var Application $application */
         $application = $this->getApplication();
         $application->compiler = new Compiler();
+
+        $configFile = $input->getOption('config-file') ?: '.phpsa.yml';
+        $configDir = realpath($input->getArgument('path'));
+        $application->configuration = $this->loadConfiguration($configFile, $configDir);
+
+        $parser = $this->createParser($application);
+
+        $output->writeln('Used config file: ' . $application->configuration->getPath());
 
         $em = EventManager::getInstance();
         $context = new Context($output, $application, $em);

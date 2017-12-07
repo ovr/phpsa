@@ -21,13 +21,20 @@ class Configuration implements ConfigurationInterface
     protected $configuration;
 
     /**
+     * @var string
+     */
+    protected $path;
+
+    /**
      * Create a configuration from array.
      *
      * @param array $configuration
      * @param array $analyzersConfiguration
      */
-    public function __construct(array $configuration = [], array $analyzersConfiguration = [])
+    public function __construct(array $configuration = [], array $analyzersConfiguration = [], $path = "")
     {
+        $this->path = $path;
+
         $processor = new Processor();
 
         $configTree = $this->getConfigTreeBuilder($analyzersConfiguration);
@@ -126,5 +133,13 @@ class Configuration implements ConfigurationInterface
     public function valueIsTrue($key)
     {
         return (bool) $this->configuration[$key];
+    }
+
+    /**
+     * @return string
+     */
+    public function getPath()
+    {
+        return $this->path;
     }
 }

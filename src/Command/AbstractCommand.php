@@ -2,7 +2,9 @@
 
 namespace PHPSA\Command;
 
+use PhpParser\ParserFactory;
 use PHPSA\Analyzer;
+use PHPSA\Application;
 use PHPSA\Configuration;
 use PHPSA\ConfigurationLoader;
 use Symfony\Component\Console\Command\Command;
@@ -38,9 +40,49 @@ abstract class AbstractCommand extends Command
             $configurationDirectory
         ]));
 
+        $loadedConfig = $loader->load($configFile);
+
         return new Configuration(
-            $loader->load($configFile),
-            Analyzer\Factory::getPassesConfigurations()
+            $loadedConfig[0], // config
+            Analyzer\Factory::getPassesConfigurations(),
+            $loadedConfig[1] // path to config file
         );
+    }
+
+    /**
+     * @param string $application
+     *
+     * @return PhpParser\Parser
+     */
+    protected function createParser($application)
+    {
+        $parserStr = $application->configuration->getValue('parser', 'prefer-7');
+        switch ($parserStr) {
+            case 'prefer-7':
+                $languageLevel = ParserFactory::PREFER_PHP7;
+                break;
+            case 'prefer-5':
+                $languageLevel = ParserFactory::PREFER_PHP5;
+                break;
+            case 'only-7':
+                $languageLevel = ParserFactory::ONLY_PHP7;
+                break;
+            case 'only-5':
+                $languageLevel = ParserFactory::ONLY_PHP5;
+                break;
+            default:
+                $languageLevel = ParserFactory::PREFER_PHP7;
+                break;
+        }
+
+        return (new ParserFactory())->create($languageLevel, new \PhpParser\Lexer\Emulative([
+            'usedAttributes' => [
+                'comments',
+                'startLine',
+                'endLine',
+                'startTokenPos',
+                'endTokenPos'
+            ]
+        ]));
     }
 }

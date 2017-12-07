@@ -5,7 +5,6 @@
 
 namespace PHPSA\Command;
 
-use PhpParser\ParserFactory;
 use PHPSA\Analyzer;
 use PHPSA\Application;
 use PHPSA\Compiler;
@@ -76,34 +75,9 @@ class CheckCommand extends AbstractCommand
         $configDir = realpath($input->getArgument('path'));
         $application->configuration = $this->loadConfiguration($configFile, $configDir);
 
-        $parserStr = $application->configuration->getValue('parser', 'prefer-7');
-        switch ($parserStr) {
-            case 'prefer-7':
-                $languageLevel = ParserFactory::PREFER_PHP7;
-                break;
-            case 'prefer-5':
-                $languageLevel = ParserFactory::PREFER_PHP5;
-                break;
-            case 'only-7':
-                $languageLevel = ParserFactory::ONLY_PHP7;
-                break;
-            case 'only-5':
-                $languageLevel = ParserFactory::ONLY_PHP5;
-                break;
-            default:
-                $languageLevel = ParserFactory::PREFER_PHP7;
-                break;
-        }
+        $parser = $this->createParser($application);
 
-        $parser = (new ParserFactory())->create($languageLevel, new \PhpParser\Lexer\Emulative([
-            'usedAttributes' => [
-                'comments',
-                'startLine',
-                'endLine',
-                'startTokenPos',
-                'endTokenPos'
-            ]
-        ]));
+        $output->writeln('Used config file: ' . $application->configuration->getPath());
 
         $em = EventManager::getInstance();
         Analyzer\Factory::factory($em, $application->configuration);
