@@ -16,7 +16,9 @@ class DebugCode extends AbstractFunctionCallAnalyzer
     protected $map = [
         'var_dump' => 'var_dump',
         'var_export' => 'var_export',
-        'debug_zval_dump' => 'debug_zval_dump'
+        'debug_zval_dump' => 'debug_zval_dump',
+        'dd' => 'dd', // Laravel debug function
+        'dump' => 'dump' // Symfony debug function
     ];
 
     /** @var DocBlockFactory */
