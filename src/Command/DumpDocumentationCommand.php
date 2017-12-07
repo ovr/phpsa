@@ -10,7 +10,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 /**
  * Command to dump the analyzer documentation as markdown
  */
-class DumpDocumentationCommand extends Command
+class DumpDocumentationCommand extends AbstractCommand
 {
     /**
      * {@inheritdoc}
@@ -29,7 +29,7 @@ class DumpDocumentationCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $metaArray = Analyzer\Factory::getPassesMetadata();
-        
+
         $output->writeln("# Analyzers");
         $output->writeln("This doc gives an overview about what the different analyzers do.");
         $output->writeln("");

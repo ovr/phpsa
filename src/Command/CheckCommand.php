@@ -9,8 +9,6 @@ use PhpParser\ParserFactory;
 use PHPSA\Analyzer;
 use PHPSA\Application;
 use PHPSA\Compiler;
-use PHPSA\Configuration;
-use PHPSA\ConfigurationLoader;
 use PHPSA\Context;
 use PHPSA\Definition\FileParser;
 use RecursiveDirectoryIterator;
@@ -18,7 +16,6 @@ use RecursiveIteratorIterator;
 use SplFileInfo;
 use FilesystemIterator;
 use Symfony\Component\Config\FileLocator;
-use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
@@ -31,7 +28,7 @@ use Webiny\Component\EventManager\EventManager;
  * @package PHPSA\Command
  * @method Application getApplication();
  */
-class CheckCommand extends Command
+class CheckCommand extends AbstractCommand
 {
 
     /**
@@ -181,33 +178,5 @@ class CheckCommand extends Command
 
         $output->writeln('');
         $output->writeln('Memory usage: ' . $this->getMemoryUsage(false) . ' (peak: ' . $this->getMemoryUsage(true) . ') MB');
-    }
-
-    /**
-     * @param boolean $type
-     * @return float
-     */
-    protected function getMemoryUsage($type)
-    {
-        return round(memory_get_usage($type) / 1024 / 1024, 2);
-    }
-
-    /**
-     * @param string $configFile
-     * @param string $configurationDirectory
-     *
-     * @return Configuration
-     */
-    protected function loadConfiguration($configFile, $configurationDirectory)
-    {
-        $loader = new ConfigurationLoader(new FileLocator([
-            getcwd(),
-            $configurationDirectory
-        ]));
-
-        return new Configuration(
-            $loader->load($configFile),
-            Analyzer\Factory::getPassesConfigurations()
-        );
     }
 }

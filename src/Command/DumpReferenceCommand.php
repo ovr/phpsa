@@ -15,7 +15,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 /**
  * Command to dump the analyzer default configuration as YAML
  */
-class DumpReferenceCommand extends Command
+class DumpReferenceCommand extends AbstractCommand
 {
     /**
      * {@inheritdoc}

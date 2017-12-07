@@ -11,7 +11,6 @@ use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
 use SplFileInfo;
 use FilesystemIterator;
-use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -20,7 +19,7 @@ use Webiny\Component\EventManager\EventManager;
 /**
  * Command to run compiler on files (no analyzer)
  */
-class CompileCommand extends Command
+class CompileCommand extends AbstractCommand
 {
     /**
      * {@inheritdoc}
@@ -120,14 +119,5 @@ class CompileCommand extends Command
 
         $output->writeln('');
         $output->writeln('Memory usage: ' . $this->getMemoryUsage(false) . ' (peak: ' . $this->getMemoryUsage(true) . ') MB');
-    }
-
-    /**
-     * @param boolean $type
-     * @return float
-     */
-    protected function getMemoryUsage($type)
-    {
-        return round(memory_get_usage($type) / 1024 / 1024, 2);
     }
 }
