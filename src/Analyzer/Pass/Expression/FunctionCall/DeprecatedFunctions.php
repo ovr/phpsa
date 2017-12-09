@@ -50,7 +50,7 @@ class DeprecatedFunctions extends AbstractFunctionCallAnalyzer
             } elseif (substr($functionName, 0, 7) === 'mcrypt_') {
                 $context->notice(
                     'deprecated.function',
-                    sprintf('The Mcrypt Extension is deprecated since PHP 7.1. Use paragonie/halite instead.'),
+                    sprintf('The Mcrypt Extension is deprecated since PHP 7.1. Use Sodium (PHP 7.2) or paragonie/halite instead.'),
                     $funcCall
                 );
             }
