@@ -19,7 +19,7 @@ class DeprecatedFunctions
     {
         return mysql_real_escape_string("abc");
     }
-    
+
     /**
      * @return string
      */
@@ -47,7 +47,7 @@ PHPSA\Analyzer\Pass\Expression\FunctionCall\DeprecatedFunctions
     },
     {
         "type":"deprecated.function",
-        "message":"The Mcrypt Extension is deprecated since PHP 7.1. Use paragonie/halite instead.",
+        "message":"The Mcrypt Extension is deprecated since PHP 7.1. Use Sodium (PHP 7.2) or paragonie/halite instead.",
         "file":"DeprecatedFunctions.php",
         "line":27
     }
