@@ -6,7 +6,7 @@ use PHPSA\IssueLocation;
 use PHPSA\IssuesCollector;
 use PHPSA\Issue;
 
-class IssuesCollectorTest extends \PHPUnit_Framework_TestCase
+class IssuesCollectorTest extends TestCase
 {
     /**
      * @covers \PHPSA\IssuesCollector::addIssue()

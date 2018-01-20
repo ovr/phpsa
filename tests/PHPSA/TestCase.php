@@ -9,12 +9,11 @@ use PHPSA\Node\Scalar\Fake;
 use PHPSA\Node\Scalar\Nil;
 use RuntimeException;
 use Symfony\Component\Console\Output\ConsoleOutput;
-use PHPSA\Definition\ClassDefinition;
 use PHPSA\Application;
 use PhpParser\Node;
 use Webiny\Component\EventManager\EventManager;
 
-class TestCase extends \PHPUnit_Framework_TestCase
+class TestCase extends \PHPUnit\Framework\TestCase
 {
     /**
      * @return \PHPSA\Context
