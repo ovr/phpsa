@@ -31,8 +31,8 @@
         "symfony/config": "^3.3.6",
         "symfony/yaml": "^3.3.6",
         "nikic/php-parser": "^3.1.0",
-        "phpdocumentor/reflection-docblock": "^3.0",
-        "phpdocumentor/type-resolver": "^0.2",
+        "phpdocumentor/reflection-docblock": "^4.3.0",
+        "phpdocumentor/type-resolver": "^0.4",
         "webiny/event-manager": "^1.4.1",
         "regex-guard/regex-guard": "^1.1"
     },
