@@ -96,9 +96,18 @@ class CheckCommand extends AbstractCommand
 
             $count = 0;
 
+            $ignore =  $application->configuration->getValue('ignore');
             /** @var SplFileInfo $file */
             foreach ($directoryIterator as $file) {
-                if ($file->getExtension() !== 'php') {
+                $skip = 0;
+                foreach ($ignore as $item) {
+                    if (preg_match("#$item#", $file->getPathname())) {
+                        $skip = 1;
+                        break;
+                    }
+                }
+
+                if ($file->getExtension() !== 'php' || $skip) {
                     continue;
                 }
 
@@ -116,7 +125,15 @@ class CheckCommand extends AbstractCommand
 
             /** @var SplFileInfo $file */
             foreach ($directoryIterator as $file) {
-                if ($file->getExtension() !== 'php') {
+                $skip = 0;
+                foreach ($ignore as $item) {
+                    if (preg_match("#$item#", $file->getPathname())) {
+                        $skip = 1;
+                        break;
+                    }
+                }
+
+                if ($file->getExtension() !== 'php' || $skip) {
                     continue;
                 }
 

@@ -78,6 +78,13 @@ class Configuration implements ConfigurationInterface
             ->end()
         ;
 
+        $ignoredFilesAndDirs = $root
+            ->children()
+                ->arrayNode('ignore')
+                    ->scalarPrototype()->end()
+                ->end()
+            ->end();
+
         $analyzersConfigRoot = $root
             ->children()
                 ->arrayNode('analyzers')

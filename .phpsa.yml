@@ -4,6 +4,9 @@ phpsa:
     # Will be used to automatically disable the analyzers that require a greater version of PHP.
     language_level:       '7.1' # Example: 5.3
     parser:               prefer-7 # One of "prefer-7"; "prefer-5"; "only-7"; "only-5"
+
+    ignore: ["/vendor"]    
+
     analyzers:
 
         # Contains all compiler notices. Those are raised when PHP with strict error reporting would create at least a Notice message. (mostly experimental)
