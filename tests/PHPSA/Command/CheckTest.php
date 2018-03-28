@@ -2,8 +2,8 @@
 
 namespace Tests\PHPSA\Command;
 
-use Tests\PHPSA\TestCase;
 use PHPSA\Application;
+use Tests\PHPSA\TestCase;
 use Symfony\Component\Console\Tester\CommandTester;
 
 class CheckTest extends TestCase
@@ -15,6 +15,8 @@ class CheckTest extends TestCase
         $command = $application->find('check');
         $commandTester = new CommandTester($command);
         $commandTester->execute(['command'  => $command->getName(), 'path' => 'tests/PHPSA/Command/']);
+
+        var_dump($command); die();
 
         self::assertContains('Memory usage:', $commandTester->getDisplay());
     }
