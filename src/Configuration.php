@@ -81,8 +81,8 @@ class Configuration implements ConfigurationInterface
         $ignoredFilesAndDirs = $root
             ->children()
                 ->arrayNode('ignore')
-                    ->scalarPrototype()->end()
-                ->end()
+                ->scalarPrototype()->end()
+                ->defaultValue(['/vendor'])
             ->end();
 
         $analyzersConfigRoot = $root
