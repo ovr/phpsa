@@ -16,8 +16,6 @@ class CheckTest extends TestCase
         $commandTester = new CommandTester($command);
         $commandTester->execute(['command'  => $command->getName(), 'path' => 'tests/PHPSA/Command/']);
 
-        var_dump($command); die();
-
         self::assertContains('Memory usage:', $commandTester->getDisplay());
     }
 }

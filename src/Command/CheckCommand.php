@@ -102,8 +102,8 @@ class CheckCommand extends AbstractCommand
                 $skip = 0;
                 foreach ($ignore as $item) {
                     // its root dir or file
-                    if($item[0] == "/") {
-                        $item = preg_replace('#/+#','/', ($path . $item));
+                    if ($item[0] == "/") {
+                        $item = preg_replace('#/+#', '/', ($path . $item));
                     }
 
                     if (preg_match("#$item#", $file->getPathname())) {
@@ -132,6 +132,11 @@ class CheckCommand extends AbstractCommand
             foreach ($directoryIterator as $file) {
                 $skip = 0;
                 foreach ($ignore as $item) {
+                    // its root dir or file
+                    if ($item[0] == "/") {
+                        $item = preg_replace('#/+#', '/', ($path . $item));
+                    }
+
                     if (preg_match("#$item#", $file->getPathname())) {
                         $skip = 1;
                         break;
