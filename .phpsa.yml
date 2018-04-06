@@ -5,7 +5,7 @@ phpsa:
     language_level:       '7.1' # Example: 5.3
     parser:               prefer-7 # One of "prefer-7"; "prefer-5"; "only-7"; "only-5"
 
-    # ignore: [] vendor folder is ignored by default
+    ignore: ["vendor"]
 
     analyzers:
 
