@@ -83,7 +83,17 @@ class CompileCommand extends AbstractCommand
 
             /** @var SplFileInfo $file */
             foreach ($directoryIterator as $file) {
-                if ($file->getExtension() !== 'php') {
+                $skip = 0;
+                foreach ($ignore as $item) {
+                    $item = preg_replace('#/+#', '/', ($path . $item));
+
+                    if (preg_match("#$item#", $file->getPathname())) {
+                        $skip = 1;
+                        break;
+                    }
+                }
+
+                if ($file->getExtension() !== 'php' || $skip) {
                     continue;
                 }
 
@@ -101,7 +111,17 @@ class CompileCommand extends AbstractCommand
 
             /** @var SplFileInfo $file */
             foreach ($directoryIterator as $file) {
-                if ($file->getExtension() !== 'php') {
+                $skip = 0;
+                foreach ($ignore as $item) {
+                    $item = preg_replace('#/+#', '/', ($path . $item));
+
+                    if (preg_match("#$item#", $file->getPathname())) {
+                        $skip = 1;
+                        break;
+                    }
+                }
+
+                if ($file->getExtension() !== 'php' || $skip) {
                     continue;
                 }
 
