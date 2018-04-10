@@ -81,6 +81,7 @@ class CompileCommand extends AbstractCommand
 
             $count = 0;
 
+            $ignore =  $application->configuration->getValue('ignore');
             /** @var SplFileInfo $file */
             foreach ($directoryIterator as $file) {
                 $skip = 0;
