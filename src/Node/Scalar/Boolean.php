@@ -26,9 +26,19 @@ class Boolean extends \PhpParser\Node\Scalar
     /**
      * @return array
      */
-    public function getSubNodeNames()
+    public function getSubNodeNames(): array
     {
         return ['value'];
     }
     //@codeCoverageIgnoreEnd
+
+    /**
+     * Gets the type of the node.
+     *
+     * @return string Type of the node
+     */
+    public function getType(): string
+    {
+        return 'Scalar_Boolean';
+    }
 }
